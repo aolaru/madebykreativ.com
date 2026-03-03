@@ -64,7 +64,7 @@
         <a href="/about.html">About</a>
         <a href="/contact.html">Contact</a>
       </nav>
-      <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color theme">
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">
         Light mode
       </button>
       <img class="brand-logo" src="kreativ-logo-128.svg" width="128" height="128" alt="Kreativ logo" />
@@ -128,7 +128,8 @@
 
     function applyTheme(theme) {
       root.setAttribute("data-theme", theme);
-      toggle.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
+      toggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+      toggle.setAttribute("aria-label", theme === "light" ? "Switch to dark mode" : "Switch to light mode");
       toggle.textContent = theme === "light" ? "Dark mode" : "Light mode";
       themeMeta.setAttribute("content", theme === "light" ? lightThemeColor : darkThemeColor);
     }
