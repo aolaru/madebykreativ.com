@@ -97,23 +97,20 @@ a {
 }
 
 .theme-toggle {
-  position: absolute;
-  top: 0;
-  right: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 112px;
+  width: 40px;
   height: 38px;
-  padding: 0 0.9rem;
+  padding: 0;
   border: 1px solid var(--toggle-border);
   border-radius: 999px;
   background: var(--toggle-bg);
   color: var(--text);
   font-family: inherit;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
   cursor: pointer;
   transition: border-color 170ms ease, background 170ms ease;
 }
@@ -291,11 +288,6 @@ a {
 @media (max-width: 700px) {
   .container {
     padding: 4rem 1rem;
-  }
-
-  .theme-toggle {
-    position: static;
-    margin: 0 auto 1rem;
   }
 
   .site-nav {

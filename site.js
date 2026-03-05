@@ -44,7 +44,8 @@
     }
     toggle.setAttribute("aria-pressed", theme === DARK_THEME ? "true" : "false");
     toggle.setAttribute("aria-label", theme === LIGHT_THEME ? "Switch to dark mode" : "Switch to light mode");
-    toggle.textContent = theme === LIGHT_THEME ? "Dark mode" : "Light mode";
+    toggle.setAttribute("title", theme === LIGHT_THEME ? "Switch to dark mode" : "Switch to light mode");
+    toggle.textContent = theme === LIGHT_THEME ? "☾" : "☀";
   }
 
   function onThemeToggle() {
