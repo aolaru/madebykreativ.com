@@ -272,6 +272,7 @@ a {
   margin-top: 4.5rem;
   font-size: 0.85rem;
   color: var(--footer);
+  text-align: center;
 }
 
 .ecosystem-links {

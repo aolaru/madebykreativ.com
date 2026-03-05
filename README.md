@@ -10,6 +10,7 @@ Landing page for the Kreativ ecosystem.
 
 - `index.html` - main page markup
 - `style.css` - site styles
+- `site.js` - shared behavior for theme, footer year, and analytics events
 - `favicon.svg` - favicon icon
 - `apple-touch-icon.png` - iOS touch icon
 - `og-image.png` - social preview image

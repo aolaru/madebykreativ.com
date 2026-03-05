@@ -24,34 +24,16 @@
   <meta name="twitter:image" content="https://madebykreativ.com/og-image.png" />
   <meta name="twitter:image:alt" content="Made by Kreativ brand card with dark gradient and Kreativ logomark." />
 
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
-  <script>
-    (function () {
-      const key = "kreativ-theme";
-      let saved = null;
-      try {
-        saved = localStorage.getItem(key);
-      } catch (_) {
-        saved = null;
-      }
-      const theme = saved === "dark" || saved === "light" ? saved : "light";
-      document.documentElement.setAttribute("data-theme", theme);
-      document.documentElement.classList.add("js-ready");
-      const meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) {
-        meta.setAttribute("content", theme === "light" ? "#f3f6fb" : "#0f131b");
-      }
-    })();
-  </script>
+  <script src="site.js"></script>
   <link rel="stylesheet" href="style.css" />
-  <script defer data-domain="madebykreativ.com" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
 
@@ -110,70 +92,11 @@
         <a href="https://kreativwp.com" target="_blank" rel="noopener">Kreativ WP</a>
       </nav>
       <p>
-        © <span id="year"></span> KREATIV · Independent creative tools and assets
+        © <span id="year"></span> Made by KREATIV · Independent creative tools and assets by Andrei Olaru
       </p>
     </footer>
 
   </main>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    const themeKey = "kreativ-theme";
-    const root = document.documentElement;
-    const toggle = document.getElementById("theme-toggle");
-    const themeMeta = document.querySelector('meta[name="theme-color"]');
-    const darkThemeColor = "#0f131b";
-    const lightThemeColor = "#f3f6fb";
-
-    function applyTheme(theme) {
-      root.setAttribute("data-theme", theme);
-      toggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
-      toggle.setAttribute("aria-label", theme === "light" ? "Switch to dark mode" : "Switch to light mode");
-      toggle.textContent = theme === "light" ? "Dark mode" : "Light mode";
-      themeMeta.setAttribute("content", theme === "light" ? lightThemeColor : darkThemeColor);
-    }
-
-    let savedTheme = null;
-    try {
-      savedTheme = localStorage.getItem(themeKey);
-    } catch (_) {
-      savedTheme = null;
-    }
-    const initialTheme = savedTheme === "light" || savedTheme === "dark" ? savedTheme : "light";
-    applyTheme(initialTheme);
-
-    toggle.addEventListener("click", () => {
-      const nextTheme = root.getAttribute("data-theme") === "light" ? "dark" : "light";
-      applyTheme(nextTheme);
-      try {
-        localStorage.setItem(themeKey, nextTheme);
-      } catch (_) {
-        // Ignore persistence errors and keep current session theme.
-      }
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.defaultPrevented || event.repeat || event.metaKey || event.ctrlKey || event.altKey) {
-        return;
-      }
-      const tag = (event.target && event.target.tagName) || "";
-      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || event.target.isContentEditable) {
-        return;
-      }
-      if (event.key.toLowerCase() === "t") {
-        toggle.click();
-      }
-    });
-
-    document.querySelectorAll(".pillar[data-product]").forEach((link) => {
-      link.addEventListener("click", () => {
-        if (typeof window.plausible === "function") {
-          window.plausible("Product Click", { props: { product: link.dataset.product } });
-        }
-      });
-    });
-  </script>
 
 </body>
 </html>
