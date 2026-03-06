@@ -6,7 +6,7 @@
         "http://localhost/index.html",
         "http://localhost/about.html",
         "http://localhost/contact.html",
-        "http://localhost/posts.html"
+        "http://localhost/news.html"
       ],
       "numberOfRuns": 1
     },

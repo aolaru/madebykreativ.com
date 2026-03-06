@@ -32,7 +32,7 @@ jobs:
       - name: Check local links in HTML
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --offline --no-progress --verbose "./*.html"
+          args: --offline --root-dir . --no-progress --verbose "./*.html"
           fail: true
 
   lighthouse:
