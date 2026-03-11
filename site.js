@@ -77,9 +77,25 @@
     const productLinks = document.querySelectorAll(".pillar[data-product]");
     productLinks.forEach((link) => {
       link.addEventListener("click", () => {
-        if (typeof window.plausible === "function") {
-          window.plausible("Product Click", { props: { product: link.dataset.product } });
-        }
+        trackEvent("Product Click", { product: link.dataset.product });
+      });
+    });
+  }
+
+  function trackEvent(eventName, props) {
+    if (typeof window.plausible === "function") {
+      window.plausible(eventName, { props });
+    }
+  }
+
+  function wireLinkTracking(selector, eventName, source) {
+    document.querySelectorAll(selector).forEach((link) => {
+      link.addEventListener("click", () => {
+        trackEvent(eventName, {
+          source,
+          label: link.textContent.trim(),
+          href: link.getAttribute("href") || ""
+        });
       });
     });
   }
@@ -107,6 +123,8 @@
     }
     document.addEventListener("keydown", onThemeKeydown);
     wireProductTracking();
+    wireLinkTracking(".site-nav a", "Navigation Click", "site-nav");
+    wireLinkTracking(".ecosystem-links a", "Footer Link Click", "footer");
     loadAnalytics();
   }
 
