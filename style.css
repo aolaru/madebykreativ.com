@@ -219,6 +219,20 @@ a {
   transition: transform 170ms ease, border-color 170ms ease, box-shadow 170ms ease;
 }
 
+.pillar-status {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 0.55rem;
+  padding: 0.18rem 0.48rem;
+  border: 1px solid var(--card-border-hover);
+  border-radius: 999px;
+  color: var(--accent);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .content-card {
   background: var(--card);
   border: 1px solid var(--card-border);
@@ -245,6 +259,17 @@ a {
 .content-card li {
   margin-bottom: 0.35rem;
   color: var(--muted);
+}
+
+.launch-card {
+  margin-top: 1.15rem;
+}
+
+.launch-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1rem;
+  margin-top: 1rem;
 }
 
 .pillar:hover,
