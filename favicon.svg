@@ -10,5 +10,5 @@
     </linearGradient>
   </defs>
   <rect width="100" height="100" rx="22" fill="url(#bg)" />
-  <path d="M31 23h11v24.6L61 23h13L54.8 49.1 76 77H62.6L46.1 55.2 42 59.6V77H31V23Z" fill="url(#accent)" />
+  <path d="M29 20h12v25.5L61.5 20H75L54.2 47.8 76 80H62.1L45.7 55.6 41 60.2V80H29V20Z" fill="url(#accent)" />
 </svg>
