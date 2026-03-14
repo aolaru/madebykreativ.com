@@ -96,6 +96,12 @@ a {
   border-color: var(--card-border-hover);
 }
 
+.site-nav a i,
+.theme-toggle i {
+  line-height: 1;
+  pointer-events: none;
+}
+
 .theme-toggle {
   display: inline-flex;
   align-items: center;
