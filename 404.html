@@ -37,9 +37,15 @@
 <body>
   <main class="container">
     <header class="hero">
-      <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">
-        ☾
-      </button>
+      <nav class="site-nav" aria-label="Site navigation">
+        <a href="/" aria-label="Home" title="Home">⌂</a>
+        <a href="/news.html">News</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">
+          ☾
+        </button>
+      </nav>
       <img class="brand-logo" src="kreativ-logo-128.svg" width="128" height="128" alt="Kreativ logo" />
       <p class="eyebrow">Page not found</p>
       <h1>404</h1>
@@ -49,6 +55,9 @@
 
     <footer class="footer">
       <nav class="ecosystem-links" aria-label="Kreativ ecosystem links">
+        <a href="https://kreativfont.com" target="_blank" rel="noopener">Kreativ Font</a>
+        <a href="https://kreativsound.com" target="_blank" rel="noopener">Kreativ Sound</a>
+        <a href="https://kreativwp.com" target="_blank" rel="noopener">Kreativ WP</a>
         <a href="https://kreativtools.com" target="_blank" rel="noopener">Kreativ Tools</a>
       </nav>
       <p>© <span id="year"></span> Made by KREATIV · Independent creative tools and assets by Andrei Olaru</p>
