@@ -97,12 +97,12 @@ a {
 }
 
 .site-nav a i,
-.theme-toggle i {
+.icon-button i {
   line-height: 1;
   pointer-events: none;
 }
 
-.theme-toggle {
+.icon-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -121,8 +121,12 @@ a {
   transition: border-color 170ms ease, background 170ms ease;
 }
 
-.theme-toggle:hover {
+.icon-button:hover {
   border-color: var(--card-border-hover);
+}
+
+.share-toggle {
+  color: var(--text);
 }
 
 .theme-toggle[aria-pressed="true"] {
@@ -130,7 +134,7 @@ a {
   background: rgba(159, 230, 191, 0.18);
 }
 
-.theme-toggle:focus-visible {
+.icon-button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }

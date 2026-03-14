@@ -11,6 +11,10 @@
     return document.getElementById("theme-toggle");
   }
 
+  function getShareButton() {
+    return document.getElementById("share-button");
+  }
+
   function loadSavedTheme() {
     try {
       const savedTheme = localStorage.getItem(THEME_KEY);
@@ -75,6 +79,38 @@
     }
   }
 
+  async function onShare() {
+    const shareData = {
+      title: document.title,
+      text: document.querySelector('meta[name="description"]')?.getAttribute("content") || document.title,
+      url: window.location.href
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        trackEvent("Share Page", { method: "native", url: shareData.url });
+        return;
+      }
+    } catch (_) {
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(shareData.url);
+      trackEvent("Share Page", { method: "clipboard", url: shareData.url });
+      const shareButton = getShareButton();
+      if (shareButton) {
+        shareButton.setAttribute("title", "Link copied");
+        window.setTimeout(() => {
+          shareButton.setAttribute("title", "Share this page");
+        }, 1400);
+      }
+    } catch (_) {
+      trackEvent("Share Page", { method: "unsupported", url: shareData.url });
+    }
+  }
+
   function wireProductTracking() {
     const productLinks = document.querySelectorAll(".pillar[data-product]");
     productLinks.forEach((link) => {
@@ -115,10 +151,16 @@
   }
 
   function init() {
+    const shareButton = getShareButton();
     const toggle = getToggle();
     const year = document.getElementById("year");
     if (year) {
       year.textContent = new Date().getFullYear();
+    }
+    if (shareButton) {
+      shareButton.addEventListener("click", () => {
+        void onShare();
+      });
     }
     if (toggle) {
       toggle.addEventListener("click", onThemeToggle);
