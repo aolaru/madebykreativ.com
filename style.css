@@ -61,12 +61,12 @@ a {
 .container {
   max-width: 980px;
   margin: 0 auto;
-  padding: 4.2rem 1.5rem 5rem;
+  padding: 3.5rem 1.5rem 5rem;
 }
 
 .hero {
   position: relative;
-  margin-bottom: 2.35rem;
+  margin-bottom: 1.5rem;
   text-align: center;
 }
 
@@ -75,7 +75,7 @@ a {
   justify-content: center;
   gap: 0.65rem;
   flex-wrap: wrap;
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.75rem;
 }
 
 .site-nav a {
@@ -152,7 +152,7 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 0.9rem;
-  margin: 0 auto 0.85rem;
+  margin: 0 auto 0.55rem;
   max-width: 760px;
   background: var(--card);
   border: 1px solid var(--card-border-hover);
@@ -171,9 +171,9 @@ a {
 
 .brand-logo {
   display: block;
-  width: 116px;
-  height: 116px;
-  margin: 0 auto 0.75rem;
+  width: 104px;
+  height: 104px;
+  margin: 0 auto 0.55rem;
   border-radius: 24px;
   box-shadow: 0 16px 34px var(--logo-shadow);
 }
@@ -183,23 +183,46 @@ a {
   font-size: 0.82rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.35rem;
 }
 
 .hero h1 {
-  font-size: clamp(2.3rem, 6.5vw, 4rem);
+  font-size: clamp(2rem, 5.6vw, 3.45rem);
   font-weight: 700;
   letter-spacing: -0.035em;
-  line-height: 1.07;
-  margin-bottom: 0.8rem;
+  line-height: 1.04;
+  margin-bottom: 0.5rem;
   text-wrap: balance;
 }
 
 .tagline {
-  font-size: clamp(1.02rem, 1.4vw, 1.2rem);
-  max-width: 56ch;
+  font-size: clamp(1rem, 1.28vw, 1.12rem);
+  max-width: 50ch;
   color: var(--muted);
   margin: 0 auto;
+}
+
+.hero-bridge {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem 0.75rem;
+  margin: 0 auto 1rem;
+  max-width: 760px;
+}
+
+.hero-bridge-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.24rem 0.62rem;
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--card) 88%, white 12%);
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .meta-note {
@@ -214,7 +237,7 @@ a {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.9rem;
-  margin-top: -0.15rem;
+  margin-top: 0;
 }
 
 .js-ready .pillar {
@@ -237,9 +260,12 @@ a {
 
 .pillar {
   position: relative;
+  display: flex;
+  flex-direction: column;
   background: var(--card);
   border: 1px solid var(--card-border);
   border-radius: 18px;
+  min-height: 100%;
   padding: 1.05rem;
   backdrop-filter: blur(3px);
   transition: transform 170ms ease, border-color 170ms ease, box-shadow 170ms ease;
@@ -289,6 +315,17 @@ a {
 
 .directory-intro {
   margin-bottom: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.directory-intro::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 6px;
+  background: linear-gradient(180deg, var(--accent) 0%, transparent 100%);
+  opacity: 0.9;
 }
 
 .launch-card {
@@ -311,6 +348,21 @@ a {
 
 .trust-strip p {
   margin: 0;
+}
+
+.trust-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.08rem;
+}
+
+.trust-kicker {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.trust-action {
+  font-size: 0.95rem;
 }
 
 .news-entry {
@@ -360,7 +412,8 @@ a {
 .pillar p {
   font-size: 0.86rem;
   color: var(--muted);
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.9rem;
+  flex-grow: 1;
 }
 
 .cta {
@@ -412,6 +465,10 @@ a {
 @media (max-width: 700px) {
   .container {
     padding: 3.4rem 1rem 4rem;
+  }
+
+  .hero-bridge {
+    justify-content: flex-start;
   }
 
   .pillars {
