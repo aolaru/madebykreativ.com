@@ -1,0 +1,35 @@
+---
+import SiteNav from "./SiteNav.astro";
+
+interface Props {
+  current?: "home" | "news" | "about" | "contact";
+  logoSrc?: string;
+  logoAlt?: string;
+  logoWidth?: number;
+  logoHeight?: number;
+  eyebrow: string;
+  title: string;
+  tagline: string;
+}
+
+const {
+  current,
+  logoSrc = "/kreativ-logo-128.svg",
+  logoAlt = "Kreativ logo",
+  logoWidth = 128,
+  logoHeight = 128,
+  eyebrow,
+  title,
+  tagline
+} = Astro.props;
+---
+
+<header class="hero">
+  <SiteNav current={current} />
+  <slot name="preface" />
+  <img class="brand-logo" src={logoSrc} width={logoWidth} height={logoHeight} alt={logoAlt} />
+  <p class="eyebrow">{eyebrow}</p>
+  <h1>{title}</h1>
+  <p class="tagline">{tagline}</p>
+  <slot name="afterTagline" />
+</header>

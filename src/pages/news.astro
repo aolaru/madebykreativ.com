@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroHeader from "../components/HeroHeader.astro";
+import NewsEntry from "../components/NewsEntry.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Made by Kreativ",
+  url: "https://madebykreativ.com/",
+  logo: "https://madebykreativ.com/kreativ-logo-128.svg",
+  sameAs: [
+    "https://kreativfont.com",
+    "https://kreativsound.com",
+    "https://kreativwp.com",
+    "https://kreativtools.com"
+  ]
+};
+---
+
+<BaseLayout
+  title="News | Made by Kreativ"
+  description="Updates and notes from the Made by Kreativ ecosystem."
+  canonicalPath="/news.html"
+  structuredData={[organizationSchema]}
+>
+  <HeroHeader
+    current="news"
+    eyebrow="Updates"
+    title="News"
+    tagline="News, release notes, and ecosystem updates."
+  >
+    <p slot="afterTagline" class="meta-note">Last updated: April 4, 2026</p>
+  </HeroHeader>
+
+  <NewsEntry date="April 4, 2026" title="Kreativ Auto Joins the Roadmap">
+    Kreativ Auto is now in development as a new project in the ecosystem, focused on practical automotive content, tools, and resources. More details will be shared as the direction and launch scope become clearer.
+  </NewsEntry>
+
+  <NewsEntry date="March 28, 2026" title="Homepage Refined Into a Clearer Ecosystem Directory">
+    The homepage was simplified to reduce repeated Kreativ Tools promotion, make the ecosystem easier to scan, and keep the emphasis on all four properties together rather than on one launch message.
+  </NewsEntry>
+
+  <NewsEntry date="March 2026" title="Kreativ Font Adds Better Filtering">
+    Kreativ Font now has improved font filters, making it easier to narrow down styles, browse more intentionally, and find stronger typography references faster. Explore it at <a class="cta" href="https://kreativfont.com" target="_blank" rel="noopener">kreativfont.com</a>.
+  </NewsEntry>
+
+  <NewsEntry date="March 2026" title="Kreativ Sound Expands with Preset Packs and Tutorials">
+    Kreativ Sound now includes new free and professional preset packs alongside audio tutorials, giving creators more practical starting points and clearer guidance for shaping sounds. Listen and browse at <a class="cta" href="https://kreativsound.com" target="_blank" rel="noopener">kreativsound.com</a>.
+  </NewsEntry>
+
+  <NewsEntry date="March 10, 2026" title="Kreativ Tools Is Live">
+    Kreativ Tools launched on March 10, 2026 with browser-friendly utilities for image, video, PDF, document, and file workflows. Open it at <a class="cta" href="https://kreativtools.com" target="_blank" rel="noopener">kreativtools.com</a>.
+  </NewsEntry>
+
+  <NewsEntry date="March 2026" title="Website Refresh and Brand Alignment">
+    Made by KREATIV now uses a cleaner navigation structure, stronger metadata for social sharing, and more consistent ecosystem linking across pages.
+  </NewsEntry>
+
+  <NewsEntry date="March 2026" title="Quality Checks Added to Release Flow">
+    HTML validation, broken-link checks, and Lighthouse scoring were added to the workflow to catch regressions before publishing.
+  </NewsEntry>
+
+  <NewsEntry date="Q1 2026" title="Kreativ Font, Sound, and WP Progress">
+    The ecosystem continues to expand with curated typography references, cinematic sound resources, and practical WordPress utilities built for long-term use.
+  </NewsEntry>
+
+  <section class="content-card">
+    <h2>Follow Product Updates</h2>
+    <p>Want release notes and ecosystem updates? Reach out directly and keep track of future product changes.</p>
+    <p><a class="cta" href="mailto:info@madebykreativ.com?subject=Made%20by%20Kreativ%20Updates">Get Updates</a></p>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>

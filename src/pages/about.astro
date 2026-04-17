@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroHeader from "../components/HeroHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Made by Kreativ",
+  url: "https://madebykreativ.com/",
+  logo: "https://madebykreativ.com/kreativ-logo-128.svg",
+  sameAs: [
+    "https://kreativfont.com",
+    "https://kreativsound.com",
+    "https://kreativwp.com",
+    "https://kreativtools.com"
+  ]
+};
+---
+
+<BaseLayout
+  title="About | Made by Kreativ"
+  description="Learn about the Kreativ ecosystem and the philosophy behind our tools and assets."
+  canonicalPath="/about.html"
+  structuredData={[organizationSchema]}
+>
+  <HeroHeader
+    current="about"
+    eyebrow="Our story"
+    title="About Made by Kreativ"
+    tagline="Independent digital products made for practical use, long-term reliability, and creative momentum."
+  />
+
+  <section class="content-card">
+    <h2>What We Build</h2>
+    <p>Made by Kreativ is the umbrella brand for focused digital properties: tools for WordPress, sound assets for creators, and curated creative resources.</p>
+    <ul>
+      <li>Kreativ Font: typography and creative asset discovery.</li>
+      <li>Kreativ Sound: ambient, cinematic, and experimental audio resources.</li>
+      <li>Kreativ WP: practical plugins for site maintenance workflows.</li>
+      <li>Kreativ Tools: browser-friendly utilities for image, video, PDF, document, and file tasks.</li>
+    </ul>
+  </section>
+
+  <section class="content-card">
+    <h2>How We Work</h2>
+    <p>We prioritize clarity and shipping: small, opinionated products with useful defaults, simple interfaces, and predictable behavior.</p>
+  </section>
+
+  <section class="content-card">
+    <h2>Built by Andrei Olaru</h2>
+    <p>Made by KREATIV is independently built and maintained by Andrei Olaru, focused on practical creative tools that stay useful over time.</p>
+    <p><a class="cta" href="/contact.html">Reach out for collaborations</a></p>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>

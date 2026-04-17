@@ -1,0 +1,110 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroHeader from "../components/HeroHeader.astro";
+import ProductCard from "../components/ProductCard.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Made by Kreativ",
+  url: "https://madebykreativ.com/",
+  logo: "https://madebykreativ.com/kreativ-logo-128.svg",
+  sameAs: [
+    "https://kreativfont.com",
+    "https://kreativsound.com",
+    "https://kreativwp.com",
+    "https://kreativtools.com"
+  ]
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Made by Kreativ",
+  url: "https://madebykreativ.com/"
+};
+
+const products = [
+  {
+    href: "https://kreativfont.com",
+    product: "Kreativ Font",
+    status: "Curated",
+    title: "Kreativ Font",
+    description: "A curated discovery library for fonts and creative assets focused on typography, style, and inspiration.",
+    cta: "Visit Kreativ Font"
+  },
+  {
+    href: "https://kreativsound.com",
+    product: "Kreativ Sound",
+    status: "Live",
+    title: "Kreativ Sound",
+    description: "Sound packs, textures, and presets for creators working with ambient, experimental, and cinematic material.",
+    cta: "Explore Sounds"
+  },
+  {
+    href: "https://kreativwp.com",
+    product: "Kreativ WP",
+    status: "Plugins",
+    title: "Kreativ WP",
+    description: "Practical WordPress utilities and maintenance plugins built for real sites and long-term reliability.",
+    cta: "View WP Tools"
+  },
+  {
+    href: "https://kreativtools.com",
+    product: "Kreativ Tools",
+    status: "Live",
+    title: "Kreativ Tools",
+    description: "Browser-first utilities for image, video, PDF, document, and file workflows built for practical daily use.",
+    cta: "Open Kreativ Tools"
+  }
+];
+---
+
+<BaseLayout
+  title="Made by Kreativ"
+  description="Creative tools, curated assets, and utility software crafted by the Kreativ brand."
+  canonicalPath="/"
+  structuredData={[organizationSchema, websiteSchema]}
+>
+  <HeroHeader
+    current="home"
+    logoSrc="/favicon.svg"
+    logoAlt="Kreativ brand mark"
+    logoWidth={104}
+    logoHeight={104}
+    eyebrow="Independent digital studio"
+    title="Made by Kreativ"
+    tagline="Creative tools, curated assets, and utility software crafted to help you ship real projects."
+  >
+    <div slot="preface" class="launch-ribbon">
+      <p><strong>Ecosystem update.</strong> Kreativ Tools is live, bringing image, video, PDF, and file utilities into the Made by Kreativ lineup.</p>
+      <a class="cta" href="/news.html">Read News</a>
+    </div>
+  </HeroHeader>
+
+  <section class="hero-bridge" aria-label="Ecosystem overview">
+    <span class="hero-bridge-item">4 active properties</span>
+    <span class="hero-bridge-item">Fonts, sound, WP, utilities</span>
+    <span class="hero-bridge-item">Independent and maintained</span>
+  </section>
+
+  <section class="content-card directory-intro">
+    <h2>Ecosystem Directory</h2>
+    <p>Four focused properties built around different parts of the workflow: typography discovery, sound resources, WordPress utilities, and browser-first file tools.</p>
+  </section>
+
+  <section class="pillars" aria-label="Kreativ products">
+    {products.map((product) => <ProductCard {...product} />)}
+  </section>
+
+  <section class="content-card trust-strip">
+    <div class="trust-copy">
+      <p class="trust-kicker">Independent product ecosystem</p>
+      <p>Built and maintained by Andrei Olaru.</p>
+    </div>
+    <p class="trust-action"><a class="cta" href="mailto:info@madebykreativ.com">info@madebykreativ.com</a></p>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>

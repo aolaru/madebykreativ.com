@@ -1,6 +1,6 @@
 # madebykreativ.com
 
-Landing page for the Kreativ ecosystem.
+Astro-based static site for the Kreativ ecosystem.
 
 ## Live site
 
@@ -8,15 +8,26 @@ Landing page for the Kreativ ecosystem.
 
 ## Contents
 
-- `index.html` - main page markup
-- `style.css` - site styles
-- `site.js` - shared behavior for theme, footer year, and analytics events
-- `favicon.svg` - favicon icon
-- `apple-touch-icon.png` - iOS touch icon
-- `og-image.png` - social preview image
-- `og-image.svg` - editable source for social image
-- `CNAME` - custom domain config
+- `src/layouts` - shared page layout
+- `src/components` - shared site components
+- `src/pages` - Astro pages that build to the current `.html` routes
+- `public/style.css` - shared site styles
+- `public/site.js` - shared behavior for theme, footer year, and analytics events
+- `public/` - static assets, icons, social images, `robots.txt`, `sitemap.xml`, and `CNAME`
+- `astro.config.mjs` - Astro configuration
+- `package.json` - local scripts and Astro dependency
 
 ## Local preview
 
-Open `index.html` in a browser, or run any static file server from this folder.
+Install dependencies and run Astro locally:
+
+```bash
+npm install
+npm run dev
+```
+
+Build the production output with:
+
+```bash
+npm run build
+```

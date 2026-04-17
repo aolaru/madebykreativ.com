@@ -1,0 +1,16 @@
+---
+interface Props {
+  current?: "home" | "news" | "about" | "contact";
+}
+
+const { current } = Astro.props;
+---
+
+<nav class="site-nav" aria-label="Site navigation">
+  <a href="/" aria-current={current === "home" ? "page" : undefined} aria-label="Home" title="Home"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
+  <a href="/news.html" aria-current={current === "news" ? "page" : undefined}>News</a>
+  <a href="/about.html" aria-current={current === "about" ? "page" : undefined}>About</a>
+  <a href="/contact.html" aria-current={current === "contact" ? "page" : undefined}>Contact</a>
+  <button class="icon-button share-toggle" id="share-button" type="button" aria-label="Share this page" title="Share this page"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i></button>
+  <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode"><i class="fa-solid fa-moon" aria-hidden="true"></i></button>
+</nav>

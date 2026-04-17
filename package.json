@@ -1,0 +1,14 @@
+{
+  "name": "madebykreativ-com",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "devDependencies": {
+    "astro": "^6.1.7"
+  }
+}

@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroHeader from "../components/HeroHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+---
+
+<BaseLayout
+  title="404 | Made by Kreativ"
+  description="Page not found on Made by Kreativ."
+  canonicalPath="/404.html"
+  robots="noindex,follow"
+>
+  <HeroHeader
+    eyebrow="Page not found"
+    title="404"
+    tagline="This page does not exist or may have been moved."
+  >
+    <p slot="afterTagline" class="tagline"><a class="cta" href="/">Back to homepage</a></p>
+  </HeroHeader>
+
+  <SiteFooter />
+</BaseLayout>

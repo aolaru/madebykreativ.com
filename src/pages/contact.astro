@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroHeader from "../components/HeroHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Made by Kreativ",
+  url: "https://madebykreativ.com/",
+  logo: "https://madebykreativ.com/kreativ-logo-128.svg",
+  sameAs: [
+    "https://kreativfont.com",
+    "https://kreativsound.com",
+    "https://kreativwp.com",
+    "https://kreativtools.com"
+  ]
+};
+---
+
+<BaseLayout
+  title="Contact | Made by Kreativ"
+  description="Contact Made by Kreativ for partnership, product questions, and support."
+  canonicalPath="/contact.html"
+  structuredData={[organizationSchema]}
+>
+  <HeroHeader
+    current="contact"
+    eyebrow="Get in touch"
+    title="Contact"
+    tagline="For partnerships, product questions, and support requests."
+  />
+
+  <section class="content-card">
+    <h2>Email</h2>
+    <p>Primary contact: <a class="cta" href="mailto:info@madebykreativ.com">info@madebykreativ.com</a></p>
+  </section>
+
+  <section class="content-card">
+    <h2>Where to Find Us</h2>
+    <ul>
+      <li><a class="cta" href="https://madebykreativ.com" target="_blank" rel="noopener">madebykreativ.com</a></li>
+      <li><a class="cta" href="https://kreativfont.com" target="_blank" rel="noopener">kreativfont.com</a></li>
+      <li><a class="cta" href="https://kreativsound.com" target="_blank" rel="noopener">kreativsound.com</a></li>
+      <li><a class="cta" href="https://kreativwp.com" target="_blank" rel="noopener">kreativwp.com</a></li>
+      <li><a class="cta" href="https://kreativtools.com" target="_blank" rel="noopener">kreativtools.com</a></li>
+    </ul>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>
