@@ -4,9 +4,9 @@
       "staticDistDir": "dist",
       "url": [
         "http://localhost/index.html",
-        "http://localhost/about.html",
-        "http://localhost/contact.html",
-        "http://localhost/news.html"
+        "http://localhost/about/",
+        "http://localhost/contact/",
+        "http://localhost/news/"
       ],
       "numberOfRuns": 1
     },
