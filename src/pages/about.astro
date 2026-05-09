@@ -2,20 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Made by Kreativ",
-  url: "https://madebykreativ.com/",
-  logo: "https://madebykreativ.com/kreativ-logo-128.svg",
-  sameAs: [
-    "https://kreativfont.com",
-    "https://kreativsound.com",
-    "https://kreativwp.com",
-    "https://kreativtools.com"
-  ]
-};
+import { organizationSchema } from "../data/site";
 ---
 
 <BaseLayout
@@ -39,6 +26,8 @@ const organizationSchema = {
       <li>Kreativ Sound: ambient, cinematic, and experimental audio resources.</li>
       <li>Kreativ WP: practical plugins for site maintenance workflows.</li>
       <li>Kreativ Tools: browser-friendly utilities for image, video, PDF, document, and file tasks.</li>
+      <li>How Much Music: music discovery, value, and listening context.</li>
+      <li>Kreativ Auto: automotive content, tools, and resources in development.</li>
     </ul>
   </section>
 

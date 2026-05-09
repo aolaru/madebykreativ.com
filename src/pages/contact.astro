@@ -2,20 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Made by Kreativ",
-  url: "https://madebykreativ.com/",
-  logo: "https://madebykreativ.com/kreativ-logo-128.svg",
-  sameAs: [
-    "https://kreativfont.com",
-    "https://kreativsound.com",
-    "https://kreativwp.com",
-    "https://kreativtools.com"
-  ]
-};
+import { ecosystemLinks, organizationSchema, site } from "../data/site";
 ---
 
 <BaseLayout
@@ -33,17 +20,16 @@ const organizationSchema = {
 
   <section class="content-card">
     <h2>Email</h2>
-    <p>Primary contact: <a class="cta" href="mailto:info@madebykreativ.com">info@madebykreativ.com</a></p>
+    <p>Primary contact: <a class="cta" href={`mailto:${site.email}`}>{site.email}</a></p>
   </section>
 
   <section class="content-card">
     <h2>Where to Find Us</h2>
     <ul>
-      <li><a class="cta" href="https://madebykreativ.com" target="_blank" rel="noopener">madebykreativ.com</a></li>
-      <li><a class="cta" href="https://kreativfont.com" target="_blank" rel="noopener">kreativfont.com</a></li>
-      <li><a class="cta" href="https://kreativsound.com" target="_blank" rel="noopener">kreativsound.com</a></li>
-      <li><a class="cta" href="https://kreativwp.com" target="_blank" rel="noopener">kreativwp.com</a></li>
-      <li><a class="cta" href="https://kreativtools.com" target="_blank" rel="noopener">kreativtools.com</a></li>
+      <li><a class="cta" href={site.url} target="_blank" rel="noopener">madebykreativ.com</a></li>
+      {ecosystemLinks.map((link) => (
+        <li><a class="cta" href={link.href} target="_blank" rel="noopener">{new URL(link.href).hostname}</a></li>
+      ))}
     </ul>
   </section>
 

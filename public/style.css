@@ -373,8 +373,33 @@ a {
   margin-bottom: 0.5rem;
 }
 
-.news-entry p:last-child {
+.news-body,
+.news-body p {
   color: var(--muted);
+}
+
+.compact-projects {
+  margin-top: 1rem;
+}
+
+.compact-project-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.compact-project {
+  border-top: 1px solid var(--card-border);
+  padding-top: 0.85rem;
+}
+
+.compact-project h3 {
+  font-size: 1rem;
+  margin: 0.35rem 0 0.25rem;
+}
+
+.compact-project p {
+  font-size: 0.86rem;
 }
 
 .news-date {
@@ -487,6 +512,10 @@ a {
   .trust-strip {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .compact-project-list {
+    grid-template-columns: 1fr;
   }
 
   .ecosystem-links {

@@ -10,5 +10,5 @@ const { date, title } = Astro.props;
 <article class="content-card news-entry">
   <p class="news-date">{date}</p>
   <h2>{title}</h2>
-  <p><slot /></p>
+  <div class="news-body"><slot /></div>
 </article>

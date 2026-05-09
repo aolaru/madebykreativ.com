@@ -3,62 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import ProductCard from "../components/ProductCard.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Made by Kreativ",
-  url: "https://madebykreativ.com/",
-  logo: "https://madebykreativ.com/kreativ-logo-128.svg",
-  sameAs: [
-    "https://kreativfont.com",
-    "https://kreativsound.com",
-    "https://kreativwp.com",
-    "https://kreativtools.com"
-  ]
-};
-
-const websiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "Made by Kreativ",
-  url: "https://madebykreativ.com/"
-};
-
-const products = [
-  {
-    href: "https://kreativfont.com",
-    product: "Kreativ Font",
-    status: "Curated",
-    title: "Kreativ Font",
-    description: "A curated discovery library for fonts and creative assets focused on typography, style, and inspiration.",
-    cta: "Visit Kreativ Font"
-  },
-  {
-    href: "https://kreativsound.com",
-    product: "Kreativ Sound",
-    status: "Live",
-    title: "Kreativ Sound",
-    description: "Sound packs, textures, and presets for creators working with ambient, experimental, and cinematic material.",
-    cta: "Explore Sounds"
-  },
-  {
-    href: "https://kreativwp.com",
-    product: "Kreativ WP",
-    status: "Plugins",
-    title: "Kreativ WP",
-    description: "Practical WordPress utilities and maintenance plugins built for real sites and long-term reliability.",
-    cta: "View WP Tools"
-  },
-  {
-    href: "https://kreativtools.com",
-    product: "Kreativ Tools",
-    status: "Live",
-    title: "Kreativ Tools",
-    description: "Browser-first utilities for image, video, PDF, document, and file workflows built for practical daily use.",
-    cta: "Open Kreativ Tools"
-  }
-];
+import { organizationSchema, products, secondaryProjects, websiteSchema } from "../data/site";
 ---
 
 <BaseLayout
@@ -96,6 +41,19 @@ const products = [
 
   <section class="pillars" aria-label="Kreativ products">
     {products.map((product) => <ProductCard {...product} />)}
+  </section>
+
+  <section class="content-card compact-projects" aria-labelledby="more-projects-heading">
+    <h2 id="more-projects-heading">More Projects</h2>
+    <div class="compact-project-list">
+      {secondaryProjects.map((project) => (
+        <div class="compact-project">
+          <span class="pillar-status">{project.status}</span>
+          <h3>{project.href ? <a href={project.href} target="_blank" rel="noopener">{project.label}</a> : project.label}</h3>
+          <p>{project.description}</p>
+        </div>
+      ))}
+    </div>
   </section>
 
   <section class="content-card trust-strip">
