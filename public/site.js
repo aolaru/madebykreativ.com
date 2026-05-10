@@ -4,7 +4,7 @@
   const DARK_THEME = "dark";
   const LIGHT_THEME_COLOR = "#f3f6fb";
   const DARK_THEME_COLOR = "#0f131b";
-  const PRODUCTION_HOST = "madebykreativ.com";
+  const config = window.KREATIV_CONFIG || {};
   const root = document.documentElement;
   const themeMeta = document.querySelector('meta[name="theme-color"]');
   const moonIcon = '<svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5a7.5 7.5 0 1 0 11.7 11.7Z"/></svg>';
@@ -140,30 +140,38 @@
   }
 
   function isProductionHost() {
-    return window.location.hostname === PRODUCTION_HOST;
+    return Boolean(config.analytics?.productionHost) && window.location.hostname === config.analytics.productionHost;
   }
 
   function loadPlausible() {
-    const existing = document.querySelector('script[data-domain="madebykreativ.com"][src="https://plausible.io/js/script.js"]');
+    const plausible = config.analytics?.plausible;
+    if (!plausible?.domain || !plausible?.src) {
+      return;
+    }
+    const existing = document.querySelector(`script[data-domain="${plausible.domain}"][src="${plausible.src}"]`);
     if (existing) {
       return;
     }
     const script = document.createElement("script");
     script.defer = true;
-    script.dataset.domain = "madebykreativ.com";
-    script.src = "https://plausible.io/js/script.js";
+    script.dataset.domain = plausible.domain;
+    script.src = plausible.src;
     document.head.appendChild(script);
   }
 
   function loadCloudflareAnalytics() {
-    const existing = document.querySelector('script[src="https://static.cloudflareinsights.com/beacon.min.js"]');
+    const cloudflare = config.analytics?.cloudflare;
+    if (!cloudflare?.token || !cloudflare?.src) {
+      return;
+    }
+    const existing = document.querySelector(`script[src="${cloudflare.src}"]`);
     if (existing) {
       return;
     }
     const script = document.createElement("script");
     script.defer = true;
-    script.src = "https://static.cloudflareinsights.com/beacon.min.js";
-    script.dataset.cfBeacon = '{"token": "a17af62a5e3f496a944d7eb9012c4915"}';
+    script.src = cloudflare.src;
+    script.dataset.cfBeacon = JSON.stringify({ token: cloudflare.token });
     document.head.appendChild(script);
   }
 

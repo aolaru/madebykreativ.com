@@ -1,9 +1,18 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import ProductCard from "../components/ProductCard.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { ecosystemItemListSchema, organizationSchema, products, secondaryProjects, websiteSchema } from "../data/site";
+
+const latestNews = (await getCollection("news"))
+  .sort((a, b) => b.data.sortDate.valueOf() - a.data.sortDate.valueOf())
+  .slice(0, 3)
+  .map((entry) => ({
+    ...entry,
+    path: `/news/${entry.id.replace(/\.md$/, "")}/`
+  }));
 ---
 
 <BaseLayout
@@ -52,6 +61,22 @@ import { ecosystemItemListSchema, organizationSchema, products, secondaryProject
           <h3>{project.href ? <a href={project.href} target="_blank" rel="noopener">{project.label}</a> : project.label}</h3>
           <p>{project.description}</p>
         </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="content-card latest-updates" aria-labelledby="latest-updates-heading">
+    <div class="section-heading-row">
+      <h2 id="latest-updates-heading">Latest Updates</h2>
+      <a class="cta" href="/news/">All News</a>
+    </div>
+    <div class="latest-update-list">
+      {latestNews.map((entry) => (
+        <article class="latest-update">
+          <p class="news-date">{entry.data.dateLabel}</p>
+          <h3><a href={entry.path}>{entry.data.title}</a></h3>
+          <p>{entry.data.description}</p>
+        </article>
       ))}
     </div>
   </section>

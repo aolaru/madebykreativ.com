@@ -2,8 +2,23 @@ export const site = {
   name: "Made by Kreativ",
   url: "https://madebykreativ.com/",
   logo: "https://madebykreativ.com/kreativ-logo-128.svg",
-  email: "info@madebykreativ.com"
+  email: "info@madebykreativ.com",
+  lastUpdated: "2026-05-10"
 };
+
+export const analytics = {
+  productionHost: "madebykreativ.com",
+  plausible: {
+    domain: "madebykreativ.com",
+    src: "https://plausible.io/js/script.js"
+  },
+  cloudflare: {
+    token: "a17af62a5e3f496a944d7eb9012c4915",
+    src: "https://static.cloudflareinsights.com/beacon.min.js"
+  }
+};
+
+export const clientConfig = { analytics };
 
 export const ecosystemLinks = [
   { label: "Kreativ Font", href: "https://kreativfont.com" },
