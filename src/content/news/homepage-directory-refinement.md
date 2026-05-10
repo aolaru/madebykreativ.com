@@ -1,5 +1,6 @@
 ---
 title: "Homepage Refined Into a Clearer Ecosystem Directory"
+description: "The Made by Kreativ homepage was refined into a clearer ecosystem directory with less repetition and stronger product balance."
 dateLabel: "March 28, 2026"
 sortDate: 2026-03-28
 ---

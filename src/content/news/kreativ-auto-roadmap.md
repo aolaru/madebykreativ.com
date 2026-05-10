@@ -1,5 +1,6 @@
 ---
 title: "Kreativ Auto Joins the Roadmap"
+description: "Kreativ Auto joined the roadmap as a new project focused on practical automotive content, tools, and resources."
 dateLabel: "April 4, 2026"
 sortDate: 2026-04-04
 ---

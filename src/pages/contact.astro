@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { ecosystemLinks, organizationSchema, site } from "../data/site";
+import { contactIntents, ecosystemLinks, organizationSchema, site } from "../data/site";
 ---
 
 <BaseLayout
@@ -21,6 +21,20 @@ import { ecosystemLinks, organizationSchema, site } from "../data/site";
   <section class="content-card">
     <h2>Email</h2>
     <p>Primary contact: <a class="cta" href={`mailto:${site.email}`}>{site.email}</a></p>
+    <p>Use this address for support, partnerships, licensing questions, and product feedback across the Kreativ ecosystem.</p>
+  </section>
+
+  <section class="content-card contact-intents" aria-labelledby="contact-intents-heading">
+    <h2 id="contact-intents-heading">What to Contact Us About</h2>
+    <div class="contact-grid">
+      {contactIntents.map((intent) => (
+        <article class="contact-option">
+          <h3>{intent.title}</h3>
+          <p>{intent.description}</p>
+          <a class="cta" href={`mailto:${site.email}?subject=${encodeURIComponent(intent.subject)}`}>Start Email</a>
+        </article>
+      ))}
+    </div>
   </section>
 
   <section class="content-card">

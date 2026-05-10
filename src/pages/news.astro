@@ -1,26 +1,26 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import NewsEntry from "../components/NewsEntry.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { organizationSchema } from "../data/site";
+import { createNewsItemListSchema, organizationSchema } from "../data/site";
 
-const newsEntries = await Promise.all(
-  (await getCollection("news"))
-    .sort((a, b) => b.data.sortDate.valueOf() - a.data.sortDate.valueOf())
-    .map(async (entry) => ({
-      ...entry,
-      Content: (await render(entry)).Content
-    }))
-);
+const toNewsPath = (id: string) => `/news/${id.replace(/\.md$/, "")}/`;
+
+const newsEntries = (await getCollection("news"))
+  .sort((a, b) => b.data.sortDate.valueOf() - a.data.sortDate.valueOf())
+  .map((entry) => ({
+    ...entry,
+    path: toNewsPath(entry.id)
+  }));
 ---
 
 <BaseLayout
   title="News | Made by Kreativ"
   description="Updates and notes from the Made by Kreativ ecosystem."
   canonicalPath="/news/"
-  structuredData={[organizationSchema]}
+  structuredData={[organizationSchema, createNewsItemListSchema(newsEntries)]}
 >
   <HeroHeader
     current="news"
@@ -31,10 +31,8 @@ const newsEntries = await Promise.all(
     <p slot="afterTagline" class="meta-note">Last updated: May 10, 2026</p>
   </HeroHeader>
 
-  {newsEntries.map(({ Content, data }) => (
-    <NewsEntry date={data.dateLabel} title={data.title}>
-      <Content />
-    </NewsEntry>
+  {newsEntries.map(({ data, path }) => (
+    <NewsEntry date={data.dateLabel} title={data.title} description={data.description} href={path} />
   ))}
 
   <section class="content-card">

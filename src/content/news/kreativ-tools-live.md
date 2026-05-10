@@ -1,5 +1,6 @@
 ---
 title: "Kreativ Tools Is Live"
+description: "Kreativ Tools launched with browser-friendly utilities for image, video, PDF, document, and file workflows."
 dateLabel: "March 10, 2026"
 sortDate: 2026-03-10
 ---

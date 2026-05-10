@@ -62,6 +62,31 @@ export const secondaryProjects = [
   }
 ];
 
+export const contactIntents = [
+  {
+    title: "Product Support",
+    description: "Questions about Kreativ Tools, Kreativ WP, Kreativ Font, Kreativ Sound, or related ecosystem projects.",
+    subject: "Product support"
+  },
+  {
+    title: "Partnerships",
+    description: "Collaboration ideas, cross-promotion, distribution, editorial partnerships, or product integrations.",
+    subject: "Partnership inquiry"
+  },
+  {
+    title: "Licensing and Assets",
+    description: "Questions about presets, creative assets, usage rights, commercial use, or custom resource requests.",
+    subject: "Licensing and assets"
+  },
+  {
+    title: "Product Feedback",
+    description: "Suggestions for new tools, workflow improvements, roadmap ideas, or usability feedback.",
+    subject: "Product feedback"
+  }
+];
+
+export const buildUrl = (path: string) => new URL(path, site.url).toString();
+
 export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -77,3 +102,63 @@ export const websiteSchema = {
   name: site.name,
   url: site.url
 };
+
+export const ecosystemItemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Made by Kreativ ecosystem directory",
+  itemListElement: [...products, ...secondaryProjects]
+    .filter((item) => "href" in item && item.href)
+    .map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: "title" in item ? item.title : item.label,
+      description: item.description,
+      url: item.href
+    }))
+};
+
+interface NewsSchemaInput {
+  title: string;
+  description: string;
+  path: string;
+  datePublished: Date;
+}
+
+export const createNewsArticleSchema = ({ title, description, path, datePublished }: NewsSchemaInput) => ({
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  headline: title,
+  description,
+  url: buildUrl(path),
+  mainEntityOfPage: buildUrl(path),
+  datePublished: datePublished.toISOString(),
+  dateModified: datePublished.toISOString(),
+  author: {
+    "@type": "Person",
+    name: "Andrei Olaru"
+  },
+  publisher: {
+    "@type": "Organization",
+    name: site.name,
+    logo: {
+      "@type": "ImageObject",
+      url: site.logo
+    }
+  }
+});
+
+export const createNewsItemListSchema = (
+  entries: Array<{ data: { title: string; description: string }; path: string }>
+) => ({
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Made by Kreativ news",
+  itemListElement: entries.map((entry, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: entry.data.title,
+    description: entry.data.description,
+    url: buildUrl(entry.path)
+  }))
+});

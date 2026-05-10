@@ -4,8 +4,11 @@
   const DARK_THEME = "dark";
   const LIGHT_THEME_COLOR = "#f3f6fb";
   const DARK_THEME_COLOR = "#0f131b";
+  const PRODUCTION_HOST = "madebykreativ.com";
   const root = document.documentElement;
   const themeMeta = document.querySelector('meta[name="theme-color"]');
+  const moonIcon = '<svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5a7.5 7.5 0 1 0 11.7 11.7Z"/></svg>';
+  const sunIcon = '<svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>';
 
   function getToggle() {
     return document.getElementById("theme-toggle");
@@ -49,9 +52,7 @@
     toggle.setAttribute("aria-pressed", theme === DARK_THEME ? "true" : "false");
     toggle.setAttribute("aria-label", theme === LIGHT_THEME ? "Switch to dark mode" : "Switch to light mode");
     toggle.setAttribute("title", theme === LIGHT_THEME ? "Switch to dark mode" : "Switch to light mode");
-    toggle.innerHTML = theme === LIGHT_THEME
-      ? '<i class="fa-solid fa-moon" aria-hidden="true"></i>'
-      : '<i class="fa-solid fa-sun" aria-hidden="true"></i>';
+    toggle.innerHTML = theme === LIGHT_THEME ? moonIcon : sunIcon;
   }
 
   function onThemeToggle() {
@@ -138,7 +139,11 @@
     });
   }
 
-  function loadAnalytics() {
+  function isProductionHost() {
+    return window.location.hostname === PRODUCTION_HOST;
+  }
+
+  function loadPlausible() {
     const existing = document.querySelector('script[data-domain="madebykreativ.com"][src="https://plausible.io/js/script.js"]');
     if (existing) {
       return;
@@ -148,6 +153,26 @@
     script.dataset.domain = "madebykreativ.com";
     script.src = "https://plausible.io/js/script.js";
     document.head.appendChild(script);
+  }
+
+  function loadCloudflareAnalytics() {
+    const existing = document.querySelector('script[src="https://static.cloudflareinsights.com/beacon.min.js"]');
+    if (existing) {
+      return;
+    }
+    const script = document.createElement("script");
+    script.defer = true;
+    script.src = "https://static.cloudflareinsights.com/beacon.min.js";
+    script.dataset.cfBeacon = '{"token": "a17af62a5e3f496a944d7eb9012c4915"}';
+    document.head.appendChild(script);
+  }
+
+  function loadAnalytics() {
+    if (!isProductionHost()) {
+      return;
+    }
+    loadPlausible();
+    loadCloudflareAnalytics();
   }
 
   function init() {

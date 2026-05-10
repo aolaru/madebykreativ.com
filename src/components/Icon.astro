@@ -1,0 +1,33 @@
+---
+interface Props {
+  name: "home" | "share" | "moon" | "sun";
+}
+
+const { name } = Astro.props;
+---
+
+<svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24">
+  {name === "home" && (
+    <>
+      <path d="M4 11.5 12 4l8 7.5" />
+      <path d="M6.5 10.2V20h11V10.2" />
+      <path d="M9.5 20v-6h5v6" />
+    </>
+  )}
+  {name === "share" && (
+    <>
+      <circle cx="18" cy="5" r="3" />
+      <circle cx="6" cy="12" r="3" />
+      <circle cx="18" cy="19" r="3" />
+      <path d="m8.7 10.7 6.6-4.4" />
+      <path d="m8.7 13.3 6.6 4.4" />
+    </>
+  )}
+  {name === "moon" && <path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5a7.5 7.5 0 1 0 11.7 11.7Z" />}
+  {name === "sun" && (
+    <>
+      <circle cx="12" cy="12" r="4.4" />
+      <path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6" />
+    </>
+  )}
+</svg>

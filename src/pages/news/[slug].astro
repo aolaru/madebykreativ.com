@@ -1,0 +1,50 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HeroHeader from "../../components/HeroHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import { createNewsArticleSchema, organizationSchema } from "../../data/site";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("news");
+
+  return entries.map((entry) => ({
+    params: { slug: entry.id.replace(/\.md$/, "") },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const slug = entry.id.replace(/\.md$/, "");
+const canonicalPath = `/news/${slug}/`;
+const articleSchema = createNewsArticleSchema({
+  title: entry.data.title,
+  description: entry.data.description,
+  path: canonicalPath,
+  datePublished: entry.data.sortDate
+});
+---
+
+<BaseLayout
+  title={`${entry.data.title} | Made by Kreativ`}
+  description={entry.data.description}
+  canonicalPath={canonicalPath}
+  structuredData={[organizationSchema, articleSchema]}
+>
+  <HeroHeader
+    current="news"
+    eyebrow="News"
+    title={entry.data.title}
+    tagline={entry.data.description}
+  >
+    <p slot="afterTagline" class="meta-note">{entry.data.dateLabel}</p>
+  </HeroHeader>
+
+  <article class="content-card news-detail">
+    <Content />
+    <p class="news-link"><a class="cta" href="/news/">Back to News</a></p>
+  </article>
+
+  <SiteFooter />
+</BaseLayout>

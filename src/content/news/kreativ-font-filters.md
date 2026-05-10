@@ -1,5 +1,6 @@
 ---
 title: "Kreativ Font Adds Better Filtering"
+description: "Kreativ Font added improved font filters to make typography discovery faster and more intentional."
 dateLabel: "March 2026"
 sortDate: 2026-03-20
 ---

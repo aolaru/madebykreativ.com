@@ -2,13 +2,18 @@
 interface Props {
   date: string;
   title: string;
+  description?: string;
+  href?: string;
 }
 
-const { date, title } = Astro.props;
+const { date, title, description, href } = Astro.props;
 ---
 
 <article class="content-card news-entry">
   <p class="news-date">{date}</p>
-  <h2>{title}</h2>
-  <div class="news-body"><slot /></div>
+  <h2>{href ? <a href={href}>{title}</a> : title}</h2>
+  <div class="news-body">
+    {description ? <p>{description}</p> : <slot />}
+  </div>
+  {href && <p class="news-link"><a class="cta" href={href}>Read update</a></p>}
 </article>

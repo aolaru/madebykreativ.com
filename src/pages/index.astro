@@ -3,14 +3,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import ProductCard from "../components/ProductCard.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { organizationSchema, products, secondaryProjects, websiteSchema } from "../data/site";
+import { ecosystemItemListSchema, organizationSchema, products, secondaryProjects, websiteSchema } from "../data/site";
 ---
 
 <BaseLayout
   title="Made by Kreativ"
   description="Creative tools, curated assets, and utility software crafted by the Kreativ brand."
   canonicalPath="/"
-  structuredData={[organizationSchema, websiteSchema]}
+  structuredData={[organizationSchema, websiteSchema, ecosystemItemListSchema]}
 >
   <HeroHeader
     current="home"

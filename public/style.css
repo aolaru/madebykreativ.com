@@ -99,9 +99,15 @@ a {
   transform: translateY(-1px);
 }
 
-.site-nav a i,
-.icon-button i {
-  line-height: 1;
+.nav-icon {
+  display: block;
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
   pointer-events: none;
 }
 
@@ -378,6 +384,47 @@ a {
   color: var(--muted);
 }
 
+.news-entry h2 a {
+  transition: color 170ms ease;
+}
+
+.news-entry h2 a:hover,
+.news-entry h2 a:focus-visible {
+  color: var(--accent);
+}
+
+.news-link {
+  margin-top: 0.85rem;
+}
+
+.news-detail p + p {
+  margin-top: 0.9rem;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 0.9rem;
+}
+
+.contact-option {
+  padding: 1rem;
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--card) 88%, white 12%);
+}
+
+.contact-option h3 {
+  margin-bottom: 0.35rem;
+  font-size: 0.98rem;
+}
+
+.contact-option p {
+  margin-bottom: 0.75rem;
+  font-size: 0.86rem;
+}
+
 .compact-projects {
   margin-top: 1rem;
 }
@@ -515,6 +562,10 @@ a {
   }
 
   .compact-project-list {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
     grid-template-columns: 1fr;
   }
 

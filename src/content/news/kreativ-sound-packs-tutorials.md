@@ -1,5 +1,6 @@
 ---
 title: "Kreativ Sound Expands with Preset Packs and Tutorials"
+description: "Kreativ Sound added new free and professional preset packs alongside practical audio tutorials."
 dateLabel: "March 2026"
 sortDate: 2026-03-19
 ---

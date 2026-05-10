@@ -1,5 +1,6 @@
 ---
 title: "How Much Music Is Now Live"
+description: "How Much Music launched as a new music-focused project in the Made by Kreativ ecosystem."
 dateLabel: "April 17, 2026"
 sortDate: 2026-04-17
 ---

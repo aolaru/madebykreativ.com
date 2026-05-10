@@ -1,5 +1,6 @@
 ---
 title: "Website Refresh and Brand Alignment"
+description: "Made by Kreativ received a cleaner navigation structure, stronger metadata, and more consistent ecosystem links."
 dateLabel: "March 2026"
 sortDate: 2026-03-05
 ---
