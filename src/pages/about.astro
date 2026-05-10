@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { organizationSchema } from "../data/site";
+import { organizationSchema, products, secondaryProjects } from "../data/site";
 ---
 
 <BaseLayout
@@ -20,14 +20,14 @@ import { organizationSchema } from "../data/site";
 
   <section class="content-card">
     <h2>What We Build</h2>
-    <p>Made by Kreativ is the umbrella brand for focused digital properties: tools for WordPress, sound assets for creators, and curated creative resources.</p>
+    <p>Made by Kreativ is the umbrella brand for focused digital properties: practical tools, creative resources, independent software, and adjacent projects built around useful workflows.</p>
     <ul>
-      <li>Kreativ Font: typography and creative asset discovery.</li>
-      <li>Kreativ Sound: ambient, cinematic, and experimental audio resources.</li>
-      <li>Kreativ WP: practical plugins for site maintenance workflows.</li>
-      <li>Kreativ Tools: browser-friendly utilities for image, video, PDF, document, and file tasks.</li>
-      <li>How Much Music: music discovery, value, and listening context.</li>
-      <li>Kreativ Auto: automotive content, tools, and resources in development.</li>
+      {products.map((product) => (
+        <li><strong>{product.title}:</strong> {product.description}</li>
+      ))}
+      {secondaryProjects.map((project) => (
+        <li><strong>{project.label}:</strong> {project.description}</li>
+      ))}
     </ul>
   </section>
 

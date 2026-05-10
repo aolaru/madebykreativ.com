@@ -25,7 +25,10 @@ export const ecosystemLinks = [
   { label: "Kreativ Sound", href: "https://kreativsound.com" },
   { label: "Kreativ WP", href: "https://kreativwp.com" },
   { label: "Kreativ Tools", href: "https://kreativtools.com" },
-  { label: "How Much Music", href: "https://howmuchmusic.com" }
+  { label: "Kreativ Auto", href: "https://kreativauto.com" },
+  { label: "How Much Music", href: "https://howmuchmusic.com" },
+  { label: "Find Sera", href: "https://findsera.com" },
+  { label: "Signal Ledger", href: "https://getsignalledger.com" }
 ];
 
 export const products = [
@@ -65,15 +68,28 @@ export const products = [
 
 export const secondaryProjects = [
   {
+    label: "Kreativ Auto",
+    status: "Roadmap",
+    description: "An automotive project for practical content, tools, and resources.",
+    href: "https://kreativauto.com"
+  },
+  {
     label: "How Much Music",
     status: "Live",
     description: "A music-focused project around discovery, value, and practical listening context.",
     href: "https://howmuchmusic.com"
   },
   {
-    label: "Kreativ Auto",
-    status: "Roadmap",
-    description: "An automotive project in development for practical content, tools, and resources."
+    label: "Find Sera",
+    status: "Project",
+    description: "A focused discovery project being shaped as part of the wider KREATIV ecosystem.",
+    href: "https://findsera.com"
+  },
+  {
+    label: "Signal Ledger",
+    status: "Project",
+    description: "A practical ledger project for tracking signals, decisions, and useful references.",
+    href: "https://getsignalledger.com"
   }
 ];
 
