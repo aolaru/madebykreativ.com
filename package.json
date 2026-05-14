@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "validate": "npm run build && npx --yes html-validate --config .htmlvalidate.json \"dist/**/*.html\"",
+    "check": "npm run validate"
   },
   "devDependencies": {
     "astro": "^6.1.7"

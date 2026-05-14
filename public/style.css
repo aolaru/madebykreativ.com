@@ -42,6 +42,10 @@
   padding: 0;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 body {
   font-family: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
   color: var(--text);
@@ -496,6 +500,13 @@ a {
   margin: 0.95rem 0;
 }
 
+.category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: -0.35rem 0 1rem;
+}
+
 .status-filter-button {
   border: 1px solid var(--card-border);
   border-radius: 999px;
@@ -630,6 +641,32 @@ a {
 .project-profile {
   display: grid;
   gap: 1rem;
+}
+
+.project-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.project-detail-grid article {
+  padding: 1rem;
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--card) 86%, white 14%);
+}
+
+.project-detail-grid h2 {
+  margin-bottom: 0.45rem;
+  color: var(--accent);
+  font-size: 0.82rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.project-detail-grid p,
+.related-updates p {
+  font-size: 0.88rem;
 }
 
 .focus-list {
@@ -794,6 +831,7 @@ a {
   }
 
   .project-category-grid,
+  .project-detail-grid,
   .status-legend,
   .status-legend-wide {
     grid-template-columns: 1fr;

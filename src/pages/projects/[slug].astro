@@ -1,4 +1,5 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
@@ -16,6 +17,14 @@ const relatedProjects = projectDirectory
   .filter((item) => item.category === project.category && item.slug !== project.slug)
   .slice(0, 3);
 const status = statusDefinitions.find((definition) => definition.label === project.status);
+const newsEntries = await getCollection("news");
+const relatedNews = project.relatedNews
+  .map((slug) => newsEntries.find((entry) => entry.id.replace(/\.md$/, "") === slug))
+  .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
+  .map((entry) => ({
+    ...entry,
+    path: `/news/${entry.id.replace(/\.md$/, "")}/`
+  }));
 ---
 
 <BaseLayout
@@ -45,6 +54,39 @@ const status = statusDefinitions.find((definition) => definition.label === proje
       <a class="cta" href="/">Back to Directory</a>
     </p>
   </section>
+
+  <section class="content-card project-detail-grid" aria-label="Project details">
+    <article>
+      <h2>What It Solves</h2>
+      <p>{project.whatItSolves}</p>
+    </article>
+    <article>
+      <h2>Who It Is For</h2>
+      <p>{project.audience}</p>
+    </article>
+    <article>
+      <h2>Current Status</h2>
+      <p>{project.currentStatus}</p>
+    </article>
+  </section>
+
+  {relatedNews.length > 0 && (
+    <section class="content-card related-updates" aria-labelledby="related-updates-heading">
+      <div class="section-heading-row">
+        <h2 id="related-updates-heading">Related Updates</h2>
+        <a class="cta" href="/news/">All News</a>
+      </div>
+      <div class="latest-update-list">
+        {relatedNews.map((entry) => (
+          <article class="latest-update">
+            <p class="news-date">{entry.data.dateLabel}</p>
+            <h3><a href={entry.path}>{entry.data.title}</a></h3>
+            <p>{entry.data.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
 
   {relatedProjects.length > 0 && (
     <section class="content-card related-projects" aria-labelledby="related-projects-heading">

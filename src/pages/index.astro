@@ -46,18 +46,18 @@ const latestNews = (await getCollection("news"))
     </div>
   </HeroHeader>
 
-  <section class="hero-bridge" aria-label="Ecosystem overview">
+  <div class="hero-bridge">
     <span class="hero-bridge-item">4 active properties</span>
     <span class="hero-bridge-item">8 KREATIV projects</span>
     <span class="hero-bridge-item">{projectCategories.length} project categories</span>
-  </section>
+  </div>
 
   <section class="content-card directory-intro">
     <h2>Ecosystem Directory</h2>
     <p>Four focused core properties, plus a growing set of KREATIV projects across typography, sound, WordPress, utilities, music, automotive, discovery, and signal tracking.</p>
   </section>
 
-  <section class="pillars" aria-label="Kreativ products">
+  <section class="pillars">
     {products.map((product) => <ProductCard {...product} />)}
   </section>
 
@@ -70,14 +70,21 @@ const latestNews = (await getCollection("news"))
       <a class="cta" href="/about/">About the ecosystem</a>
     </div>
 
-    <div class="status-filter" aria-label="Filter projects by status">
+    <div class="status-filter" role="group" aria-label="Filter projects by status">
       <button class="status-filter-button" type="button" data-project-filter="all" aria-pressed="true">All</button>
       {statusDefinitions.map((status) => (
         <button class="status-filter-button" type="button" data-project-filter={status.label} aria-pressed="false">{status.label}</button>
       ))}
     </div>
 
-    <dl class="status-legend" aria-label="Project status definitions">
+    <div class="category-filter" role="group" aria-label="Filter projects by category">
+      <button class="status-filter-button" type="button" data-project-category-filter="all" aria-pressed="true">All Categories</button>
+      {projectCategories.map((category) => (
+        <button class="status-filter-button" type="button" data-project-category-filter={category.label} aria-pressed="false">{category.label}</button>
+      ))}
+    </div>
+
+    <dl class="status-legend">
       {statusDefinitions.map((status) => (
         <div>
           <dt>{status.label}</dt>
@@ -97,7 +104,7 @@ const latestNews = (await getCollection("news"))
             {projectDirectory
               .filter((project) => project.category === category.label)
               .map((project) => (
-                <a class="category-project" href={projectPath(project.slug)} data-project-status={project.status}>
+                <a class="category-project" href={projectPath(project.slug)} data-project-status={project.status} data-project-category={project.category}>
                   <span class="pillar-status">{project.status}</span>
                   <strong>{project.label}</strong>
                   <span>{project.description}</span>

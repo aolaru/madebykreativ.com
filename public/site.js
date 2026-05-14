@@ -122,27 +122,41 @@
   }
 
   function wireProjectFilters() {
-    const buttons = document.querySelectorAll("[data-project-filter]");
+    const buttons = document.querySelectorAll("[data-project-filter], [data-project-category-filter]");
     const projects = document.querySelectorAll("[data-project-status]");
     if (!buttons.length || !projects.length) {
       return;
     }
 
+    const state = {
+      status: "all",
+      category: "all"
+    };
+
+    function applyFilters() {
+      projects.forEach((project) => {
+        const statusMatches = state.status === "all" || project.getAttribute("data-project-status") === state.status;
+        const categoryMatches = state.category === "all" || project.getAttribute("data-project-category") === state.category;
+        project.hidden = !(statusMatches && categoryMatches);
+      });
+      document.querySelectorAll(".project-category").forEach((category) => {
+        const hasVisibleProject = Boolean(category.querySelector("[data-project-status]:not([hidden])"));
+        category.hidden = !hasVisibleProject;
+      });
+    }
+
     buttons.forEach((button) => {
       button.addEventListener("click", () => {
-        const filter = button.getAttribute("data-project-filter") || "all";
-        buttons.forEach((item) => {
+        const statusFilter = button.getAttribute("data-project-filter");
+        const categoryFilter = button.getAttribute("data-project-category-filter");
+        const filterType = statusFilter === null ? "category" : "status";
+        const filter = statusFilter || categoryFilter || "all";
+        state[filterType] = filter;
+        document.querySelectorAll(filterType === "status" ? "[data-project-filter]" : "[data-project-category-filter]").forEach((item) => {
           item.setAttribute("aria-pressed", item === button ? "true" : "false");
         });
-        projects.forEach((project) => {
-          const visible = filter === "all" || project.getAttribute("data-project-status") === filter;
-          project.hidden = !visible;
-        });
-        document.querySelectorAll(".project-category").forEach((category) => {
-          const hasVisibleProject = Boolean(category.querySelector("[data-project-status]:not([hidden])"));
-          category.hidden = !hasVisibleProject;
-        });
-        trackEvent("Project Filter", { filter });
+        applyFilters();
+        trackEvent("Project Filter", { type: filterType, filter });
       });
     });
   }

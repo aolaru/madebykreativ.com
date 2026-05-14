@@ -62,8 +62,12 @@ const coreProjects = [
     title: "Kreativ Font",
     description: "A curated discovery library for fonts and creative assets focused on typography, style, and inspiration.",
     longDescription: "Kreativ Font helps designers, makers, and builders discover stronger typography references and creative assets without starting from a blank search.",
+    whatItSolves: "It reduces the friction of typography research by keeping font discovery and creative references in one focused place.",
+    audience: "Designers, creative directors, website builders, and makers who need faster typography decisions.",
+    currentStatus: "Curated and maintained as an active discovery resource.",
     cta: "Visit Kreativ Font",
     focus: ["Typography discovery", "Creative references", "Style research"],
+    relatedNews: ["kreativ-font-filters", "q1-progress"],
     isCore: true
   },
   {
@@ -76,8 +80,12 @@ const coreProjects = [
     title: "Kreativ Sound",
     description: "Sound packs, textures, and presets for creators working with ambient, experimental, and cinematic material.",
     longDescription: "Kreativ Sound collects practical audio resources, presets, and tutorials for creators who need atmospheric, experimental, and cinematic starting points.",
+    whatItSolves: "It gives creators ready-made sonic starting points without forcing them to build every texture, preset, or ambient layer from scratch.",
+    audience: "Music producers, sound designers, video creators, and experimental audio makers.",
+    currentStatus: "Live with free and professional packs, presets, textures, and tutorials.",
     cta: "Explore Sounds",
     focus: ["Preset packs", "Audio textures", "Tutorials"],
+    relatedNews: ["kreativ-sound-packs-tutorials", "q1-progress"],
     isCore: true
   },
   {
@@ -90,8 +98,12 @@ const coreProjects = [
     title: "Kreativ WP",
     description: "Practical WordPress utilities and maintenance plugins built for real sites and long-term reliability.",
     longDescription: "Kreativ WP focuses on practical WordPress maintenance utilities that solve real site-operation problems without unnecessary complexity.",
+    whatItSolves: "It keeps WordPress utility work focused on real maintenance, reliability, and operational needs instead of bloated feature sets.",
+    audience: "WordPress site owners, maintainers, developers, and small teams managing real production sites.",
+    currentStatus: "Plugin-focused property for practical WordPress utilities.",
     cta: "View WP Tools",
     focus: ["WordPress utilities", "Maintenance workflows", "Reliability"],
+    relatedNews: ["q1-progress"],
     isCore: true
   },
   {
@@ -104,8 +116,12 @@ const coreProjects = [
     title: "Kreativ Tools",
     description: "Browser-first utilities for image, video, PDF, document, and file workflows built for practical daily use.",
     longDescription: "Kreativ Tools brings file, image, video, PDF, and document utilities into a browser-first workspace for fast everyday production tasks.",
+    whatItSolves: "It removes small workflow bottlenecks around file conversion, media utilities, PDFs, and everyday browser-first productivity tasks.",
+    audience: "Creators, operators, developers, and anyone who needs fast utility tools without installing desktop software.",
+    currentStatus: "Live and positioned as the utility hub of the KREATIV ecosystem.",
     cta: "Open Kreativ Tools",
     focus: ["Image tools", "PDF and document utilities", "File workflows"],
+    relatedNews: ["kreativ-tools-live", "homepage-directory-refinement"],
     isCore: true
   }
 ];
@@ -118,9 +134,13 @@ const adjacentProjects = [
     status: "Roadmap",
     description: "An automotive project for practical content, useful references, and workflow-oriented tools.",
     longDescription: "Kreativ Auto is being shaped as an automotive destination for practical information, references, and future utility tooling.",
+    whatItSolves: "It creates a dedicated space for automotive research, content, references, and future tools that do not fit inside the creative software properties.",
+    audience: "Automotive enthusiasts, researchers, and practical users looking for structured references and future utilities.",
+    currentStatus: "Roadmap project with a dedicated domain and direction being shaped.",
     href: "https://kreativauto.com",
     cta: "Open Kreativ Auto",
     focus: ["Automotive references", "Practical content", "Future tools"],
+    relatedNews: ["kreativ-auto-domain-added", "kreativ-auto-roadmap"],
     isCore: false
   },
   {
@@ -130,9 +150,13 @@ const adjacentProjects = [
     status: "Live",
     description: "A music-focused project around discovery, value, and practical listening context.",
     longDescription: "How Much Music is a live music-focused project built around listening context, practical discovery, and clearer ways to think about music value.",
+    whatItSolves: "It gives music discovery a clearer context layer by focusing on value, listening decisions, and practical ways to evaluate music.",
+    audience: "Music listeners, collectors, creators, and people who want a more structured way to think about music discovery.",
+    currentStatus: "Live as a standalone music-focused KREATIV project.",
     href: "https://howmuchmusic.com",
     cta: "Open How Much Music",
     focus: ["Music discovery", "Listening context", "Value signals"],
+    relatedNews: ["how-much-music-live"],
     isCore: false
   },
   {
@@ -142,9 +166,13 @@ const adjacentProjects = [
     status: "Project",
     description: "A focused discovery project being shaped around search, context, and practical exploration.",
     longDescription: "Find Sera is an exploratory discovery project for search-led navigation, context building, and focused exploration.",
+    whatItSolves: "It explores a more intentional discovery flow around search, context, and the act of finding useful signals faster.",
+    audience: "Researchers, builders, and curious users who need focused discovery rather than generic browsing.",
+    currentStatus: "Exploratory project now included in the public ecosystem directory.",
     href: "https://findsera.com",
     cta: "Open Find Sera",
     focus: ["Search-led discovery", "Context", "Exploration"],
+    relatedNews: ["find-sera-joins-ecosystem"],
     isCore: false
   },
   {
@@ -154,9 +182,13 @@ const adjacentProjects = [
     status: "Project",
     description: "A practical ledger project for tracking signals, decisions, and useful references.",
     longDescription: "Signal Ledger is a practical tracking project for collecting signals, decisions, references, and directional notes in one place.",
+    whatItSolves: "It creates a structured place to capture decisions, signals, references, and directional notes that would otherwise be scattered.",
+    audience: "Operators, researchers, founders, and makers who track signals and decisions over time.",
+    currentStatus: "Project-stage utility concept listed as part of the KREATIV software ecosystem.",
     href: "https://getsignalledger.com",
     cta: "Open Signal Ledger",
     focus: ["Signal tracking", "Decision notes", "Reference ledgers"],
+    relatedNews: ["signal-ledger-added"],
     isCore: false
   }
 ];
