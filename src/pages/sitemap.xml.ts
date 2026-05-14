@@ -1,5 +1,5 @@
 import { getCollection } from "astro:content";
-import { buildUrl, site } from "../data/site";
+import { buildUrl, projectDirectory, projectPath, site } from "../data/site";
 
 const staticRoutes = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
@@ -37,6 +37,12 @@ export async function GET() {
 
   const routes = [
     ...staticRoutes.map((route) => ({ ...route, lastmod: site.lastUpdated })),
+    ...projectDirectory.map((project) => ({
+      path: projectPath(project.slug),
+      changefreq: "monthly",
+      priority: project.isCore ? "0.8" : "0.7",
+      lastmod: site.lastUpdated
+    })),
     ...newsRoutes
   ];
 

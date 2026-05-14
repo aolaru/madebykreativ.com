@@ -14,6 +14,11 @@ const newsEntries = (await getCollection("news"))
     ...entry,
     path: toNewsPath(entry.id)
   }));
+
+const latestNewsDate = newsEntries[0]?.data.sortDate;
+const latestNewsLabel = latestNewsDate
+  ? new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(latestNewsDate)
+  : "May 13, 2026";
 ---
 
 <BaseLayout
@@ -28,7 +33,7 @@ const newsEntries = (await getCollection("news"))
     title="News"
     tagline="News, release notes, and ecosystem updates."
   >
-    <p slot="afterTagline" class="meta-note">Last updated: May 10, 2026</p>
+    <p slot="afterTagline" class="meta-note">Last updated: {latestNewsLabel}</p>
   </HeroHeader>
 
   {newsEntries.map(({ data, path }) => (

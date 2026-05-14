@@ -121,6 +121,32 @@
     });
   }
 
+  function wireProjectFilters() {
+    const buttons = document.querySelectorAll("[data-project-filter]");
+    const projects = document.querySelectorAll("[data-project-status]");
+    if (!buttons.length || !projects.length) {
+      return;
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.getAttribute("data-project-filter") || "all";
+        buttons.forEach((item) => {
+          item.setAttribute("aria-pressed", item === button ? "true" : "false");
+        });
+        projects.forEach((project) => {
+          const visible = filter === "all" || project.getAttribute("data-project-status") === filter;
+          project.hidden = !visible;
+        });
+        document.querySelectorAll(".project-category").forEach((category) => {
+          const hasVisibleProject = Boolean(category.querySelector("[data-project-status]:not([hidden])"));
+          category.hidden = !hasVisibleProject;
+        });
+        trackEvent("Project Filter", { filter });
+      });
+    });
+  }
+
   function trackEvent(eventName, props) {
     if (typeof window.plausible === "function") {
       window.plausible(eventName, { props });
@@ -200,6 +226,7 @@
     }
     document.addEventListener("keydown", onThemeKeydown);
     wireProductTracking();
+    wireProjectFilters();
     wireLinkTracking(".site-nav a", "Navigation Click", "site-nav");
     wireLinkTracking(".ecosystem-links a", "Footer Link Click", "footer");
     loadAnalytics();

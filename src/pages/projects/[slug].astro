@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HeroHeader from "../../components/HeroHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import { createProjectSchema, organizationSchema, projectDirectory, projectPath, statusDefinitions } from "../../data/site";
+
+export function getStaticPaths() {
+  return projectDirectory.map((project) => ({
+    params: { slug: project.slug },
+    props: { project }
+  }));
+}
+
+const { project } = Astro.props;
+const relatedProjects = projectDirectory
+  .filter((item) => item.category === project.category && item.slug !== project.slug)
+  .slice(0, 3);
+const status = statusDefinitions.find((definition) => definition.label === project.status);
+---
+
+<BaseLayout
+  title={`${project.label} | Made by Kreativ`}
+  description={project.description}
+  canonicalPath={projectPath(project.slug)}
+  structuredData={[organizationSchema, createProjectSchema(project)]}
+>
+  <HeroHeader
+    eyebrow={project.category}
+    title={project.label}
+    tagline={project.description}
+  >
+    <p slot="afterTagline" class="meta-note">{project.status}{status ? `: ${status.description}` : ""}</p>
+  </HeroHeader>
+
+  <section class="content-card project-profile">
+    <div>
+      <h2>Project Focus</h2>
+      <p>{project.longDescription}</p>
+    </div>
+    <ul class="focus-list">
+      {project.focus.map((item) => <li>{item}</li>)}
+    </ul>
+    <p class="project-actions">
+      <a class="cta" href={project.href} target="_blank" rel="noopener">{project.cta}</a>
+      <a class="cta" href="/">Back to Directory</a>
+    </p>
+  </section>
+
+  {relatedProjects.length > 0 && (
+    <section class="content-card related-projects" aria-labelledby="related-projects-heading">
+      <h2 id="related-projects-heading">Related Projects</h2>
+      <div class="category-project-list">
+        {relatedProjects.map((item) => (
+          <a class="category-project" href={projectPath(item.slug)}>
+            <span class="pillar-status">{item.status}</span>
+            <strong>{item.label}</strong>
+            <span>{item.description}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <SiteFooter />
+</BaseLayout>

@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { organizationSchema, products, secondaryProjects } from "../data/site";
+import { organizationSchema, projectCategories, projectDirectory, projectPath, statusDefinitions } from "../data/site";
 ---
 
 <BaseLayout
@@ -21,14 +21,33 @@ import { organizationSchema, products, secondaryProjects } from "../data/site";
   <section class="content-card">
     <h2>What We Build</h2>
     <p>Made by Kreativ is the umbrella brand for focused digital properties: practical tools, creative resources, independent software, and adjacent projects built around useful workflows.</p>
-    <ul>
-      {products.map((product) => (
-        <li><strong>{product.title}:</strong> {product.description}</li>
+    <div class="about-category-list">
+      {projectCategories.map((category) => (
+        <section class="about-category" aria-labelledby={`about-${category.label.toLowerCase().replaceAll(" ", "-")}`}>
+          <h3 id={`about-${category.label.toLowerCase().replaceAll(" ", "-")}`}>{category.label}</h3>
+          <p>{category.description}</p>
+          <ul>
+            {projectDirectory
+              .filter((project) => project.category === category.label)
+              .map((project) => (
+                <li><a href={projectPath(project.slug)}><strong>{project.label}:</strong> {project.description}</a></li>
+              ))}
+          </ul>
+        </section>
       ))}
-      {secondaryProjects.map((project) => (
-        <li><strong>{project.label}:</strong> {project.description}</li>
+    </div>
+  </section>
+
+  <section class="content-card">
+    <h2>Status Guide</h2>
+    <dl class="status-legend status-legend-wide">
+      {statusDefinitions.map((status) => (
+        <div>
+          <dt>{status.label}</dt>
+          <dd>{status.description}</dd>
+        </div>
       ))}
-    </ul>
+    </dl>
   </section>
 
   <section class="content-card">
