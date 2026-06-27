@@ -4,7 +4,7 @@ import HeroHeader from "../components/HeroHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 
 const pdfHref = "/downloads/your-first-digital-product-20-simple-ideas-v1.pdf";
-const toolkitHref = "https://madebykreativ.com";
+const toolkitHref = "/ai-launch-toolkit/";
 
 const insideItems = [
   "20 beginner-friendly digital product ideas",
@@ -87,7 +87,7 @@ const faqs = [
     <div class="resource-card-grid">
       {insideItems.map((item) => (
         <article class="resource-card">
-          <span class="resource-card-icon" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+          <span class="resource-card-icon" aria-hidden="true"></span>
           <h3>{item}</h3>
         </article>
       ))}

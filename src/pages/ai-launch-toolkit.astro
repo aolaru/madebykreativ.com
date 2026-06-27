@@ -1,0 +1,244 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroHeader from "../components/HeroHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { buildUrl, organizationSchema, site } from "../data/site";
+
+const freeGuideHref = "/your-first-digital-product/";
+const purchaseHref = `mailto:${site.email}?subject=KREATIV%20AI%20Launch%20Toolkit`;
+const previewSrc = "/downloads/ai-launch-toolkit-preview.png";
+
+const proofPoints = [
+  "100 launch prompts",
+  "7-day product sprint",
+  "5 worked launch examples",
+  "Launch worksheets and swipe copy",
+  "Trust and compliance checks"
+];
+
+const contents = [
+  "7-Day Product Launch Sprint",
+  "Prompt Stacks for ebooks, checklists, workbooks, templates, spreadsheets, content packs, and relaunches",
+  "Digital Product Format Playbooks",
+  "Five Worked Launch Examples",
+  "Bad Output / Better Output examples",
+  "Launch Worksheets",
+  "25 Launch Hooks",
+  "CTA, DM, email, and community swipe copy",
+  "Trust and compliance checklist",
+  "100 Launch Prompts",
+  "Final Launch Checklist"
+];
+
+const promptCategories = [
+  "Choose and Validate the Idea",
+  "Design the MVP",
+  "Build the Product Content",
+  "Package and Brand the Product",
+  "Publish and Sell",
+  "Promote the Launch",
+  "Modern AI Workflow Prompts",
+  "Trust, Compliance, and Improvement"
+];
+
+const samplePrompts = [
+  {
+    title: "20-Idea Filter",
+    prompt: "Rank each idea for speed, buyer pain, ease of delivery, and ability to sell for EUR 9-49."
+  },
+  {
+    title: "MVP Outline",
+    prompt: "Create the minimum viable outline for the product so every section helps the buyer complete the promised outcome."
+  },
+  {
+    title: "Sales Page",
+    prompt: "Write a concise sales page with headline, problem, promise, what's included, who it is for, price, FAQ, and CTA."
+  },
+  {
+    title: "Income Claim Scrub",
+    prompt: "Review product copy for income claims and rewrite it to avoid guarantees and set honest expectations."
+  }
+];
+
+const audienceItems = [
+  "You have an idea but need a launch workflow.",
+  "You want prompts that create usable assets, not random AI output.",
+  "You are building a simple PDF, checklist, workbook, template pack, spreadsheet, Notion system, swipe file, or content pack.",
+  "You want to publish a first version without overbuilding."
+];
+
+const faqs = [
+  {
+    question: "Is this only for ChatGPT?",
+    answer: "No. The prompts are model-agnostic and can be adapted for ChatGPT, Claude, Gemini, or similar AI tools."
+  },
+  {
+    question: "Do I need an audience?",
+    answer: "No large audience is required, but the toolkit includes prompts for validation, outreach, and finding early demand."
+  },
+  {
+    question: "What kind of products can I build?",
+    answer: "PDFs, checklists, workbooks, templates, spreadsheets, Notion systems, swipe files, content packs, and small digital bundles."
+  },
+  {
+    question: "Is this a course?",
+    answer: "No. It is a practical prompt-based launch toolkit."
+  },
+  {
+    question: "Does it guarantee sales?",
+    answer: "No. It helps users build and launch more clearly, but results depend on offer, market, audience, execution, and timing."
+  }
+];
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: "The KREATIV AI Launch Toolkit",
+  description: "A premium AI prompt toolkit with 100 prompts, launch workflows, templates, worksheets, and swipe copy to help creators build, package, publish, and sell a first digital product.",
+  brand: {
+    "@type": "Brand",
+    name: "Made by Kreativ"
+  },
+  image: buildUrl(previewSrc),
+  url: buildUrl("/ai-launch-toolkit/")
+};
+---
+
+<BaseLayout
+  title="The KREATIV AI Launch Toolkit | 100 Prompts to Build and Sell"
+  description="A premium AI prompt toolkit with 100 prompts, launch workflows, templates, worksheets, and swipe copy to help creators build, package, publish, and sell a first digital product."
+  canonicalPath="/ai-launch-toolkit/"
+  structuredData={[organizationSchema, productSchema]}
+>
+  <HeroHeader
+    eyebrow="Premium AI Launch System"
+    title="The KREATIV AI Launch Toolkit"
+    tagline="100 prompts, prompt stacks, templates, and launch swipes to help you turn one simple idea into a buyer-ready digital product."
+  >
+    <div slot="afterTagline" class="landing-actions">
+      <a class="button-cta button-cta-primary" href={purchaseHref}>Get the Toolkit</a>
+      <a class="button-cta button-cta-secondary" href={freeGuideHref}>Start with the Free Guide</a>
+    </div>
+    <div slot="afterTagline" class="proof-strip">
+      {proofPoints.map((point) => <span>{point}</span>)}
+    </div>
+    <div slot="afterTagline" class="toolkit-hero-showcase">
+      <div class="toolkit-mockup-copy">
+        <p class="eyebrow">Execution companion</p>
+        <h2>From idea to launch assets</h2>
+        <p>The free guide helps you choose what to build. The toolkit helps you shape the product, package the offer, publish the page, and improve the first version.</p>
+        <ul class="mockup-stack-list">
+          <li>Validate</li>
+          <li>Build</li>
+          <li>Package</li>
+          <li>Publish</li>
+        </ul>
+      </div>
+      <a class="toolkit-preview-card" href={purchaseHref} aria-label="Get the KREATIV AI Launch Toolkit">
+        <img src={previewSrc} alt="Cover preview for The KREATIV AI Launch Toolkit" width="1191" height="1684" loading="eager" />
+      </a>
+    </div>
+  </HeroHeader>
+
+  <section class="content-card landing-section" aria-labelledby="bridge-heading">
+    <p class="eyebrow">From idea to launch</p>
+    <h2 id="bridge-heading">The bridge from idea to launch</h2>
+    <p>Many creators get stuck after choosing an idea. This toolkit gives you a prompt workflow to choose one direction, validate the demand, design the MVP, create the content, package the offer, publish the page, and promote the launch without turning the first version into a huge project.</p>
+  </section>
+
+  <section class="content-card landing-section" aria-labelledby="inside-heading">
+    <div class="section-heading-row">
+      <div>
+        <p class="eyebrow">Toolkit contents</p>
+        <h2 id="inside-heading">What's inside</h2>
+      </div>
+    </div>
+    <div class="resource-card-grid toolkit-content-grid">
+      {contents.map((item) => (
+        <article class="resource-card">
+          <span class="resource-card-icon" aria-hidden="true"></span>
+          <h3>{item}</h3>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="content-card landing-section" aria-labelledby="categories-heading">
+    <p class="eyebrow">Prompt system</p>
+    <h2 id="categories-heading">The 8 prompt categories</h2>
+    <div class="prompt-category-grid">
+      {promptCategories.map((category, index) => (
+        <article class="prompt-category-card">
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <h3>{category}</h3>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="content-card landing-section" aria-labelledby="sample-prompts-heading">
+    <p class="eyebrow">Preview</p>
+    <h2 id="sample-prompts-heading">Sample prompts preview</h2>
+    <div class="sample-prompt-grid">
+      {samplePrompts.map((sample) => (
+        <article class="sample-prompt-card">
+          <h3>{sample.title}</h3>
+          <p>{sample.prompt}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="landing-split">
+    <section class="content-card landing-section" aria-labelledby="audience-heading">
+      <h2 id="audience-heading">Who it is for</h2>
+      <ul class="clean-list">
+        {audienceItems.map((item) => <li>{item}</li>)}
+      </ul>
+    </section>
+
+    <section class="content-card landing-section" aria-labelledby="guide-heading">
+      <h2 id="guide-heading">How it works with the free guide</h2>
+      <div class="comparison-grid">
+        <article class="comparison-card">
+          <span>Free guide</span>
+          <p>Helps you choose a simple product idea.</p>
+        </article>
+        <article class="comparison-card">
+          <span>AI Launch Toolkit</span>
+          <p>Helps you build, package, publish, sell, and improve the chosen product.</p>
+        </article>
+      </div>
+      <p class="product-cta-note">Already picked an idea? Use the toolkit to turn it into a buyer-ready offer.</p>
+      <p><a class="cta" href={purchaseHref}>Get the Toolkit</a></p>
+    </section>
+  </section>
+
+  <section class="content-card trust-note" aria-labelledby="trust-heading">
+    <p class="eyebrow">Clear expectations</p>
+    <h2 id="trust-heading">Built for practical execution</h2>
+    <p>This toolkit does not guarantee income, customers, traffic, rankings, or sales. It is a practical execution system for creating and launching a first digital product with AI support. Review and verify AI-generated content before publishing.</p>
+  </section>
+
+  <section class="content-card landing-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">FAQ</h2>
+    <div class="faq-list">
+      {faqs.map((item) => (
+        <details>
+          <summary>{item.question}</summary>
+          <p>{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="content-card final-cta" aria-labelledby="final-cta-heading">
+    <h2 id="final-cta-heading">Build the first version. Publish it. Improve from real feedback.</h2>
+    <div class="landing-actions">
+      <a class="button-cta button-cta-primary" href={purchaseHref}>Get the KREATIV AI Launch Toolkit</a>
+      <a class="button-cta button-cta-secondary" href={freeGuideHref}>Download the free guide first</a>
+    </div>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>
