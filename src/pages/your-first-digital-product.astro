@@ -1,0 +1,169 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroHeader from "../components/HeroHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+const pdfHref = "/downloads/your-first-digital-product-20-simple-ideas-v1.pdf";
+const toolkitHref = "https://madebykreativ.com";
+
+const insideItems = [
+  "20 beginner-friendly digital product ideas",
+  "Ready-to-use AI prompt for every idea",
+  "Worked examples",
+  "Validation scorecard",
+  "Fillable worksheets",
+  "Ready-to-sell packaging checklist"
+];
+
+const bestForItems = [
+  "You want to create a small digital product but do not know what to make",
+  "You want ideas that can be finished quickly",
+  "You want prompts, examples, and worksheets instead of generic advice",
+  "You want a simple path from idea to version 1.0"
+];
+
+const steps = [
+  {
+    title: "Pick one idea",
+    description: "Choose a useful, small product idea that fits your skills, audience, or current work."
+  },
+  {
+    title: "Use the prompt and worksheets",
+    description: "Turn the idea into a concrete outline, first draft, checklist, template, or simple offer."
+  },
+  {
+    title: "Package, validate, and launch version 1.0",
+    description: "Prepare the files, test the value with real people, and ship the first simple version."
+  }
+];
+
+const faqs = [
+  {
+    question: "Is the guide free?",
+    answer: "Yes. The PDF is free to download and use as a practical starting point for your first digital product."
+  },
+  {
+    question: "Who is this for?",
+    answer: "It is for creators, freelancers, small business builders, and beginners who want a clear first product idea."
+  },
+  {
+    question: "Do I need technical skills?",
+    answer: "No. The guide focuses on simple products like templates, worksheets, guides, mini toolkits, and packaged knowledge."
+  },
+  {
+    question: "What is the AI Launch Toolkit?",
+    answer: "It is a prompt collection for building, packaging, publishing, and selling a first digital product faster."
+  }
+];
+---
+
+<BaseLayout
+  title="Your First Digital Product - Free Guide by Made by Kreativ"
+  description="Download a free practical guide with 20 simple digital product ideas, AI prompts, worked examples, validation steps, and fillable worksheets."
+  canonicalPath="/your-first-digital-product/"
+>
+  <HeroHeader
+    eyebrow="Free practical guide"
+    title="Your First Digital Product"
+    tagline="A free practical guide with 20 simple product ideas you can create, package, validate, and launch."
+  >
+    <div slot="afterTagline" class="landing-actions">
+      <a class="button-cta button-cta-primary" href={pdfHref} download>Download the free guide</a>
+      <a class="button-cta button-cta-secondary" href={toolkitHref}>View the AI Launch Toolkit</a>
+    </div>
+  </HeroHeader>
+
+  <section class="content-card landing-fit-line" aria-label="Who this guide is for">
+    <p>For creators, freelancers, small business builders, and beginners who want to create a useful first digital product without coding, a big audience, or a perfect plan.</p>
+  </section>
+
+  <section class="content-card landing-section" aria-labelledby="inside-heading">
+    <div class="section-heading-row">
+      <div>
+        <h2 id="inside-heading">What is inside</h2>
+        <p>Compact, practical materials you can use while shaping the first version.</p>
+      </div>
+    </div>
+    <div class="resource-card-grid">
+      {insideItems.map((item) => (
+        <article class="resource-card">
+          <span class="resource-card-icon" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+          <h3>{item}</h3>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="landing-split">
+    <section class="content-card landing-section" aria-labelledby="best-for-heading">
+      <h2 id="best-for-heading">Best for</h2>
+      <ul class="clean-list">
+        {bestForItems.map((item) => <li>{item}</li>)}
+      </ul>
+    </section>
+
+    <section class="content-card landing-section" aria-labelledby="how-it-works-heading">
+      <h2 id="how-it-works-heading">How it works</h2>
+      <ol class="step-list">
+        {steps.map((step, index) => (
+          <li>
+            <span class="step-number" aria-hidden="true">{index + 1}</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  </section>
+
+  <section class="content-card pdf-preview-section" aria-labelledby="preview-heading">
+    <div class="pdf-preview-copy">
+      <p class="eyebrow">PDF preview</p>
+      <h2 id="preview-heading">From blank page to a useful first product</h2>
+      <p>This guide is designed to help you move from blank page to a small finished product. It is not about building something huge. It is about building something useful.</p>
+      <p><a class="cta" href={pdfHref} download>Download the free guide</a></p>
+    </div>
+    <a class="pdf-preview-frame" href={pdfHref} aria-label="Open Your First Digital Product PDF guide">
+      <img
+        src="/downloads/your-first-digital-product-preview.png"
+        alt="Cover preview of the Your First Digital Product PDF guide"
+        loading="lazy"
+        width="1191"
+        height="1684"
+      />
+    </a>
+  </section>
+
+  <section class="content-card toolkit-upsell" aria-labelledby="toolkit-heading">
+    <div>
+      <p class="eyebrow">Next step</p>
+      <h2 id="toolkit-heading">Want help building it faster?</h2>
+      <p>The KREATIV AI Launch Toolkit gives you 100 prompts to help you build, package, publish, and sell your first digital product.</p>
+    </div>
+    <a class="button-cta button-cta-secondary" href={toolkitHref}>View the AI Launch Toolkit</a>
+  </section>
+
+  <section class="content-card landing-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">FAQ</h2>
+    <div class="faq-list">
+      {faqs.map((item) => (
+        <details>
+          <summary>{item.question}</summary>
+          <p>{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="content-card final-cta" aria-labelledby="final-cta-heading">
+    <h2 id="final-cta-heading">Start with one small useful product.</h2>
+    <div class="landing-actions">
+      <a class="button-cta button-cta-primary" href={pdfHref} download>Download the free guide</a>
+      <a class="button-cta button-cta-secondary" href={toolkitHref}>View the toolkit</a>
+    </div>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>
