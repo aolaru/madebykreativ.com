@@ -1,5 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
-  <title id="title">Kreativ logo</title>
-  <rect width="128" height="128" rx="16" fill="#000000" />
-  <text x="64" y="74" text-anchor="middle" font-family="Space Grotesk, Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="2" fill="#ffffff">KREATIV</text>
+  <title id="title">Kreativ brand mark</title>
+  <defs>
+    <linearGradient id="bg" x1="20.5" y1="15.4" x2="110.1" y2="112.6" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#172235" />
+      <stop offset="1" stop-color="#0b1017" />
+    </linearGradient>
+    <linearGradient id="accent" x1="35.8" y1="30.7" x2="92.2" y2="97.3" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c8f3de" />
+      <stop offset="1" stop-color="#2f9a66" />
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#bg)" />
+  <path d="M37.1 25.6h15.4v32.6l26.2-32.6H96L69.4 61.2l27.9 41.2H79.5L58.5 71.2l-6 5.9v25.3H37.1V25.6Z" fill="url(#accent)" />
 </svg>

@@ -1,7 +1,7 @@
 export const site = {
   name: "Made by Kreativ",
   url: "https://madebykreativ.com/",
-  logo: "https://madebykreativ.com/kreativ-logo-128.svg",
+  logo: "https://madebykreativ.com/favicon.svg",
   email: "info@madebykreativ.com",
   lastUpdated: "2026-05-13"
 };

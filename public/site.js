@@ -236,6 +236,7 @@
       });
     }
     if (toggle) {
+      applyTheme(root.getAttribute("data-theme") === DARK_THEME ? DARK_THEME : LIGHT_THEME);
       toggle.addEventListener("click", onThemeToggle);
     }
     document.addEventListener("keydown", onThemeKeydown);

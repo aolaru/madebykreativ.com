@@ -2,7 +2,7 @@
 import SiteNav from "./SiteNav.astro";
 
 interface Props {
-  current?: "home" | "news" | "about" | "contact";
+  current?: "home" | "projects" | "news" | "about" | "contact";
   logoSrc?: string;
   logoAlt?: string;
   logoWidth?: number;
@@ -14,10 +14,10 @@ interface Props {
 
 const {
   current,
-  logoSrc = "/kreativ-logo-128.svg",
-  logoAlt = "Kreativ logo",
-  logoWidth = 128,
-  logoHeight = 128,
+  logoSrc = "/favicon.svg",
+  logoAlt = "Kreativ brand mark",
+  logoWidth = 104,
+  logoHeight = 104,
   eyebrow,
   title,
   tagline
