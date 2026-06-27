@@ -16,6 +16,13 @@ const proofPoints = [
   "Trust and compliance checks"
 ];
 
+const purchaseDetails = [
+  { label: "Format", value: "PDF toolkit plus editable launch assets" },
+  { label: "Version", value: "1.1" },
+  { label: "Best for", value: "First product builders with one idea to execute" },
+  { label: "Access", value: "Request checkout or delivery details by email" }
+];
+
 const contents = [
   "7-Day Product Launch Sprint",
   "Prompt Stacks for ebooks, checklists, workbooks, templates, spreadsheets, content packs, and relaunches",
@@ -139,6 +146,26 @@ const productSchema = {
       </a>
     </div>
   </HeroHeader>
+
+  <section class="content-card purchase-panel" aria-labelledby="purchase-heading">
+    <div class="purchase-panel-copy">
+      <p class="eyebrow">Product details</p>
+      <h2 id="purchase-heading">What you get with the toolkit</h2>
+      <p>A compact execution system for turning one idea into launch assets: prompts, worksheets, swipe copy, examples, and checks for a first version.</p>
+    </div>
+    <dl class="purchase-detail-list">
+      {purchaseDetails.map((detail) => (
+        <div>
+          <dt>{detail.label}</dt>
+          <dd>{detail.value}</dd>
+        </div>
+      ))}
+    </dl>
+    <div class="purchase-panel-actions">
+      <a class="button-cta button-cta-primary" href={purchaseHref}>Get the Toolkit</a>
+      <a class="cta" href={freeGuideHref}>Download the free guide first</a>
+    </div>
+  </section>
 
   <section class="content-card landing-section" aria-labelledby="bridge-heading">
     <p class="eyebrow">From idea to launch</p>

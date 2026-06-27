@@ -9,9 +9,6 @@ import {
   organizationSchema,
   products,
   projectCategories,
-  projectDirectory,
-  projectPath,
-  statusDefinitions,
   websiteSchema
 } from "../data/site";
 
@@ -22,6 +19,25 @@ const latestNews = (await getCollection("news"))
     ...entry,
     path: `/news/${entry.id.replace(/\.md$/, "")}/`
   }));
+
+const resourcePath = [
+  {
+    eyebrow: "Free starting point",
+    title: "Your First Digital Product",
+    description: "Choose one simple product idea with prompts, examples, validation steps, and fillable worksheets.",
+    href: "/your-first-digital-product/",
+    cta: "Download the free guide",
+    isPrimary: true
+  },
+  {
+    eyebrow: "Paid execution system",
+    title: "The KREATIV AI Launch Toolkit",
+    description: "Turn the chosen idea into a buyer-ready offer with launch prompts, worksheets, swipe copy, and checks.",
+    href: "/ai-launch-toolkit/",
+    cta: "View the toolkit",
+    isPrimary: false
+  }
+];
 ---
 
 <BaseLayout
@@ -44,6 +60,10 @@ const latestNews = (await getCollection("news"))
       <p><strong>Ecosystem update.</strong> Kreativ Tools is live, bringing image, video, PDF, and file utilities into the Made by Kreativ lineup.</p>
       <a class="cta" href="/news/">Read News</a>
     </div>
+    <div slot="afterTagline" class="landing-actions hero-home-actions">
+      <a class="button-cta button-cta-primary" href="/your-first-digital-product/">Start with the free guide</a>
+      <a class="button-cta button-cta-secondary" href="/ai-launch-toolkit/">View the toolkit</a>
+    </div>
   </HeroHeader>
 
   <div class="hero-bridge">
@@ -52,74 +72,48 @@ const latestNews = (await getCollection("news"))
     <span class="hero-bridge-item">{projectCategories.length} project categories</span>
   </div>
 
-  <section class="content-card featured-resource" aria-labelledby="featured-resource-heading">
-    <div>
-      <p class="eyebrow">Featured resource</p>
-      <h2 id="featured-resource-heading">Your First Digital Product</h2>
-      <p>A free practical guide with 20 simple product ideas, AI prompts, worked examples, validation steps, and fillable worksheets.</p>
+  <section class="start-here" aria-labelledby="start-here-heading">
+    <div class="section-intro">
+      <p class="eyebrow">Start here</p>
+      <h2 id="start-here-heading">Choose a product idea, then build the first version.</h2>
+      <p>A practical free guide and a focused paid toolkit for creators who want to ship a small useful digital product without overbuilding.</p>
     </div>
-    <a class="button-cta button-cta-primary" href="/your-first-digital-product/">Download the free guide</a>
+    <div class="resource-path-grid">
+      {resourcePath.map((resource) => (
+        <article class:list={["resource-path-card", resource.isPrimary ? "resource-path-card-primary" : ""]}>
+          <p class="eyebrow">{resource.eyebrow}</p>
+          <h3>{resource.title}</h3>
+          <p>{resource.description}</p>
+          <a class={resource.isPrimary ? "button-cta button-cta-primary" : "button-cta button-cta-secondary"} href={resource.href}>{resource.cta}</a>
+        </article>
+      ))}
+    </div>
   </section>
 
-  <section class="content-card directory-intro">
+  <section class="section-intro directory-intro">
+    <p class="eyebrow">Core ecosystem</p>
     <h2>Ecosystem Directory</h2>
-    <p>Four focused core properties, plus a growing set of KREATIV projects across typography, sound, WordPress, utilities, music, automotive, discovery, and signal tracking.</p>
+    <p>Four focused core properties for typography, sound, WordPress, and practical browser utilities.</p>
   </section>
 
   <section class="pillars">
     {products.map((product) => <ProductCard {...product} />)}
   </section>
 
-  <section class="content-card project-map" aria-labelledby="project-map-heading">
+  <section class="ecosystem-preview" aria-labelledby="ecosystem-preview-heading">
     <div class="section-heading-row">
       <div>
-        <h2 id="project-map-heading">KREATIV Project Map</h2>
-        <p>A categorized view of the complete ecosystem, from core product properties to focused independent projects.</p>
+        <p class="eyebrow">Full project map</p>
+        <h2 id="ecosystem-preview-heading">Explore the wider KREATIV ecosystem</h2>
+        <p>The full directory covers core properties, roadmap projects, discovery work, and utility software in one filterable view.</p>
       </div>
-      <a class="cta" href="/about/">About the ecosystem</a>
+      <a class="button-cta button-cta-secondary" href="/projects/">Open Projects</a>
     </div>
-
-    <div class="status-filter" role="group" aria-label="Filter projects by status">
-      <button class="status-filter-button" type="button" data-project-filter="all" aria-pressed="true">All</button>
-      {statusDefinitions.map((status) => (
-        <button class="status-filter-button" type="button" data-project-filter={status.label} aria-pressed="false">{status.label}</button>
-      ))}
-    </div>
-
-    <div class="category-filter" role="group" aria-label="Filter projects by category">
-      <button class="status-filter-button" type="button" data-project-category-filter="all" aria-pressed="true">All Categories</button>
+    <div class="ecosystem-preview-grid">
       {projectCategories.map((category) => (
-        <button class="status-filter-button" type="button" data-project-category-filter={category.label} aria-pressed="false">{category.label}</button>
-      ))}
-    </div>
-
-    <dl class="status-legend">
-      {statusDefinitions.map((status) => (
-        <div>
-          <dt>{status.label}</dt>
-          <dd>{status.description}</dd>
-        </div>
-      ))}
-    </dl>
-
-    <div class="project-category-grid">
-      {projectCategories.map((category) => (
-        <article class="project-category">
-          <div class="category-heading">
-            <h3>{category.label}</h3>
-            <p>{category.description}</p>
-          </div>
-          <div class="category-project-list">
-            {projectDirectory
-              .filter((project) => project.category === category.label)
-              .map((project) => (
-                <a class="category-project" href={projectPath(project.slug)} data-project-status={project.status} data-project-category={project.category}>
-                  <span class="pillar-status">{project.status}</span>
-                  <strong>{project.label}</strong>
-                  <span>{project.description}</span>
-                </a>
-              ))}
-          </div>
+        <article class="ecosystem-preview-item">
+          <h3>{category.label}</h3>
+          <p>{category.description}</p>
         </article>
       ))}
     </div>

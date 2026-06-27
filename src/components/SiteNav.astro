@@ -2,7 +2,7 @@
 import Icon from "./Icon.astro";
 
 interface Props {
-  current?: "home" | "news" | "about" | "contact";
+  current?: "home" | "projects" | "news" | "about" | "contact";
 }
 
 const { current } = Astro.props;
@@ -10,6 +10,7 @@ const { current } = Astro.props;
 
 <nav class="site-nav" aria-label="Site navigation">
   <a href="/" aria-current={current === "home" ? "page" : undefined} aria-label="Home" title="Home"><Icon name="home" /></a>
+  <a href="/projects/" aria-current={current === "projects" ? "page" : undefined}>Projects</a>
   <a href="/news/" aria-current={current === "news" ? "page" : undefined}>News</a>
   <a href="/about/" aria-current={current === "about" ? "page" : undefined}>About</a>
   <a href="/contact/" aria-current={current === "contact" ? "page" : undefined}>Contact</a>

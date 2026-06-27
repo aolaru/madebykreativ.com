@@ -1,0 +1,85 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HeroHeader from "../../components/HeroHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import {
+  ecosystemItemListSchema,
+  organizationSchema,
+  projectCategories,
+  projectDirectory,
+  projectPath,
+  statusDefinitions
+} from "../../data/site";
+---
+
+<BaseLayout
+  title="Projects | Made by Kreativ"
+  description="Explore the Made by Kreativ ecosystem across creative discovery, assets, utility software, discovery projects, and roadmap work."
+  canonicalPath="/projects/"
+  structuredData={[organizationSchema, ecosystemItemListSchema]}
+>
+  <HeroHeader
+    current="projects"
+    eyebrow="Ecosystem directory"
+    title="KREATIV Projects"
+    tagline="A filterable view of the full Made by Kreativ ecosystem, from core product properties to focused independent projects."
+  />
+
+  <section class="content-card project-map project-directory-page" aria-labelledby="project-map-heading">
+    <div class="section-heading-row">
+      <div>
+        <p class="eyebrow">Project map</p>
+        <h2 id="project-map-heading">Browse by status and category</h2>
+        <p>Use the filters to narrow the ecosystem by availability, project type, or working area.</p>
+      </div>
+      <a class="cta" href="/">Back to home</a>
+    </div>
+
+    <div class="status-filter" role="group" aria-label="Filter projects by status">
+      <button class="status-filter-button" type="button" data-project-filter="all" aria-pressed="true">All</button>
+      {statusDefinitions.map((status) => (
+        <button class="status-filter-button" type="button" data-project-filter={status.label} aria-pressed="false">{status.label}</button>
+      ))}
+    </div>
+
+    <div class="category-filter" role="group" aria-label="Filter projects by category">
+      <button class="status-filter-button" type="button" data-project-category-filter="all" aria-pressed="true">All Categories</button>
+      {projectCategories.map((category) => (
+        <button class="status-filter-button" type="button" data-project-category-filter={category.label} aria-pressed="false">{category.label}</button>
+      ))}
+    </div>
+
+    <dl class="status-legend">
+      {statusDefinitions.map((status) => (
+        <div>
+          <dt>{status.label}</dt>
+          <dd>{status.description}</dd>
+        </div>
+      ))}
+    </dl>
+
+    <div class="project-category-grid">
+      {projectCategories.map((category) => (
+        <article class="project-category">
+          <div class="category-heading">
+            <h3>{category.label}</h3>
+            <p>{category.description}</p>
+          </div>
+          <div class="category-project-list">
+            {projectDirectory
+              .filter((project) => project.category === category.label)
+              .map((project) => (
+                <a class="category-project" href={projectPath(project.slug)} data-project-status={project.status} data-project-category={project.category}>
+                  <span class="pillar-status">{project.status}</span>
+                  <strong>{project.label}</strong>
+                  <span>{project.description}</span>
+                </a>
+              ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>
