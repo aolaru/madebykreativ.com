@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
+import ProjectDirectoryCard from "../../components/ProjectDirectoryCard.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import {
   ecosystemItemListSchema,
@@ -49,7 +50,21 @@ import {
       ))}
     </div>
 
-    <dl class="status-legend">
+    <div class="project-directory-grid">
+      {projectDirectory.map((project) => (
+        <ProjectDirectoryCard
+          href={projectPath(project.slug)}
+          slug={project.slug}
+          label={project.label}
+          category={project.category}
+          status={project.status}
+          description={project.description}
+          logo={project.logo}
+        />
+      ))}
+    </div>
+
+    <dl class="status-legend project-status-reference">
       {statusDefinitions.map((status) => (
         <div>
           <dt>{status.label}</dt>
@@ -57,28 +72,6 @@ import {
         </div>
       ))}
     </dl>
-
-    <div class="project-category-grid">
-      {projectCategories.map((category) => (
-        <article class="project-category">
-          <div class="category-heading">
-            <h3>{category.label}</h3>
-            <p>{category.description}</p>
-          </div>
-          <div class="category-project-list">
-            {projectDirectory
-              .filter((project) => project.category === category.label)
-              .map((project) => (
-                <a class="category-project" href={projectPath(project.slug)} data-project-status={project.status} data-project-category={project.category}>
-                  <span class="pillar-status">{project.status}</span>
-                  <strong>{project.label}</strong>
-                  <span>{project.description}</span>
-                </a>
-              ))}
-          </div>
-        </article>
-      ))}
-    </div>
   </section>
 
   <SiteFooter />

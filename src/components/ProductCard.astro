@@ -1,18 +1,27 @@
 ---
+import ProjectLogo from "./ProjectLogo.astro";
+
 interface Props {
+  slug: string;
   href: string;
   product: string;
   status: string;
   title: string;
   description: string;
   cta: string;
+  logo: {
+    mark: string;
+  };
 }
 
-const { href, product, status, title, description, cta } = Astro.props;
+const { slug, href, product, status, title, description, cta, logo } = Astro.props;
 ---
 
 <a class="pillar" data-product={product} href={href} target="_blank" rel="noopener">
-  <span class="pillar-status">{status}</span>
+  <span class="pillar-header">
+    <ProjectLogo slug={slug} mark={logo.mark} />
+    <span class="pillar-status">{status}</span>
+  </span>
   <h2>{title}</h2>
   <p>{description}</p>
   <span class="cta">{cta}</span>

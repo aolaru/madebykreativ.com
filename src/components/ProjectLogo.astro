@@ -1,0 +1,13 @@
+---
+interface Props {
+  slug: string;
+  mark: string;
+  size?: "small" | "medium";
+}
+
+const { slug, mark, size = "medium" } = Astro.props;
+---
+
+<span class:list={["project-logo", `project-logo-${slug}`, size === "small" && "project-logo-small"]} aria-hidden="true">
+  <span>{mark}</span>
+</span>

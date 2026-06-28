@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
+import ProjectDirectoryCard from "../../components/ProjectDirectoryCard.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import { createProjectSchema, organizationSchema, projectDirectory, projectPath, statusDefinitions } from "../../data/site";
 
@@ -92,13 +93,18 @@ const relatedNews = project.relatedNews
   {relatedProjects.length > 0 && (
     <section class="content-card related-projects" aria-labelledby="related-projects-heading">
       <h2 id="related-projects-heading">Related Projects</h2>
-      <div class="category-project-list">
+      <div class="project-directory-grid project-directory-grid-compact">
         {relatedProjects.map((item) => (
-          <a class="category-project" href={projectPath(item.slug)}>
-            <span class="pillar-status">{item.status}</span>
-            <strong>{item.label}</strong>
-            <span>{item.description}</span>
-          </a>
+          <ProjectDirectoryCard
+            href={projectPath(item.slug)}
+            slug={item.slug}
+            label={item.label}
+            category={item.category}
+            status={item.status}
+            description={item.description}
+            logo={item.logo}
+            compact
+          />
         ))}
       </div>
     </section>

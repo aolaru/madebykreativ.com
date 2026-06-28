@@ -10,10 +10,12 @@ const { date, title, description, href } = Astro.props;
 ---
 
 <article class="content-card news-entry">
-  <p class="news-date">{date}</p>
-  <h2>{href ? <a href={href}>{title}</a> : title}</h2>
-  <div class="news-body">
-    {description ? <p>{description}</p> : <slot />}
+  <div class="news-entry-main">
+    <p class="news-date">{date}</p>
+    <h2>{href ? <a href={href}>{title}</a> : title}</h2>
+    <div class="news-body">
+      {description ? <p>{description}</p> : <slot />}
+    </div>
   </div>
   {href && <p class="news-link"><a class="cta" href={href}>Read update</a></p>}
 </article>

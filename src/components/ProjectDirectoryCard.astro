@@ -1,0 +1,35 @@
+---
+import ProjectLogo from "./ProjectLogo.astro";
+
+interface Props {
+  href: string;
+  slug: string;
+  label: string;
+  category: string;
+  status: string;
+  description: string;
+  logo: {
+    mark: string;
+  };
+  compact?: boolean;
+}
+
+const { href, slug, label, category, status, description, logo, compact = false } = Astro.props;
+---
+
+<a
+  class:list={["project-directory-card", compact && "project-directory-card-compact"]}
+  href={href}
+  data-project-status={status}
+  data-project-category={category}
+>
+  <span class="project-directory-card-header">
+    <ProjectLogo slug={slug} mark={logo.mark} />
+    <span class="project-directory-card-copy">
+      <span class="pillar-status">{status}</span>
+      <strong>{label}</strong>
+    </span>
+  </span>
+  <span class="project-card-description">{description}</span>
+  <span class="project-card-meta">{category}</span>
+</a>

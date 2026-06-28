@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
+import ProjectLogo from "../components/ProjectLogo.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { contactIntents, ecosystemLinks, organizationSchema, site } from "../data/site";
+import { contactIntents, organizationSchema, projectDirectory, site } from "../data/site";
 ---
 
 <BaseLayout
@@ -18,7 +19,7 @@ import { contactIntents, ecosystemLinks, organizationSchema, site } from "../dat
     tagline="For partnerships, product questions, and support requests."
   />
 
-  <section class="content-card">
+  <section class="content-card contact-email-card">
     <h2>Email</h2>
     <p>Primary contact: <a class="cta" href={`mailto:${site.email}`}>{site.email}</a></p>
     <p>Use this address for support, partnerships, licensing questions, and product feedback across the Kreativ ecosystem.</p>
@@ -37,14 +38,31 @@ import { contactIntents, ecosystemLinks, organizationSchema, site } from "../dat
     </div>
   </section>
 
-  <section class="content-card">
-    <h2>Where to Find Us</h2>
-    <ul>
-      <li><a class="cta" href={site.url} target="_blank" rel="noopener">madebykreativ.com</a></li>
-      {ecosystemLinks.map((link) => (
-        <li><a class="cta" href={link.href} target="_blank" rel="noopener">{new URL(link.href).hostname}</a></li>
+  <section class="content-card contact-directory" aria-labelledby="contact-directory-heading">
+    <div class="section-heading-row">
+      <div>
+        <h2 id="contact-directory-heading">Where to Find Us</h2>
+        <p>Direct links to the main brand and public ecosystem properties.</p>
+      </div>
+    </div>
+    <div class="contact-directory-grid">
+      <a class="contact-directory-card" href={site.url} target="_blank" rel="noopener">
+        <img class="contact-directory-brand" src="/favicon.svg" width="34" height="34" alt="" />
+        <span>
+          <strong>Made by Kreativ</strong>
+          <span>{new URL(site.url).hostname}</span>
+        </span>
+      </a>
+      {projectDirectory.map((project) => (
+        <a class="contact-directory-card" href={project.href} target="_blank" rel="noopener">
+          <ProjectLogo slug={project.slug} mark={project.logo.mark} size="small" />
+          <span>
+            <strong>{project.label}</strong>
+            <span>{new URL(project.href).hostname}</span>
+          </span>
+        </a>
       ))}
-    </ul>
+    </div>
   </section>
 
   <SiteFooter />

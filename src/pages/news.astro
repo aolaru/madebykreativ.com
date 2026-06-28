@@ -36,11 +36,13 @@ const latestNewsLabel = latestNewsDate
     <p slot="afterTagline" class="meta-note">Last updated: {latestNewsLabel}</p>
   </HeroHeader>
 
-  {newsEntries.map(({ data, path }) => (
-    <NewsEntry date={data.dateLabel} title={data.title} description={data.description} href={path} />
-  ))}
+  <section class="news-index-list" aria-label="News updates">
+    {newsEntries.map(({ data, path }) => (
+      <NewsEntry date={data.dateLabel} title={data.title} description={data.description} href={path} />
+    ))}
+  </section>
 
-  <section class="content-card">
+  <section class="content-card news-follow-card">
     <h2>Follow Product Updates</h2>
     <p>Want release notes and ecosystem updates? Reach out directly and keep track of future product changes.</p>
     <p><a class="cta" href="mailto:info@madebykreativ.com?subject=Made%20by%20Kreativ%20Updates">Get Updates</a></p>

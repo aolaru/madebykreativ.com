@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
+import ProjectLogo from "../components/ProjectLogo.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { organizationSchema, projectCategories, projectDirectory, projectPath, statusDefinitions } from "../data/site";
 ---
@@ -18,21 +19,32 @@ import { organizationSchema, projectCategories, projectDirectory, projectPath, s
     tagline="Independent digital products made for practical use, long-term reliability, and creative momentum."
   />
 
-  <section class="content-card">
-    <h2>What We Build</h2>
-    <p>Made by Kreativ is the umbrella brand for focused digital properties: practical tools, creative resources, independent software, and adjacent projects built around useful workflows.</p>
+  <section class="content-card about-overview-card">
+    <div class="section-heading-row">
+      <div>
+        <h2>What We Build</h2>
+        <p>Made by Kreativ is the umbrella brand for focused digital properties: practical tools, creative resources, independent software, and adjacent projects built around useful workflows.</p>
+      </div>
+      <a class="cta" href="/projects/">Open Projects</a>
+    </div>
     <div class="about-category-list">
       {projectCategories.map((category) => (
         <section class="about-category" aria-labelledby={`about-${category.label.toLowerCase().replaceAll(" ", "-")}`}>
           <h3 id={`about-${category.label.toLowerCase().replaceAll(" ", "-")}`}>{category.label}</h3>
           <p>{category.description}</p>
-          <ul>
+          <div class="about-project-list">
             {projectDirectory
               .filter((project) => project.category === category.label)
               .map((project) => (
-                <li><a href={projectPath(project.slug)}><strong>{project.label}:</strong> {project.description}</a></li>
+                <a class="about-project-link" href={projectPath(project.slug)}>
+                  <ProjectLogo slug={project.slug} mark={project.logo.mark} size="small" />
+                  <span>
+                    <strong>{project.label}</strong>
+                    <span>{project.description}</span>
+                  </span>
+                </a>
               ))}
-          </ul>
+          </div>
         </section>
       ))}
     </div>
