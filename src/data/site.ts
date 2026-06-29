@@ -3,7 +3,7 @@ export const site = {
   url: "https://madebykreativ.com/",
   logo: "https://madebykreativ.com/favicon.svg",
   email: "info@madebykreativ.com",
-  lastUpdated: "2026-05-13"
+  lastUpdated: "2026-06-28"
 };
 
 export const analytics = {
