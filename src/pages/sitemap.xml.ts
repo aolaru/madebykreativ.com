@@ -3,6 +3,7 @@ import { buildUrl, projectDirectory, projectPath, site } from "../data/site";
 
 const staticRoutes = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
+  { path: "/books/", changefreq: "monthly", priority: "0.9" },
   { path: "/projects/", changefreq: "weekly", priority: "0.9" },
   { path: "/your-first-digital-product/", changefreq: "monthly", priority: "0.9" },
   { path: "/ai-launch-toolkit/", changefreq: "monthly", priority: "0.9" },

@@ -1,0 +1,172 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import HeroHeader from "../components/HeroHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { buildUrl, createBreadcrumbSchema, createPageSchema, organizationSchema } from "../data/site";
+
+const pageDescription = "A focused shelf of Made by Kreativ books, guides, and launch workbooks for choosing, building, packaging, and publishing practical digital products.";
+
+const books = [
+  {
+    title: "Your First Digital Product",
+    eyebrow: "Free guide",
+    price: "Free",
+    format: "PDF guide",
+    pageHref: "/your-first-digital-product/",
+    gumroadHref: "https://kreativ.gumroad.com/l/your-first-digital-product-20-simple-ideas",
+    cta: "Get free on Gumroad",
+    cover: "/downloads/your-first-digital-product-preview.png",
+    coverAlt: "Cover preview of Your First Digital Product",
+    description: "20 simple digital product ideas with AI prompts, worked examples, validation steps, and fillable worksheets.",
+    bullets: [
+      "Choose a small product idea",
+      "Use prompts and worksheets",
+      "Package a useful first version"
+    ]
+  },
+  {
+    title: "The KREATIV AI Launch Toolkit",
+    eyebrow: "Paid toolkit",
+    price: "19 EUR",
+    format: "PDF toolkit plus launch assets",
+    pageHref: "/ai-launch-toolkit/",
+    gumroadHref: "https://kreativ.gumroad.com/l/the-kreativ-ai-launch-toolkit?layout=profile",
+    cta: "Buy on Gumroad",
+    cover: "/downloads/ai-launch-toolkit-preview.png",
+    coverAlt: "Cover preview of The KREATIV AI Launch Toolkit",
+    description: "100 prompts, prompt stacks, worksheets, swipe copy, examples, and checks for turning an idea into a buyer-ready offer.",
+    bullets: [
+      "Build the product content",
+      "Package the offer clearly",
+      "Prepare launch copy and checks"
+    ]
+  }
+];
+
+const booksItemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Made by Kreativ books",
+  itemListElement: books.map((book, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: book.title,
+    description: book.description,
+    url: buildUrl(book.pageHref)
+  }))
+};
+---
+
+<BaseLayout
+  title="Books | Made by Kreativ"
+  description={pageDescription}
+  canonicalPath="/books/"
+  ogImage={buildUrl("/og-books.svg")}
+  ogImageAlt="KREATIV Books card for practical PDF guides and digital product workbooks."
+  structuredData={[
+    organizationSchema,
+    createPageSchema({
+      name: "Books | Made by Kreativ",
+      description: pageDescription,
+      path: "/books/"
+    }),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Books", path: "/books/" }
+    ]),
+    booksItemListSchema
+  ]}
+>
+  <HeroHeader
+    current="books"
+    eyebrow="Books and guides"
+    title="KREATIV Books"
+    tagline="Practical PDF guides and prompt workbooks for choosing, building, packaging, and publishing useful digital products."
+  >
+    <div slot="afterTagline" class="landing-actions">
+      <a class="button-cta button-cta-primary" href={books[0].gumroadHref} target="_blank" rel="noopener">Get the free guide</a>
+      <a class="button-cta button-cta-secondary" href={books[1].pageHref}>View the launch toolkit</a>
+    </div>
+  </HeroHeader>
+
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Books" }]} />
+
+  <section class="content-card landing-fit-line" aria-label="Books overview">
+    <p>The books are designed as a simple product path: start with a practical idea, then use the toolkit to turn that idea into a clearer offer and launch-ready assets.</p>
+  </section>
+
+  <section class="book-grid" aria-label="Made by Kreativ books">
+    {books.map((book) => (
+      <article class="book-card">
+        <a class="book-cover" href={book.pageHref} aria-label={`View ${book.title}`}>
+          <img src={book.cover} alt={book.coverAlt} loading="lazy" width="1191" height="1684" />
+        </a>
+        <div class="book-card-body">
+          <p class="eyebrow">{book.eyebrow}</p>
+          <h2>{book.title}</h2>
+          <p>{book.description}</p>
+          <dl class="book-meta-list">
+            <div>
+              <dt>Price</dt>
+              <dd>{book.price}</dd>
+            </div>
+            <div>
+              <dt>Format</dt>
+              <dd>{book.format}</dd>
+            </div>
+          </dl>
+          <ul class="clean-list book-bullet-list">
+            {book.bullets.map((bullet) => <li>{bullet}</li>)}
+          </ul>
+          <div class="book-card-actions">
+            <a class="button-cta button-cta-secondary" href={book.pageHref}>View details</a>
+            <a class="button-cta button-cta-primary" href={book.gumroadHref} target="_blank" rel="noopener">{book.cta}</a>
+          </div>
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <section class="content-card landing-section" aria-labelledby="book-flow-heading">
+    <p class="eyebrow">How to use them</p>
+    <h2 id="book-flow-heading">A small product workflow</h2>
+    <ol class="step-list">
+      <li>
+        <span class="step-number" aria-hidden="true">1</span>
+        <div>
+          <h3>Choose one idea</h3>
+          <p>Use the free guide to pick a practical digital product direction that fits your skills and available time.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-number" aria-hidden="true">2</span>
+        <div>
+          <h3>Shape the offer</h3>
+          <p>Use the toolkit prompts to define the product, buyer, outcome, scope, format, and first version.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-number" aria-hidden="true">3</span>
+        <div>
+          <h3>Publish and improve</h3>
+          <p>Prepare launch copy, check the promise, publish the page, and collect feedback for the next version.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="content-card final-cta" aria-labelledby="books-final-heading">
+    <div>
+      <p class="eyebrow">Start simple</p>
+      <h2 id="books-final-heading">Begin with the free guide.</h2>
+      <p>Choose a clear product idea first, then move into the launch toolkit when you are ready to package and publish.</p>
+    </div>
+    <div class="landing-actions">
+      <a class="button-cta button-cta-primary" href={books[0].gumroadHref} target="_blank" rel="noopener">Get the free guide</a>
+      <a class="button-cta button-cta-secondary" href={books[1].pageHref}>View toolkit</a>
+    </div>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>
