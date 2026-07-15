@@ -2,11 +2,12 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { buildUrl, organizationSchema } from "../data/site";
+import { buildUrl, createBreadcrumbSchema, organizationSchema } from "../data/site";
 
 const freeGuideHref = "/your-first-digital-product/";
 const purchaseHref = "https://kreativ.gumroad.com/l/the-kreativ-money-making-ai-prompts-toolkit";
 const previewSrc = "/downloads/ai-launch-toolkit-preview.png";
+const pageDescription = "A $19 AI prompt toolkit with 100 prompts, launch workflows, worksheets, swipe copy, and checks to help creators build and sell a first digital product.";
 
 const proofPoints = [
   "100 launch prompts",
@@ -102,7 +103,7 @@ const productSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
   name: "The KREATIV AI Launch Toolkit",
-  description: "A premium AI prompt toolkit with 100 prompts, launch workflows, templates, worksheets, and swipe copy to help creators build, package, publish, and sell a first digital product.",
+  description: pageDescription,
   brand: {
     "@type": "Brand",
     name: "Made by Kreativ"
@@ -121,9 +122,16 @@ const productSchema = {
 
 <BaseLayout
   title="The KREATIV AI Launch Toolkit | 100 Prompts to Build and Sell"
-  description="A premium AI prompt toolkit with 100 prompts, launch workflows, templates, worksheets, and swipe copy to help creators build, package, publish, and sell a first digital product."
+  description={pageDescription}
   canonicalPath="/ai-launch-toolkit/"
-  structuredData={[organizationSchema, productSchema]}
+  structuredData={[
+    organizationSchema,
+    productSchema,
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "AI Launch Toolkit", path: "/ai-launch-toolkit/" }
+    ])
+  ]}
 >
   <HeroHeader
     eyebrow="Premium AI Launch System"

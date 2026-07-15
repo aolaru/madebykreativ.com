@@ -64,6 +64,12 @@ import {
       ))}
     </div>
 
+    <div class="project-empty-state" data-project-empty-state hidden>
+      <h3>No projects match those filters.</h3>
+      <p>Clear the filters or choose a broader status and category combination.</p>
+      <button class="button-cta button-cta-secondary" type="button" data-project-filter-reset>Clear filters</button>
+    </div>
+
     <dl class="status-legend project-status-reference">
       {statusDefinitions.map((status) => (
         <div>

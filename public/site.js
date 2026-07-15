@@ -124,6 +124,8 @@
   function wireProjectFilters() {
     const buttons = document.querySelectorAll("[data-project-filter], [data-project-category-filter]");
     const projects = document.querySelectorAll("[data-project-status]");
+    const emptyState = document.querySelector("[data-project-empty-state]");
+    const resetButton = document.querySelector("[data-project-filter-reset]");
     if (!buttons.length || !projects.length) {
       return;
     }
@@ -133,16 +135,33 @@
       category: "all"
     };
 
+    function updatePressedButtons() {
+      document.querySelectorAll("[data-project-filter]").forEach((item) => {
+        item.setAttribute("aria-pressed", item.getAttribute("data-project-filter") === state.status ? "true" : "false");
+      });
+      document.querySelectorAll("[data-project-category-filter]").forEach((item) => {
+        item.setAttribute("aria-pressed", item.getAttribute("data-project-category-filter") === state.category ? "true" : "false");
+      });
+    }
+
     function applyFilters() {
+      let visibleProjects = 0;
       projects.forEach((project) => {
         const statusMatches = state.status === "all" || project.getAttribute("data-project-status") === state.status;
         const categoryMatches = state.category === "all" || project.getAttribute("data-project-category") === state.category;
-        project.hidden = !(statusMatches && categoryMatches);
+        const isVisible = statusMatches && categoryMatches;
+        project.hidden = !isVisible;
+        if (isVisible) {
+          visibleProjects += 1;
+        }
       });
       document.querySelectorAll(".project-category").forEach((category) => {
         const hasVisibleProject = Boolean(category.querySelector("[data-project-status]:not([hidden])"));
         category.hidden = !hasVisibleProject;
       });
+      if (emptyState) {
+        emptyState.hidden = visibleProjects > 0;
+      }
     }
 
     buttons.forEach((button) => {
@@ -152,12 +171,52 @@
         const filterType = statusFilter === null ? "category" : "status";
         const filter = statusFilter || categoryFilter || "all";
         state[filterType] = filter;
-        document.querySelectorAll(filterType === "status" ? "[data-project-filter]" : "[data-project-category-filter]").forEach((item) => {
-          item.setAttribute("aria-pressed", item === button ? "true" : "false");
-        });
+        updatePressedButtons();
         applyFilters();
         trackEvent("Project Filter", { type: filterType, filter });
       });
+    });
+
+    if (resetButton) {
+      resetButton.addEventListener("click", () => {
+        state.status = "all";
+        state.category = "all";
+        updatePressedButtons();
+        applyFilters();
+        trackEvent("Project Filter Reset", { source: "empty-state" });
+      });
+    }
+  }
+
+  function wireContactForm() {
+    const form = document.querySelector("[data-contact-form]");
+    if (!form) {
+      return;
+    }
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const email = form.getAttribute("data-contact-email");
+      if (!email) {
+        return;
+      }
+      const data = new FormData(form);
+      const topic = String(data.get("topic") || "Made by Kreativ inquiry");
+      const name = String(data.get("name") || "").trim();
+      const sender = String(data.get("email") || "").trim();
+      const message = String(data.get("message") || "").trim();
+      const body = [
+        name ? `Name: ${name}` : "",
+        sender ? `Email: ${sender}` : "",
+        "",
+        message
+      ].join("\n").trim();
+      const mailto = new URL(`mailto:${email}`);
+      mailto.searchParams.set("subject", topic);
+      if (body) {
+        mailto.searchParams.set("body", body);
+      }
+      trackEvent("Contact Form Draft", { topic });
+      window.location.href = mailto.toString();
     });
   }
 
@@ -242,6 +301,7 @@
     document.addEventListener("keydown", onThemeKeydown);
     wireProductTracking();
     wireProjectFilters();
+    wireContactForm();
     wireLinkTracking(".site-nav a", "Navigation Click", "site-nav");
     wireLinkTracking(".ecosystem-links a", "Footer Link Click", "footer");
     loadAnalytics();

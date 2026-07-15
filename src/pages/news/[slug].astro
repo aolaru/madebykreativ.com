@@ -3,7 +3,7 @@ import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
-import { createNewsArticleSchema, organizationSchema } from "../../data/site";
+import { createBreadcrumbSchema, createNewsArticleSchema, organizationSchema } from "../../data/site";
 
 const newsPath = (id: string) => `/news/${id.replace(/\.md$/, "")}/`;
 
@@ -43,7 +43,15 @@ const articleSchema = createNewsArticleSchema({
   ogDescription={entry.data.description}
   publishedTime={publishedTime}
   modifiedTime={publishedTime}
-  structuredData={[organizationSchema, articleSchema]}
+  structuredData={[
+    organizationSchema,
+    articleSchema,
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "News", path: "/news/" },
+      { name: entry.data.title, path: canonicalPath }
+    ])
+  ]}
 >
   <HeroHeader
     current="news"

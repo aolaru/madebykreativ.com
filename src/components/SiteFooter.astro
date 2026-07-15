@@ -5,7 +5,7 @@ import { ecosystemLinks } from "../data/site";
 <footer class="footer">
   <nav class="ecosystem-links" aria-label="Kreativ ecosystem links">
     {ecosystemLinks.map((link) => (
-      <a href={link.href} target="_blank" rel="noopener">{link.label}</a>
+      <a href={link.href} target={link.isExternal ? "_blank" : undefined} rel={link.isExternal ? "noopener" : undefined}>{link.label}</a>
     ))}
   </nav>
   <p>© <span id="year"></span> Made by KREATIV · Independent creative tools and assets by Andrei Olaru</p>

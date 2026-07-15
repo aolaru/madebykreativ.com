@@ -10,6 +10,19 @@ import SiteFooter from "../components/SiteFooter.astro";
   canonicalPath="/404.html"
   robots="noindex,follow"
 >
+  <script is:inline>
+    const legacyRedirects = {
+      "/news.html": "/news/",
+      "/posts.html": "/news/",
+      "/about.html": "/about/",
+      "/contact.html": "/contact/"
+    };
+    const redirectTarget = legacyRedirects[window.location.pathname];
+    if (redirectTarget) {
+      window.location.replace(`${redirectTarget}${window.location.search}${window.location.hash}`);
+    }
+  </script>
+
   <HeroHeader
     eyebrow="Page not found"
     title="404"

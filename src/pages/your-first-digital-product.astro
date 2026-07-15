@@ -2,9 +2,11 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import { createBreadcrumbSchema, createDigitalDocumentSchema, organizationSchema } from "../data/site";
 
 const pdfHref = "/downloads/your-first-digital-product-20-simple-ideas-v1.pdf";
 const toolkitHref = "/ai-launch-toolkit/";
+const pageDescription = "Download a free practical guide with 20 simple digital product ideas, AI prompts, worked examples, validation steps, and fillable worksheets.";
 
 const insideItems = [
   "20 beginner-friendly digital product ideas",
@@ -59,8 +61,21 @@ const faqs = [
 
 <BaseLayout
   title="Your First Digital Product - Free Guide by Made by Kreativ"
-  description="Download a free practical guide with 20 simple digital product ideas, AI prompts, worked examples, validation steps, and fillable worksheets."
+  description={pageDescription}
   canonicalPath="/your-first-digital-product/"
+  structuredData={[
+    organizationSchema,
+    createDigitalDocumentSchema({
+      name: "Your First Digital Product",
+      description: pageDescription,
+      path: "/your-first-digital-product/",
+      filePath: pdfHref
+    }),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Your First Digital Product", path: "/your-first-digital-product/" }
+    ])
+  ]}
 >
   <HeroHeader
     eyebrow="Free practical guide"

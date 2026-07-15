@@ -1,5 +1,6 @@
 ---
 import ProjectLogo from "./ProjectLogo.astro";
+import { projectPath } from "../data/site";
 
 interface Props {
   slug: string;
@@ -15,14 +16,18 @@ interface Props {
 }
 
 const { slug, href, product, status, title, description, cta, logo } = Astro.props;
+const detailHref = projectPath(slug);
 ---
 
-<a class="pillar" data-product={product} href={href} target="_blank" rel="noopener">
+<article class="pillar" data-product={product}>
   <span class="pillar-header">
     <ProjectLogo slug={slug} mark={logo.mark} />
     <span class="pillar-status">{status}</span>
   </span>
   <h2>{title}</h2>
   <p>{description}</p>
-  <span class="cta">{cta}</span>
-</a>
+  <span class="pillar-actions">
+    <a class="cta" href={detailHref}>Project details</a>
+    <a class="cta" href={href} target="_blank" rel="noopener">{cta}</a>
+  </span>
+</article>

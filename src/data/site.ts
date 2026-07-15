@@ -3,8 +3,10 @@ export const site = {
   url: "https://madebykreativ.com/",
   logo: "https://madebykreativ.com/favicon.svg",
   email: "info@madebykreativ.com",
-  lastUpdated: "2026-06-28"
+  lastUpdated: "2026-07-14"
 };
+
+export const isExternalHref = (href: string) => /^https?:\/\//.test(href);
 
 export const analytics = {
   productionHost: "madebykreativ.com",
@@ -192,9 +194,9 @@ const adjacentProjects = [
     longDescription: "Signal Ledger is a practical tracking project for collecting signals, decisions, references, and directional notes in one place.",
     whatItSolves: "It creates a structured place to capture decisions, signals, references, and directional notes that would otherwise be scattered.",
     audience: "Operators, researchers, founders, and makers who track signals and decisions over time.",
-    currentStatus: "Project-stage utility concept listed as part of the KREATIV software ecosystem.",
-    href: "https://getsignalledger.com",
-    cta: "Open Signal Ledger",
+    currentStatus: "Project-stage utility concept listed in the public directory while its standalone property is not live.",
+    href: "/projects/signal-ledger/",
+    cta: "View Signal Ledger Overview",
     focus: ["Signal tracking", "Decision notes", "Reference ledgers"],
     relatedNews: ["signal-ledger-added"],
     isCore: false
@@ -207,7 +209,8 @@ export const projectDirectory = [...coreProjects, ...adjacentProjects];
 
 export const ecosystemLinks = projectDirectory.map((project) => ({
   label: project.label,
-  href: project.href
+  href: project.href,
+  isExternal: isExternalHref(project.href)
 }));
 
 export const contactIntents = [
@@ -235,6 +238,7 @@ export const contactIntents = [
 
 export const buildUrl = (path: string) => new URL(path, site.url).toString();
 export const projectPath = (slug: string) => `/projects/${slug}/`;
+export const resolveHref = (href: string) => isExternalHref(href) ? href : buildUrl(href);
 
 export const organizationSchema = {
   "@context": "https://schema.org",
@@ -242,7 +246,7 @@ export const organizationSchema = {
   name: site.name,
   url: site.url,
   logo: site.logo,
-  sameAs: ecosystemLinks.map((link) => link.href)
+  sameAs: ecosystemLinks.filter((link) => link.isExternal).map((link) => link.href)
 };
 
 export const websiteSchema = {
@@ -280,9 +284,63 @@ export const createProjectSchema = (project: (typeof projectDirectory)[number]) 
     "@type": "Thing",
     name: project.label,
     description: project.longDescription,
-    url: project.href
+    url: resolveHref(project.href)
   }
 });
+
+export const createBreadcrumbSchema = (items: Array<{ name: string; path: string }>) => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.name,
+    item: buildUrl(item.path)
+  }))
+});
+
+export const createDigitalDocumentSchema = ({
+  name,
+  description,
+  path,
+  filePath
+}: {
+  name: string;
+  description: string;
+  path: string;
+  filePath: string;
+}) => ({
+  "@context": "https://schema.org",
+  "@type": "DigitalDocument",
+  name,
+  description,
+  url: buildUrl(path),
+  encoding: {
+    "@type": "MediaObject",
+    contentUrl: buildUrl(filePath),
+    encodingFormat: "application/pdf"
+  },
+  publisher: {
+    "@type": "Organization",
+    name: site.name,
+    url: site.url,
+    logo: site.logo
+  }
+});
+
+export const contactPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  name: `Contact | ${site.name}`,
+  description: "Contact Made by Kreativ for product support, partnerships, licensing, and feedback.",
+  url: buildUrl("/contact/"),
+  mainEntity: {
+    "@type": "Organization",
+    name: site.name,
+    url: site.url,
+    email: site.email
+  }
+};
 
 interface NewsSchemaInput {
   title: string;

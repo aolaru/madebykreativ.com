@@ -3,14 +3,19 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import ProjectLogo from "../components/ProjectLogo.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { contactIntents, organizationSchema, projectDirectory, site } from "../data/site";
+import { contactIntents, contactPageSchema, isExternalHref, organizationSchema, projectDirectory, resolveHref, site } from "../data/site";
+
+const contactDisplayUrl = (href: string) => {
+  const url = new URL(resolveHref(href));
+  return isExternalHref(href) ? url.hostname : url.pathname;
+};
 ---
 
 <BaseLayout
   title="Contact | Made by Kreativ"
-  description="Contact Made by Kreativ for partnership, product questions, and support."
+  description="Contact Made by Kreativ for product support, partnerships, licensing questions, asset requests, and practical product feedback."
   canonicalPath="/contact/"
-  structuredData={[organizationSchema]}
+  structuredData={[organizationSchema, contactPageSchema]}
 >
   <HeroHeader
     current="contact"
@@ -22,7 +27,41 @@ import { contactIntents, organizationSchema, projectDirectory, site } from "../d
   <section class="content-card contact-email-card">
     <h2>Email</h2>
     <p>Primary contact: <a class="cta" href={`mailto:${site.email}`}>{site.email}</a></p>
-    <p>Use this address for support, partnerships, licensing questions, and product feedback across the Kreativ ecosystem.</p>
+    <p>Use this address for support, partnerships, licensing questions, and product feedback across the Kreativ ecosystem. Most messages are reviewed within 2-3 business days.</p>
+  </section>
+
+  <section class="content-card contact-form-card" aria-labelledby="contact-form-heading">
+    <div class="section-heading-row">
+      <div>
+        <h2 id="contact-form-heading">Start a Message</h2>
+        <p>Use the form to compose a clear email with the right subject line.</p>
+      </div>
+    </div>
+    <form class="contact-form" data-contact-form data-contact-email={site.email}>
+      <label>
+        <span>Name</span>
+        <input type="text" name="name" autocomplete="name" placeholder="Your name" />
+      </label>
+      <label>
+        <span>Email</span>
+        <input type="email" name="email" autocomplete="email" placeholder="you@example.com" />
+      </label>
+      <label>
+        <span>Topic</span>
+        <select name="topic">
+          {contactIntents.map((intent) => <option value={intent.subject}>{intent.title}</option>)}
+        </select>
+      </label>
+      <label>
+        <span>Message</span>
+        <textarea name="message" rows="6" placeholder="What can we help with?"></textarea>
+      </label>
+      <div class="contact-form-actions">
+        <button class="button-cta button-cta-primary" type="submit">Open Email Draft</button>
+        <a class="cta" href={`mailto:${site.email}`}>Email directly</a>
+      </div>
+      <p class="form-note">The form opens your email app; no message is sent until you review and send it there.</p>
+    </form>
   </section>
 
   <section class="content-card contact-intents" aria-labelledby="contact-intents-heading">
@@ -47,18 +86,18 @@ import { contactIntents, organizationSchema, projectDirectory, site } from "../d
     </div>
     <div class="contact-directory-grid">
       <a class="contact-directory-card" href={site.url} target="_blank" rel="noopener">
-        <img class="contact-directory-brand" src="/favicon.svg" width="34" height="34" alt="" />
+        <img class="contact-directory-brand" src="/favicon.svg" width="34" height="34" alt="Made by Kreativ brand mark" />
         <span>
           <strong>Made by Kreativ</strong>
           <span>{new URL(site.url).hostname}</span>
         </span>
       </a>
       {projectDirectory.map((project) => (
-        <a class="contact-directory-card" href={project.href} target="_blank" rel="noopener">
+        <a class="contact-directory-card" href={project.href} target={isExternalHref(project.href) ? "_blank" : undefined} rel={isExternalHref(project.href) ? "noopener" : undefined}>
           <ProjectLogo slug={project.slug} mark={project.logo.mark} size="small" />
           <span>
             <strong>{project.label}</strong>
-            <span>{new URL(project.href).hostname}</span>
+            <span>{contactDisplayUrl(project.href)}</span>
           </span>
         </a>
       ))}
