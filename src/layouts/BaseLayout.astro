@@ -80,7 +80,8 @@ const canonicalUrl = new URL(canonicalPath, Astro.site);
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
-    <main class="container">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="container" id="main-content">
       <slot />
     </main>
   </body>

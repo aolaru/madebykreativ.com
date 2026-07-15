@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#eef5f7"/>
+  <rect x="76" y="76" width="1048" height="478" rx="36" fill="#ffffff" stroke="#c8d9dc"/>
+  <text x="132" y="172" fill="#2f9a66" font-family="Arial, sans-serif" font-size="26" font-weight="700">KREATIV PROJECTS</text>
+  <text x="132" y="250" fill="#172235" font-family="Arial, sans-serif" font-size="62" font-weight="700">Ecosystem directory</text>
+  <text x="132" y="314" fill="#3f516d" font-family="Arial, sans-serif" font-size="30">Creative discovery, assets, utilities, and roadmap work.</text>
+  <g fill="#101827">
+    <rect x="132" y="386" width="116" height="74" rx="18"/><rect x="274" y="386" width="116" height="74" rx="18"/><rect x="416" y="386" width="116" height="74" rx="18"/><rect x="558" y="386" width="116" height="74" rx="18"/>
+  </g>
+  <g fill="#9fe6bf" font-family="Arial, sans-serif" font-size="28" font-weight="700">
+    <text x="176" y="434">F</text><text x="316" y="434">S</text><text x="450" y="434">WP</text><text x="602" y="434">T</text>
+  </g>
+</svg>

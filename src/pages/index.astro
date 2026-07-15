@@ -5,10 +5,12 @@ import HeroHeader from "../components/HeroHeader.astro";
 import ProductCard from "../components/ProductCard.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import {
+  buildUrl,
   ecosystemItemListSchema,
   organizationSchema,
   products,
   projectCategories,
+  site,
   websiteSchema
 } from "../data/site";
 
@@ -41,9 +43,11 @@ const resourcePath = [
 ---
 
 <BaseLayout
-  title="Made by Kreativ"
-  description="Creative tools, curated assets, and utility software crafted by the Kreativ brand."
+  title="Made by Kreativ | Creative Tools and Digital Product Guides"
+  description="Made by Kreativ collects practical creative tools, digital product guides, curated assets, and utility software built by Andrei Olaru."
   canonicalPath="/"
+  ogImage={buildUrl("/og-home.svg")}
+  ogImageAlt="Made by Kreativ overview card for creative tools, guides, and utility software."
   structuredData={[organizationSchema, websiteSchema, ecosystemItemListSchema]}
 >
   <HeroHeader
@@ -66,7 +70,7 @@ const resourcePath = [
   </div>
 
   <div class="launch-ribbon homepage-update">
-    <p><strong>Product update.</strong> The KREATIV AI Launch Toolkit is now available on Gumroad for $19.</p>
+    <p><strong>Product update.</strong> The KREATIV AI Launch Toolkit is now available on Gumroad for 19 EUR.</p>
     <a class="cta" href="/news/ai-launch-toolkit-gumroad/">Read News</a>
   </div>
 
@@ -136,9 +140,9 @@ const resourcePath = [
   <section class="content-card trust-strip">
     <div class="trust-copy">
       <p class="trust-kicker">Independent product ecosystem</p>
-      <p>Built and maintained by Andrei Olaru.</p>
+      <p>Built and maintained by Andrei Olaru. Last updated {site.lastUpdated}.</p>
     </div>
-    <p class="trust-action"><a class="cta" href="mailto:info@madebykreativ.com">info@madebykreativ.com</a></p>
+    <p class="trust-action"><a class="cta" href="/contact/">Product support and partnerships</a></p>
   </section>
 
   <SiteFooter />

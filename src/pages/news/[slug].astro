@@ -1,9 +1,10 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
-import { createBreadcrumbSchema, createNewsArticleSchema, organizationSchema } from "../../data/site";
+import { buildUrl, createBreadcrumbSchema, createNewsArticleSchema, organizationSchema, site } from "../../data/site";
 
 const newsPath = (id: string) => `/news/${id.replace(/\.md$/, "")}/`;
 
@@ -26,11 +27,13 @@ const { Content } = await render(entry);
 const slug = entry.id.replace(/\.md$/, "");
 const canonicalPath = `/news/${slug}/`;
 const publishedTime = entry.data.sortDate.toISOString();
+const modifiedTime = new Date(`${site.lastUpdated}T00:00:00.000Z`).toISOString();
 const articleSchema = createNewsArticleSchema({
   title: entry.data.title,
   description: entry.data.description,
   path: canonicalPath,
-  datePublished: entry.data.sortDate
+  datePublished: entry.data.sortDate,
+  dateModified: new Date(modifiedTime)
 });
 ---
 
@@ -41,8 +44,10 @@ const articleSchema = createNewsArticleSchema({
   ogType="article"
   ogTitle={`${entry.data.title} | Made by Kreativ`}
   ogDescription={entry.data.description}
+  ogImage={buildUrl("/og-news.svg")}
+  ogImageAlt="Made by Kreativ news card for release notes and ecosystem updates."
   publishedTime={publishedTime}
-  modifiedTime={publishedTime}
+  modifiedTime={modifiedTime}
   structuredData={[
     organizationSchema,
     articleSchema,
@@ -61,6 +66,8 @@ const articleSchema = createNewsArticleSchema({
   >
     <p slot="afterTagline" class="meta-note">{entry.data.dateLabel}</p>
   </HeroHeader>
+
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "News", href: "/news/" }, { label: entry.data.title }]} />
 
   <article class="content-card news-detail">
     <Content />

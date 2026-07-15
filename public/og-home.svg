@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f3f6fb"/>
+  <rect x="76" y="76" width="1048" height="478" rx="36" fill="#ffffff" stroke="#cfdced"/>
+  <rect x="132" y="132" width="96" height="96" rx="24" fill="#101827"/>
+  <text x="160" y="205" fill="#7be1ad" font-family="Arial, sans-serif" font-size="76" font-weight="700">K</text>
+  <text x="132" y="294" fill="#2f9a66" font-family="Arial, sans-serif" font-size="26" font-weight="700">MADE BY KREATIV</text>
+  <text x="132" y="366" fill="#172235" font-family="Arial, sans-serif" font-size="58" font-weight="700">Creative tools and digital guides</text>
+  <text x="132" y="428" fill="#3f516d" font-family="Arial, sans-serif" font-size="30">Practical products, curated assets, and utility software.</text>
+</svg>

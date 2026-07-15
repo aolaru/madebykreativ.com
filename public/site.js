@@ -195,6 +195,10 @@
     }
     form.addEventListener("submit", (event) => {
       event.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
       const email = form.getAttribute("data-contact-email");
       if (!email) {
         return;
@@ -217,6 +221,34 @@
       }
       trackEvent("Contact Form Draft", { topic });
       window.location.href = mailto.toString();
+    });
+  }
+
+  function wireEmailCopy() {
+    const copyButton = document.querySelector("[data-copy-email]");
+    const status = document.querySelector("[data-copy-status]");
+    if (!copyButton) {
+      return;
+    }
+    copyButton.addEventListener("click", async () => {
+      const email = copyButton.getAttribute("data-copy-email");
+      if (!email) {
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(email);
+        if (status) {
+          status.textContent = "Copied";
+          window.setTimeout(() => {
+            status.textContent = "";
+          }, 1600);
+        }
+        trackEvent("Copy Email", { source: "contact" });
+      } catch (_) {
+        if (status) {
+          status.textContent = email;
+        }
+      }
     });
   }
 
@@ -302,6 +334,7 @@
     wireProductTracking();
     wireProjectFilters();
     wireContactForm();
+    wireEmailCopy();
     wireLinkTracking(".site-nav a", "Navigation Click", "site-nav");
     wireLinkTracking(".ecosystem-links a", "Footer Link Click", "footer");
     loadAnalytics();

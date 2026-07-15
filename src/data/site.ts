@@ -3,7 +3,7 @@ export const site = {
   url: "https://madebykreativ.com/",
   logo: "https://madebykreativ.com/favicon.svg",
   email: "info@madebykreativ.com",
-  lastUpdated: "2026-07-14"
+  lastUpdated: "2026-07-15"
 };
 
 export const isExternalHref = (href: string) => /^https?:\/\//.test(href);
@@ -70,6 +70,8 @@ const coreProjects = [
     currentStatus: "Curated and maintained as an active discovery resource.",
     cta: "Visit Kreativ Font",
     focus: ["Typography discovery", "Creative references", "Style research"],
+    proof: ["Curated font discovery", "Project detail page", "Related filtering update"],
+    nextSteps: ["Continue refining filter paths", "Add stronger reference collections", "Connect font choices to practical design use cases"],
     relatedNews: ["kreativ-font-filters", "q1-progress"],
     isCore: true
   },
@@ -89,6 +91,8 @@ const coreProjects = [
     currentStatus: "Live with free and professional packs, presets, textures, and tutorials.",
     cta: "Explore Sounds",
     focus: ["Preset packs", "Audio textures", "Tutorials"],
+    proof: ["Live standalone property", "Free and professional packs", "Tutorial-led sound resources"],
+    nextSteps: ["Keep pack navigation clear", "Expand tutorial context", "Connect releases back to the ecosystem directory"],
     relatedNews: ["kreativ-sound-packs-tutorials", "q1-progress"],
     isCore: true
   },
@@ -108,6 +112,8 @@ const coreProjects = [
     currentStatus: "Plugin-focused property for practical WordPress utilities.",
     cta: "View WP Tools",
     focus: ["WordPress utilities", "Maintenance workflows", "Reliability"],
+    proof: ["Dedicated WordPress property", "Practical utility positioning", "Maintenance-focused roadmap"],
+    nextSteps: ["Clarify active plugin availability", "Document maintenance use cases", "Keep tooling focused on production needs"],
     relatedNews: ["q1-progress"],
     isCore: true
   },
@@ -127,6 +133,8 @@ const coreProjects = [
     currentStatus: "Live and positioned as the utility hub of the KREATIV ecosystem.",
     cta: "Open Kreativ Tools",
     focus: ["Image tools", "PDF and document utilities", "File workflows"],
+    proof: ["Live browser utility hub", "Image, PDF, document, and file workflows", "Public ecosystem update"],
+    nextSteps: ["Keep high-use tools easy to find", "Add workflow-specific landing paths", "Publish utility updates as tools evolve"],
     relatedNews: ["kreativ-tools-live", "homepage-directory-refinement"],
     isCore: true
   }
@@ -147,6 +155,8 @@ const adjacentProjects = [
     href: "https://kreativauto.com",
     cta: "Open Kreativ Auto",
     focus: ["Automotive references", "Practical content", "Future tools"],
+    proof: ["Dedicated domain", "Roadmap status", "Automotive content direction"],
+    nextSteps: ["Define the first public workflow", "Keep roadmap status visible", "Connect useful references before adding tools"],
     relatedNews: ["kreativ-auto-domain-added", "kreativ-auto-roadmap"],
     isCore: false
   },
@@ -164,6 +174,8 @@ const adjacentProjects = [
     href: "https://howmuchmusic.com",
     cta: "Open How Much Music",
     focus: ["Music discovery", "Listening context", "Value signals"],
+    proof: ["Live standalone property", "Music discovery focus", "Listening context positioning"],
+    nextSteps: ["Clarify the discovery model", "Connect useful listening examples", "Publish updates as the project expands"],
     relatedNews: ["how-much-music-live"],
     isCore: false
   },
@@ -181,6 +193,8 @@ const adjacentProjects = [
     href: "https://findsera.com",
     cta: "Open Find Sera",
     focus: ["Search-led discovery", "Context", "Exploration"],
+    proof: ["Live discovery property", "Project directory listing", "Search-led positioning"],
+    nextSteps: ["Define the public workflow", "Keep project status honest", "Add clearer examples of search-led discovery"],
     relatedNews: ["find-sera-joins-ecosystem"],
     isCore: false
   },
@@ -198,6 +212,8 @@ const adjacentProjects = [
     href: "/projects/signal-ledger/",
     cta: "View Signal Ledger Overview",
     focus: ["Signal tracking", "Decision notes", "Reference ledgers"],
+    proof: ["Internal overview page", "No unavailable external domain", "Clear project-stage status"],
+    nextSteps: ["Shape the first tracking workflow", "Document practical signal examples", "Publish standalone access only when ready"],
     relatedNews: ["signal-ledger-added"],
     isCore: false
   }
@@ -288,6 +304,30 @@ export const createProjectSchema = (project: (typeof projectDirectory)[number]) 
   }
 });
 
+export const createPageSchema = ({ name, description, path, type = "WebPage" }: {
+  name: string;
+  description: string;
+  path: string;
+  type?: "WebPage" | "AboutPage";
+}) => ({
+  "@context": "https://schema.org",
+  "@type": type,
+  name,
+  description,
+  url: buildUrl(path),
+  isPartOf: {
+    "@type": "WebSite",
+    name: site.name,
+    url: site.url
+  },
+  publisher: {
+    "@type": "Organization",
+    name: site.name,
+    url: site.url,
+    logo: site.logo
+  }
+});
+
 export const createBreadcrumbSchema = (items: Array<{ name: string; path: string }>) => ({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -347,9 +387,10 @@ interface NewsSchemaInput {
   description: string;
   path: string;
   datePublished: Date;
+  dateModified?: Date;
 }
 
-export const createNewsArticleSchema = ({ title, description, path, datePublished }: NewsSchemaInput) => ({
+export const createNewsArticleSchema = ({ title, description, path, datePublished, dateModified = datePublished }: NewsSchemaInput) => ({
   "@context": "https://schema.org",
   "@type": "NewsArticle",
   headline: title,
@@ -357,7 +398,7 @@ export const createNewsArticleSchema = ({ title, description, path, datePublishe
   url: buildUrl(path),
   mainEntityOfPage: buildUrl(path),
   datePublished: datePublished.toISOString(),
-  dateModified: datePublished.toISOString(),
+  dateModified: dateModified.toISOString(),
   author: {
     "@type": "Person",
     name: "Andrei Olaru"

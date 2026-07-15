@@ -4,9 +4,10 @@ interface Props {
   title: string;
   description?: string;
   href?: string;
+  ctaLabel?: string;
 }
 
-const { date, title, description, href } = Astro.props;
+const { date, title, description, href, ctaLabel = `Read ${title}` } = Astro.props;
 ---
 
 <article class="content-card news-entry">
@@ -17,5 +18,5 @@ const { date, title, description, href } = Astro.props;
       {description ? <p>{description}</p> : <slot />}
     </div>
   </div>
-  {href && <p class="news-link"><a class="cta" href={href}>Read update</a></p>}
+  {href && <p class="news-link"><a class="cta" href={href}>{ctaLabel}</a></p>}
 </article>

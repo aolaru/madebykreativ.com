@@ -35,7 +35,7 @@ export async function GET() {
       path: newsPath(entry.id),
       changefreq: "monthly",
       priority: "0.6",
-      lastmod: entry.data.sortDate.toISOString().slice(0, 10)
+      lastmod: site.lastUpdated
     }));
 
   const routes = [

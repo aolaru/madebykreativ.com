@@ -1,10 +1,12 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
+import ProjectLogo from "../../components/ProjectLogo.astro";
 import ProjectDirectoryCard from "../../components/ProjectDirectoryCard.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
-import { createBreadcrumbSchema, createProjectSchema, isExternalHref, organizationSchema, projectDirectory, projectPath, statusDefinitions } from "../../data/site";
+import { buildUrl, createBreadcrumbSchema, createProjectSchema, isExternalHref, organizationSchema, projectDirectory, projectPath, statusDefinitions } from "../../data/site";
 
 export function getStaticPaths() {
   return projectDirectory.map((project) => ({
@@ -33,6 +35,8 @@ const relatedNews = project.relatedNews
   title={`${project.label} | Made by Kreativ`}
   description={project.description}
   canonicalPath={projectPath(project.slug)}
+  ogImage={buildUrl("/og-projects.svg")}
+  ogImageAlt={`Made by Kreativ project profile card for ${project.label}.`}
   structuredData={[
     organizationSchema,
     createProjectSchema(project),
@@ -52,10 +56,18 @@ const relatedNews = project.relatedNews
     <p slot="afterTagline" class="meta-note">{project.status}{status ? `: ${status.description}` : ""}</p>
   </HeroHeader>
 
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Projects", href: "/projects/" }, { label: project.label }]} />
+
   <section class="content-card project-profile">
-    <div>
-      <h2>Project Focus</h2>
-      <p>{project.longDescription}</p>
+    <div class="project-profile-summary">
+      <div>
+        <ProjectLogo slug={project.slug} mark={project.logo.mark} />
+      </div>
+      <div>
+        <p class="eyebrow">Project focus</p>
+        <h2>{project.label}</h2>
+        <p>{project.longDescription}</p>
+      </div>
     </div>
     <ul class="focus-list">
       {project.focus.map((item) => <li>{item}</li>)}
@@ -65,6 +77,17 @@ const relatedNews = project.relatedNews
       <a class="cta" href="/projects/">Back to Directory</a>
     </p>
   </section>
+
+  {relatedNews.length > 0 && (
+    <section class="content-card project-latest-update" aria-labelledby="project-latest-update-heading">
+      <div>
+        <p class="eyebrow">Latest project update</p>
+        <h2 id="project-latest-update-heading">{relatedNews[0].data.title}</h2>
+        <p>{relatedNews[0].data.description}</p>
+      </div>
+      <a class="button-cta button-cta-secondary" href={relatedNews[0].path}>Read {relatedNews[0].data.title}</a>
+    </section>
+  )}
 
   <section class="content-card project-detail-grid" aria-label="Project details">
     <article>
@@ -79,6 +102,29 @@ const relatedNews = project.relatedNews
       <h2>Current Status</h2>
       <p>{project.currentStatus}</p>
     </article>
+  </section>
+
+  <section class="content-card project-evidence" aria-labelledby="project-evidence-heading">
+    <div class="section-heading-row">
+      <div>
+        <p class="eyebrow">Signals and next steps</p>
+        <h2 id="project-evidence-heading">What to know now</h2>
+      </div>
+    </div>
+    <div class="project-evidence-grid">
+      <article>
+        <h3>Current proof</h3>
+        <ul class="clean-list">
+          {project.proof.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+      <article>
+        <h3>Next steps</h3>
+        <ul class="clean-list">
+          {project.nextSteps.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+    </div>
   </section>
 
   {relatedNews.length > 0 && (

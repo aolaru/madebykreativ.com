@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { createBreadcrumbSchema, createDigitalDocumentSchema, organizationSchema } from "../data/site";
+import { buildUrl, createBreadcrumbSchema, createDigitalDocumentSchema, organizationSchema } from "../data/site";
 
 const pdfHref = "/downloads/your-first-digital-product-20-simple-ideas-v1.pdf";
 const toolkitHref = "/ai-launch-toolkit/";
@@ -63,6 +64,8 @@ const faqs = [
   title="Your First Digital Product - Free Guide by Made by Kreativ"
   description={pageDescription}
   canonicalPath="/your-first-digital-product/"
+  ogImage={buildUrl("/og-your-first-digital-product.svg")}
+  ogImageAlt="Your First Digital Product free guide card from Made by Kreativ."
   structuredData={[
     organizationSchema,
     createDigitalDocumentSchema({
@@ -87,6 +90,8 @@ const faqs = [
       <a class="button-cta button-cta-secondary" href={toolkitHref}>View the AI Launch Toolkit</a>
     </div>
   </HeroHeader>
+
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Your First Digital Product" }]} />
 
   <section class="content-card landing-fit-line" aria-label="Who this guide is for">
     <p>For creators, freelancers, small business builders, and beginners who want to create a useful first digital product without coding, a big audience, or a perfect plan.</p>

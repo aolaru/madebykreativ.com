@@ -1,9 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
 import ProjectDirectoryCard from "../../components/ProjectDirectoryCard.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import {
+  buildUrl,
   ecosystemItemListSchema,
   organizationSchema,
   projectCategories,
@@ -17,6 +19,8 @@ import {
   title="Projects | Made by Kreativ"
   description="Explore the Made by Kreativ ecosystem across creative discovery, assets, utility software, discovery projects, and roadmap work."
   canonicalPath="/projects/"
+  ogImage={buildUrl("/og-projects.svg")}
+  ogImageAlt="Made by Kreativ project directory card."
   structuredData={[organizationSchema, ecosystemItemListSchema]}
 >
   <HeroHeader
@@ -25,6 +29,8 @@ import {
     title="KREATIV Projects"
     tagline="A filterable view of the full Made by Kreativ ecosystem, from core product properties to focused independent projects."
   />
+
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Projects" }]} />
 
   <section class="content-card project-map project-directory-page" aria-labelledby="project-map-heading">
     <div class="section-heading-row">

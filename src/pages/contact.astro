@@ -1,9 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import ProjectLogo from "../components/ProjectLogo.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { contactIntents, contactPageSchema, isExternalHref, organizationSchema, projectDirectory, resolveHref, site } from "../data/site";
+import { buildUrl, contactIntents, contactPageSchema, createBreadcrumbSchema, isExternalHref, organizationSchema, projectDirectory, resolveHref, site } from "../data/site";
 
 const contactDisplayUrl = (href: string) => {
   const url = new URL(resolveHref(href));
@@ -15,7 +16,16 @@ const contactDisplayUrl = (href: string) => {
   title="Contact | Made by Kreativ"
   description="Contact Made by Kreativ for product support, partnerships, licensing questions, asset requests, and practical product feedback."
   canonicalPath="/contact/"
-  structuredData={[organizationSchema, contactPageSchema]}
+  ogImage={buildUrl("/og-contact.svg")}
+  ogImageAlt="Made by Kreativ contact card for product support and partnerships."
+  structuredData={[
+    organizationSchema,
+    contactPageSchema,
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Contact", path: "/contact/" }
+    ])
+  ]}
 >
   <HeroHeader
     current="contact"
@@ -24,10 +34,17 @@ const contactDisplayUrl = (href: string) => {
     tagline="For partnerships, product questions, and support requests."
   />
 
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
+
   <section class="content-card contact-email-card">
     <h2>Email</h2>
     <p>Primary contact: <a class="cta" href={`mailto:${site.email}`}>{site.email}</a></p>
     <p>Use this address for support, partnerships, licensing questions, and product feedback across the Kreativ ecosystem. Most messages are reviewed within 2-3 business days.</p>
+    <div class="contact-copy-row">
+      <code>{site.email}</code>
+      <button class="button-cta button-cta-secondary" type="button" data-copy-email={site.email}>Copy email address</button>
+      <span class="copy-status" data-copy-status aria-live="polite"></span>
+    </div>
   </section>
 
   <section class="content-card contact-form-card" aria-labelledby="contact-form-heading">
@@ -40,11 +57,11 @@ const contactDisplayUrl = (href: string) => {
     <form class="contact-form" data-contact-form data-contact-email={site.email}>
       <label>
         <span>Name</span>
-        <input type="text" name="name" autocomplete="name" placeholder="Your name" />
+        <input type="text" name="name" autocomplete="name" placeholder="Your name" required />
       </label>
       <label>
         <span>Email</span>
-        <input type="email" name="email" autocomplete="email" placeholder="you@example.com" />
+        <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
       </label>
       <label>
         <span>Topic</span>
@@ -54,14 +71,32 @@ const contactDisplayUrl = (href: string) => {
       </label>
       <label>
         <span>Message</span>
-        <textarea name="message" rows="6" placeholder="What can we help with?"></textarea>
+        <textarea name="message" rows="6" minlength="12" placeholder="What can we help with?" required></textarea>
       </label>
       <div class="contact-form-actions">
         <button class="button-cta button-cta-primary" type="submit">Open Email Draft</button>
         <a class="cta" href={`mailto:${site.email}`}>Email directly</a>
       </div>
-      <p class="form-note">The form opens your email app; no message is sent until you review and send it there.</p>
+      <p class="form-note">The form opens your email app; no message is sent until you review and send it there. If nothing opens, copy the email address above and paste your message manually.</p>
     </form>
+  </section>
+
+  <section class="content-card response-guide" aria-labelledby="response-guide-heading">
+    <h2 id="response-guide-heading">Response Guidance</h2>
+    <dl class="response-guide-list">
+      <div>
+        <dt>Support</dt>
+        <dd>Include the product name, browser or app details, and the page or file involved.</dd>
+      </div>
+      <div>
+        <dt>Licensing</dt>
+        <dd>Include the asset, intended use, team size, and whether the work is commercial.</dd>
+      </div>
+      <div>
+        <dt>Partnerships</dt>
+        <dd>Include the project, audience, proposed collaboration, and timeline.</dd>
+      </div>
+    </dl>
   </section>
 
   <section class="content-card contact-intents" aria-labelledby="contact-intents-heading">

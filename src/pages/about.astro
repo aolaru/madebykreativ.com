@@ -1,16 +1,33 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import ProjectLogo from "../components/ProjectLogo.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { organizationSchema, projectCategories, projectDirectory, projectPath, statusDefinitions } from "../data/site";
+import { buildUrl, createBreadcrumbSchema, createPageSchema, organizationSchema, projectCategories, projectDirectory, projectPath, statusDefinitions } from "../data/site";
+
+const pageDescription = "Learn about the Made by Kreativ ecosystem, the practical product philosophy, and the independent tools, assets, and guides maintained by Andrei Olaru.";
 ---
 
 <BaseLayout
   title="About | Made by Kreativ"
-  description="Learn about the Kreativ ecosystem and the philosophy behind our tools and assets."
+  description={pageDescription}
   canonicalPath="/about/"
-  structuredData={[organizationSchema]}
+  ogImage={buildUrl("/og-about.svg")}
+  ogImageAlt="Made by Kreativ about page card for the independent product ecosystem."
+  structuredData={[
+    organizationSchema,
+    createPageSchema({
+      type: "AboutPage",
+      name: "About | Made by Kreativ",
+      description: pageDescription,
+      path: "/about/"
+    }),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "About", path: "/about/" }
+    ])
+  ]}
 >
   <HeroHeader
     current="about"
@@ -18,6 +35,8 @@ import { organizationSchema, projectCategories, projectDirectory, projectPath, s
     title="About Made by Kreativ"
     tagline="Independent digital products made for practical use, long-term reliability, and creative momentum."
   />
+
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About" }]} />
 
   <section class="content-card about-overview-card">
     <div class="section-heading-row">

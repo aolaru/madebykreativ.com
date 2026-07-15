@@ -1,10 +1,11 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import NewsEntry from "../components/NewsEntry.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { createNewsItemListSchema, organizationSchema } from "../data/site";
+import { buildUrl, createNewsItemListSchema, organizationSchema } from "../data/site";
 
 const toNewsPath = (id: string) => `/news/${id.replace(/\.md$/, "")}/`;
 
@@ -25,6 +26,8 @@ const latestNewsLabel = latestNewsDate
   title="News | Made by Kreativ"
   description="Release notes, product updates, and ecosystem changes across Made by Kreativ tools, guides, launch resources, and project directories."
   canonicalPath="/news/"
+  ogImage={buildUrl("/og-news.svg")}
+  ogImageAlt="Made by Kreativ news card for release notes and ecosystem updates."
   structuredData={[organizationSchema, createNewsItemListSchema(newsEntries)]}
 >
   <HeroHeader
@@ -36,9 +39,11 @@ const latestNewsLabel = latestNewsDate
     <p slot="afterTagline" class="meta-note">Last updated: {latestNewsLabel}</p>
   </HeroHeader>
 
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "News" }]} />
+
   <section class="news-index-list" aria-label="News updates">
     {newsEntries.map(({ data, path }) => (
-      <NewsEntry date={data.dateLabel} title={data.title} description={data.description} href={path} />
+      <NewsEntry date={data.dateLabel} title={data.title} description={data.description} href={path} ctaLabel={`Read ${data.title}`} />
     ))}
   </section>
 
