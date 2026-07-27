@@ -10,13 +10,14 @@ const contactDisplayUrl = (href: string) => {
   const url = new URL(resolveHref(href));
   return isExternalHref(href) ? url.hostname : url.pathname;
 };
+const formEndpoint = `https://formsubmit.co/${site.email}`;
 ---
 
 <BaseLayout
   title="Contact | Made by Kreativ"
   description="Contact Made by Kreativ for product support, partnerships, licensing questions, asset requests, and practical product feedback."
   canonicalPath="/contact/"
-  ogImage={buildUrl("/og-contact.svg")}
+  ogImage={buildUrl("/og-contact.png")}
   ogImageAlt="Made by Kreativ contact card for product support and partnerships."
   structuredData={[
     organizationSchema,
@@ -51,10 +52,14 @@ const contactDisplayUrl = (href: string) => {
     <div class="section-heading-row">
       <div>
         <h2 id="contact-form-heading">Start a Message</h2>
-        <p>Use the form to compose a clear email with the right subject line.</p>
+        <p>Send a message directly without opening a separate email application.</p>
       </div>
     </div>
-    <form class="contact-form" data-contact-form data-contact-email={site.email}>
+    <form class="contact-form" action={formEndpoint} method="POST">
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_next" value="https://madebykreativ.com/contact/?sent=1" />
+      <input class="form-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
       <label>
         <span>Name</span>
         <input type="text" name="name" autocomplete="name" placeholder="Your name" required />
@@ -65,7 +70,7 @@ const contactDisplayUrl = (href: string) => {
       </label>
       <label>
         <span>Topic</span>
-        <select name="topic">
+        <select name="_subject">
           {contactIntents.map((intent) => <option value={intent.subject}>{intent.title}</option>)}
         </select>
       </label>
@@ -74,10 +79,10 @@ const contactDisplayUrl = (href: string) => {
         <textarea name="message" rows="6" minlength="12" placeholder="What can we help with?" required></textarea>
       </label>
       <div class="contact-form-actions">
-        <button class="button-cta button-cta-primary" type="submit">Open Email Draft</button>
+        <button class="button-cta button-cta-primary" type="submit">Send message</button>
         <a class="cta" href={`mailto:${site.email}`}>Email directly</a>
       </div>
-      <p class="form-note">The form opens your email app; no message is sent until you review and send it there. If nothing opens, copy the email address above and paste your message manually.</p>
+      <p class="form-note">Your details are sent through FormSubmit to Made by Kreativ and used only to respond to this inquiry. Email directly if you prefer not to use the hosted form.</p>
     </form>
   </section>
 

@@ -188,42 +188,6 @@
     }
   }
 
-  function wireContactForm() {
-    const form = document.querySelector("[data-contact-form]");
-    if (!form) {
-      return;
-    }
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-      const email = form.getAttribute("data-contact-email");
-      if (!email) {
-        return;
-      }
-      const data = new FormData(form);
-      const topic = String(data.get("topic") || "Made by Kreativ inquiry");
-      const name = String(data.get("name") || "").trim();
-      const sender = String(data.get("email") || "").trim();
-      const message = String(data.get("message") || "").trim();
-      const body = [
-        name ? `Name: ${name}` : "",
-        sender ? `Email: ${sender}` : "",
-        "",
-        message
-      ].join("\n").trim();
-      const mailto = new URL(`mailto:${email}`);
-      mailto.searchParams.set("subject", topic);
-      if (body) {
-        mailto.searchParams.set("body", body);
-      }
-      trackEvent("Contact Form Draft", { topic });
-      window.location.href = mailto.toString();
-    });
-  }
-
   function wireEmailCopy() {
     const copyButton = document.querySelector("[data-copy-email]");
     const status = document.querySelector("[data-copy-status]");
@@ -249,6 +213,55 @@
           status.textContent = email;
         }
       }
+    });
+  }
+
+  function wireNewsFilters() {
+    const entries = document.querySelectorAll("[data-news-entry]");
+    const filterButtons = document.querySelectorAll("[data-news-filter]");
+    const searchInput = document.querySelector("[data-news-search-input]");
+    const emptyState = document.querySelector("[data-news-empty-state]");
+    if (!entries.length || !filterButtons.length || !searchInput) {
+      return;
+    }
+
+    const state = {
+      category: "all",
+      query: ""
+    };
+
+    function applyNewsFilters() {
+      let visibleCount = 0;
+      entries.forEach((entry) => {
+        const category = entry.getAttribute("data-news-category") || "";
+        const searchable = entry.getAttribute("data-news-search") || "";
+        const categoryMatches = state.category === "all" || category === state.category;
+        const queryMatches = !state.query || searchable.includes(state.query);
+        const visible = categoryMatches && queryMatches;
+        entry.hidden = !visible;
+        if (visible) {
+          visibleCount += 1;
+        }
+      });
+      if (emptyState) {
+        emptyState.hidden = visibleCount > 0;
+      }
+    }
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        state.category = button.getAttribute("data-news-filter") || "all";
+        filterButtons.forEach((item) => {
+          item.setAttribute("aria-pressed", item === button ? "true" : "false");
+        });
+        applyNewsFilters();
+        trackEvent("News Filter", { category: state.category });
+      });
+    });
+
+    searchInput.addEventListener("input", () => {
+      state.query = searchInput.value.trim().toLowerCase();
+      applyNewsFilters();
     });
   }
 
@@ -333,7 +346,7 @@
     document.addEventListener("keydown", onThemeKeydown);
     wireProductTracking();
     wireProjectFilters();
-    wireContactForm();
+    wireNewsFilters();
     wireEmailCopy();
     wireLinkTracking(".site-nav a", "Navigation Click", "site-nav");
     wireLinkTracking(".ecosystem-links a", "Footer Link Click", "footer");

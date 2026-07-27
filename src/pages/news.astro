@@ -20,13 +20,15 @@ const latestNewsDate = newsEntries[0]?.data.sortDate;
 const latestNewsLabel = latestNewsDate
   ? new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(latestNewsDate)
   : "May 13, 2026";
+const categories = [...new Set(newsEntries.map((entry) => entry.data.category))];
+const formEndpoint = "https://formsubmit.co/info@madebykreativ.com";
 ---
 
 <BaseLayout
   title="News | Made by Kreativ"
   description="Release notes, product updates, and ecosystem changes across Made by Kreativ tools, guides, launch resources, and project directories."
   canonicalPath="/news/"
-  ogImage={buildUrl("/og-news.svg")}
+  ogImage={buildUrl("/og-news.png")}
   ogImageAlt="Made by Kreativ news card for release notes and ecosystem updates."
   structuredData={[organizationSchema, createNewsItemListSchema(newsEntries)]}
 >
@@ -41,16 +43,54 @@ const latestNewsLabel = latestNewsDate
 
   <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "News" }]} />
 
+  <section class="content-card news-tools" aria-labelledby="news-tools-heading">
+    <div>
+      <p class="eyebrow">Browse updates</p>
+      <h2 id="news-tools-heading">Find a release or project note</h2>
+    </div>
+    <label class="news-search">
+      <span>Search updates</span>
+      <input type="search" placeholder="Search titles and summaries" data-news-search-input />
+    </label>
+    <div class="news-filter-row" role="group" aria-label="Filter news by category">
+      <button class="status-filter-button" type="button" data-news-filter="all" aria-pressed="true">All</button>
+      {categories.map((category) => (
+        <button class="status-filter-button" type="button" data-news-filter={category} aria-pressed="false">{category}</button>
+      ))}
+    </div>
+    <p class="news-tools-links"><a class="cta" href="/news/rss.xml">Follow via RSS</a></p>
+  </section>
+
   <section class="news-index-list" aria-label="News updates">
     {newsEntries.map(({ data, path }) => (
-      <NewsEntry date={data.dateLabel} title={data.title} description={data.description} href={path} ctaLabel={`Read ${data.title}`} />
+      <NewsEntry date={data.dateLabel} title={data.title} description={data.description} href={path} category={data.category} ctaLabel={`Read ${data.title}`} />
     ))}
   </section>
 
-  <section class="content-card news-follow-card">
-    <h2>Follow Product Updates</h2>
-    <p>Want release notes and ecosystem updates? Reach out directly and keep track of future product changes.</p>
-    <p><a class="cta" href="mailto:info@madebykreativ.com?subject=Made%20by%20Kreativ%20Updates">Get Updates</a></p>
+  <div class="project-empty-state news-empty-state" data-news-empty-state hidden>
+    <h3>No updates match that search.</h3>
+    <p>Clear the search or select another category.</p>
+  </div>
+
+  <section class="content-card news-follow-card" aria-labelledby="news-follow-heading">
+    <div>
+      <p class="eyebrow">Occasional product email</p>
+      <h2 id="news-follow-heading">Follow product updates</h2>
+      <p>Receive important launches and useful release notes. No fixed schedule and no promotional sequence.</p>
+    </div>
+    <form class="newsletter-form" action={formEndpoint} method="POST">
+      <input type="hidden" name="_subject" value="Made by Kreativ updates subscription" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_next" value="https://madebykreativ.com/news/?subscribed=1" />
+      <input class="form-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <label>
+        <span>Email address</span>
+        <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
+      </label>
+      <button class="button-cta button-cta-primary" type="submit">Request updates</button>
+      <p class="form-note">Your address is sent through FormSubmit to Made by Kreativ and used only for requested product updates. You can unsubscribe by replying to any update.</p>
+    </form>
   </section>
 
   <SiteFooter />

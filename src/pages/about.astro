@@ -2,9 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import HeroHeader from "../components/HeroHeader.astro";
-import ProjectLogo from "../components/ProjectLogo.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { buildUrl, createBreadcrumbSchema, createPageSchema, organizationSchema, projectCategories, projectDirectory, projectPath, statusDefinitions } from "../data/site";
+import { buildUrl, createBreadcrumbSchema, createPageSchema, organizationSchema, projectDirectory } from "../data/site";
 
 const pageDescription = "Learn about the Made by Kreativ ecosystem, the practical product philosophy, and the independent tools, assets, and guides maintained by Andrei Olaru.";
 ---
@@ -13,7 +12,7 @@ const pageDescription = "Learn about the Made by Kreativ ecosystem, the practica
   title="About | Made by Kreativ"
   description={pageDescription}
   canonicalPath="/about/"
-  ogImage={buildUrl("/og-about.svg")}
+  ogImage={buildUrl("/og-about.png")}
   ogImageAlt="Made by Kreativ about page card for the independent product ecosystem."
   structuredData={[
     organizationSchema,
@@ -38,58 +37,103 @@ const pageDescription = "Learn about the Made by Kreativ ecosystem, the practica
 
   <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About" }]} />
 
-  <section class="content-card about-overview-card">
-    <div class="section-heading-row">
-      <div>
-        <h2>What We Build</h2>
-        <p>Made by Kreativ is the umbrella brand for focused digital properties: practical tools, creative resources, independent software, and adjacent projects built around useful workflows.</p>
-      </div>
-      <a class="cta" href="/projects/">Open Projects</a>
+  <section class="content-card founder-profile" aria-labelledby="founder-heading">
+    <div class="founder-mark" aria-hidden="true">
+      <span>AO</span>
     </div>
-    <div class="about-category-list">
-      {projectCategories.map((category) => (
-        <section class="about-category" aria-labelledby={`about-${category.label.toLowerCase().replaceAll(" ", "-")}`}>
-          <h3 id={`about-${category.label.toLowerCase().replaceAll(" ", "-")}`}>{category.label}</h3>
-          <p>{category.description}</p>
-          <div class="about-project-list">
-            {projectDirectory
-              .filter((project) => project.category === category.label)
-              .map((project) => (
-                <a class="about-project-link" href={projectPath(project.slug)}>
-                  <ProjectLogo slug={project.slug} mark={project.logo.mark} size="small" />
-                  <span>
-                    <strong>{project.label}</strong>
-                    <span>{project.description}</span>
-                  </span>
-                </a>
-              ))}
-          </div>
-        </section>
-      ))}
+    <div class="founder-copy">
+      <p class="eyebrow">Independent builder</p>
+      <h2 id="founder-heading">Built and maintained by Andrei Olaru</h2>
+      <p>I build Made by Kreativ as an independent product ecosystem: small tools, focused creative resources, and practical guides designed to solve a clear job without unnecessary complexity.</p>
+      <p>The work spans product design, development, publishing, and long-term maintenance. Each property has its own audience and purpose, while this site keeps the full ecosystem understandable.</p>
+      <div class="landing-actions founder-actions">
+        <a class="button-cta button-cta-primary" href="/projects/">Explore {projectDirectory.length} projects</a>
+        <a class="button-cta button-cta-secondary" href="/contact/">Discuss a collaboration</a>
+      </div>
     </div>
   </section>
 
-  <section class="content-card">
-    <h2>Status Guide</h2>
-    <dl class="status-legend status-legend-wide">
-      {statusDefinitions.map((status) => (
-        <div>
-          <dt>{status.label}</dt>
-          <dd>{status.description}</dd>
-        </div>
-      ))}
+  <section class="content-card landing-section" aria-labelledby="principles-heading">
+    <p class="eyebrow">Working principles</p>
+    <h2 id="principles-heading">How the products are shaped</h2>
+    <div class="about-principle-grid">
+      <article>
+        <span>01</span>
+        <h3>Start with a real job</h3>
+        <p>Every product begins with a practical decision, workflow, or repeated task that can be made clearer.</p>
+      </article>
+      <article>
+        <span>02</span>
+        <h3>Keep the first version focused</h3>
+        <p>Small, opinionated products are easier to understand, ship, maintain, and improve from real feedback.</p>
+      </article>
+      <article>
+        <span>03</span>
+        <h3>Maintain what ships</h3>
+        <p>Clear status labels, public updates, and long-term reliability matter as much as launching something new.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="content-card about-scope" aria-labelledby="scope-heading">
+    <div>
+      <p class="eyebrow">The ecosystem</p>
+      <h2 id="scope-heading">One studio, several focused surfaces</h2>
+      <p>Made by Kreativ connects four kinds of work without forcing them into one product.</p>
+    </div>
+    <dl>
+      <div>
+        <dt>Creative discovery</dt>
+        <dd>Typography and curated references.</dd>
+      </div>
+      <div>
+        <dt>Creative assets</dt>
+        <dd>Sound packs, presets, and production material.</dd>
+      </div>
+      <div>
+        <dt>Utility software</dt>
+        <dd>Browser and WordPress tools for repeated tasks.</dd>
+      </div>
+      <div>
+        <dt>Guides & toolkits</dt>
+        <dd>Practical systems for building and publishing products.</dd>
+      </div>
     </dl>
   </section>
 
-  <section class="content-card">
-    <h2>How We Work</h2>
-    <p>We prioritize clarity and shipping: small, opinionated products with useful defaults, simple interfaces, and predictable behavior.</p>
-  </section>
-
-  <section class="content-card">
-    <h2>Built by Andrei Olaru</h2>
-    <p>Made by KREATIV is independently built and maintained by Andrei Olaru, focused on practical creative tools that stay useful over time.</p>
-    <p><a class="cta" href="/contact/">Reach out for collaborations</a></p>
+  <section class="content-card landing-section" aria-labelledby="timeline-heading">
+    <p class="eyebrow">Selected milestones</p>
+    <h2 id="timeline-heading">How the ecosystem has grown</h2>
+    <ol class="about-timeline">
+      <li>
+        <time datetime="2026-03">March 2026</time>
+        <div>
+          <h3>Core properties aligned</h3>
+          <p>Kreativ Font, Sound, WP, and Tools gained clearer roles, shared navigation, and consistent release checks.</p>
+        </div>
+      </li>
+      <li>
+        <time datetime="2026-05">May 2026</time>
+        <div>
+          <h3>The wider project directory took shape</h3>
+          <p>Discovery and adjacent projects joined a public map with honest live, curated, project, and roadmap states.</p>
+        </div>
+      </li>
+      <li>
+        <time datetime="2026-06">June 2026</time>
+        <div>
+          <h3>Practical publishing guides launched</h3>
+          <p>The free first-product guide and paid AI Launch Toolkit created a connected path from idea to launch.</p>
+        </div>
+      </li>
+      <li>
+        <time datetime="2026-07">July 2026</time>
+        <div>
+          <h3>Project proof became visible</h3>
+          <p>Project profiles now show current public surfaces, verified status facts, and the latest ecosystem updates.</p>
+        </div>
+      </li>
+    </ol>
   </section>
 
   <SiteFooter />

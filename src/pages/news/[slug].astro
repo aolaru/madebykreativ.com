@@ -4,7 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
-import { buildUrl, createBreadcrumbSchema, createNewsArticleSchema, organizationSchema, site } from "../../data/site";
+import { buildUrl, createBreadcrumbSchema, createNewsArticleSchema, organizationSchema, projectDirectory, projectPath, site } from "../../data/site";
 
 const newsPath = (id: string) => `/news/${id.replace(/\.md$/, "")}/`;
 
@@ -35,6 +35,11 @@ const articleSchema = createNewsArticleSchema({
   datePublished: entry.data.sortDate,
   dateModified: new Date(modifiedTime)
 });
+const relatedProject = entry.data.project
+  ? projectDirectory.find((project) => project.slug === entry.data.project)
+  : undefined;
+const articleImage = entry.data.image || relatedProject?.preview;
+const articleImageAlt = relatedProject?.previewAlt || `${entry.data.title} product preview.`;
 ---
 
 <BaseLayout
@@ -44,7 +49,7 @@ const articleSchema = createNewsArticleSchema({
   ogType="article"
   ogTitle={`${entry.data.title} | Made by Kreativ`}
   ogDescription={entry.data.description}
-  ogImage={buildUrl("/og-news.svg")}
+  ogImage={buildUrl("/og-news.png")}
   ogImageAlt="Made by Kreativ news card for release notes and ecosystem updates."
   publishedTime={publishedTime}
   modifiedTime={modifiedTime}
@@ -64,13 +69,45 @@ const articleSchema = createNewsArticleSchema({
     title={entry.data.title}
     tagline={entry.data.description}
   >
-    <p slot="afterTagline" class="meta-note">{entry.data.dateLabel}</p>
+    <p slot="afterTagline" class="meta-note">{entry.data.dateLabel} · {entry.data.category}</p>
   </HeroHeader>
 
   <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "News", href: "/news/" }, { label: entry.data.title }]} />
 
   <article class="content-card news-detail">
+    <dl class="article-fact-list">
+      <div>
+        <dt>Published</dt>
+        <dd>{entry.data.dateLabel}</dd>
+      </div>
+      <div>
+        <dt>Category</dt>
+        <dd>{entry.data.category}</dd>
+      </div>
+      <div>
+        <dt>Related surface</dt>
+        <dd>{relatedProject ? relatedProject.label : "Made by Kreativ"}</dd>
+      </div>
+    </dl>
+    {articleImage && (
+      <figure class:list={["article-preview", !relatedProject && "article-preview-portrait"]}>
+        <img src={articleImage} alt={articleImageAlt} width={relatedProject ? "1200" : "1191"} height={relatedProject ? "750" : "1684"} loading="eager" />
+        <figcaption>{relatedProject ? `Current ${relatedProject.label} public surface, verified ${relatedProject.updated}.` : "Current product cover and visual direction."}</figcaption>
+      </figure>
+    )}
     <Content />
+    <aside class="article-next-step" aria-labelledby="article-next-step-heading">
+      <div>
+        <p class="eyebrow">Continue from here</p>
+        <h2 id="article-next-step-heading">{relatedProject ? `Explore ${relatedProject.label}` : "Explore the related product path"}</h2>
+        <p>{relatedProject ? relatedProject.description : "See the current guides, toolkits, and project surfaces connected to this update."}</p>
+      </div>
+      <div class="landing-actions">
+        {relatedProject && <a class="button-cta button-cta-primary" href={projectPath(relatedProject.slug)}>Project details</a>}
+        {!relatedProject && <a class="button-cta button-cta-primary" href="/guides/">Guides & toolkits</a>}
+        <a class="button-cta button-cta-secondary" href="/news/rss.xml">Follow via RSS</a>
+      </div>
+    </aside>
     <nav class="article-nav" aria-label="News article navigation">
       <a class="cta" href="/news/">Back to News</a>
       <div class="article-nav-pair">

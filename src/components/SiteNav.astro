@@ -2,10 +2,17 @@
 import Icon from "./Icon.astro";
 
 interface Props {
-  current?: "home" | "books" | "projects" | "news" | "about" | "contact";
+  current?: "home" | "guides" | "projects" | "news" | "about" | "contact";
 }
 
 const { current } = Astro.props;
+const navigationItems = [
+  { href: "/guides/", label: "Guides", key: "guides" },
+  { href: "/projects/", label: "Projects", key: "projects" },
+  { href: "/news/", label: "News", key: "news" },
+  { href: "/about/", label: "About", key: "about" },
+  { href: "/contact/", label: "Contact", key: "contact" }
+] as const;
 ---
 
 <nav class="site-nav" aria-label="Site navigation">
@@ -14,14 +21,20 @@ const { current } = Astro.props;
     <span class="site-nav-brand-text">Made by Kreativ</span>
   </a>
   <div class="site-nav-links">
-    <a class="site-nav-link" href="/books/" aria-current={current === "books" ? "page" : undefined}>Books</a>
-    <a class="site-nav-link" href="/projects/" aria-current={current === "projects" ? "page" : undefined}>Projects</a>
-    <a class="site-nav-link" href="/news/" aria-current={current === "news" ? "page" : undefined}>News</a>
-    <a class="site-nav-link" href="/about/" aria-current={current === "about" ? "page" : undefined}>About</a>
-    <a class="site-nav-link" href="/contact/" aria-current={current === "contact" ? "page" : undefined}>Contact</a>
+    {navigationItems.map((item) => (
+      <a class="site-nav-link" href={item.href} aria-current={current === item.key ? "page" : undefined}>{item.label}</a>
+    ))}
   </div>
   <div class="site-nav-actions" role="group" aria-label="Page actions">
     <button class="icon-button share-toggle" id="share-button" type="button" aria-label="Share this page" title="Share this page"><Icon name="share" /></button>
     <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode"><Icon name="moon" /></button>
+    <details class="site-nav-mobile-menu">
+      <summary class="icon-button" aria-label="Open navigation menu" title="Menu"><Icon name="menu" /></summary>
+      <nav class="site-nav-mobile-panel" aria-label="Mobile navigation">
+        {navigationItems.map((item) => (
+          <a href={item.href} aria-current={current === item.key ? "page" : undefined}>{item.label}</a>
+        ))}
+      </nav>
+    </details>
   </div>
 </nav>

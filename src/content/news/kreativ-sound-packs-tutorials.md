@@ -3,6 +3,8 @@ title: "Kreativ Sound Adds Packs and Tutorials"
 description: "Kreativ Sound added new free and professional preset packs alongside practical audio tutorials."
 dateLabel: "March 2026"
 sortDate: 2026-03-19
+category: "Product"
+project: "kreativ-sound"
 ---
 
 Kreativ Sound now includes new free and professional preset packs alongside audio tutorials, giving creators more practical starting points and clearer guidance for shaping sounds. Listen and browse at <a class="cta" href="https://kreativsound.com" target="_blank" rel="noopener">kreativsound.com</a>.

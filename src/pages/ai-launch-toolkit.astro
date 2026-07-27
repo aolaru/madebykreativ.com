@@ -70,6 +70,24 @@ const samplePrompts = [
   }
 ];
 
+const sampleOutputs = [
+  {
+    label: "Product brief",
+    title: "One buyer, one problem, one useful result",
+    items: ["Buyer and triggering situation", "Version 1.0 scope", "Delivery format and proof"]
+  },
+  {
+    label: "Offer package",
+    title: "A clear promise with visible boundaries",
+    items: ["Outcome-led title", "Included files and format", "Price, FAQ, and honest expectations"]
+  },
+  {
+    label: "Launch assets",
+    title: "Copy you can edit and publish",
+    items: ["Sales-page structure", "Email, DM, and community swipes", "Launch hooks and final checks"]
+  }
+];
+
 const audienceItems = [
   "You have an idea but need a launch workflow.",
   "You want prompts that create usable assets, not random AI output.",
@@ -125,7 +143,7 @@ const productSchema = {
   title="The KREATIV AI Launch Toolkit | 100 Prompts to Build and Sell"
   description={pageDescription}
   canonicalPath="/ai-launch-toolkit/"
-  ogImage={buildUrl("/og-ai-launch-toolkit.svg")}
+  ogImage={buildUrl("/og-ai-launch-toolkit.png")}
   ogImageAlt="The KREATIV AI Launch Toolkit card showing a 19 EUR prompt toolkit with 100 prompts."
   structuredData={[
     organizationSchema,
@@ -234,6 +252,27 @@ const productSchema = {
         <article class="sample-prompt-card">
           <h3>{sample.title}</h3>
           <p>{sample.prompt}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="content-card landing-section" aria-labelledby="sample-outputs-heading">
+    <div class="section-heading-row">
+      <div>
+        <p class="eyebrow">Inspectable workflow</p>
+        <h2 id="sample-outputs-heading">What the prompts help you produce</h2>
+        <p>Each prompt stack is organized around a usable launch asset, not an isolated AI response.</p>
+      </div>
+    </div>
+    <div class="sample-output-grid">
+      {sampleOutputs.map((output, index) => (
+        <article class="sample-output-card">
+          <span>{String(index + 1).padStart(2, "0")} · {output.label}</span>
+          <h3>{output.title}</h3>
+          <ul>
+            {output.items.map((item) => <li>{item}</li>)}
+          </ul>
         </article>
       ))}
     </div>

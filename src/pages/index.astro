@@ -46,7 +46,7 @@ const resourcePath = [
   title="Made by Kreativ | Creative Tools and Digital Product Guides"
   description="Made by Kreativ collects practical creative tools, digital product guides, curated assets, and utility software built by Andrei Olaru."
   canonicalPath="/"
-  ogImage={buildUrl("/og-home.svg")}
+  ogImage={buildUrl("/og-home.png")}
   ogImageAlt="Made by Kreativ overview card for creative tools, guides, and utility software."
   structuredData={[organizationSchema, websiteSchema, ecosystemItemListSchema]}
 >
@@ -55,11 +55,11 @@ const resourcePath = [
     showLogo={false}
     eyebrow="Independent digital studio"
     title="Made by Kreativ"
-    tagline="Creative tools, curated assets, and utility software crafted to help you ship real projects."
+    tagline="Practical tools and guides for creators who want to make useful things and ship focused projects."
   >
     <div slot="afterTagline" class="landing-actions hero-home-actions">
-      <a class="button-cta button-cta-primary" href="/your-first-digital-product/">Start with the free guide</a>
-      <a class="button-cta button-cta-secondary" href="/ai-launch-toolkit/">View the toolkit</a>
+      <a class="button-cta button-cta-primary" href="/projects/">Explore creative tools</a>
+      <a class="button-cta button-cta-secondary" href="/guides/">Build a digital product</a>
     </div>
   </HeroHeader>
 
@@ -73,6 +73,31 @@ const resourcePath = [
     <p><strong>Product update.</strong> The KREATIV AI Launch Toolkit is now available on Gumroad for 19 EUR.</p>
     <a class="cta" href="/news/ai-launch-toolkit-gumroad/">Read News</a>
   </div>
+
+  <section class="homepage-paths" aria-labelledby="homepage-paths-heading">
+    <div class="section-intro">
+      <p class="eyebrow">Choose your path</p>
+      <h2 id="homepage-paths-heading">Start with the job you need to do.</h2>
+    </div>
+    <div class="homepage-path-grid">
+      <a class="homepage-path-card" href="/projects/">
+        <span class="homepage-path-number" aria-hidden="true">01</span>
+        <span>
+          <strong>Find a practical tool</strong>
+          <span>Browse typography, sound, WordPress, browser utilities, and focused discovery projects.</span>
+        </span>
+        <span class="homepage-path-cta">Explore projects →</span>
+      </a>
+      <a class="homepage-path-card" href="/guides/">
+        <span class="homepage-path-number" aria-hidden="true">02</span>
+        <span>
+          <strong>Build a digital product</strong>
+          <span>Choose an idea, shape the offer, and prepare a useful first version with practical guides.</span>
+        </span>
+        <span class="homepage-path-cta">Open guides & toolkits →</span>
+      </a>
+    </div>
+  </section>
 
   <section class="start-here" aria-labelledby="start-here-heading">
     <div class="section-intro">

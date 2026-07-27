@@ -53,6 +53,9 @@ const canonicalUrl = new URL(canonicalPath, Astro.site);
     <meta property="og:site_name" content="Made by Kreativ" />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:alt" content={ogImageAlt} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     {ogType === "article" && publishedTime && <meta property="article:published_time" content={publishedTime} />}
     {ogType === "article" && modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
 
@@ -71,13 +74,20 @@ const canonicalUrl = new URL(canonicalPath, Astro.site);
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="alternate" type="application/rss+xml" title="Made by Kreativ News" href="/news/rss.xml" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
-    <script is:inline set:html={`window.KREATIV_CONFIG = ${JSON.stringify(clientConfig)};`} />
-    <script is:inline src="/site.js"></script>
+    <script is:inline>
+      try {
+        const savedTheme = localStorage.getItem("kreativ-theme");
+        document.documentElement.setAttribute("data-theme", savedTheme === "dark" ? "dark" : "light");
+      } catch (_) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    </script>
+    <link rel="preload" href="/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/style.css" />
+    <script is:inline set:html={`window.KREATIV_CONFIG = ${JSON.stringify(clientConfig)};`} />
+    <script is:inline defer src="/site.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>

@@ -40,6 +40,29 @@ const steps = [
   }
 ];
 
+const previewPages = [
+  {
+    src: "/downloads/guide-previews/how-to-use-prompts.png",
+    alt: "Guide page explaining how to turn an idea prompt into a useful first draft.",
+    label: "Prompt workflow"
+  },
+  {
+    src: "/downloads/guide-previews/resource-list-example.png",
+    alt: "Guide example for a curated resource-list digital product.",
+    label: "Worked product idea"
+  },
+  {
+    src: "/downloads/guide-previews/buyer-problem-worksheet.png",
+    alt: "Fillable buyer and problem worksheet from the guide.",
+    label: "Fillable worksheet"
+  },
+  {
+    src: "/downloads/guide-previews/launch-checklist.png",
+    alt: "Launch checklist covering before publishing, launch day, and after launch.",
+    label: "Launch checklist"
+  }
+];
+
 const faqs = [
   {
     question: "Is the guide free?",
@@ -64,7 +87,7 @@ const faqs = [
   title="Your First Digital Product - Free Guide by Made by Kreativ"
   description={pageDescription}
   canonicalPath="/your-first-digital-product/"
-  ogImage={buildUrl("/og-your-first-digital-product.svg")}
+  ogImage={buildUrl("/og-your-first-digital-product.png")}
   ogImageAlt="Your First Digital Product free guide card from Made by Kreativ."
   structuredData={[
     organizationSchema,
@@ -136,6 +159,24 @@ const faqs = [
         ))}
       </ol>
     </section>
+  </section>
+
+  <section class="content-card landing-section product-preview-gallery" aria-labelledby="guide-preview-gallery-heading">
+    <div class="section-heading-row">
+      <div>
+        <p class="eyebrow">Real pages from the PDF</p>
+        <h2 id="guide-preview-gallery-heading">Inspect the guide before you download it</h2>
+        <p>These are rendered directly from the current 43-page guide.</p>
+      </div>
+    </div>
+    <div class="preview-page-grid">
+      {previewPages.map((page) => (
+        <a class="preview-page-card" href={page.src} target="_blank" rel="noopener">
+          <img src={page.src} alt={page.alt} width="636" height="900" loading="lazy" />
+          <span>{page.label}</span>
+        </a>
+      ))}
+    </div>
   </section>
 
   <section class="content-card pdf-preview-section" aria-labelledby="preview-heading">

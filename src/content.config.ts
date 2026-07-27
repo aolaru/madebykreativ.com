@@ -7,7 +7,10 @@ const news = defineCollection({
     title: z.string(),
     description: z.string(),
     dateLabel: z.string(),
-    sortDate: z.date()
+    sortDate: z.date(),
+    category: z.enum(["Product", "Project", "Ecosystem", "Engineering"]),
+    project: z.string().optional(),
+    image: z.string().optional()
   })
 });
 

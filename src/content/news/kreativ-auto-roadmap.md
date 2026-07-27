@@ -3,6 +3,8 @@ title: "Kreativ Auto Joins the Roadmap"
 description: "Kreativ Auto joined the roadmap as a new project focused on practical automotive content, tools, and resources."
 dateLabel: "April 4, 2026"
 sortDate: 2026-04-04
+category: "Project"
+project: "kreativ-auto"
 ---
 
 Kreativ Auto is now in development as a new project in the ecosystem, focused on practical automotive content, tools, and resources. More details will be shared as the direction and launch scope become clearer.

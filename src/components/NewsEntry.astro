@@ -5,14 +5,18 @@ interface Props {
   description?: string;
   href?: string;
   ctaLabel?: string;
+  category?: string;
 }
 
-const { date, title, description, href, ctaLabel = `Read ${title}` } = Astro.props;
+const { date, title, description, href, ctaLabel = `Read ${title}`, category } = Astro.props;
 ---
 
-<article class="content-card news-entry">
+<article class="content-card news-entry" data-news-entry data-news-category={category} data-news-search={`${title} ${description || ""} ${category || ""}`.toLowerCase()}>
   <div class="news-entry-main">
-    <p class="news-date">{date}</p>
+    <p class="news-entry-meta">
+      <span class="news-date">{date}</span>
+      {category && <span class="news-category">{category}</span>}
+    </p>
     <h2>{href ? <a href={href}>{title}</a> : title}</h2>
     <div class="news-body">
       {description ? <p>{description}</p> : <slot />}

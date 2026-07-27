@@ -35,7 +35,7 @@ const relatedNews = project.relatedNews
   title={`${project.label} | Made by Kreativ`}
   description={project.description}
   canonicalPath={projectPath(project.slug)}
-  ogImage={buildUrl("/og-projects.svg")}
+  ogImage={buildUrl("/og-projects.png")}
   ogImageAlt={`Made by Kreativ project profile card for ${project.label}.`}
   structuredData={[
     organizationSchema,
@@ -53,10 +53,65 @@ const relatedNews = project.relatedNews
     title={project.label}
     tagline={project.description}
   >
-    <p slot="afterTagline" class="meta-note">{project.status}{status ? `: ${status.description}` : ""}</p>
+    <div slot="afterTagline" class="project-hero-actions">
+      <p class="meta-note">{project.status}{status ? `: ${status.description}` : ""}</p>
+      <div class="landing-actions">
+        {projectHasExternalHref && <a class="button-cta button-cta-primary" href={project.href} target="_blank" rel="noopener">{project.cta}</a>}
+        <a class="button-cta button-cta-secondary" href="/projects/">Project directory</a>
+      </div>
+    </div>
   </HeroHeader>
 
   <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Projects", href: "/projects/" }, { label: project.label }]} />
+
+  <section class="content-card project-showcase" aria-labelledby="project-showcase-heading">
+    <div class="project-showcase-heading">
+      <div>
+        <p class="eyebrow">Current product surface</p>
+        <h2 id="project-showcase-heading">{project.label} in practice</h2>
+      </div>
+      <dl class="project-fact-list">
+        <div>
+          <dt>Current release</dt>
+          <dd>{project.version}</dd>
+        </div>
+        <div>
+          <dt>Verified</dt>
+          <dd>{project.updated}</dd>
+        </div>
+        <div>
+          <dt>Status</dt>
+          <dd>{project.status}</dd>
+        </div>
+      </dl>
+    </div>
+    {project.preview ? (
+      <a class="project-preview-frame" href={project.href} target="_blank" rel="noopener" aria-label={`Open ${project.label}`}>
+        <img src={project.preview} alt={project.previewAlt} width="1200" height="750" loading="eager" />
+      </a>
+    ) : (
+      <div class="signal-ledger-preview" role="img" aria-label={project.previewAlt}>
+        <div>
+          <span>01</span>
+          <strong>Capture</strong>
+          <small>Collect a signal or useful reference.</small>
+        </div>
+        <div>
+          <span>02</span>
+          <strong>Decide</strong>
+          <small>Record the direction and its reasoning.</small>
+        </div>
+        <div>
+          <span>03</span>
+          <strong>Review</strong>
+          <small>Revisit decisions with their original context.</small>
+        </div>
+      </div>
+    )}
+    <p class="project-preview-caption">
+      {project.preview ? `Current public homepage preview, verified ${project.updated}.` : "A first workflow model while the standalone product is still being shaped."}
+    </p>
+  </section>
 
   <section class="content-card project-profile">
     <div class="project-profile-summary">

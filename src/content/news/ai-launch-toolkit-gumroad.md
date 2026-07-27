@@ -3,6 +3,8 @@ title: "KREATIV AI Launch Toolkit Is Available on Gumroad"
 description: "The KREATIV AI Launch Toolkit is available through Gumroad for 19 EUR, with 100 prompts, worksheets, launch swipes, and practical checks."
 dateLabel: "June 28, 2026"
 sortDate: 2026-06-28
+category: "Product"
+image: "/downloads/ai-launch-toolkit-preview.png"
 ---
 
 The KREATIV AI Launch Toolkit is now available through Gumroad for 19 EUR. It includes 100 launch prompts, prompt stacks, worksheets, swipe copy, worked examples, and practical checks for turning one simple product idea into a buyer-ready first version.
