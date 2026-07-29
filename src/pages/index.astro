@@ -2,44 +2,24 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
-import ProductCard from "../components/ProductCard.astro";
+import ProjectLogo from "../components/ProjectLogo.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import {
   buildUrl,
   ecosystemItemListSchema,
   organizationSchema,
   products,
-  projectCategories,
-  site,
+  projectPath,
   websiteSchema
 } from "../data/site";
 
 const latestNews = (await getCollection("news"))
   .sort((a, b) => b.data.sortDate.valueOf() - a.data.sortDate.valueOf())
-  .slice(0, 3)
+  .slice(0, 1)
   .map((entry) => ({
     ...entry,
     path: `/news/${entry.id.replace(/\.md$/, "")}/`
   }));
-
-const resourcePath = [
-  {
-    eyebrow: "Free starting point",
-    title: "Your First Digital Product",
-    description: "Choose one simple product idea with prompts, examples, validation steps, and fillable worksheets.",
-    href: "/your-first-digital-product/",
-    cta: "Download the free guide",
-    isPrimary: true
-  },
-  {
-    eyebrow: "Paid execution system",
-    title: "The KREATIV AI Launch Toolkit",
-    description: "Turn the chosen idea into a buyer-ready offer with launch prompts, worksheets, swipe copy, and checks.",
-    href: "/ai-launch-toolkit/",
-    cta: "View the toolkit",
-    isPrimary: false
-  }
-];
 ---
 
 <BaseLayout
@@ -55,120 +35,41 @@ const resourcePath = [
     showLogo={false}
     eyebrow="Independent digital studio"
     title="Made by Kreativ"
-    tagline="Practical tools and guides for creators who want to make useful things and ship focused projects."
+    tagline="Useful tools, focused projects, and practical guides."
   >
     <div slot="afterTagline" class="landing-actions hero-home-actions">
-      <a class="button-cta button-cta-primary" href="/projects/">Explore creative tools</a>
-      <a class="button-cta button-cta-secondary" href="/guides/">Build a digital product</a>
+      <a class="button-cta button-cta-primary" href="/projects/">Explore projects</a>
+      <a class="button-cta button-cta-secondary" href="/guides/">Open guides</a>
     </div>
   </HeroHeader>
 
-  <div class="hero-bridge">
-    <span class="hero-bridge-item">4 active properties</span>
-    <span class="hero-bridge-item">8 KREATIV projects</span>
-    <span class="hero-bridge-item">{projectCategories.length} project categories</span>
-  </div>
-
-  <div class="launch-ribbon homepage-update">
-    <p><strong>Product update.</strong> The KREATIV AI Launch Toolkit is now available on Gumroad for 19 EUR.</p>
-    <a class="cta" href="/news/ai-launch-toolkit-gumroad/">Read News</a>
-  </div>
-
-  <section class="homepage-paths" aria-labelledby="homepage-paths-heading">
-    <div class="section-intro">
-      <p class="eyebrow">Choose your path</p>
-      <h2 id="homepage-paths-heading">Start with the job you need to do.</h2>
-    </div>
-    <div class="homepage-path-grid">
-      <a class="homepage-path-card" href="/projects/">
-        <span class="homepage-path-number" aria-hidden="true">01</span>
-        <span>
-          <strong>Find a practical tool</strong>
-          <span>Browse typography, sound, WordPress, browser utilities, and focused discovery projects.</span>
-        </span>
-        <span class="homepage-path-cta">Explore projects →</span>
-      </a>
-      <a class="homepage-path-card" href="/guides/">
-        <span class="homepage-path-number" aria-hidden="true">02</span>
-        <span>
-          <strong>Build a digital product</strong>
-          <span>Choose an idea, shape the offer, and prepare a useful first version with practical guides.</span>
-        </span>
-        <span class="homepage-path-cta">Open guides & toolkits →</span>
-      </a>
-    </div>
-  </section>
-
-  <section class="start-here" aria-labelledby="start-here-heading">
-    <div class="section-intro">
-      <p class="eyebrow">Start here</p>
-      <h2 id="start-here-heading">Choose a product idea, then build the first version.</h2>
-      <p>A practical free guide and a focused paid toolkit for creators who want to ship a small useful digital product without overbuilding.</p>
-    </div>
-    <div class="resource-path-grid">
-      {resourcePath.map((resource) => (
-        <article class:list={["resource-path-card", resource.isPrimary ? "resource-path-card-primary" : ""]}>
-          <p class="eyebrow">{resource.eyebrow}</p>
-          <h3>{resource.title}</h3>
-          <p>{resource.description}</p>
-          <a class={resource.isPrimary ? "button-cta button-cta-primary" : "button-cta button-cta-secondary"} href={resource.href}>{resource.cta}</a>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="section-intro directory-intro">
-    <p class="eyebrow">Core ecosystem</p>
-    <h2>Ecosystem Directory</h2>
-    <p>Four focused core properties for typography, sound, WordPress, and practical browser utilities.</p>
-  </section>
-
-  <section class="pillars">
-    {products.map((product) => <ProductCard {...product} />)}
-  </section>
-
-  <section class="ecosystem-preview" aria-labelledby="ecosystem-preview-heading">
+  <section class="home-featured" aria-labelledby="home-featured-heading">
     <div class="section-heading-row">
-      <div>
-        <p class="eyebrow">Full project map</p>
-        <h2 id="ecosystem-preview-heading">Explore the wider KREATIV ecosystem</h2>
-        <p>The full directory covers core properties, roadmap projects, discovery work, and utility software in one filterable view.</p>
-      </div>
-      <a class="button-cta button-cta-secondary" href="/projects/">Open Projects</a>
+      <h2 id="home-featured-heading">Featured projects</h2>
+      <a class="cta" href="/projects/">View all</a>
     </div>
-    <div class="ecosystem-preview-grid">
-      {projectCategories.map((category) => (
-        <article class="ecosystem-preview-item">
-          <h3>{category.label}</h3>
-          <p>{category.description}</p>
-        </article>
+    <div class="home-project-grid">
+      {products.map((project) => (
+        <a class="home-project-link" href={projectPath(project.slug)}>
+          <ProjectLogo slug={project.slug} mark={project.logo.mark} />
+          <span>
+            <strong>{project.label}</strong>
+            <small>{project.status}</small>
+          </span>
+          <span class="home-project-arrow" aria-hidden="true">→</span>
+        </a>
       ))}
     </div>
   </section>
 
-  <section class="content-card latest-updates" aria-labelledby="latest-updates-heading">
-    <div class="section-heading-row">
-      <h2 id="latest-updates-heading">Latest Updates</h2>
-      <a class="cta" href="/news/">All News</a>
-    </div>
-    <div class="latest-update-list">
-      {latestNews.map((entry) => (
-        <article class="latest-update">
-          <p class="news-date">{entry.data.dateLabel}</p>
-          <h3><a href={entry.path}>{entry.data.title}</a></h3>
-          <p>{entry.data.description}</p>
-        </article>
-      ))}
-    </div>
-  </section>
+  {latestNews.map((entry) => (
+    <a class="home-latest" href={entry.path}>
+      <span class="home-latest-label">Latest</span>
+      <strong>{entry.data.title}</strong>
+      <span class="home-latest-date">{entry.data.dateLabel}</span>
+      <span class="home-project-arrow" aria-hidden="true">→</span>
+    </a>
+  ))}
 
-  <section class="content-card trust-strip">
-    <div class="trust-copy">
-      <p class="trust-kicker">Independent product ecosystem</p>
-      <p>Built and maintained by Andrei Olaru. Last updated {site.lastUpdated}.</p>
-    </div>
-    <p class="trust-action"><a class="cta" href="/contact/">Product support and partnerships</a></p>
-  </section>
-
-  <SiteFooter />
+  <SiteFooter compact />
 </BaseLayout>
