@@ -11,6 +11,6 @@
     "check": "npm run validate"
   },
   "devDependencies": {
-    "astro": "^6.1.7"
+    "astro": "^7.1.6"
   }
 }
