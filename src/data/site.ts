@@ -20,7 +20,12 @@ export const analytics = {
   }
 };
 
-export const clientConfig = { analytics };
+export const clientConfig = {
+  analytics: {
+    productionHost: analytics.productionHost,
+    plausible: analytics.plausible
+  }
+};
 
 export const statusDefinitions = [
   { label: "Live", description: "Public and actively available." },

@@ -303,28 +303,11 @@
     document.head.appendChild(script);
   }
 
-  function loadCloudflareAnalytics() {
-    const cloudflare = config.analytics?.cloudflare;
-    if (!cloudflare?.token || !cloudflare?.src) {
-      return;
-    }
-    const existing = document.querySelector(`script[src="${cloudflare.src}"]`);
-    if (existing) {
-      return;
-    }
-    const script = document.createElement("script");
-    script.defer = true;
-    script.src = cloudflare.src;
-    script.dataset.cfBeacon = JSON.stringify({ token: cloudflare.token });
-    document.head.appendChild(script);
-  }
-
   function loadAnalytics() {
     if (!isProductionHost()) {
       return;
     }
     loadPlausible();
-    loadCloudflareAnalytics();
   }
 
   function init() {
