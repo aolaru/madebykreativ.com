@@ -6,10 +6,10 @@ import ProjectDirectoryCard from "../../components/ProjectDirectoryCard.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import {
   buildUrl,
+  archivedProjects,
   ecosystemItemListSchema,
   organizationSchema,
-  projectCategories,
-  projectDirectory,
+  publicProjects,
   projectPath,
   statusDefinitions
 } from "../../data/site";
@@ -17,7 +17,7 @@ import {
 
 <BaseLayout
   title="Projects | Made by Kreativ"
-  description="Explore the Made by Kreativ ecosystem across creative discovery, assets, utility software, discovery projects, and roadmap work."
+  description="Explore the maintained, open-source, and archived projects created by Andrei Olaru under Made by Kreativ."
   canonicalPath="/projects/"
   ogImage={buildUrl("/og-projects.png")}
   ogImageAlt="Made by Kreativ project directory card."
@@ -25,39 +25,25 @@ import {
 >
   <HeroHeader
     current="projects"
-    eyebrow="Ecosystem directory"
+    eyebrow="Project archive"
     title="KREATIV Projects"
-    tagline="A filterable view of the full Made by Kreativ ecosystem, from core product properties to focused independent projects."
+    tagline="Public repositories, maintained tools, and selected past work in one honest directory."
   />
 
   <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Projects" }]} />
 
-  <section class="content-card project-map project-directory-page" aria-labelledby="project-map-heading">
+  <section class="project-map project-directory-page" aria-labelledby="project-map-heading">
     <div class="section-heading-row">
       <div>
-        <p class="eyebrow">Project map</p>
-        <h2 id="project-map-heading">Browse by status and category</h2>
-        <p>Use the filters to narrow the ecosystem by availability, project type, or working area.</p>
+        <p class="eyebrow">Current public work</p>
+        <h2 id="project-map-heading">Public and reusable</h2>
+        <p>These projects remain available as maintained tools or public source archives.</p>
       </div>
       <a class="cta" href="/">Back to home</a>
     </div>
 
-    <div class="status-filter" role="group" aria-label="Filter projects by status">
-      <button class="status-filter-button" type="button" data-project-filter="all" aria-pressed="true">All</button>
-      {statusDefinitions.map((status) => (
-        <button class="status-filter-button" type="button" data-project-filter={status.label} aria-pressed="false">{status.label}</button>
-      ))}
-    </div>
-
-    <div class="category-filter" role="group" aria-label="Filter projects by category">
-      <button class="status-filter-button" type="button" data-project-category-filter="all" aria-pressed="true">All Categories</button>
-      {projectCategories.map((category) => (
-        <button class="status-filter-button" type="button" data-project-category-filter={category.label} aria-pressed="false">{category.label}</button>
-      ))}
-    </div>
-
-    <div class="project-directory-grid">
-      {projectDirectory.map((project) => (
+    <div class="project-directory-grid project-directory-grid-public">
+      {publicProjects.map((project) => (
         <ProjectDirectoryCard
           href={projectPath(project.slug)}
           slug={project.slug}
@@ -70,10 +56,26 @@ import {
       ))}
     </div>
 
-    <div class="project-empty-state" data-project-empty-state hidden>
-      <h3>No projects match those filters.</h3>
-      <p>Clear the filters or choose a broader status and category combination.</p>
-      <button class="button-cta button-cta-secondary" type="button" data-project-filter-reset>Clear filters</button>
+    <div class="section-heading-row directory-group-heading" id="past-work">
+      <div>
+        <p class="eyebrow">Portfolio archive</p>
+        <h2>Selected past work</h2>
+        <p>Public properties retained for reference, without an active development or publishing roadmap.</p>
+      </div>
+    </div>
+
+    <div class="project-directory-grid project-directory-grid-archive">
+      {archivedProjects.map((project) => (
+        <ProjectDirectoryCard
+          href={projectPath(project.slug)}
+          slug={project.slug}
+          label={project.label}
+          category={project.category}
+          status={project.status}
+          description={project.description}
+          logo={project.logo}
+        />
+      ))}
     </div>
 
     <dl class="status-legend project-status-reference">

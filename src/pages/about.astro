@@ -3,9 +3,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { buildUrl, createBreadcrumbSchema, createPageSchema, organizationSchema, projectDirectory } from "../data/site";
+import { buildUrl, createBreadcrumbSchema, createPageSchema, organizationSchema, projectPath, publicProjects } from "../data/site";
 
-const pageDescription = "Learn about the Made by Kreativ ecosystem, the practical product philosophy, and the independent tools, assets, and guides maintained by Andrei Olaru.";
+const pageDescription = "Learn about Made by Kreativ, Andrei Olaru's semi-retired collection of maintained tools, open-source projects, practical guides, and past work.";
 ---
 
 <BaseLayout
@@ -30,9 +30,9 @@ const pageDescription = "Learn about the Made by Kreativ ecosystem, the practica
 >
   <HeroHeader
     current="about"
-    eyebrow="Our story"
+    eyebrow="Independent work"
     title="About Made by Kreativ"
-    tagline="Independent digital products made for practical use, long-term reliability, and creative momentum."
+    tagline="A semi-retired collection of useful tools, public source projects, practical guides, and past work."
   />
 
   <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About" }]} />
@@ -43,94 +43,76 @@ const pageDescription = "Learn about the Made by Kreativ ecosystem, the practica
     </div>
     <div class="founder-copy">
       <p class="eyebrow">Independent builder</p>
-      <h2 id="founder-heading">Built and maintained by Andrei Olaru</h2>
-      <p>I build Made by Kreativ as an independent product ecosystem: small tools, focused creative resources, and practical guides designed to solve a clear job without unnecessary complexity.</p>
-      <p>The work spans product design, development, publishing, and long-term maintenance. Each property has its own audience and purpose, while this site keeps the full ecosystem understandable.</p>
+      <h2 id="founder-heading">Built by Andrei Olaru</h2>
+      <p>Made by Kreativ brings together independent products and experiments created across design, development, publishing, and practical software.</p>
+      <p>I am semi-retired from active product development. A small number of projects remain public, maintenance is selective, and earlier work is preserved as an honest portfolio archive.</p>
       <div class="landing-actions founder-actions">
-        <a class="button-cta button-cta-primary" href="/projects/">Explore {projectDirectory.length} projects</a>
-        <a class="button-cta button-cta-secondary" href="/contact/">Discuss a collaboration</a>
+        <a class="button-cta button-cta-primary" href="/projects/">Explore the project archive</a>
+        <a class="button-cta button-cta-secondary" href="/news/">Read status updates</a>
       </div>
     </div>
   </section>
 
   <section class="content-card landing-section" aria-labelledby="principles-heading">
-    <p class="eyebrow">Working principles</p>
-    <h2 id="principles-heading">How the products are shaped</h2>
+    <p class="eyebrow">Current approach</p>
+    <h2 id="principles-heading">What semi-retired means here</h2>
     <div class="about-principle-grid">
       <article>
         <span>01</span>
-        <h3>Start with a real job</h3>
-        <p>Every product begins with a practical decision, workflow, or repeated task that can be made clearer.</p>
+        <h3>Selective maintenance</h3>
+        <p>Stable public tools may receive small fixes, compatibility updates, and accessibility improvements.</p>
       </article>
       <article>
         <span>02</span>
-        <h3>Keep the first version focused</h3>
-        <p>Small, opinionated products are easier to understand, ship, maintain, and improve from real feedback.</p>
+        <h3>Source over promises</h3>
+        <p>Reusable projects are published with source code instead of being presented as active future businesses.</p>
       </article>
       <article>
         <span>03</span>
-        <h3>Maintain what ships</h3>
-        <p>Clear status labels, public updates, and long-term reliability matter as much as launching something new.</p>
+        <h3>Honest archives</h3>
+        <p>Past projects remain documented without implying an active roadmap or regular publishing schedule.</p>
       </article>
     </div>
   </section>
 
-  <section class="content-card about-scope" aria-labelledby="scope-heading">
-    <div>
-      <p class="eyebrow">The ecosystem</p>
-      <h2 id="scope-heading">One studio, several focused surfaces</h2>
-      <p>Made by Kreativ connects four kinds of work without forcing them into one product.</p>
+  <section class="content-card landing-section" aria-labelledby="scope-heading">
+    <p class="eyebrow">Public and reusable</p>
+    <h2 id="scope-heading">What remains public</h2>
+    <div class="about-principle-grid about-public-grid">
+      {publicProjects.map((project) => (
+        <article>
+          <span class="pillar-status">{project.status}</span>
+          <h3>{project.label}</h3>
+          <p>{project.description}</p>
+          <a class="cta" href={projectPath(project.slug)}>Project overview</a>
+        </article>
+      ))}
     </div>
-    <dl>
-      <div>
-        <dt>Creative discovery</dt>
-        <dd>Typography and curated references.</dd>
-      </div>
-      <div>
-        <dt>Creative assets</dt>
-        <dd>Sound packs, presets, and production material.</dd>
-      </div>
-      <div>
-        <dt>Utility software</dt>
-        <dd>Browser and WordPress tools for repeated tasks.</dd>
-      </div>
-      <div>
-        <dt>Guides &amp; toolkits</dt>
-        <dd>Practical systems for building and publishing products.</dd>
-      </div>
-    </dl>
   </section>
 
   <section class="content-card landing-section" aria-labelledby="timeline-heading">
     <p class="eyebrow">Selected milestones</p>
-    <h2 id="timeline-heading">How the ecosystem has grown</h2>
+    <h2 id="timeline-heading">From active studio to public archive</h2>
     <ol class="about-timeline">
       <li>
         <time datetime="2026-03">March 2026</time>
         <div>
-          <h3>Core properties aligned</h3>
-          <p>Kreativ Font, Sound, WP, and Tools gained clearer roles, shared navigation, and consistent release checks.</p>
+          <h3>The project family was organized</h3>
+          <p>Independent tools, creative resources, and guides gained a shared Made by Kreativ home.</p>
         </div>
       </li>
       <li>
         <time datetime="2026-05">May 2026</time>
         <div>
-          <h3>The wider project directory took shape</h3>
-          <p>Discovery and adjacent projects joined a public map with honest live, curated, project, and roadmap states.</p>
+          <h3>The wider archive took shape</h3>
+          <p>Project profiles and release notes made the body of work easier to understand and preserve.</p>
         </div>
       </li>
       <li>
-        <time datetime="2026-06">June 2026</time>
+        <time datetime="2026-08">August 2026</time>
         <div>
-          <h3>Practical publishing guides launched</h3>
-          <p>The free first-product guide and paid AI Launch Toolkit created a connected path from idea to launch.</p>
-        </div>
-      </li>
-      <li>
-        <time datetime="2026-07">July 2026</time>
-        <div>
-          <h3>Project proof became visible</h3>
-          <p>Project profiles now show current public surfaces, verified status facts, and the latest ecosystem updates.</p>
+          <h3>Maintenance and open-source transition</h3>
+          <p>Kreativ Tools entered maintenance mode, while Findsera and News Ledger were preserved as public source archives.</p>
         </div>
       </li>
     </ol>

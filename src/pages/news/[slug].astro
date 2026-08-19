@@ -40,6 +40,7 @@ const relatedProject = entry.data.project
   : undefined;
 const articleImage = entry.data.image || relatedProject?.preview;
 const articleImageAlt = relatedProject?.previewAlt || `${entry.data.title} product preview.`;
+const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-08-19T00:00:00.000Z").valueOf();
 ---
 
 <BaseLayout
@@ -50,7 +51,7 @@ const articleImageAlt = relatedProject?.previewAlt || `${entry.data.title} produ
   ogTitle={`${entry.data.title} | Made by Kreativ`}
   ogDescription={entry.data.description}
   ogImage={buildUrl("/og-news.png")}
-  ogImageAlt="Made by Kreativ news card for release notes and ecosystem updates."
+  ogImageAlt="Made by Kreativ project update card."
   publishedTime={publishedTime}
   modifiedTime={modifiedTime}
   structuredData={[
@@ -58,21 +59,21 @@ const articleImageAlt = relatedProject?.previewAlt || `${entry.data.title} produ
     articleSchema,
     createBreadcrumbSchema([
       { name: "Home", path: "/" },
-      { name: "News", path: "/news/" },
+      { name: "Updates", path: "/news/" },
       { name: entry.data.title, path: canonicalPath }
     ])
   ]}
 >
   <HeroHeader
     current="news"
-    eyebrow="News"
+    eyebrow="Update"
     title={entry.data.title}
     tagline={entry.data.description}
   >
     <p slot="afterTagline" class="meta-note">{entry.data.dateLabel} · {entry.data.category}</p>
   </HeroHeader>
 
-  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "News", href: "/news/" }, { label: entry.data.title }]} />
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Updates", href: "/news/" }, { label: entry.data.title }]} />
 
   <article class="content-card news-detail">
     <dl class="article-fact-list">
@@ -89,6 +90,9 @@ const articleImageAlt = relatedProject?.previewAlt || `${entry.data.title} produ
         <dd>{relatedProject ? relatedProject.label : "Made by Kreativ"}</dd>
       </div>
     </dl>
+    {isHistoricalUpdate && (
+      <p class="article-archive-note"><strong>Historical update.</strong> This article predates the August 2026 transition to selective maintenance and open-source archiving. The project directory shows the current status.</p>
+    )}
     {articleImage && (
       <figure class:list={["article-preview", !relatedProject && "article-preview-portrait"]}>
         <img src={articleImage} alt={articleImageAlt} width={relatedProject ? "1200" : "1191"} height={relatedProject ? "750" : "1684"} loading="eager" />
@@ -105,11 +109,11 @@ const articleImageAlt = relatedProject?.previewAlt || `${entry.data.title} produ
       <div class="landing-actions">
         {relatedProject && <a class="button-cta button-cta-primary" href={projectPath(relatedProject.slug)}>Project details</a>}
         {!relatedProject && <a class="button-cta button-cta-primary" href="/guides/">Guides &amp; toolkits</a>}
-        <a class="button-cta button-cta-secondary" href="/news/rss.xml">Follow via RSS</a>
+        <a class="button-cta button-cta-secondary" href="/news/rss.xml">Updates RSS</a>
       </div>
     </aside>
-    <nav class="article-nav" aria-label="News article navigation">
-      <a class="cta" href="/news/">Back to News</a>
+    <nav class="article-nav" aria-label="Update navigation">
+      <a class="cta" href="/news/">Back to Updates</a>
       <div class="article-nav-pair">
         {newerEntry && <a class="cta" href={newsPath(newerEntry.id)}>Newer: {newerEntry.data.title}</a>}
         {olderEntry && <a class="cta" href={newsPath(olderEntry.id)}>Older: {olderEntry.data.title}</a>}

@@ -21,32 +21,31 @@ const latestNewsLabel = latestNewsDate
   ? new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(latestNewsDate)
   : "May 13, 2026";
 const categories = [...new Set(newsEntries.map((entry) => entry.data.category))];
-const formEndpoint = "https://formsubmit.co/info@madebykreativ.com";
 ---
 
 <BaseLayout
-  title="News | Made by Kreativ"
-  description="Release notes, product updates, and ecosystem changes across Made by Kreativ tools, guides, launch resources, and project directories."
+  title="Updates Archive | Made by Kreativ"
+  description="Occasional project status notes and historical release updates from the Made by Kreativ archive."
   canonicalPath="/news/"
   ogImage={buildUrl("/og-news.png")}
-  ogImageAlt="Made by Kreativ news card for release notes and ecosystem updates."
+  ogImageAlt="Made by Kreativ updates archive card."
   structuredData={[organizationSchema, createNewsItemListSchema(newsEntries)]}
 >
   <HeroHeader
     current="news"
-    eyebrow="Updates"
-    title="News"
-    tagline="News, release notes, and ecosystem updates."
+    eyebrow="Project archive"
+    title="Updates"
+    tagline="Occasional status notes and a historical record of earlier releases."
   >
     <p slot="afterTagline" class="meta-note">Last updated: {latestNewsLabel}</p>
   </HeroHeader>
 
-  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "News" }]} />
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Updates" }]} />
 
   <section class="content-card news-tools" aria-labelledby="news-tools-heading">
     <div>
       <p class="eyebrow">Browse updates</p>
-      <h2 id="news-tools-heading">Find a release or project note</h2>
+      <h2 id="news-tools-heading">Find a status or release note</h2>
     </div>
     <label class="news-search">
       <span>Search updates</span>
@@ -58,10 +57,10 @@ const formEndpoint = "https://formsubmit.co/info@madebykreativ.com";
         <button class="status-filter-button" type="button" data-news-filter={category} aria-pressed="false">{category}</button>
       ))}
     </div>
-    <p class="news-tools-links"><a class="cta" href="/news/rss.xml">Follow via RSS</a></p>
+    <p class="news-tools-links"><a class="cta" href="/news/rss.xml">Updates RSS</a></p>
   </section>
 
-  <section class="news-index-list" aria-label="News updates">
+  <section class="news-index-list" aria-label="Project updates">
     {newsEntries.map(({ data, path }) => (
       <NewsEntry date={data.dateLabel} title={data.title} description={data.description} href={path} category={data.category} ctaLabel={`Read ${data.title}`} />
     ))}
@@ -74,23 +73,14 @@ const formEndpoint = "https://formsubmit.co/info@madebykreativ.com";
 
   <section class="content-card news-follow-card" aria-labelledby="news-follow-heading">
     <div>
-      <p class="eyebrow">Occasional product email</p>
-      <h2 id="news-follow-heading">Follow product updates</h2>
-      <p>Receive important launches and useful release notes. No fixed schedule and no promotional sequence.</p>
+      <p class="eyebrow">Publishing policy</p>
+      <h2 id="news-follow-heading">No fixed update schedule</h2>
+      <p>New notes are published only when a project status or maintenance decision materially changes. Historical release notes remain available for context.</p>
     </div>
-    <form class="newsletter-form" action={formEndpoint} method="POST">
-      <input type="hidden" name="_subject" value="Made by Kreativ updates subscription" />
-      <input type="hidden" name="_template" value="table" />
-      <input type="hidden" name="_captcha" value="false" />
-      <input type="hidden" name="_next" value="https://madebykreativ.com/news/?subscribed=1" />
-      <input class="form-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
-      <label>
-        <span>Email address</span>
-        <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
-      </label>
-      <button class="button-cta button-cta-primary" type="submit">Request updates</button>
-      <p class="form-note">Your address is sent through FormSubmit to Made by Kreativ and used only for requested product updates. You can unsubscribe by replying to any update.</p>
-    </form>
+    <div class="landing-actions">
+      <a class="button-cta button-cta-secondary" href="/news/rss.xml">Open RSS feed</a>
+      <a class="button-cta button-cta-secondary" href="/about/">About the archive</a>
+    </div>
   </section>
 
   <SiteFooter />

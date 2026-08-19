@@ -3,7 +3,7 @@ export const site = {
   url: "https://madebykreativ.com/",
   logo: "https://madebykreativ.com/favicon.svg",
   email: "info@madebykreativ.com",
-  lastUpdated: "2026-07-30"
+  lastUpdated: "2026-08-19"
 };
 
 export const isExternalHref = (href: string) => /^https?:\/\//.test(href);
@@ -28,135 +28,114 @@ export const clientConfig = {
 };
 
 export const statusDefinitions = [
-  { label: "Live", description: "Public and actively available." },
-  { label: "Curated", description: "Maintained as a focused discovery resource." },
-  { label: "Plugins", description: "Focused on practical WordPress utilities." },
-  { label: "Project", description: "Active or exploratory project in the ecosystem." },
-  { label: "Roadmap", description: "Planned or being shaped before a wider release." }
-];
-
-export const projectCategories = [
-  {
-    label: "Creative Discovery",
-    description: "Projects for finding stronger references, typography, and creative direction."
-  },
-  {
-    label: "Creative Assets",
-    description: "Resources and packs for creators working with sound, media, and production material."
-  },
-  {
-    label: "Utility Software",
-    description: "Practical browser, WordPress, and tracking tools for day-to-day workflows."
-  },
-  {
-    label: "Discovery Projects",
-    description: "Focused destinations for exploration, listening context, and search-led projects."
-  },
-  {
-    label: "Roadmap",
-    description: "Upcoming KREATIV projects being shaped before wider release."
-  }
+  { label: "Maintenance", description: "Public and stable, with occasional fixes rather than active expansion." },
+  { label: "Open Source", description: "Source code is public for reference, reuse, and community improvements." },
+  { label: "Archive", description: "Earlier work retained as part of the Made by Kreativ portfolio." }
 ];
 
 const coreProjects = [
   {
     slug: "kreativ-font",
     href: "https://kreativfont.com",
+    sourceHref: null,
     product: "Kreativ Font",
     label: "Kreativ Font",
     category: "Creative Discovery",
-    status: "Curated",
+    status: "Archive",
     title: "Kreativ Font",
     logo: { mark: "F" },
     description: "A curated discovery library for fonts and creative assets focused on typography, style, and inspiration.",
     longDescription: "Kreativ Font helps designers, makers, and builders discover stronger typography references and creative assets without starting from a blank search.",
     whatItSolves: "It reduces the friction of typography research by keeping font discovery and creative references in one focused place.",
     audience: "Designers, creative directors, website builders, and makers who need faster typography decisions.",
-    currentStatus: "Curated and maintained as an active discovery resource.",
-    version: "Live curated directory",
+    currentStatus: "Public site retained as past work. No regular expansion schedule is planned.",
+    version: "Public archive",
     updated: "July 2026",
     preview: "/project-previews/kreativ-font.png",
     previewAlt: "Kreativ Font homepage showing curated fonts, search, and practical font tools.",
     cta: "Visit Kreativ Font",
     focus: ["Typography discovery", "Creative references", "Style research"],
     proof: ["Curated font discovery", "Project detail page", "Related filtering update"],
-    nextSteps: ["Continue refining filter paths", "Add stronger reference collections", "Connect font choices to practical design use cases"],
+    maintenanceNotes: ["Public site retained", "No active roadmap", "Historical updates remain available"],
     relatedNews: ["kreativ-font-filters", "q1-progress"],
     isCore: true
   },
   {
     slug: "kreativ-sound",
     href: "https://kreativsound.com",
+    sourceHref: null,
     product: "Kreativ Sound",
     label: "Kreativ Sound",
     category: "Creative Assets",
-    status: "Live",
+    status: "Archive",
     title: "Kreativ Sound",
     logo: { mark: "S" },
     description: "Sound packs, textures, and presets for creators working with ambient, experimental, and cinematic material.",
     longDescription: "Kreativ Sound collects practical audio resources, presets, and tutorials for creators who need atmospheric, experimental, and cinematic starting points.",
     whatItSolves: "It gives creators ready-made sonic starting points without forcing them to build every texture, preset, or ambient layer from scratch.",
     audience: "Music producers, sound designers, video creators, and experimental audio makers.",
-    currentStatus: "Live with free and professional packs, presets, textures, and tutorials.",
-    version: "Active sound catalog",
+    currentStatus: "Public sound catalogue retained as past work. No regular release schedule is planned.",
+    version: "Public archive",
     updated: "July 2026",
     preview: "/project-previews/kreativ-sound.png",
     previewAlt: "Kreativ Sound homepage presenting boutique sound packs for electronic and cinematic work.",
     cta: "Explore Sounds",
     focus: ["Preset packs", "Audio textures", "Tutorials"],
     proof: ["Live standalone property", "Free and professional packs", "Tutorial-led sound resources"],
-    nextSteps: ["Keep pack navigation clear", "Expand tutorial context", "Connect releases back to the ecosystem directory"],
+    maintenanceNotes: ["Public catalogue retained", "No active release schedule", "Existing resources remain accessible"],
     relatedNews: ["kreativ-sound-packs-tutorials", "q1-progress"],
     isCore: true
   },
   {
     slug: "kreativ-wp",
     href: "https://kreativwp.com",
+    sourceHref: null,
     product: "Kreativ WP",
     label: "Kreativ WP",
     category: "Utility Software",
-    status: "Plugins",
+    status: "Archive",
     title: "Kreativ WP",
     logo: { mark: "WP" },
     description: "Practical WordPress utilities and maintenance plugins built for real sites and long-term reliability.",
     longDescription: "Kreativ WP focuses on practical WordPress maintenance utilities that solve real site-operation problems without unnecessary complexity.",
     whatItSolves: "It keeps WordPress utility work focused on real maintenance, reliability, and operational needs instead of bloated feature sets.",
     audience: "WordPress site owners, maintainers, developers, and small teams managing real production sites.",
-    currentStatus: "Plugin-focused property for practical WordPress utilities.",
-    version: "Two live plugins",
+    currentStatus: "WordPress utility work retained as part of the Made by Kreativ portfolio.",
+    version: "Public archive",
     updated: "July 2026",
     preview: "/project-previews/kreativ-wp.png",
     previewAlt: "Kreativ WP homepage showing its live WordPress maintenance plugins.",
     cta: "View WP Tools",
     focus: ["WordPress utilities", "Maintenance workflows", "Reliability"],
     proof: ["Dedicated WordPress property", "Practical utility positioning", "Maintenance-focused roadmap"],
-    nextSteps: ["Clarify active plugin availability", "Document maintenance use cases", "Keep tooling focused on production needs"],
+    maintenanceNotes: ["Public site retained", "No new plugin roadmap", "Availability may change without regular updates"],
     relatedNews: ["q1-progress"],
     isCore: true
   },
   {
     slug: "kreativ-tools",
     href: "https://kreativtools.com",
+    sourceHref: "https://github.com/aolaru/kreativtools",
     product: "Kreativ Tools",
     label: "Kreativ Tools",
     category: "Utility Software",
-    status: "Live",
+    status: "Maintenance",
     title: "Kreativ Tools",
     logo: { mark: "T" },
     description: "Browser-first utilities for image, video, PDF, document, and file workflows built for practical daily use.",
     longDescription: "Kreativ Tools brings file, image, video, PDF, and document utilities into a browser-first workspace for fast everyday production tasks.",
     whatItSolves: "It removes small workflow bottlenecks around file conversion, media utilities, PDFs, and everyday browser-first productivity tasks.",
     audience: "Creators, operators, developers, and anyone who needs fast utility tools without installing desktop software.",
-    currentStatus: "Live and positioned as the utility hub of the KREATIV ecosystem.",
-    version: "Live browser toolkit",
-    updated: "July 2026",
+    currentStatus: "Public and in maintenance mode. Stable tools remain online, with occasional fixes and compatibility improvements.",
+    version: "v0.9.8 maintenance release",
+    updated: "August 2026",
     preview: "/project-previews/kreativ-tools.png",
     previewAlt: "Kreativ Tools homepage showing browser-first job and workflow selection.",
     cta: "Open Kreativ Tools",
     focus: ["Image tools", "PDF and document utilities", "File workflows"],
     proof: ["Live browser utility hub", "Image, PDF, document, and file workflows", "Public ecosystem update"],
-    nextSteps: ["Keep high-use tools easy to find", "Add workflow-specific landing paths", "Publish utility updates as tools evolve"],
-    relatedNews: ["kreativ-tools-live", "homepage-directory-refinement"],
+    maintenanceNotes: ["Stable browser tools remain online", "Small fixes and accessibility improvements are welcome", "No planned catalogue expansion"],
+    relatedNews: ["maintenance-open-source-transition", "kreativ-tools-live", "homepage-directory-refinement"],
     isCore: true
   }
 ];
@@ -165,23 +144,24 @@ const adjacentProjects = [
   {
     slug: "kreativ-auto",
     label: "Kreativ Auto",
-    category: "Roadmap",
-    status: "Live",
+    category: "Reference Projects",
+    status: "Archive",
     logo: { mark: "A" },
     description: "An automotive project for practical content, useful references, and workflow-oriented tools.",
-    longDescription: "Kreativ Auto is being shaped as an automotive destination for practical information, references, and future utility tooling.",
-    whatItSolves: "It creates a dedicated space for automotive research, content, references, and future tools that do not fit inside the creative software properties.",
-    audience: "Automotive enthusiasts, researchers, and practical users looking for structured references and future utilities.",
-    currentStatus: "Live reference property with public buying, diagnosis, maintenance-cost, and parts paths.",
-    version: "20 cars, 58 problems, 58 parts guides",
+    longDescription: "Kreativ Auto is an archived automotive reference project covering practical buying, diagnosis, maintenance-cost, and parts questions.",
+    whatItSolves: "It preserves structured automotive research and practical reference paths in a dedicated public property.",
+    audience: "Automotive enthusiasts and practical users looking for structured reference material.",
+    currentStatus: "Public reference site retained as past work. No active expansion schedule is planned.",
+    version: "Public archive",
     updated: "July 2026",
     preview: "/project-previews/kreativ-auto.png",
     previewAlt: "Kreativ Auto homepage showing public car, problem, and parts guide counts.",
     href: "https://kreativauto.com",
+    sourceHref: null,
     cta: "Open Kreativ Auto",
-    focus: ["Automotive references", "Practical content", "Future tools"],
+    focus: ["Automotive references", "Practical content", "Ownership context"],
     proof: ["Live buying and diagnostic paths", "20 cars in the public reference set", "58 problem and 58 parts guides"],
-    nextSteps: ["Expand model coverage", "Keep source and decision criteria visible", "Connect related ownership-cost workflows"],
+    maintenanceNotes: ["Public reference site retained", "No active roadmap", "Existing material remains available"],
     relatedNews: ["kreativ-auto-domain-added", "kreativ-auto-roadmap"],
     isCore: false
   },
@@ -189,105 +169,89 @@ const adjacentProjects = [
     slug: "how-much-music",
     label: "How Much Music",
     category: "Discovery Projects",
-    status: "Live",
+    status: "Archive",
     logo: { mark: "HM" },
     description: "A music-focused project around discovery, value, and practical listening context.",
     longDescription: "How Much Music is a live music-focused project built around listening context, practical discovery, and clearer ways to think about music value.",
     whatItSolves: "It gives music discovery a clearer context layer by focusing on value, listening decisions, and practical ways to evaluate music.",
     audience: "Music listeners, collectors, creators, and people who want a more structured way to think about music discovery.",
-    currentStatus: "Live as a standalone music-focused KREATIV project.",
-    version: "30 reviewed songs and 34 reviewed artists",
+    currentStatus: "Public music-discovery project retained as past work.",
+    version: "Public archive",
     updated: "July 2026",
     preview: "/project-previews/how-much-music.png",
     previewAlt: "How Much Music homepage showing reviewed song and artist catalogs with methodology.",
     href: "https://howmuchmusic.com",
+    sourceHref: null,
     cta: "Open How Much Music",
     focus: ["Music discovery", "Listening context", "Value signals"],
     proof: ["Live standalone property", "Music discovery focus", "Listening context positioning"],
-    nextSteps: ["Clarify the discovery model", "Connect useful listening examples", "Publish updates as the project expands"],
+    maintenanceNotes: ["Public site retained", "No active publishing schedule", "Existing reviews remain available"],
     relatedNews: ["how-much-music-live"],
     isCore: false
   },
   {
     slug: "find-sera",
-    label: "Find Sera",
+    label: "Findsera",
     category: "Discovery Projects",
-    status: "Curated",
+    status: "Open Source",
     logo: { mark: "FS" },
-    description: "A focused discovery project being shaped around search, context, and practical exploration.",
-    longDescription: "Find Sera is an exploratory discovery project for search-led navigation, context building, and focused exploration.",
-    whatItSolves: "It explores a more intentional discovery flow around search, context, and the act of finding useful signals faster.",
-    audience: "Researchers, builders, and curious users who need focused discovery rather than generic browsing.",
-    currentStatus: "Live curated product-discovery property organized around focused shopping paths and guides.",
-    version: "29 focused guides",
-    updated: "July 2026",
+    description: "An archived Astro catalogue and editorial site, published as a reusable open-source starter.",
+    longDescription: "Findsera preserves a source-driven product catalogue, editorial guide system, and static Astro publishing workflow for reuse.",
+    whatItSolves: "It provides a reference implementation for structured product data, static catalogue generation, and editorial guide publishing.",
+    audience: "Developers and publishers looking for a reusable Astro catalogue and editorial starter.",
+    currentStatus: "Archived and published as open source. The retained site is noindex and is not operated as a shopping or affiliate service.",
+    version: "Open-source archive",
+    updated: "August 2026",
     preview: "/project-previews/find-sera.png",
-    previewAlt: "Find Sera homepage showing curated shopping paths and product guides.",
+    previewAlt: "Findsera archive homepage showing curated shopping paths and product guides.",
     href: "https://findsera.com",
-    cta: "Open Find Sera",
-    focus: ["Search-led discovery", "Context", "Exploration"],
-    proof: ["Live curated product property", "14 travel-tech and 15 desk-setup guides", "Search and shopping-path navigation"],
-    nextSteps: ["Expand practical guide coverage", "Keep comparison criteria explicit", "Connect related product decisions"],
-    relatedNews: ["find-sera-joins-ecosystem"],
+    sourceHref: "https://github.com/aolaru/findsera.com",
+    cta: "View Findsera Archive",
+    focus: ["Astro catalogue", "Structured content", "Editorial guides"],
+    proof: ["Public MIT-licensed repository", "Archive notice and noindex enabled", "Reusable content and validation scripts"],
+    maintenanceNotes: ["No active shopping or affiliate service", "No scheduled publishing", "Forks should replace the archived content and branding"],
+    relatedNews: ["maintenance-open-source-transition", "find-sera-joins-ecosystem"],
     isCore: false
   },
   {
     slug: "signal-ledger",
-    label: "Signal Ledger",
-    category: "Utility Software",
-    status: "Project",
-    logo: { mark: "SL" },
-    description: "A practical ledger project for tracking signals, decisions, and useful references.",
-    longDescription: "Signal Ledger is a practical tracking project for collecting signals, decisions, references, and directional notes in one place.",
-    whatItSolves: "It creates a structured place to capture decisions, signals, references, and directional notes that would otherwise be scattered.",
-    audience: "Operators, researchers, founders, and makers who track signals and decisions over time.",
-    currentStatus: "Project-stage utility concept listed in the public directory while its standalone property is not live.",
-    version: "Concept stage",
-    updated: "July 2026",
+    label: "News Ledger",
+    category: "Reference Projects",
+    status: "Open Source",
+    logo: { mark: "NL" },
+    description: "A parked news briefing demo with RSS ingestion, topic pages, and a reusable Cloudflare Worker.",
+    longDescription: "News Ledger preserves a compact news briefing demo and its RSS-based Cloudflare Worker as an MIT-licensed reference implementation.",
+    whatItSolves: "It demonstrates a small static briefing surface backed by RSS ingestion, fixed topics, and a Cloudflare Worker API.",
+    audience: "Developers exploring RSS aggregation, topic filtering, and compact briefing interfaces.",
+    currentStatus: "Public source archive and portfolio demo. No regular content, feature, SEO, newsletter, or monetization work is planned.",
+    version: "Open-source briefing demo",
+    updated: "August 2026",
     preview: null,
-    previewAlt: "Signal Ledger workflow concept for collecting signals, recording decisions, and reviewing references.",
-    href: "/projects/signal-ledger/",
-    cta: "View Signal Ledger Overview",
-    focus: ["Signal tracking", "Decision notes", "Reference ledgers"],
-    proof: ["Internal overview page", "No unavailable external domain", "Clear project-stage status"],
-    nextSteps: ["Shape the first tracking workflow", "Document practical signal examples", "Publish standalone access only when ready"],
-    relatedNews: ["signal-ledger-added"],
+    previewAlt: "News Ledger open-source briefing demo with RSS topics and compact article cards.",
+    href: "https://github.com/aolaru/signal-ledger",
+    sourceHref: "https://github.com/aolaru/signal-ledger",
+    cta: "View News Ledger Source",
+    focus: ["RSS ingestion", "Topic filtering", "Cloudflare Worker"],
+    proof: ["Public MIT-licensed repository", "Reusable Worker and static frontend", "Fixed topic and trust-page routes"],
+    maintenanceNotes: ["No active media business", "Manual deployment only", "No newsletter, advertising, or monetization work planned"],
+    relatedNews: ["maintenance-open-source-transition", "signal-ledger-added"],
     isCore: false
   }
 ];
 
-export const products = coreProjects;
-export const secondaryProjects = adjacentProjects;
 export const projectDirectory = [...coreProjects, ...adjacentProjects];
+export const publicProjects = [
+  projectDirectory.find((project) => project.slug === "kreativ-tools"),
+  projectDirectory.find((project) => project.slug === "find-sera"),
+  projectDirectory.find((project) => project.slug === "signal-ledger")
+].filter((project): project is (typeof projectDirectory)[number] => Boolean(project));
+export const archivedProjects = projectDirectory.filter((project) => project.status === "Archive");
 
 export const ecosystemLinks = projectDirectory.map((project) => ({
   label: project.label,
   href: project.href,
   isExternal: isExternalHref(project.href)
 }));
-
-export const contactIntents = [
-  {
-    title: "Product Support",
-    description: "Questions about Kreativ Tools, Kreativ WP, Kreativ Font, Kreativ Sound, or related ecosystem projects.",
-    subject: "Product support"
-  },
-  {
-    title: "Partnerships",
-    description: "Collaboration ideas, cross-promotion, distribution, editorial partnerships, or product integrations.",
-    subject: "Partnership inquiry"
-  },
-  {
-    title: "Licensing and Assets",
-    description: "Questions about presets, creative assets, usage rights, commercial use, or custom resource requests.",
-    subject: "Licensing and assets"
-  },
-  {
-    title: "Product Feedback",
-    description: "Suggestions for new tools, workflow improvements, roadmap ideas, or usability feedback.",
-    subject: "Product feedback"
-  }
-];
 
 export const buildUrl = (path: string) => new URL(path, site.url).toString();
 export const projectPath = (slug: string) => `/projects/${slug}/`;
@@ -409,7 +373,7 @@ export const contactPageSchema = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
   name: `Contact | ${site.name}`,
-  description: "Contact Made by Kreativ for product support, partnerships, licensing, and feedback.",
+  description: "Contact Made by Kreativ about existing purchases, licensing, and public project feedback.",
   url: buildUrl("/contact/"),
   mainEntity: {
     "@type": "Organization",
@@ -455,7 +419,7 @@ export const createNewsItemListSchema = (
 ) => ({
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: "Made by Kreativ news",
+  name: "Made by Kreativ updates archive",
   itemListElement: entries.map((entry, index) => ({
     "@type": "ListItem",
     position: index + 1,

@@ -6,9 +6,10 @@ import ProjectLogo from "../components/ProjectLogo.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import {
   buildUrl,
+  archivedProjects,
   ecosystemItemListSchema,
   organizationSchema,
-  products,
+  publicProjects,
   projectPath,
   websiteSchema
 } from "../data/site";
@@ -23,42 +24,60 @@ const latestNews = (await getCollection("news"))
 ---
 
 <BaseLayout
-  title="Made by Kreativ | Creative Tools and Digital Product Guides"
-  description="Made by Kreativ collects practical creative tools, digital product guides, curated assets, and utility software built by Andrei Olaru."
+  title="Made by Kreativ | Maintained Tools and Open-Source Projects"
+  description="Made by Kreativ is Andrei Olaru's collection of maintained tools, open-source projects, practical guides, and selected past work."
   canonicalPath="/"
   ogImage={buildUrl("/og-home.png")}
-  ogImageAlt="Made by Kreativ overview card for creative tools, guides, and utility software."
+  ogImageAlt="Made by Kreativ overview card for maintained tools and open-source projects."
   structuredData={[organizationSchema, websiteSchema, ecosystemItemListSchema]}
 >
   <HeroHeader
     current="home"
     showLogo={false}
-    eyebrow="Independent digital studio"
+    eyebrow="Independent project archive"
     title="Made by Kreativ"
-    tagline="Useful tools, focused projects, and practical guides."
+    tagline="Maintained tools, open-source projects, and selected past work by Andrei Olaru."
   >
-    <div slot="afterTagline" class="landing-actions hero-home-actions">
-      <a class="button-cta button-cta-primary" href="/projects/">Explore projects</a>
-      <a class="button-cta button-cta-secondary" href="/guides/">Open guides</a>
+    <div slot="afterTagline" class="hero-home-after">
+      <div class="landing-actions hero-home-actions">
+        <a class="button-cta button-cta-primary" href="#public-projects">View public projects</a>
+        <a class="button-cta button-cta-secondary" href="/projects/">Browse past work</a>
+      </div>
+      <p class="meta-note home-status-note">Semi-retired · selective maintenance · no active roadmap</p>
     </div>
   </HeroHeader>
 
-  <section class="home-featured" aria-labelledby="home-featured-heading">
+  <section class="home-featured" id="public-projects" aria-labelledby="home-featured-heading">
     <div class="section-heading-row">
-      <h2 id="home-featured-heading">Featured projects</h2>
-      <a class="cta" href="/projects/">View all</a>
+      <div>
+        <p class="eyebrow">Public and reusable</p>
+        <h2 id="home-featured-heading">Three projects remain public</h2>
+        <p>Use the live tools, inspect the source, or reuse the archived projects under their published licenses.</p>
+      </div>
+      <a class="cta" href="/projects/">Full archive</a>
     </div>
-    <div class="home-project-grid">
-      {products.map((project) => (
-        <a class="home-project-link" href={projectPath(project.slug)}>
-          <ProjectLogo slug={project.slug} mark={project.logo.mark} />
-          <span>
-            <strong>{project.label}</strong>
-            <small>{project.status}</small>
-          </span>
-          <span class="home-project-arrow" aria-hidden="true">→</span>
-        </a>
+    <div class="home-public-grid">
+      {publicProjects.map((project) => (
+        <article class="content-card home-public-card">
+          <div class="home-public-card-header">
+            <ProjectLogo slug={project.slug} mark={project.logo.mark} />
+            <div>
+              <span class="pillar-status">{project.status}</span>
+              <h3>{project.label}</h3>
+            </div>
+          </div>
+          <p>{project.description}</p>
+          <div class="home-public-actions">
+            <a class="cta" href={projectPath(project.slug)}>Overview</a>
+            {project.sourceHref && <a class="cta" href={project.sourceHref} target="_blank" rel="noopener">Source code</a>}
+            {project.href !== project.sourceHref && <a class="cta" href={project.href} target="_blank" rel="noopener">Public site</a>}
+          </div>
+        </article>
       ))}
+    </div>
+    <div class="home-archive-summary">
+      <span><strong>{archivedProjects.length} past projects</strong> remain documented without an active roadmap.</span>
+      <a class="cta" href="/projects/#past-work">Browse past work</a>
     </div>
   </section>
 

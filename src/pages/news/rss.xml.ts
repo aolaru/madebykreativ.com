@@ -28,9 +28,9 @@ export async function GET() {
   return new Response(`<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>Made by Kreativ News</title>
+    <title>Made by Kreativ Updates</title>
     <link>${buildUrl("/news/")}</link>
-    <description>Product updates, project launches, ecosystem notes, and engineering changes from Made by Kreativ.</description>
+    <description>Occasional project status notes and historical release updates from Made by Kreativ.</description>
 ${entries}
   </channel>
 </rss>
