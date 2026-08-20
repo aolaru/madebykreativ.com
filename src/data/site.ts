@@ -419,7 +419,7 @@ export const createNewsItemListSchema = (
 ) => ({
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: "Made by Kreativ updates archive",
+  name: "Made by Kreativ news archive",
   itemListElement: entries.map((entry, index) => ({
     "@type": "ListItem",
     position: index + 1,

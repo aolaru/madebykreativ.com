@@ -2,14 +2,14 @@
 import Icon from "./Icon.astro";
 
 interface Props {
-  current?: "home" | "guides" | "projects" | "news" | "about" | "contact";
+  current?: "home" | "guides" | "projects" | "updates" | "news" | "about" | "contact";
 }
 
 const { current } = Astro.props;
 const navigationItems = [
   { href: "/product-to-profit/", label: "Product System", key: "guides" },
   { href: "/projects/", label: "Projects", key: "projects" },
-  { href: "/news/", label: "Updates", key: "news" },
+  { href: "/updates/", label: "Updates", key: "updates" },
   { href: "/about/", label: "About", key: "about" },
   { href: "/contact/", label: "Contact", key: "contact" }
 ] as const;

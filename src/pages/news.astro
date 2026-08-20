@@ -24,31 +24,31 @@ const categories = [...new Set(newsEntries.map((entry) => entry.data.category))]
 ---
 
 <BaseLayout
-  title="Updates Archive | Made by Kreativ"
-  description="Product news, project status notes, and historical release updates from Made by Kreativ."
+  title="News Archive | Made by Kreativ"
+  description="Product news, project status notes, and historical release notes from Made by Kreativ."
   canonicalPath="/news/"
   ogImage={buildUrl("/og-news.png")}
-  ogImageAlt="Made by Kreativ updates archive card."
+  ogImageAlt="Made by Kreativ project news archive card."
   structuredData={[organizationSchema, createNewsItemListSchema(newsEntries)]}
 >
   <HeroHeader
     current="news"
     eyebrow="Product and project news"
-    title="Updates"
+    title="News"
     tagline="Occasional status notes and a historical record of earlier releases."
   >
     <p slot="afterTagline" class="meta-note">Last updated: {latestNewsLabel}</p>
   </HeroHeader>
 
-  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Updates" }]} />
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "News" }]} />
 
   <section class="content-card news-tools" aria-labelledby="news-tools-heading">
     <div>
-      <p class="eyebrow">Browse updates</p>
+      <p class="eyebrow">Browse news</p>
       <h2 id="news-tools-heading">Find a status or release note</h2>
     </div>
     <label class="news-search">
-      <span>Search updates</span>
+      <span>Search news</span>
       <input type="search" placeholder="Search titles and summaries" data-news-search-input />
     </label>
     <div class="news-filter-row" role="group" aria-label="Filter news by category">
@@ -57,17 +57,17 @@ const categories = [...new Set(newsEntries.map((entry) => entry.data.category))]
         <button class="status-filter-button" type="button" data-news-filter={category} aria-pressed="false">{category}</button>
       ))}
     </div>
-    <p class="news-tools-links"><a class="cta" href="/news/rss.xml">Updates RSS</a></p>
+    <p class="news-tools-links"><a class="cta" href="/news/rss.xml">News RSS</a> · <a class="cta" href="/updates/">Website changelog</a></p>
   </section>
 
-  <section class="news-index-list" aria-label="Project updates">
+  <section class="news-index-list" aria-label="Project news">
     {newsEntries.map(({ data, path }) => (
       <NewsEntry date={data.dateLabel} title={data.title} description={data.description} href={path} category={data.category} ctaLabel={`Read ${data.title}`} />
     ))}
   </section>
 
   <div class="project-empty-state news-empty-state" data-news-empty-state hidden>
-    <h3>No updates match that search.</h3>
+    <h3>No news items match that search.</h3>
     <p>Clear the search or select another category.</p>
   </div>
 

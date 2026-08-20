@@ -1,0 +1,156 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import HeroHeader from "../components/HeroHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { buildUrl, organizationSchema, site } from "../data/site";
+import { siteUpdateKindDescriptions, siteUpdates, type SiteUpdateKind } from "../data/siteUpdates";
+
+const recentCutoff = "2026-06-01";
+const recentUpdates = siteUpdates.filter((update) => update.date >= recentCutoff);
+const archivedUpdates = siteUpdates.filter((update) => update.date < recentCutoff);
+const highlights = ["product-to-profit-system", "active-project-homepage", "deployment-quality-gate"]
+  .map((id) => siteUpdates.find((update) => update.id === id))
+  .filter((update) => update !== undefined);
+const updateKinds = ["New", "Update", "Fix"] as const satisfies readonly SiteUpdateKind[];
+const kindCounts = Object.fromEntries(
+  updateKinds.map((kind) => [kind, siteUpdates.filter((update) => update.kind === kind).length])
+) as Record<SiteUpdateKind, number>;
+const formatDate = (date: string) => new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "UTC"
+}).format(new Date(`${date}T00:00:00Z`));
+const updatesSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Website Updates | Made by Kreativ",
+  description: "A public changelog of additions, improvements, and fixes made to the Made by Kreativ website.",
+  url: buildUrl("/updates/"),
+  dateModified: site.lastUpdated,
+  isPartOf: {
+    "@type": "WebSite",
+    name: site.name,
+    url: site.url
+  },
+  mainEntity: {
+    "@type": "ItemList",
+    numberOfItems: siteUpdates.length,
+    itemListElement: siteUpdates.map((update, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: `${update.kind}: ${update.title}`,
+      description: update.description
+    }))
+  }
+};
+---
+
+<BaseLayout
+  title="Website Updates | Made by Kreativ"
+  description="A public changelog of what has been added, updated, and fixed across the Made by Kreativ website."
+  canonicalPath="/updates/"
+  ogImage={buildUrl("/og-news.png")}
+  ogImageAlt="Made by Kreativ website updates and changelog card."
+  structuredData={[organizationSchema, updatesSchema]}
+>
+  <HeroHeader
+    current="updates"
+    eyebrow="Website changelog"
+    title="Latest Updates"
+    tagline="A public record of what has been added, improved, and fixed across Made by Kreativ."
+  >
+    <div slot="afterTagline" class="updates-meta" role="group" aria-label="Changelog summary">
+      <span>{siteUpdates.length} documented changes</span>
+      <span>Since February 2026</span>
+      <span>Last updated {formatDate(site.lastUpdated)}</span>
+    </div>
+  </HeroHeader>
+
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Updates" }]} />
+
+  <section class="updates-highlight-grid" aria-label="Recent update highlights">
+    {highlights.map((update) => (
+      <article class="content-card updates-highlight">
+        <p class={`updates-kind updates-kind-${update.kind.toLowerCase()}`}>{update.kind}</p>
+        <h2>{update.href ? <a href={update.href}>{update.title}</a> : update.title}</h2>
+        <p>{update.description}</p>
+      </article>
+    ))}
+  </section>
+
+  <section class="content-card updates-summary" aria-labelledby="updates-summary-heading">
+    <div class="updates-section-heading">
+      <p class="eyebrow">Change types</p>
+      <h2 id="updates-summary-heading">What this log covers</h2>
+      <p>Only meaningful public changes are recorded. Small copy edits and routine content corrections are grouped into the nearest relevant entry.</p>
+    </div>
+    <dl class="updates-kind-summary">
+      {updateKinds.map((kind) => (
+        <div>
+          <dt><span class={`updates-kind updates-kind-${kind.toLowerCase()}`}>{kind}</span> {kindCounts[kind]}</dt>
+          <dd>{siteUpdateKindDescriptions[kind]}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <section class="content-card updates-log" aria-labelledby="recent-updates-heading">
+    <div class="updates-log-heading">
+      <div>
+        <p class="eyebrow">Recent log</p>
+        <h2 id="recent-updates-heading">Newest changes first</h2>
+      </div>
+      <a class="cta" href="/news/">Project news</a>
+    </div>
+    <ol class="updates-list">
+      {recentUpdates.map((update) => (
+        <li class="updates-list-item">
+          <time datetime={update.date}>{formatDate(update.date)}</time>
+          <span class={`updates-kind updates-kind-${update.kind.toLowerCase()}`}>{update.kind}</span>
+          <div>
+            <h3>{update.href ? <a href={update.href}>{update.title}</a> : update.title}</h3>
+            <p>{update.description}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <details class="content-card updates-archive">
+    <summary>
+      <span>
+        <span class="eyebrow">Earlier history</span>
+        <strong>Open the original website launch log</strong>
+      </span>
+      <span>{archivedUpdates.length} changes</span>
+    </summary>
+    <ol class="updates-list">
+      {archivedUpdates.map((update) => (
+        <li class="updates-list-item">
+          <time datetime={update.date}>{formatDate(update.date)}</time>
+          <span class={`updates-kind updates-kind-${update.kind.toLowerCase()}`}>{update.kind}</span>
+          <div>
+            <h3>{update.href ? <a href={update.href}>{update.title}</a> : update.title}</h3>
+            <p>{update.description}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </details>
+
+  <section class="content-card updates-related" aria-labelledby="updates-related-heading">
+    <div>
+      <p class="eyebrow">Project-level news</p>
+      <h2 id="updates-related-heading">Looking for release notes and status decisions?</h2>
+      <p>The News archive keeps the longer project announcements. This page stays focused on changes to the Made by Kreativ website itself.</p>
+    </div>
+    <div class="landing-actions">
+      <a class="button-cta button-cta-primary" href="/news/">Browse project news</a>
+      <a class="button-cta button-cta-secondary" href="/news/rss.xml">Open RSS feed</a>
+    </div>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>

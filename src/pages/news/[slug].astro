@@ -59,7 +59,7 @@ const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-08-20T
     articleSchema,
     createBreadcrumbSchema([
       { name: "Home", path: "/" },
-      { name: "Updates", path: "/news/" },
+      { name: "News", path: "/news/" },
       { name: entry.data.title, path: canonicalPath }
     ])
   ]}
@@ -73,7 +73,7 @@ const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-08-20T
     <p slot="afterTagline" class="meta-note">{entry.data.dateLabel} · {entry.data.category}</p>
   </HeroHeader>
 
-  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Updates", href: "/news/" }, { label: entry.data.title }]} />
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "News", href: "/news/" }, { label: entry.data.title }]} />
 
   <article class="content-card news-detail">
     <dl class="article-fact-list">
@@ -109,11 +109,11 @@ const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-08-20T
       <div class="landing-actions">
         {relatedProject && <a class="button-cta button-cta-primary" href={projectPath(relatedProject.slug)}>Project details</a>}
         {!relatedProject && <a class="button-cta button-cta-primary" href="/product-to-profit/">Product-to-Profit</a>}
-        <a class="button-cta button-cta-secondary" href="/news/rss.xml">Updates RSS</a>
+        <a class="button-cta button-cta-secondary" href="/news/rss.xml">News RSS</a>
       </div>
     </aside>
     <nav class="article-nav" aria-label="Update navigation">
-      <a class="cta" href="/news/">Back to Updates</a>
+      <a class="cta" href="/news/">Back to News</a>
       <div class="article-nav-pair">
         {newerEntry && <a class="cta" href={newsPath(newerEntry.id)}>Newer: {newerEntry.data.title}</a>}
         {olderEntry && <a class="cta" href={newsPath(olderEntry.id)}>Older: {olderEntry.data.title}</a>}

@@ -10,6 +10,7 @@ const staticRoutes = [
   { path: "/product-to-profit/digital-product-launch-engine/", changefreq: "monthly", priority: "0.8" },
   { path: "/product-to-profit/system/", changefreq: "monthly", priority: "0.8" },
   { path: "/projects/", changefreq: "weekly", priority: "0.9" },
+  { path: "/updates/", changefreq: "weekly", priority: "0.8" },
   { path: "/news/", changefreq: "weekly", priority: "0.8" },
   { path: "/about/", changefreq: "monthly", priority: "0.7" },
   { path: "/contact/", changefreq: "monthly", priority: "0.7" }

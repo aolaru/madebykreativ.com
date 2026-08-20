@@ -13,6 +13,9 @@ const productRoutes = [
   "/product-to-profit/system/"
 ];
 
+const websiteRoutes = ["/updates/"];
+const requiredRoutes = [...productRoutes, ...websiteRoutes];
+
 const productAssets = [
   "product-to-profit/covers/digital-product-launch-engine.png",
   "product-to-profit/covers/idea-library.png",
@@ -47,7 +50,7 @@ const redirects = new Map([
 
 const failures = [];
 
-for (const route of productRoutes) {
+for (const route of requiredRoutes) {
   const relativeFile = join(route.slice(1), "index.html");
   try {
     const html = await readFile(new URL(relativeFile, distRoot), "utf8");
@@ -93,7 +96,7 @@ for (const [source, destination] of redirects) {
 }
 
 const sitemap = await readFile(new URL("sitemap.xml", distRoot), "utf8");
-for (const route of productRoutes) {
+for (const route of requiredRoutes) {
   const location = `<loc>${siteUrl}${route}</loc>`;
   if (!sitemap.includes(location)) {
     failures.push(`sitemap.xml: missing ${siteUrl}${route}`);
@@ -110,6 +113,6 @@ if (failures.length > 0) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Built-site validation passed for ${productRoutes.length} routes, ${productAssets.length} assets, and ${redirects.size} compatibility pages.`
+    `Built-site validation passed for ${requiredRoutes.length} routes, ${productAssets.length} assets, and ${redirects.size} compatibility pages.`
   );
 }
