@@ -1,0 +1,27 @@
+---
+import { systemStages } from "../data/productToProfit";
+
+interface Props {
+  currentHref?: string;
+  compact?: boolean;
+}
+
+const { currentHref, compact = false } = Astro.props;
+---
+
+<nav class:list={["ptp-stage-path", { "ptp-stage-path-compact": compact }]} aria-label="Product-to-Profit stages">
+  <ol>
+    {systemStages.map((item, index) => (
+      <li>
+        <a href={item.href} aria-current={currentHref === item.href ? "step" : undefined}>
+          <span class="ptp-stage-index" aria-hidden="true">{index + 1}</span>
+          <span>
+            <strong>{item.stage}</strong>
+            <small>{item.product}</small>
+            {!compact && <em>{item.output}</em>}
+          </span>
+        </a>
+      </li>
+    ))}
+  </ol>
+</nav>

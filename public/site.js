@@ -113,10 +113,16 @@
   }
 
   function wireProductTracking() {
-    const productLinks = document.querySelectorAll(".pillar[data-product]");
+    const productLinks = document.querySelectorAll("[data-product-cta]");
     productLinks.forEach((link) => {
       link.addEventListener("click", () => {
-        trackEvent("Product Click", { product: link.dataset.product });
+        trackEvent("Product CTA Click", {
+          product: link.dataset.product || "unknown",
+          stage: link.dataset.stage || "unknown",
+          page: link.dataset.page || window.location.pathname,
+          position: link.dataset.position || "unknown",
+          destination: link.getAttribute("href") || ""
+        });
       });
     });
   }

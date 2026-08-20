@@ -3,10 +3,13 @@ import { buildUrl, projectDirectory, projectPath, site } from "../data/site";
 
 const staticRoutes = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
-  { path: "/guides/", changefreq: "monthly", priority: "0.9" },
+  { path: "/product-to-profit/", changefreq: "monthly", priority: "0.9" },
+  { path: "/product-to-profit/idea-library/", changefreq: "monthly", priority: "0.8" },
+  { path: "/product-to-profit/product-idea-scorecard/", changefreq: "monthly", priority: "0.8" },
+  { path: "/product-to-profit/workflow-product-builder/", changefreq: "monthly", priority: "0.8" },
+  { path: "/product-to-profit/digital-product-launch-engine/", changefreq: "monthly", priority: "0.8" },
+  { path: "/product-to-profit/system/", changefreq: "monthly", priority: "0.8" },
   { path: "/projects/", changefreq: "weekly", priority: "0.9" },
-  { path: "/your-first-digital-product/", changefreq: "monthly", priority: "0.9" },
-  { path: "/ai-launch-toolkit/", changefreq: "monthly", priority: "0.9" },
   { path: "/news/", changefreq: "weekly", priority: "0.8" },
   { path: "/about/", changefreq: "monthly", priority: "0.7" },
   { path: "/contact/", changefreq: "monthly", priority: "0.7" }

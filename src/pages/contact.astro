@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { buildUrl, contactPageSchema, createBreadcrumbSchema, organizationSchema, projectPath, publicProjects, site } from "../data/site";
+import { buildUrl, communityProjects, contactPageSchema, createBreadcrumbSchema, organizationSchema, projectPath, site } from "../data/site";
 ---
 
 <BaseLayout
@@ -34,7 +34,7 @@ import { buildUrl, contactPageSchema, createBreadcrumbSchema, organizationSchema
     <p class="eyebrow">Best-effort replies</p>
     <h2 id="email-heading">Email</h2>
     <p>Use <a class="cta" href={`mailto:${site.email}`}>{site.email}</a> for purchase access, licensing, or a concise question that cannot be handled in a public repository.</p>
-    <p>Made by Kreativ is semi-retired. Messages are reviewed when time allows, and no response time is guaranteed.</p>
+    <p>Made by KREATIV remains active. Messages are reviewed when time allows, but no response time is guaranteed.</p>
     <div class="contact-copy-row">
       <code>{site.email}</code>
       <button class="button-cta button-cta-secondary" type="button" data-copy-email={site.email}>Copy email address</button>
@@ -51,7 +51,7 @@ import { buildUrl, contactPageSchema, createBreadcrumbSchema, organizationSchema
       </div>
     </div>
     <div class="contact-grid">
-      {publicProjects.map((project) => (
+      {communityProjects.map((project) => (
         <article class="contact-option">
           <span class="pillar-status">{project.status}</span>
           <h3>{project.label}</h3>

@@ -1,0 +1,277 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "./Breadcrumbs.astro";
+import ProductPreviewGallery from "./ProductPreviewGallery.astro";
+import ProductStoreAction from "./ProductStoreAction.astro";
+import SiteFooter from "./SiteFooter.astro";
+import SiteNav from "./SiteNav.astro";
+import SystemStagePath from "./SystemStagePath.astro";
+import {
+  productPath,
+  systemFaqs,
+  systemPath,
+  type ProductToProfitProduct
+} from "../data/productToProfit";
+import {
+  buildUrl,
+  createBreadcrumbSchema,
+  createPageSchema,
+  organizationSchema
+} from "../data/site";
+
+interface Props {
+  product: ProductToProfitProduct;
+}
+
+const { product } = Astro.props;
+const canonicalPath = productPath(product.slug);
+const isBundle = product.slug === "system";
+const isBuilder = product.slug === "workflow-product-builder";
+const isLaunch = product.slug === "digital-product-launch-engine";
+const nextHref = product.nextSlug ? productPath(product.nextSlug) : null;
+
+const visibleFaqs = [
+  {
+    question: `Where does ${product.shortTitle} fit in the system?`,
+    answer: `${product.role}. It owns the ${product.stage} stage and produces ${product.handoff}.`
+  },
+  {
+    question: "Can I skip earlier stages?",
+    answer: `Yes, if you already have the required input: ${product.requiredInput}`
+  },
+  ...(isBuilder ? [systemFaqs[2]] : []),
+  ...(isLaunch ? [systemFaqs[3]] : []),
+  ...(isBundle ? [systemFaqs[4], systemFaqs[5]] : [])
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: visibleFaqs.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer }
+  }))
+};
+---
+
+<BaseLayout
+  title={`${product.title} | Made by Kreativ`}
+  description={product.description}
+  canonicalPath={canonicalPath}
+  ogImage={buildUrl(product.cover)}
+  ogImageAlt={product.coverAlt}
+  ogImageWidth="1200"
+  ogImageHeight="675"
+  structuredData={[
+    organizationSchema,
+    createPageSchema({ name: `${product.title} | Made by Kreativ`, description: product.description, path: canonicalPath }),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Product-to-Profit", path: systemPath },
+      { name: product.shortTitle, path: canonicalPath }
+    ]),
+    faqSchema
+  ]}
+>
+  <header class:list={["ptp-product-header", `ptp-accent-${product.accent}`]}>
+    <SiteNav current="guides" />
+    <div class="ptp-product-hero">
+      <div class="ptp-product-hero-copy">
+        <p class="eyebrow">{isBundle ? "Complete system" : `Stage ${product.stageNumber} · ${product.stage}`}</p>
+        <h1>{product.title}</h1>
+        <p class="ptp-product-promise">{product.promise}</p>
+        <div class="ptp-hero-answer">
+          <span>1 · Current situation</span>
+          <p>{product.situation}</p>
+        </div>
+        <a class="button-cta button-cta-secondary" href="#owned-job">See what this product owns</a>
+      </div>
+      <img
+        class="ptp-product-cover"
+        src={product.cover}
+        alt={product.coverAlt}
+        width="1200"
+        height="675"
+        decoding="async"
+      />
+    </div>
+  </header>
+
+  <div class:list={["ptp-product-content", `ptp-accent-${product.accent}`]}>
+  <Breadcrumbs items={[
+    { label: "Home", href: "/" },
+    { label: "Product-to-Profit", href: systemPath },
+    { label: product.shortTitle }
+  ]} />
+
+  <SystemStagePath currentHref={canonicalPath} compact />
+
+  <section class="ptp-section ptp-contract-section" id="owned-job" aria-labelledby="owned-job-heading">
+    <div class="ptp-section-heading">
+      <p class="eyebrow">2 · Owned job</p>
+      <h2 id="owned-job-heading">What this product is responsible for</h2>
+    </div>
+    <dl class="ptp-contract-grid">
+      <div>
+        <dt>Role</dt>
+        <dd>{product.role}</dd>
+      </div>
+      <div>
+        <dt>Job</dt>
+        <dd>{product.promise}</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="ptp-section" aria-labelledby="required-input-heading">
+    <div class="ptp-section-heading">
+      <p class="eyebrow">3 · Required input</p>
+      <h2 id="required-input-heading">What you must already have</h2>
+    </div>
+    <p class="ptp-lead-answer">{product.requiredInput}</p>
+  </section>
+
+  <section class="ptp-section ptp-output-section" aria-labelledby="output-heading">
+    <div class="ptp-section-heading">
+      <p class="eyebrow">4 · Completed output</p>
+      <h2 id="output-heading">What you will produce</h2>
+    </div>
+    <p class="ptp-lead-answer">{product.output}</p>
+    <div class="ptp-handoff-callout">
+      <span>Stage handoff</span>
+      <strong>{product.handoff}</strong>
+    </div>
+  </section>
+
+  <section class="ptp-section" aria-labelledby="included-heading">
+    <div class="ptp-section-heading">
+      <p class="eyebrow">5 · Files and tools</p>
+      <h2 id="included-heading">What is included</h2>
+    </div>
+    <ul class="ptp-check-grid">
+      {product.included.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  {isBundle && (
+    <>
+      <section class="ptp-section ptp-bundle-workspace" aria-labelledby="workspace-heading">
+        <div class="ptp-section-heading">
+          <p class="eyebrow">Integrated, not just combined</p>
+          <h2 id="workspace-heading">One master workspace connects every handoff</h2>
+          <p>The Excel workspace carries the Idea Shortlist, Product Brief, Product Specification, Launch Record, and Product Change Request forward without rebuilding the same decisions from memory.</p>
+        </div>
+        <ol class="ptp-handoff-chain" aria-label="Product-to-Profit handoff chain">
+          {["Idea Shortlist", "Product Brief", "Product Specification", "Launch Record", "Product Change Request"].map((item, index) => (
+            <li>{item}{index < 4 && <b aria-hidden="true">→</b>}</li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="ptp-section" aria-labelledby="tracks-heading">
+        <div class="ptp-section-heading">
+          <p class="eyebrow">Implementation tracks</p>
+          <h2 id="tracks-heading">Choose a pace that matches the work</h2>
+        </div>
+        <div class="ptp-track-grid">
+          <article><strong>Weekend</strong><p>Make one bounded decision and prepare the next handoff.</p></article>
+          <article><strong>Seven-Day MVP</strong><p>Move one chosen product through a tightly scoped first version.</p></article>
+          <article><strong>Thirty-Day</strong><p>Build, publish, measure, and review a more complete buyer path.</p></article>
+        </div>
+      </section>
+
+      <section class="ptp-section" aria-labelledby="sample-heading">
+        <div class="ptp-section-heading">
+          <p class="eyebrow">Fictional worked example</p>
+          <h2 id="sample-heading">Freelancer Client Onboarding Kit</h2>
+          <p>This simulated case study shows one product moving through every stage. It is instructional material, not a customer result or performance benchmark.</p>
+        </div>
+        <div class="ptp-case-study">
+          <div><span>Choose</span><strong>Solo brand designers after a proposal is accepted</strong><p>A Product Brief narrows the problem to scattered onboarding context.</p></div>
+          <div><span>Create</span><strong>Six-file onboarding package</strong><p>A workflow map, intake form, welcome email, asset checklist, kickoff agenda, and filled example.</p></div>
+          <div><span>Sell</span><strong>Simulated launch evidence</strong><p>620 reach, 74 clicks, 11 replies, 6 sales, 1 refund, and 2 support issues. These figures are fictional.</p></div>
+          <div><span>Improve</span><strong>One Product Change Request</strong><p>Add DOCX files and state the exact formats before purchase.</p></div>
+        </div>
+      </section>
+    </>
+  )}
+
+  <ProductPreviewGallery product={product} />
+
+  <section class="ptp-section ptp-boundary-section" aria-labelledby="boundary-heading">
+    <div class="ptp-section-heading">
+      <p class="eyebrow">6 · Deliberate boundary</p>
+      <h2 id="boundary-heading">What this product does not cover</h2>
+    </div>
+    <ul class="ptp-boundary-list">
+      {product.exclusions.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section class="ptp-section ptp-next-section" aria-labelledby="next-heading">
+    <div class="ptp-section-heading">
+      <p class="eyebrow">7 · Next handoff</p>
+      <h2 id="next-heading">What happens after this stage</h2>
+    </div>
+    {nextHref ? (
+      <div class="ptp-next-action">
+        <div>
+          <span>Carry forward</span>
+          <strong>{product.handoff}</strong>
+        </div>
+        <a
+          class="button-cta button-cta-secondary"
+          href={nextHref}
+          data-product-cta
+          data-product={product.nextSlug}
+          data-stage="next"
+          data-page={product.slug}
+          data-position="next-handoff"
+        >{product.nextLabel}</a>
+      </div>
+    ) : (
+      <p class="ptp-lead-answer">Start at the first stage whose required input you already have, then move forward only when its handoff is complete.</p>
+    )}
+  </section>
+
+  <section class="ptp-section ptp-purchase-section" aria-labelledby="purchase-heading">
+    <div>
+      <p class="eyebrow">8 · Price and store</p>
+      <h2 id="purchase-heading">{product.price}</h2>
+      <p>{product.role}. Review the current store status before relying on checkout availability.</p>
+    </div>
+    <ProductStoreAction product={product} page={product.slug} position="final" />
+  </section>
+
+  <section class="ptp-section ptp-trust-section" aria-labelledby="trust-heading">
+    <div class="ptp-section-heading">
+      <p class="eyebrow">Trust and fit</p>
+      <h2 id="trust-heading">What to know before checkout</h2>
+    </div>
+    <div class="ptp-trust-grid">
+      <div><strong>No guaranteed sales</strong><p>The system structures decisions and evidence. It does not guarantee demand, sales, revenue, or any other commercial outcome.</p></div>
+      <div><strong>Formats</strong><p>Current sources specify fillable PDFs and editable Excel, Markdown, or CSV assets where relevant.</p></div>
+      <div><strong>License</strong><p>The current package states a personal-use license. Final checkout wording still requires owner approval.</p></div>
+      <div><strong>Policies pending</strong><p>Refund, support, update, privacy, compatibility, and tax wording must be approved and synchronized with Gumroad before publication.</p></div>
+    </div>
+  </section>
+
+  <section class="ptp-section" aria-labelledby="product-faq-heading">
+    <div class="ptp-section-heading">
+      <p class="eyebrow">FAQ</p>
+      <h2 id="product-faq-heading">Questions before you choose</h2>
+    </div>
+    <div class="faq-list">
+      {visibleFaqs.map((item) => (
+        <details>
+          <summary>{item.question}</summary>
+          <p>{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <SiteFooter />
+  </div>
+</BaseLayout>

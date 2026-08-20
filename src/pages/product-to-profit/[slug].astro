@@ -1,0 +1,19 @@
+---
+import ProductToProfitProductPage from "../../components/ProductToProfitProductPage.astro";
+import { productToProfitProducts, type ProductToProfitProduct } from "../../data/productToProfit";
+
+export function getStaticPaths() {
+  return productToProfitProducts.map((product) => ({
+    params: { slug: product.slug },
+    props: { product }
+  }));
+}
+
+interface Props {
+  product: ProductToProfitProduct;
+}
+
+const { product } = Astro.props;
+---
+
+<ProductToProfitProductPage product={product} />

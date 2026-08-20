@@ -4,17 +4,17 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import ProjectLogo from "../components/ProjectLogo.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import { bundleProduct, productPath as productToProfitPath, systemPath, systemStages } from "../data/productToProfit";
 import {
+  activeProjects,
   buildUrl,
-  archivedProjects,
-  ecosystemItemListSchema,
   organizationSchema,
-  publicProjects,
   projectPath,
   websiteSchema
 } from "../data/site";
 
 const latestNews = (await getCollection("news"))
+  .filter((entry) => !entry.id.startsWith("maintenance-open-source-transition"))
   .sort((a, b) => b.data.sortDate.valueOf() - a.data.sortDate.valueOf())
   .slice(0, 1)
   .map((entry) => ({
@@ -24,40 +24,67 @@ const latestNews = (await getCollection("news"))
 ---
 
 <BaseLayout
-  title="Made by Kreativ | Maintained Tools and Open-Source Projects"
-  description="Made by Kreativ is Andrei Olaru's collection of maintained tools, open-source projects, practical guides, and selected past work."
+  title="Made by Kreativ | Independent Products and Active Projects"
+  description="Made by Kreativ is Andrei Olaru's active independent product studio, home to Product-to-Profit and five focused digital projects."
   canonicalPath="/"
   ogImage={buildUrl("/og-home.png")}
-  ogImageAlt="Made by Kreativ overview card for maintained tools and open-source projects."
-  structuredData={[organizationSchema, websiteSchema, ecosystemItemListSchema]}
+  ogImageAlt="Made by Kreativ overview card for independent products and active projects."
+  structuredData={[organizationSchema, websiteSchema]}
 >
   <HeroHeader
     current="home"
     showLogo={false}
-    eyebrow="Independent project archive"
+    eyebrow="Independent product studio"
     title="Made by Kreativ"
-    tagline="Maintained tools, open-source projects, and selected past work by Andrei Olaru."
+    tagline="Active digital products and focused independent projects by Andrei Olaru."
   >
     <div slot="afterTagline" class="hero-home-after">
       <div class="landing-actions hero-home-actions">
-        <a class="button-cta button-cta-primary" href="#public-projects">View public projects</a>
-        <a class="button-cta button-cta-secondary" href="/projects/">Browse past work</a>
+        <a class="button-cta button-cta-primary" href="/product-to-profit/">Explore Product-to-Profit</a>
+        <a class="button-cta button-cta-secondary" href="#active-projects">View active projects</a>
       </div>
-      <p class="meta-note home-status-note">Semi-retired · selective maintenance · no active roadmap</p>
+      <p class="meta-note home-status-note">Active product studio · five ongoing projects</p>
     </div>
   </HeroHeader>
 
-  <section class="home-featured" id="public-projects" aria-labelledby="home-featured-heading">
+  <section class="home-system-feature" aria-labelledby="home-system-heading">
+    <div class="home-system-copy">
+      <p class="eyebrow">Featured product system</p>
+      <h2 id="home-system-heading">The KREATIV Product-to-Profit System</h2>
+      <p>Choose one product worth testing, build a useful package, launch it through one clear buyer path, and use evidence to improve it.</p>
+      <ol class="home-system-stages" aria-label="Product-to-Profit stages">
+        {systemStages.map((item) => (
+          <li><span>{item.stage}</span></li>
+        ))}
+      </ol>
+      <div class="landing-actions home-system-actions">
+        <a class="button-cta button-cta-primary" href={systemPath}>Explore the system</a>
+        <a class="button-cta button-cta-secondary" href={productToProfitPath("system")}>See the complete system</a>
+      </div>
+    </div>
+    <a class="home-system-media" href={systemPath} aria-label="Explore the KREATIV Product-to-Profit System">
+      <img
+        src={bundleProduct.cover}
+        alt={bundleProduct.coverAlt}
+        width="1200"
+        height="675"
+        loading="eager"
+        decoding="async"
+      />
+    </a>
+  </section>
+
+  <section class="home-featured" id="active-projects" aria-labelledby="home-featured-heading">
     <div class="section-heading-row">
       <div>
-        <p class="eyebrow">Public and reusable</p>
-        <h2 id="home-featured-heading">Three projects remain public</h2>
-        <p>Use the live tools, inspect the source, or reuse the archived projects under their published licenses.</p>
+        <p class="eyebrow">Current work</p>
+        <h2 id="home-featured-heading">Active projects</h2>
+        <p>Five independent properties currently developed and maintained under Made by KREATIV.</p>
       </div>
-      <a class="cta" href="/projects/">Full archive</a>
+      <a class="cta" href="/projects/">Project directory</a>
     </div>
     <div class="home-public-grid">
-      {publicProjects.map((project) => (
+      {activeProjects.map((project) => (
         <article class="content-card home-public-card">
           <div class="home-public-card-header">
             <ProjectLogo slug={project.slug} mark={project.logo.mark} />
@@ -69,15 +96,14 @@ const latestNews = (await getCollection("news"))
           <p>{project.description}</p>
           <div class="home-public-actions">
             <a class="cta" href={projectPath(project.slug)}>Overview</a>
-            {project.sourceHref && <a class="cta" href={project.sourceHref} target="_blank" rel="noopener">Source code</a>}
-            {project.href !== project.sourceHref && <a class="cta" href={project.href} target="_blank" rel="noopener">Public site</a>}
+            <a class="cta" href={project.href} target="_blank" rel="noopener">Public site</a>
           </div>
         </article>
       ))}
     </div>
     <div class="home-archive-summary">
-      <span><strong>{archivedProjects.length} past projects</strong> remain documented without an active roadmap.</span>
-      <a class="cta" href="/projects/#past-work">Browse past work</a>
+      <span><strong>Open-source projects:</strong> Kreativ Tools, Findsera, and News Ledger are available to contributors under their published licenses.</span>
+      <a class="cta" href="/projects/#community-projects">View open-source projects</a>
     </div>
   </section>
 

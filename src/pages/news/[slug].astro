@@ -40,7 +40,7 @@ const relatedProject = entry.data.project
   : undefined;
 const articleImage = entry.data.image || relatedProject?.preview;
 const articleImageAlt = relatedProject?.previewAlt || `${entry.data.title} product preview.`;
-const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-08-19T00:00:00.000Z").valueOf();
+const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-08-20T00:00:00.000Z").valueOf();
 ---
 
 <BaseLayout
@@ -91,7 +91,7 @@ const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-08-19T
       </div>
     </dl>
     {isHistoricalUpdate && (
-      <p class="article-archive-note"><strong>Historical update.</strong> This article predates the August 2026 transition to selective maintenance and open-source archiving. The project directory shows the current status.</p>
+      <p class="article-archive-note"><strong>Historical update.</strong> This article predates the August 2026 handoff that opened three projects to contributors. The project directory shows the current status.</p>
     )}
     {articleImage && (
       <figure class:list={["article-preview", !relatedProject && "article-preview-portrait"]}>
@@ -108,7 +108,7 @@ const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-08-19T
       </div>
       <div class="landing-actions">
         {relatedProject && <a class="button-cta button-cta-primary" href={projectPath(relatedProject.slug)}>Project details</a>}
-        {!relatedProject && <a class="button-cta button-cta-primary" href="/guides/">Guides &amp; toolkits</a>}
+        {!relatedProject && <a class="button-cta button-cta-primary" href="/product-to-profit/">Product-to-Profit</a>}
         <a class="button-cta button-cta-secondary" href="/news/rss.xml">Updates RSS</a>
       </div>
     </aside>

@@ -7,8 +7,8 @@ category: "Product"
 image: "/downloads/ai-launch-toolkit-preview.png"
 ---
 
-The KREATIV AI Launch Toolkit is now available through Gumroad for 19 EUR. It includes 100 launch prompts, prompt stacks, worksheets, swipe copy, worked examples, and practical checks for turning one simple product idea into a buyer-ready first version.
+This June 2026 update documented the KREATIV AI Launch Toolkit release at 19 EUR. The historical package included 100 launch prompts, prompt stacks, worksheets, swipe copy, worked examples, and practical checks.
 
-Use the free guide to choose an idea, then use the toolkit to shape the offer, build the first version, write the launch assets, and publish with clearer expectations. Start with the <a class="cta" href="/ai-launch-toolkit/">toolkit page</a> or open the <a class="cta" href="https://kreativ.gumroad.com/l/the-kreativ-ai-launch-toolkit?layout=profile" target="_blank" rel="noopener">Gumroad checkout</a>.
+The all-in-one toolkit is no longer the primary product path. Its role has been replaced by the stage-based <a class="cta" href="/product-to-profit/">KREATIV Product-to-Profit System</a>, where a smaller curated AI Prompt Companion supports the workflow without replacing buyer evidence or stage decisions.
 
-This gives the product path a clearer split: the free guide helps choose a practical idea, while the paid toolkit supports execution, launch copy, offer packaging, and post-launch review.
+This article remains as release-history context. Current products, boundaries, prices, and store status are documented on the Product-to-Profit pages.

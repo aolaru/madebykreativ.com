@@ -3,7 +3,7 @@ export const site = {
   url: "https://madebykreativ.com/",
   logo: "https://madebykreativ.com/favicon.svg",
   email: "info@madebykreativ.com",
-  lastUpdated: "2026-08-19"
+  lastUpdated: "2026-08-20"
 };
 
 export const isExternalHref = (href: string) => /^https?:\/\//.test(href);
@@ -28,9 +28,8 @@ export const clientConfig = {
 };
 
 export const statusDefinitions = [
-  { label: "Maintenance", description: "Public and stable, with occasional fixes rather than active expansion." },
-  { label: "Open Source", description: "Source code is public for reference, reuse, and community improvements." },
-  { label: "Archive", description: "Earlier work retained as part of the Made by Kreativ portfolio." }
+  { label: "Active", description: "An active Made by KREATIV project maintained by Andrei." },
+  { label: "Open Source", description: "Source is public for contributors; these projects are not maintained by Andrei." }
 ];
 
 const coreProjects = [
@@ -41,22 +40,22 @@ const coreProjects = [
     product: "Kreativ Font",
     label: "Kreativ Font",
     category: "Creative Discovery",
-    status: "Archive",
+    status: "Active",
     title: "Kreativ Font",
     logo: { mark: "F" },
     description: "A curated discovery library for fonts and creative assets focused on typography, style, and inspiration.",
     longDescription: "Kreativ Font helps designers, makers, and builders discover stronger typography references and creative assets without starting from a blank search.",
     whatItSolves: "It reduces the friction of typography research by keeping font discovery and creative references in one focused place.",
     audience: "Designers, creative directors, website builders, and makers who need faster typography decisions.",
-    currentStatus: "Public site retained as past work. No regular expansion schedule is planned.",
-    version: "Public archive",
+    currentStatus: "Active public project maintained by Andrei as part of Made by KREATIV.",
+    version: "Active project",
     updated: "July 2026",
     preview: "/project-previews/kreativ-font.png",
     previewAlt: "Kreativ Font homepage showing curated fonts, search, and practical font tools.",
     cta: "Visit Kreativ Font",
     focus: ["Typography discovery", "Creative references", "Style research"],
     proof: ["Curated font discovery", "Project detail page", "Related filtering update"],
-    maintenanceNotes: ["Public site retained", "No active roadmap", "Historical updates remain available"],
+    maintenanceNotes: ["Actively maintained by Andrei", "Public site available", "Updates are published when ready"],
     relatedNews: ["kreativ-font-filters", "q1-progress"],
     isCore: true
   },
@@ -67,22 +66,22 @@ const coreProjects = [
     product: "Kreativ Sound",
     label: "Kreativ Sound",
     category: "Creative Assets",
-    status: "Archive",
+    status: "Active",
     title: "Kreativ Sound",
     logo: { mark: "S" },
     description: "Sound packs, textures, and presets for creators working with ambient, experimental, and cinematic material.",
     longDescription: "Kreativ Sound collects practical audio resources, presets, and tutorials for creators who need atmospheric, experimental, and cinematic starting points.",
     whatItSolves: "It gives creators ready-made sonic starting points without forcing them to build every texture, preset, or ambient layer from scratch.",
     audience: "Music producers, sound designers, video creators, and experimental audio makers.",
-    currentStatus: "Public sound catalogue retained as past work. No regular release schedule is planned.",
-    version: "Public archive",
+    currentStatus: "Active public project maintained by Andrei as part of Made by KREATIV.",
+    version: "Active project",
     updated: "July 2026",
     preview: "/project-previews/kreativ-sound.png",
     previewAlt: "Kreativ Sound homepage presenting boutique sound packs for electronic and cinematic work.",
     cta: "Explore Sounds",
     focus: ["Preset packs", "Audio textures", "Tutorials"],
     proof: ["Live standalone property", "Free and professional packs", "Tutorial-led sound resources"],
-    maintenanceNotes: ["Public catalogue retained", "No active release schedule", "Existing resources remain accessible"],
+    maintenanceNotes: ["Actively maintained by Andrei", "Public catalogue available", "Updates are published when ready"],
     relatedNews: ["kreativ-sound-packs-tutorials", "q1-progress"],
     isCore: true
   },
@@ -93,22 +92,22 @@ const coreProjects = [
     product: "Kreativ WP",
     label: "Kreativ WP",
     category: "Utility Software",
-    status: "Archive",
+    status: "Active",
     title: "Kreativ WP",
     logo: { mark: "WP" },
     description: "Practical WordPress utilities and maintenance plugins built for real sites and long-term reliability.",
     longDescription: "Kreativ WP focuses on practical WordPress maintenance utilities that solve real site-operation problems without unnecessary complexity.",
     whatItSolves: "It keeps WordPress utility work focused on real maintenance, reliability, and operational needs instead of bloated feature sets.",
     audience: "WordPress site owners, maintainers, developers, and small teams managing real production sites.",
-    currentStatus: "WordPress utility work retained as part of the Made by Kreativ portfolio.",
-    version: "Public archive",
+    currentStatus: "Active public project maintained by Andrei as part of Made by KREATIV.",
+    version: "Active project",
     updated: "July 2026",
     preview: "/project-previews/kreativ-wp.png",
     previewAlt: "Kreativ WP homepage showing its live WordPress maintenance plugins.",
     cta: "View WP Tools",
     focus: ["WordPress utilities", "Maintenance workflows", "Reliability"],
     proof: ["Dedicated WordPress property", "Practical utility positioning", "Maintenance-focused roadmap"],
-    maintenanceNotes: ["Public site retained", "No new plugin roadmap", "Availability may change without regular updates"],
+    maintenanceNotes: ["Actively maintained by Andrei", "Public site available", "Updates are published when ready"],
     relatedNews: ["q1-progress"],
     isCore: true
   },
@@ -119,22 +118,22 @@ const coreProjects = [
     product: "Kreativ Tools",
     label: "Kreativ Tools",
     category: "Utility Software",
-    status: "Maintenance",
+    status: "Open Source",
     title: "Kreativ Tools",
     logo: { mark: "T" },
     description: "Browser-first utilities for image, video, PDF, document, and file workflows built for practical daily use.",
     longDescription: "Kreativ Tools brings file, image, video, PDF, and document utilities into a browser-first workspace for fast everyday production tasks.",
     whatItSolves: "It removes small workflow bottlenecks around file conversion, media utilities, PDFs, and everyday browser-first productivity tasks.",
     audience: "Creators, operators, developers, and anyone who needs fast utility tools without installing desktop software.",
-    currentStatus: "Public and in maintenance mode. Stable tools remain online, with occasional fixes and compatibility improvements.",
-    version: "v0.9.8 maintenance release",
+    currentStatus: "The source is public for contributors. The existing site may remain available, but Andrei no longer maintains the project.",
+    version: "Open-source handoff",
     updated: "August 2026",
     preview: "/project-previews/kreativ-tools.png",
     previewAlt: "Kreativ Tools homepage showing browser-first job and workflow selection.",
     cta: "Open Kreativ Tools",
     focus: ["Image tools", "PDF and document utilities", "File workflows"],
     proof: ["Live browser utility hub", "Image, PDF, document, and file workflows", "Public ecosystem update"],
-    maintenanceNotes: ["Stable browser tools remain online", "Small fixes and accessibility improvements are welcome", "No planned catalogue expansion"],
+    maintenanceNotes: ["No owner maintenance commitment", "Contributions and forks are welcome under the published license", "Public site availability may change"],
     relatedNews: ["maintenance-open-source-transition", "kreativ-tools-live", "homepage-directory-refinement"],
     isCore: true
   }
@@ -145,14 +144,14 @@ const adjacentProjects = [
     slug: "kreativ-auto",
     label: "Kreativ Auto",
     category: "Reference Projects",
-    status: "Archive",
+    status: "Active",
     logo: { mark: "A" },
     description: "An automotive project for practical content, useful references, and workflow-oriented tools.",
-    longDescription: "Kreativ Auto is an archived automotive reference project covering practical buying, diagnosis, maintenance-cost, and parts questions.",
+    longDescription: "Kreativ Auto is an active automotive reference project covering practical buying, diagnosis, maintenance-cost, and parts questions.",
     whatItSolves: "It preserves structured automotive research and practical reference paths in a dedicated public property.",
     audience: "Automotive enthusiasts and practical users looking for structured reference material.",
-    currentStatus: "Public reference site retained as past work. No active expansion schedule is planned.",
-    version: "Public archive",
+    currentStatus: "Active public project maintained by Andrei as part of Made by KREATIV.",
+    version: "Active project",
     updated: "July 2026",
     preview: "/project-previews/kreativ-auto.png",
     previewAlt: "Kreativ Auto homepage showing public car, problem, and parts guide counts.",
@@ -161,7 +160,7 @@ const adjacentProjects = [
     cta: "Open Kreativ Auto",
     focus: ["Automotive references", "Practical content", "Ownership context"],
     proof: ["Live buying and diagnostic paths", "20 cars in the public reference set", "58 problem and 58 parts guides"],
-    maintenanceNotes: ["Public reference site retained", "No active roadmap", "Existing material remains available"],
+    maintenanceNotes: ["Actively maintained by Andrei", "Public reference site available", "Updates are published when ready"],
     relatedNews: ["kreativ-auto-domain-added", "kreativ-auto-roadmap"],
     isCore: false
   },
@@ -169,14 +168,14 @@ const adjacentProjects = [
     slug: "how-much-music",
     label: "How Much Music",
     category: "Discovery Projects",
-    status: "Archive",
+    status: "Active",
     logo: { mark: "HM" },
     description: "A music-focused project around discovery, value, and practical listening context.",
     longDescription: "How Much Music is a live music-focused project built around listening context, practical discovery, and clearer ways to think about music value.",
     whatItSolves: "It gives music discovery a clearer context layer by focusing on value, listening decisions, and practical ways to evaluate music.",
     audience: "Music listeners, collectors, creators, and people who want a more structured way to think about music discovery.",
-    currentStatus: "Public music-discovery project retained as past work.",
-    version: "Public archive",
+    currentStatus: "Active public project maintained by Andrei as part of Made by KREATIV.",
+    version: "Active project",
     updated: "July 2026",
     preview: "/project-previews/how-much-music.png",
     previewAlt: "How Much Music homepage showing reviewed song and artist catalogs with methodology.",
@@ -185,7 +184,7 @@ const adjacentProjects = [
     cta: "Open How Much Music",
     focus: ["Music discovery", "Listening context", "Value signals"],
     proof: ["Live standalone property", "Music discovery focus", "Listening context positioning"],
-    maintenanceNotes: ["Public site retained", "No active publishing schedule", "Existing reviews remain available"],
+    maintenanceNotes: ["Actively maintained by Andrei", "Public site available", "Updates are published when ready"],
     relatedNews: ["how-much-music-live"],
     isCore: false
   },
@@ -199,7 +198,7 @@ const adjacentProjects = [
     longDescription: "Findsera preserves a source-driven product catalogue, editorial guide system, and static Astro publishing workflow for reuse.",
     whatItSolves: "It provides a reference implementation for structured product data, static catalogue generation, and editorial guide publishing.",
     audience: "Developers and publishers looking for a reusable Astro catalogue and editorial starter.",
-    currentStatus: "Archived and published as open source. The retained site is noindex and is not operated as a shopping or affiliate service.",
+    currentStatus: "The source is public for contributors. Andrei no longer maintains the project, and the retained site is not operated as a shopping or affiliate service.",
     version: "Open-source archive",
     updated: "August 2026",
     preview: "/project-previews/find-sera.png",
@@ -209,7 +208,7 @@ const adjacentProjects = [
     cta: "View Findsera Archive",
     focus: ["Astro catalogue", "Structured content", "Editorial guides"],
     proof: ["Public MIT-licensed repository", "Archive notice and noindex enabled", "Reusable content and validation scripts"],
-    maintenanceNotes: ["No active shopping or affiliate service", "No scheduled publishing", "Forks should replace the archived content and branding"],
+    maintenanceNotes: ["No owner maintenance commitment", "Contributions and forks are welcome under the MIT License", "Forks should replace the archived content and branding"],
     relatedNews: ["maintenance-open-source-transition", "find-sera-joins-ecosystem"],
     isCore: false
   },
@@ -223,7 +222,7 @@ const adjacentProjects = [
     longDescription: "News Ledger preserves a compact news briefing demo and its RSS-based Cloudflare Worker as an MIT-licensed reference implementation.",
     whatItSolves: "It demonstrates a small static briefing surface backed by RSS ingestion, fixed topics, and a Cloudflare Worker API.",
     audience: "Developers exploring RSS aggregation, topic filtering, and compact briefing interfaces.",
-    currentStatus: "Public source archive and portfolio demo. No regular content, feature, SEO, newsletter, or monetization work is planned.",
+    currentStatus: "The source is public for contributors. Andrei no longer maintains the project or operates it as an active news product.",
     version: "Open-source briefing demo",
     updated: "August 2026",
     preview: null,
@@ -233,19 +232,20 @@ const adjacentProjects = [
     cta: "View News Ledger Source",
     focus: ["RSS ingestion", "Topic filtering", "Cloudflare Worker"],
     proof: ["Public MIT-licensed repository", "Reusable Worker and static frontend", "Fixed topic and trust-page routes"],
-    maintenanceNotes: ["No active media business", "Manual deployment only", "No newsletter, advertising, or monetization work planned"],
+    maintenanceNotes: ["No owner maintenance commitment", "Contributions and forks are welcome under the MIT License", "No active newsletter, advertising, or monetization work"],
     relatedNews: ["maintenance-open-source-transition", "signal-ledger-added"],
     isCore: false
   }
 ];
 
 export const projectDirectory = [...coreProjects, ...adjacentProjects];
-export const publicProjects = [
+export const activeProjects = projectDirectory.filter((project) => project.status === "Active");
+export const communityProjects = [
   projectDirectory.find((project) => project.slug === "kreativ-tools"),
   projectDirectory.find((project) => project.slug === "find-sera"),
   projectDirectory.find((project) => project.slug === "signal-ledger")
 ].filter((project): project is (typeof projectDirectory)[number] => Boolean(project));
-export const archivedProjects = projectDirectory.filter((project) => project.status === "Archive");
+export const publicProjects = communityProjects;
 
 export const ecosystemLinks = projectDirectory.map((project) => ({
   label: project.label,

@@ -1,0 +1,32 @@
+---
+import type { ProductToProfitProduct } from "../data/productToProfit";
+
+interface Props {
+  product: ProductToProfitProduct;
+}
+
+const { product } = Astro.props;
+---
+
+<section class="ptp-section ptp-preview-section" aria-labelledby={`${product.slug}-preview-heading`}>
+  <div class="ptp-section-heading">
+    <p class="eyebrow">Real workbook pages</p>
+    <h2 id={`${product.slug}-preview-heading`}>Inspect the working material</h2>
+    <p>These previews are rendered from the current product files. Open any page to inspect it at full size.</p>
+  </div>
+  <div class:list={["ptp-preview-grid", { "ptp-preview-grid-single": product.previews.length === 1 }]}>
+    {product.previews.map((preview) => (
+      <a href={preview.src} target="_blank" rel="noopener" class="ptp-preview">
+        <img
+          src={preview.src}
+          alt={preview.alt}
+          width={preview.width}
+          height={preview.height}
+          loading="lazy"
+          decoding="async"
+        />
+        <span>{preview.label}<span aria-hidden="true"> ↗</span></span>
+      </a>
+    ))}
+  </div>
+</section>

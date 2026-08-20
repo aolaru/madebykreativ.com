@@ -1,15 +1,15 @@
 ---
-title: "Made by Kreativ Moves to Selective Maintenance"
-description: "Made by Kreativ is now a semi-retired project archive, with Kreativ Tools in maintenance mode and Findsera and News Ledger available as open-source references."
-dateLabel: "AUGUST 19, 2026"
-sortDate: 2026-08-19
+title: "Three KREATIV Projects Opened to Contributors"
+description: "Kreativ Tools, Findsera, and News Ledger are now open-source projects for contributors, while Made by KREATIV remains active."
+dateLabel: "AUGUST 20, 2026"
+sortDate: 2026-08-20
 category: "Ecosystem"
 ---
 
-Made by Kreativ is moving from an actively expanding product ecosystem to a semi-retired collection of maintained tools, public source projects, practical guides, and selected past work.
+Made by KREATIV remains active as an independent product studio. The change applies specifically to Kreativ Tools, Findsera, and News Ledger: I no longer maintain these three projects, and their source is public for contributors.
 
-<a class="cta" href="https://kreativtools.com" target="_blank" rel="noopener">Kreativ Tools</a> remains online in maintenance mode. Its stable browser utilities will continue to be available, with occasional fixes and compatibility improvements rather than planned catalogue expansion. The <a class="cta" href="https://github.com/aolaru/kreativtools" target="_blank" rel="noopener">Kreativ Tools source code</a> is public under the MIT License.
+The <a class="cta" href="https://github.com/aolaru/kreativtools" target="_blank" rel="noopener">Kreativ Tools source code</a> is public under the MIT License. The existing public site may remain available, but it no longer carries an owner maintenance commitment.
 
-<a class="cta" href="https://github.com/aolaru/findsera.com" target="_blank" rel="noopener">Findsera</a> is preserved as an open-source Astro catalogue and editorial starter. <a class="cta" href="https://github.com/aolaru/signal-ledger" target="_blank" rel="noopener">News Ledger</a> is preserved as a reusable news briefing demo with RSS ingestion and a Cloudflare Worker.
+<a class="cta" href="https://github.com/aolaru/findsera.com" target="_blank" rel="noopener">Findsera</a> is available as an open-source Astro catalogue and editorial starter. <a class="cta" href="https://github.com/aolaru/signal-ledger" target="_blank" rel="noopener">News Ledger</a> is available as a reusable news briefing demo with RSS ingestion and a Cloudflare Worker.
 
-The remaining Made by Kreativ properties are retained as past work. Their project pages remain available for context, but they no longer carry an active roadmap or regular publishing commitment.
+Contributors can inspect, fork, and improve each project under its published license. This handoff does not describe the status of Made by KREATIV itself or its active products, including Product-to-Profit.

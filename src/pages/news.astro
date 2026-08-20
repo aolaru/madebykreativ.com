@@ -25,7 +25,7 @@ const categories = [...new Set(newsEntries.map((entry) => entry.data.category))]
 
 <BaseLayout
   title="Updates Archive | Made by Kreativ"
-  description="Occasional project status notes and historical release updates from the Made by Kreativ archive."
+  description="Product news, project status notes, and historical release updates from Made by Kreativ."
   canonicalPath="/news/"
   ogImage={buildUrl("/og-news.png")}
   ogImageAlt="Made by Kreativ updates archive card."
@@ -33,7 +33,7 @@ const categories = [...new Set(newsEntries.map((entry) => entry.data.category))]
 >
   <HeroHeader
     current="news"
-    eyebrow="Project archive"
+    eyebrow="Product and project news"
     title="Updates"
     tagline="Occasional status notes and a historical record of earlier releases."
   >
@@ -79,7 +79,7 @@ const categories = [...new Set(newsEntries.map((entry) => entry.data.category))]
     </div>
     <div class="landing-actions">
       <a class="button-cta button-cta-secondary" href="/news/rss.xml">Open RSS feed</a>
-      <a class="button-cta button-cta-secondary" href="/about/">About the archive</a>
+      <a class="button-cta button-cta-secondary" href="/about/">About Made by Kreativ</a>
     </div>
   </section>
 

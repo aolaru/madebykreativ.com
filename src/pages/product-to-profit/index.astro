@@ -1,0 +1,271 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import SiteNav from "../../components/SiteNav.astro";
+import SystemStagePath from "../../components/SystemStagePath.astro";
+import {
+  bundleProduct,
+  productPath,
+  productToProfitProducts,
+  stageProducts,
+  startStates,
+  systemFaqs,
+  systemPath
+} from "../../data/productToProfit";
+import {
+  buildUrl,
+  createBreadcrumbSchema,
+  createPageSchema,
+  organizationSchema
+} from "../../data/site";
+
+const pageDescription = "Choose one product worth testing, build a useful package, launch it through one clear buyer path, and use evidence to improve it.";
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "The KREATIV Product-to-Profit System",
+  itemListElement: productToProfitProducts.map((product, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: product.title,
+    description: product.description,
+    url: buildUrl(productPath(product.slug))
+  }))
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: systemFaqs.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer }
+  }))
+};
+---
+
+<BaseLayout
+  title="The KREATIV Product-to-Profit System | Made by Kreativ"
+  description={pageDescription}
+  canonicalPath={systemPath}
+  ogImage={buildUrl(bundleProduct.cover)}
+  ogImageAlt={bundleProduct.coverAlt}
+  ogImageWidth="1200"
+  ogImageHeight="675"
+  structuredData={[
+    organizationSchema,
+    createPageSchema({ name: "The KREATIV Product-to-Profit System", description: pageDescription, path: systemPath }),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Product-to-Profit", path: systemPath }
+    ]),
+    itemListSchema,
+    faqSchema
+  ]}
+>
+  <header class="ptp-overview-header ptp-accent-violet">
+    <SiteNav current="guides" />
+    <div class="ptp-overview-hero">
+      <div class="ptp-overview-copy">
+        <p class="eyebrow">A focused system by Made by KREATIV</p>
+        <h1>The KREATIV Product-to-Profit System</h1>
+        <p class="ptp-overview-promise">Choose one product worth testing, build a useful package, launch it through one clear buyer path, and use evidence to improve it.</p>
+        <div class="landing-actions ptp-overview-actions">
+          <a class="button-cta button-cta-primary" href="#start-where-you-are">Find your starting stage</a>
+          <a
+            class="button-cta button-cta-secondary"
+            href={productPath("system")}
+            data-product-cta
+            data-product="system"
+            data-stage="complete"
+            data-page="overview"
+            data-position="hero"
+          >Get the complete system</a>
+        </div>
+        <p class="ptp-no-guarantee">No guaranteed sales. Each stage produces a concrete handoff for the next decision.</p>
+      </div>
+      <a class="ptp-overview-cover-link" href={productPath("system")} aria-label="View the complete Product-to-Profit System">
+        <img
+          class="ptp-overview-cover"
+          src={bundleProduct.cover}
+          alt={bundleProduct.coverAlt}
+          width="1200"
+          height="675"
+          decoding="async"
+        />
+      </a>
+    </div>
+    <SystemStagePath />
+  </header>
+
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Product-to-Profit" }]} />
+
+  <section class="ptp-section ptp-selector-section" id="start-where-you-are" aria-labelledby="selector-heading">
+    <div class="ptp-section-heading">
+      <p class="eyebrow">Start where you are</p>
+      <h2 id="selector-heading">Choose the input you already have</h2>
+      <p>Every recommendation remains visible. This selector does not hide the comparison or require a quiz.</p>
+    </div>
+    <div class="ptp-selector-grid">
+      {startStates.map((item, index) => (
+        <a
+          href={productPath(item.slug)}
+          class="ptp-selector-option"
+          data-product-cta
+          data-product={item.slug}
+          data-stage={stageProducts[index].stage}
+          data-page="overview"
+          data-position="selector"
+        >
+          <span class="ptp-selector-state">{item.state}</span>
+          <strong>{item.recommendation}</strong>
+          <p>{item.detail}</p>
+          <em>Open recommendation <span aria-hidden="true">→</span></em>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="ptp-section" aria-labelledby="comparison-heading">
+    <div class="ptp-section-heading">
+      <p class="eyebrow">Full comparison</p>
+      <h2 id="comparison-heading">One product owns each decision</h2>
+      <p>The handoff from one stage becomes the required input for the next.</p>
+    </div>
+    <section class="ptp-table-wrap" tabindex="0" aria-label="Product-to-Profit product comparison">
+      <table class="ptp-comparison-table">
+        <thead>
+          <tr>
+            <th scope="col">Stage and product</th>
+            <th scope="col">Role</th>
+            <th scope="col">Required input</th>
+            <th scope="col">Buyer leaves with</th>
+            <th scope="col">Price</th>
+            <th scope="col">Next step</th>
+          </tr>
+        </thead>
+        <tbody>
+          {productToProfitProducts.map((product) => (
+            <tr>
+              <th scope="row"><a href={productPath(product.slug)}><span>{product.stage}</span>{product.shortTitle}</a></th>
+              <td>{product.role}</td>
+              <td>{product.requiredInput}</td>
+              <td>{product.output}</td>
+              <td>{product.price}</td>
+              <td>{product.nextLabel ?? "Start at your current stage"}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  </section>
+
+  <section class="ptp-section" aria-labelledby="previews-heading">
+    <div class="ptp-section-heading">
+      <p class="eyebrow">Actual product covers</p>
+      <h2 id="previews-heading">Inspect each stage before choosing</h2>
+      <p>Each product keeps its own visual identity while using the same handoff structure.</p>
+    </div>
+    <div class="ptp-product-grid">
+      {stageProducts.map((product) => (
+        <article class:list={["ptp-product-card", `ptp-accent-${product.accent}`]}>
+          <a href={productPath(product.slug)} class="ptp-product-card-cover">
+            <img src={product.cover} alt={product.coverAlt} width="1200" height="675" loading="lazy" decoding="async" />
+          </a>
+          <div class="ptp-product-card-body">
+            <span>{product.stage}</span>
+            <h3><a href={productPath(product.slug)}>{product.shortTitle}</a></h3>
+            <p>{product.promise}</p>
+            <dl>
+              <div><dt>Input</dt><dd>{product.requiredInput}</dd></div>
+              <div><dt>Output</dt><dd>{product.handoff}</dd></div>
+            </dl>
+            <a class="cta" href={productPath(product.slug)}>View this stage</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="ptp-section ptp-example-section" aria-labelledby="example-heading">
+    <div class="ptp-section-heading">
+      <p class="eyebrow">Fictional worked example</p>
+      <h2 id="example-heading">One onboarding product through the complete path</h2>
+      <p>The Freelancer Client Onboarding Kit is a simulated example included for instruction. Its metrics are not customer proof or expected results.</p>
+    </div>
+    <ol class="ptp-example-path">
+      <li><span>Explore</span><strong>Three candidate products</strong><p>Recurring freelancer onboarding problems become a short list.</p></li>
+      <li><span>Choose</span><strong>One Product Brief</strong><p>Solo brand designers become the specific buyer after evidence and risk review.</p></li>
+      <li><span>Create</span><strong>Six-file package</strong><p>The smallest useful onboarding workflow is built and checked.</p></li>
+      <li><span>Sell</span><strong>One buyer path</strong><p>A clear offer, delivery path, campaign, and Launch Record are prepared.</p></li>
+      <li><span>Improve</span><strong>One change request</strong><p>Simulated support and refund evidence leads to clearer format disclosure and DOCX files.</p></li>
+    </ol>
+  </section>
+
+  <section class="ptp-section ptp-bundle-section" aria-labelledby="bundle-heading">
+    <div class="ptp-bundle-layout">
+      <div>
+        <p class="eyebrow">Complete system</p>
+        <h2 id="bundle-heading">More than the individual PDFs combined</h2>
+        <p>The bundle connects the stages with one master workspace, standard handoffs, a complete fictional case study, and practical implementation paths.</p>
+        <ul class="ptp-check-grid ptp-check-grid-single">
+          {bundleProduct.included.map((item) => <li>{item}</li>)}
+        </ul>
+        <a
+          class="button-cta button-cta-secondary"
+          href={productPath("system")}
+          data-product-cta
+          data-product="system"
+          data-stage="complete"
+          data-page="overview"
+          data-position="bundle"
+        >Inspect the complete system</a>
+      </div>
+      <img src={bundleProduct.cover} alt={bundleProduct.coverAlt} width="1200" height="675" loading="lazy" decoding="async" />
+    </div>
+  </section>
+
+  <section class="ptp-section ptp-trust-section" aria-labelledby="overview-trust-heading">
+    <div class="ptp-section-heading">
+      <p class="eyebrow">Honest fit</p>
+      <h2 id="overview-trust-heading">A decision system, not an outcome promise</h2>
+    </div>
+    <div class="ptp-trust-grid">
+      <div><strong>Best fit</strong><p>Creators, freelancers, consultants, and service providers shaping a small practical digital product.</p></div>
+      <div><strong>Not a fit</strong><p>Anyone seeking done-for-you product creation, automatic validation, guaranteed demand, or guaranteed sales.</p></div>
+      <div><strong>Format and license</strong><p>Fillable PDFs with editable assets where relevant. The current package states personal use.</p></div>
+      <div><strong>Owner review required</strong><p>Checkout availability, final bundle price, refund, support, updates, privacy, compatibility, and tax language are not yet approved for publication.</p></div>
+    </div>
+  </section>
+
+  <section class="ptp-section" aria-labelledby="overview-faq-heading">
+    <div class="ptp-section-heading">
+      <p class="eyebrow">FAQ</p>
+      <h2 id="overview-faq-heading">Choose with the boundaries visible</h2>
+    </div>
+    <div class="faq-list">
+      {systemFaqs.map((item) => (
+        <details>
+          <summary>{item.question}</summary>
+          <p>{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="ptp-section ptp-final-section" aria-labelledby="final-heading">
+    <div>
+      <p class="eyebrow">Your next decision</p>
+      <h2 id="final-heading">Start with the input you already have.</h2>
+      <p>Complete one handoff before moving to the next stage.</p>
+    </div>
+    <div class="landing-actions">
+      <a class="button-cta button-cta-primary" href="#start-where-you-are">Find your starting stage</a>
+      <a class="button-cta button-cta-secondary" href={productPath("system")}>Inspect the complete system</a>
+    </div>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>

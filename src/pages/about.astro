@@ -3,9 +3,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { buildUrl, createBreadcrumbSchema, createPageSchema, organizationSchema, projectPath, publicProjects } from "../data/site";
+import { buildUrl, communityProjects, createBreadcrumbSchema, createPageSchema, organizationSchema, projectPath } from "../data/site";
 
-const pageDescription = "Learn about Made by Kreativ, Andrei Olaru's semi-retired collection of maintained tools, open-source projects, practical guides, and past work.";
+const pageDescription = "Learn about Made by Kreativ, Andrei Olaru's active independent product studio, its current products, and open-source contributor projects.";
 ---
 
 <BaseLayout
@@ -32,7 +32,7 @@ const pageDescription = "Learn about Made by Kreativ, Andrei Olaru's semi-retire
     current="about"
     eyebrow="Independent work"
     title="About Made by Kreativ"
-    tagline="A semi-retired collection of useful tools, public source projects, practical guides, and past work."
+    tagline="An active independent studio for practical products, public source projects, and useful digital work."
   />
 
   <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About" }]} />
@@ -45,41 +45,41 @@ const pageDescription = "Learn about Made by Kreativ, Andrei Olaru's semi-retire
       <p class="eyebrow">Independent builder</p>
       <h2 id="founder-heading">Built by Andrei Olaru</h2>
       <p>Made by Kreativ brings together independent products and experiments created across design, development, publishing, and practical software.</p>
-      <p>I am semi-retired from active product development. A small number of projects remain public, maintenance is selective, and earlier work is preserved as an honest portfolio archive.</p>
+      <p>Made by KREATIV remains active. Product-to-Profit and future independent work continue here, while Kreativ Tools, Findsera, and News Ledger have been opened to contributors because I no longer maintain those three projects.</p>
       <div class="landing-actions founder-actions">
-        <a class="button-cta button-cta-primary" href="/projects/">Explore the project archive</a>
+        <a class="button-cta button-cta-primary" href="/product-to-profit/">Explore current work</a>
         <a class="button-cta button-cta-secondary" href="/news/">Read status updates</a>
       </div>
     </div>
   </section>
 
   <section class="content-card landing-section" aria-labelledby="principles-heading">
-    <p class="eyebrow">Current approach</p>
-    <h2 id="principles-heading">What semi-retired means here</h2>
+    <p class="eyebrow">Portfolio approach</p>
+    <h2 id="principles-heading">How the work is managed</h2>
     <div class="about-principle-grid">
       <article>
         <span>01</span>
-        <h3>Selective maintenance</h3>
-        <p>Stable public tools may receive small fixes, compatibility updates, and accessibility improvements.</p>
+        <h3>Active product work</h3>
+        <p>Made by KREATIV continues to develop focused products and practical systems, including Product-to-Profit.</p>
       </article>
       <article>
         <span>02</span>
-        <h3>Source over promises</h3>
-        <p>Reusable projects are published with source code instead of being presented as active future businesses.</p>
+        <h3>Community handoff</h3>
+        <p>Three projects are no longer maintained by Andrei, so their source is public for contributors to inspect, fork, and improve.</p>
       </article>
       <article>
         <span>03</span>
-        <h3>Honest archives</h3>
-        <p>Past projects remain documented without implying an active roadmap or regular publishing schedule.</p>
+        <h3>Clear project status</h3>
+        <p>Active work and contributor projects are presented separately, so ownership and maintenance expectations stay clear.</p>
       </article>
     </div>
   </section>
 
   <section class="content-card landing-section" aria-labelledby="scope-heading">
-    <p class="eyebrow">Public and reusable</p>
-    <h2 id="scope-heading">What remains public</h2>
+    <p class="eyebrow">Open-source handoff</p>
+    <h2 id="scope-heading">Projects open to contributors</h2>
     <div class="about-principle-grid about-public-grid">
-      {publicProjects.map((project) => (
+      {communityProjects.map((project) => (
         <article>
           <span class="pillar-status">{project.status}</span>
           <h3>{project.label}</h3>
@@ -92,7 +92,7 @@ const pageDescription = "Learn about Made by Kreativ, Andrei Olaru's semi-retire
 
   <section class="content-card landing-section" aria-labelledby="timeline-heading">
     <p class="eyebrow">Selected milestones</p>
-    <h2 id="timeline-heading">From active studio to public archive</h2>
+    <h2 id="timeline-heading">How the project family evolved</h2>
     <ol class="about-timeline">
       <li>
         <time datetime="2026-03">March 2026</time>
@@ -111,8 +111,8 @@ const pageDescription = "Learn about Made by Kreativ, Andrei Olaru's semi-retire
       <li>
         <time datetime="2026-08">August 2026</time>
         <div>
-          <h3>Maintenance and open-source transition</h3>
-          <p>Kreativ Tools entered maintenance mode, while Findsera and News Ledger were preserved as public source archives.</p>
+          <h3>Three projects opened to contributors</h3>
+          <p>Kreativ Tools, Findsera, and News Ledger were opened to contributors while Made by KREATIV continued its active product work.</p>
         </div>
       </li>
     </ol>

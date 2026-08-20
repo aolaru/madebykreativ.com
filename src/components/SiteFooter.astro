@@ -1,5 +1,5 @@
 ---
-import { projectPath, publicProjects } from "../data/site";
+import { activeProjects, projectPath } from "../data/site";
 
 interface Props {
   compact?: boolean;
@@ -11,12 +11,13 @@ const { compact = false } = Astro.props;
 <footer class="footer">
   {!compact && (
     <nav class="ecosystem-links" aria-label="Made by Kreativ project links">
-      {publicProjects.map((project) => (
+      <a href="/product-to-profit/">Product-to-Profit</a>
+      {activeProjects.map((project) => (
         <a href={projectPath(project.slug)}>{project.label}</a>
       ))}
-      <a href="/projects/#past-work">Past Work</a>
+      <a href="/projects/#community-projects">Contributor Projects</a>
       <a href="/news/">Updates</a>
     </nav>
   )}
-  <p>© <span id="year"></span> Made by KREATIV{compact ? " · Andrei Olaru" : " · Semi-retired independent projects by Andrei Olaru"}</p>
+  <p>© <span id="year"></span> Made by KREATIV{compact ? " · Andrei Olaru" : " · Independent products and public projects by Andrei Olaru"}</p>
 </footer>

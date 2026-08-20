@@ -5,11 +5,11 @@ import HeroHeader from "../../components/HeroHeader.astro";
 import ProjectDirectoryCard from "../../components/ProjectDirectoryCard.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import {
+  activeProjects,
   buildUrl,
-  archivedProjects,
+  communityProjects,
   ecosystemItemListSchema,
   organizationSchema,
-  publicProjects,
   projectPath,
   statusDefinitions
 } from "../../data/site";
@@ -17,7 +17,7 @@ import {
 
 <BaseLayout
   title="Projects | Made by Kreativ"
-  description="Explore the maintained, open-source, and archived projects created by Andrei Olaru under Made by Kreativ."
+  description="Explore active Made by Kreativ projects and the three open-source projects available to contributors."
   canonicalPath="/projects/"
   ogImage={buildUrl("/og-projects.png")}
   ogImageAlt="Made by Kreativ project directory card."
@@ -25,9 +25,9 @@ import {
 >
   <HeroHeader
     current="projects"
-    eyebrow="Project archive"
+    eyebrow="Project directory"
     title="KREATIV Projects"
-    tagline="Public repositories, maintained tools, and selected past work in one honest directory."
+    tagline="Active independent projects and three open-source contributor handoffs in one clear directory."
   />
 
   <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Projects" }]} />
@@ -35,15 +35,15 @@ import {
   <section class="project-map project-directory-page" aria-labelledby="project-map-heading">
     <div class="section-heading-row">
       <div>
-        <p class="eyebrow">Current public work</p>
-        <h2 id="project-map-heading">Public and reusable</h2>
-        <p>These projects remain available as maintained tools or public source archives.</p>
+        <p class="eyebrow">Current work</p>
+        <h2 id="project-map-heading">Active projects</h2>
+        <p>Independent properties currently developed and maintained by Andrei under Made by KREATIV.</p>
       </div>
       <a class="cta" href="/">Back to home</a>
     </div>
 
     <div class="project-directory-grid project-directory-grid-public">
-      {publicProjects.map((project) => (
+      {activeProjects.map((project) => (
         <ProjectDirectoryCard
           href={projectPath(project.slug)}
           slug={project.slug}
@@ -56,16 +56,16 @@ import {
       ))}
     </div>
 
-    <div class="section-heading-row directory-group-heading" id="past-work">
+    <div class="section-heading-row directory-group-heading" id="community-projects">
       <div>
-        <p class="eyebrow">Portfolio archive</p>
-        <h2>Selected past work</h2>
-        <p>Public properties retained for reference, without an active development or publishing roadmap.</p>
+        <p class="eyebrow">Open-source handoff</p>
+        <h2>Open to contributors</h2>
+        <p>Andrei no longer maintains these three projects. Their source is public for contributors under the published licenses.</p>
       </div>
     </div>
 
     <div class="project-directory-grid project-directory-grid-archive">
-      {archivedProjects.map((project) => (
+      {communityProjects.map((project) => (
         <ProjectDirectoryCard
           href={projectPath(project.slug)}
           slug={project.slug}

@@ -1,0 +1,33 @@
+---
+import type { ProductToProfitProduct } from "../data/productToProfit";
+
+interface Props {
+  product: ProductToProfitProduct;
+  page: string;
+  position: string;
+}
+
+const { product, page, position } = Astro.props;
+---
+
+<div class="ptp-store-action">
+  {product.storeUrl ? (
+    <a
+      class="button-cta button-cta-primary"
+      href={product.storeUrl}
+      target="_blank"
+      rel="noopener"
+      data-product-cta
+      data-product={product.slug}
+      data-stage={product.stage}
+      data-page={page}
+      data-position={position}
+      aria-label={`${product.storeCta} (opens Gumroad in a new tab)`}
+    >
+      {product.storeCta}<span aria-hidden="true"> ↗</span>
+    </a>
+  ) : (
+    <span class="button-cta button-cta-disabled" aria-disabled="true">{product.storeCta}</span>
+  )}
+  <p class="ptp-store-status">{product.storeStatus}</p>
+</div>
