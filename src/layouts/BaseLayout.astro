@@ -6,6 +6,7 @@ interface Props {
   description: string;
   canonicalPath: string;
   robots?: string;
+  redirectTo?: string;
   ogType?: "website" | "article";
   ogTitle?: string;
   ogDescription?: string;
@@ -23,6 +24,7 @@ const {
   description,
   canonicalPath,
   robots = "index,follow",
+  redirectTo,
   ogType = "website",
   ogTitle = title,
   ogDescription = description,
@@ -48,6 +50,7 @@ const shouldLoadProductionAnalytics = import.meta.env.PROD;
     <meta name="description" content={description} />
     <meta name="theme-color" content="#f3f6fb" />
     <meta name="robots" content={robots} />
+    {redirectTo && <meta http-equiv="refresh" content={`0; url=${redirectTo}`} />}
 
     <link rel="canonical" href={canonicalUrl.toString()} />
 

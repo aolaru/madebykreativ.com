@@ -7,6 +7,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   description="Made by Kreativ guides have moved into the KREATIV Product-to-Profit System."
   canonicalPath="/product-to-profit/"
   robots="noindex,follow"
+  redirectTo="/product-to-profit/"
 >
   <section class="redirect-page" aria-labelledby="redirect-heading">
     <img src="/favicon.svg" width="52" height="52" alt="" />
@@ -15,5 +16,5 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <p>The old two-product path has been replaced by Explore, Choose, Create, Sell, and Improve stages.</p>
     <a class="button-cta button-cta-primary" href="/product-to-profit/">Open Product-to-Profit</a>
   </section>
-  <script is:inline>window.location.replace("/product-to-profit/");</script>
+  <script is:inline>window.location.replace("/product-to-profit/" + window.location.search + window.location.hash);</script>
 </BaseLayout>

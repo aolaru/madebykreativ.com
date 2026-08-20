@@ -7,6 +7,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   description="Your First Digital Product has been replaced in the current journey by the free KREATIV Idea Library."
   canonicalPath="/product-to-profit/idea-library/"
   robots="noindex,follow"
+  redirectTo="/product-to-profit/idea-library/"
 >
   <section class="redirect-page" aria-labelledby="redirect-heading">
     <img src="/product-to-profit/covers/idea-library.png" width="320" height="180" alt="KREATIV Idea Library cover" />
@@ -15,5 +16,5 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <p>The earlier guide is no longer the primary product path. The Idea Library now hands a shortlist into the Product Idea Scorecard.</p>
     <a class="button-cta button-cta-primary" href="/product-to-profit/idea-library/">Open the Idea Library page</a>
   </section>
-  <script is:inline>window.location.replace("/product-to-profit/idea-library/");</script>
+  <script is:inline>window.location.replace("/product-to-profit/idea-library/" + window.location.search + window.location.hash);</script>
 </BaseLayout>

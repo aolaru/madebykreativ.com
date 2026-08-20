@@ -3,14 +3,22 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=24.8.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "validate": "npm run build && npx --yes html-validate --config .htmlvalidate.json \"dist/**/*.html\"",
+    "validate:html": "html-validate --config .htmlvalidate.json \"dist/**/*.html\"",
+    "validate:links": "node scripts/check-local-links.mjs",
+    "validate:artifact": "node scripts/check-built-site.mjs",
+    "validate": "npm run build && npm run validate:html && npm run validate:links && npm run validate:artifact",
     "check": "npm run validate"
   },
   "devDependencies": {
-    "astro": "^7.1.6"
+    "astro": "^7.1.6",
+    "html-validate": "^11.8.0",
+    "linkinator": "^8.0.4"
   }
 }

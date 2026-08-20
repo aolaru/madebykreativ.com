@@ -13,16 +13,18 @@ Astro-based static site for the Kreativ ecosystem.
 - `src/pages` - Astro pages that build to the current `.html` routes
 - `public/style.css` - shared site styles
 - `public/site.js` - shared behavior for theme, footer year, and analytics events
-- `public/` - static assets, icons, social images, `robots.txt`, `sitemap.xml`, and `CNAME`
+- `public/` - static assets, icons, social images, `robots.txt`, and `CNAME`
+- `scripts/check-built-site.mjs` - production artifact checks for required routes, assets, canonicals, sitemap entries, and the custom domain
 - `astro.config.mjs` - Astro configuration
 - `package.json` - local scripts and Astro dependency
 
 ## Local preview
 
-Install dependencies and run Astro locally:
+Use Node.js 24 and install the locked dependencies:
 
 ```bash
-npm install
+nvm use
+npm ci
 npm run dev
 ```
 
@@ -31,3 +33,11 @@ Build the production output with:
 ```bash
 npm run build
 ```
+
+Run the complete production quality gate with:
+
+```bash
+npm run check
+```
+
+The same check runs for pull requests and before every GitHub Pages deployment.
