@@ -1,13 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "./Breadcrumbs.astro";
+import ProductCover from "./ProductCover.astro";
 import ProductPreviewGallery from "./ProductPreviewGallery.astro";
 import ProductStoreAction from "./ProductStoreAction.astro";
 import SiteFooter from "./SiteFooter.astro";
 import SiteNav from "./SiteNav.astro";
 import SystemStagePath from "./SystemStagePath.astro";
 import {
+  productInformationPath,
   productPath,
+  productPolicies,
   systemFaqs,
   systemPath,
   type ProductToProfitProduct
@@ -29,6 +32,20 @@ const isBundle = product.slug === "system";
 const isBuilder = product.slug === "workflow-product-builder";
 const isLaunch = product.slug === "digital-product-launch-engine";
 const nextHref = product.nextSlug ? productPath(product.nextSlug) : null;
+const pageTitle = isBundle
+  ? "Complete KREATIV Product-to-Profit Bundle | Made by Kreativ"
+  : `${product.title} | Made by Kreativ`;
+const isAvailableNow = product.actionKind === "download" || product.actionKind === "gumroad";
+const deliveryLabel = isAvailableNow ? "Available now" : "Prepared release package";
+const purchaseDescription = product.actionKind === "download"
+  ? "Download the complete ZIP directly from Made by KREATIV."
+  : product.actionKind === "gumroad"
+    ? product.access === "free"
+      ? "Complete the free Gumroad checkout to receive the ZIP package and future file updates."
+      : "Purchase securely through Gumroad to receive the current ZIP package and future file updates."
+  : product.actionKind === "wishlist"
+    ? "The product is not currently for sale. Use the Gumroad wishlist without starting a checkout."
+    : "Checkout is not live. Request a release notice without making a reservation or payment.";
 
 const visibleFaqs = [
   {
@@ -56,7 +73,7 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title={`${product.title} | Made by Kreativ`}
+  title={pageTitle}
   description={product.description}
   canonicalPath={canonicalPath}
   ogImage={buildUrl(product.cover)}
@@ -65,7 +82,7 @@ const faqSchema = {
   ogImageHeight="675"
   structuredData={[
     organizationSchema,
-    createPageSchema({ name: `${product.title} | Made by Kreativ`, description: product.description, path: canonicalPath }),
+    createPageSchema({ name: pageTitle, description: product.description, path: canonicalPath }),
     createBreadcrumbSchema([
       { name: "Home", path: "/" },
       { name: "Product-to-Profit", path: systemPath },
@@ -78,23 +95,22 @@ const faqSchema = {
     <SiteNav current="guides" />
     <div class="ptp-product-hero">
       <div class="ptp-product-hero-copy">
-        <p class="eyebrow">{isBundle ? "Complete system" : `Stage ${product.stageNumber} · ${product.stage}`}</p>
+        <div class="ptp-product-hero-meta">
+          <p class="eyebrow">{isBundle ? "Complete system" : `Stage ${product.stageNumber} · ${product.stage}`}</p>
+          <span class:list={["ptp-access-badge", `ptp-access-${product.access}`]}>{product.accessSummary}</span>
+        </div>
         <h1>{product.title}</h1>
         <p class="ptp-product-promise">{product.promise}</p>
         <div class="ptp-hero-answer">
           <span>1 · Current situation</span>
           <p>{product.situation}</p>
         </div>
-        <a class="button-cta button-cta-secondary" href="#owned-job">See what this product owns</a>
+        <div class="landing-actions ptp-product-hero-actions">
+          <ProductStoreAction product={product} page={product.slug} position="hero" showStatus={false} />
+          <a class="button-cta button-cta-secondary" href="#owned-job">See what this product owns</a>
+        </div>
       </div>
-      <img
-        class="ptp-product-cover"
-        src={product.cover}
-        alt={product.coverAlt}
-        width="1200"
-        height="675"
-        decoding="async"
-      />
+      <ProductCover class="ptp-product-cover" src={product.cover} alt={product.coverAlt} loading="eager" />
     </div>
   </header>
 
@@ -152,6 +168,28 @@ const faqSchema = {
     <ul class="ptp-check-grid">
       {product.included.map((item) => <li>{item}</li>)}
     </ul>
+  </section>
+
+  <section class="ptp-section ptp-delivery-section" aria-labelledby="delivery-heading">
+    <div class="ptp-section-heading">
+      <p class="eyebrow">{deliveryLabel}</p>
+      <h2 id="delivery-heading">Delivery and first use</h2>
+      <p>{product.delivery.version}. {product.delivery.packageSize} ZIP containing {product.delivery.fileCount} files.</p>
+    </div>
+    <div class="ptp-delivery-grid">
+      <dl class="ptp-delivery-facts">
+        <div><dt>Package</dt><dd>{product.delivery.packageName}</dd></div>
+        <div><dt>Formats</dt><dd>{product.delivery.formats.join(", ")}</dd></div>
+        <div><dt>Compatibility</dt><dd>{productPolicies.compatibility}</dd></div>
+      </dl>
+      <div class="ptp-delivery-contents">
+        <h3>Inside the ZIP</h3>
+        <ul class="clean-list">
+          {product.delivery.contents.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+    <p class="ptp-first-step"><strong>First action:</strong> {product.delivery.firstStep}</p>
   </section>
 
   {isBundle && (
@@ -238,8 +276,10 @@ const faqSchema = {
   <section class="ptp-section ptp-purchase-section" aria-labelledby="purchase-heading">
     <div>
       <p class="eyebrow">8 · Price and store</p>
+      <span class:list={["ptp-access-badge", `ptp-access-${product.access}`]}>{product.accessLabel}</span>
       <h2 id="purchase-heading">{product.price}</h2>
-      <p>{product.role}. Review the current store status before relying on checkout availability.</p>
+      <p>{purchaseDescription}</p>
+      <p class="ptp-pricing-note">{product.pricingNote}</p>
     </div>
     <ProductStoreAction product={product} page={product.slug} position="final" />
   </section>
@@ -251,10 +291,12 @@ const faqSchema = {
     </div>
     <div class="ptp-trust-grid">
       <div><strong>No guaranteed sales</strong><p>The system structures decisions and evidence. It does not guarantee demand, sales, revenue, or any other commercial outcome.</p></div>
-      <div><strong>Formats</strong><p>Current sources specify fillable PDFs and editable Excel, Markdown, or CSV assets where relevant.</p></div>
-      <div><strong>License</strong><p>The current package states a personal-use license. Final checkout wording still requires owner approval.</p></div>
-      <div><strong>Policies pending</strong><p>Refund, support, update, privacy, compatibility, and tax wording must be approved and synchronized with Gumroad before publication.</p></div>
+      <div><strong>Personal-use license</strong><p>Use and customize the materials for your own product work. Do not resell, redistribute, repackage, or publish them as templates or products.</p></div>
+      <div><strong>Support and updates</strong><p>Best-effort access and file support; versioned material updates; no consulting, guaranteed response time, or lifetime-update promise.</p></div>
+      <div><strong>Checkout and privacy</strong><p>Gumroad handles free and paid product checkout, delivery, and buyer information under its current store terms.</p></div>
     </div>
+    <p class="ptp-evidence-note"><strong>Evidence status:</strong> The packages and form fields have been release-checked. The worked example is fictional, and no customer quote or commercial outcome is claimed.</p>
+    <p class="ptp-policy-link"><a class="cta" href={productInformationPath}>Read delivery, license, support, refund, tax, and privacy details</a></p>
   </section>
 
   <section class="ptp-section" aria-labelledby="product-faq-heading">

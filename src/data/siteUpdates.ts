@@ -11,6 +11,38 @@ export interface SiteUpdate {
 
 export const siteUpdates: SiteUpdate[] = [
   {
+    id: "scorecard-first-product-to-profit-guide",
+    date: "2026-08-27",
+    kind: "Update",
+    title: "Product-to-Profit guide now starts with the free Scorecard",
+    description: "Reworked the homepage and product guide around the free Product Idea Scorecard, current Gumroad availability, connected stage handoffs, AI Business Pathways, and the €49 complete system.",
+    href: "/product-to-profit/"
+  },
+  {
+    id: "free-product-gumroad-release",
+    date: "2026-08-26",
+    kind: "Update",
+    title: "Free Product-to-Profit products published on Gumroad",
+    description: "Published the Idea Library and Product Idea Scorecard as EUR 0+ Gumroad products with current ZIP packages, artwork, product details, and buyer receipt guidance.",
+    href: "/product-to-profit/"
+  },
+  {
+    id: "product-to-profit-release-readiness",
+    date: "2026-08-25",
+    kind: "Update",
+    title: "Product-to-Profit acquisition and delivery completed",
+    description: "Published direct downloads for the two free products, added paid-product wishlist and bundle release-notice actions, and documented exact delivery, compatibility, licensing, support, update, refund, tax, privacy, and onboarding information.",
+    href: "/product-to-profit/product-information/"
+  },
+  {
+    id: "product-guide-performance-discovery",
+    date: "2026-08-24",
+    kind: "Update",
+    title: "Product guide, performance, and discovery improved",
+    description: "Separated the Product-to-Profit guide from the complete bundle, added responsive WebP covers, restored News to primary navigation, improved social previews, and added permanent redirect rules for compatible hosts.",
+    href: "/product-to-profit/"
+  },
+  {
     id: "product-to-profit-system",
     date: "2026-08-20",
     kind: "New",

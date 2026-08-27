@@ -5,29 +5,34 @@ interface Props {
   product: ProductToProfitProduct;
   page: string;
   position: string;
+  showStatus?: boolean;
 }
 
-const { product, page, position } = Astro.props;
+const { product, page, position, showStatus = true } = Astro.props;
+const isExternal = product.storeUrl ? /^https?:\/\//.test(product.storeUrl) : false;
+const isDownload = product.actionKind === "download";
+const opensNewTab = isExternal;
 ---
 
-<div class="ptp-store-action">
+<div class:list={["ptp-store-action", !showStatus && "ptp-store-action-compact"]}>
   {product.storeUrl ? (
     <a
       class="button-cta button-cta-primary"
       href={product.storeUrl}
-      target="_blank"
-      rel="noopener"
+      target={opensNewTab ? "_blank" : undefined}
+      rel={opensNewTab ? "noopener" : undefined}
+      download={isDownload ? product.delivery.packageName : undefined}
       data-product-cta
       data-product={product.slug}
       data-stage={product.stage}
       data-page={page}
       data-position={position}
-      aria-label={`${product.storeCta} (opens Gumroad in a new tab)`}
+      aria-label={opensNewTab ? `${product.storeCta} (opens Gumroad in a new tab)` : product.storeCta}
     >
-      {product.storeCta}<span aria-hidden="true"> ↗</span>
+      {product.storeCta}{opensNewTab && <span aria-hidden="true"> ↗</span>}
     </a>
   ) : (
     <span class="button-cta button-cta-disabled" aria-disabled="true">{product.storeCta}</span>
   )}
-  <p class="ptp-store-status">{product.storeStatus}</p>
+  {showStatus && <p class="ptp-store-status">{product.storeStatus}</p>}
 </div>

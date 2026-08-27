@@ -9,6 +9,7 @@ const staticRoutes = [
   { path: "/product-to-profit/workflow-product-builder/", changefreq: "monthly", priority: "0.8" },
   { path: "/product-to-profit/digital-product-launch-engine/", changefreq: "monthly", priority: "0.8" },
   { path: "/product-to-profit/system/", changefreq: "monthly", priority: "0.8" },
+  { path: "/product-to-profit/product-information/", changefreq: "monthly", priority: "0.6" },
   { path: "/projects/", changefreq: "weekly", priority: "0.9" },
   { path: "/updates/", changefreq: "weekly", priority: "0.8" },
   { path: "/news/", changefreq: "weekly", priority: "0.8" },
@@ -40,7 +41,7 @@ export async function GET() {
       path: newsPath(entry.id),
       changefreq: "monthly",
       priority: "0.6",
-      lastmod: site.lastUpdated
+      lastmod: entry.data.sortDate.toISOString().slice(0, 10)
     }));
 
   const routes = [

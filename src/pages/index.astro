@@ -2,9 +2,16 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
+import ProductCover from "../components/ProductCover.astro";
 import ProjectLogo from "../components/ProjectLogo.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { bundleProduct, productPath as productToProfitPath, systemPath, systemStages } from "../data/productToProfit";
+import {
+  bundleProduct,
+  productPath as productToProfitPath,
+  scorecardProduct,
+  stageProducts,
+  systemPath
+} from "../data/productToProfit";
 import {
   activeProjects,
   buildUrl,
@@ -21,6 +28,12 @@ const latestNews = (await getCollection("news"))
     ...entry,
     path: `/news/${entry.id.replace(/\.md$/, "")}/`
   }));
+
+const continuationProducts = [
+  stageProducts.find((product) => product.slug === "workflow-product-builder")!,
+  stageProducts.find((product) => product.slug === "digital-product-launch-engine")!,
+  bundleProduct
+];
 ---
 
 <BaseLayout
@@ -49,29 +62,48 @@ const latestNews = (await getCollection("news"))
 
   <section class="home-system-feature" aria-labelledby="home-system-heading">
     <div class="home-system-copy">
-      <p class="eyebrow">Featured product system</p>
-      <h2 id="home-system-heading">The KREATIV Product-to-Profit System</h2>
-      <p>Choose one product worth testing, build a useful package, launch it through one clear buyer path, and use evidence to improve it.</p>
-      <ol class="home-system-stages" aria-label="Product-to-Profit stages">
-        {systemStages.map((item) => (
-          <li><span>{item.stage}</span></li>
-        ))}
-      </ol>
+      <p class="eyebrow">KREATIV Product-to-Profit</p>
+      <h2 id="home-system-heading">Choose a product worth testing. Build it. Launch it. Improve it.</h2>
+      <p>A connected set of practical workbooks and editable tools for moving from several possible ideas to one tested digital product and a clear buyer path.</p>
       <div class="landing-actions home-system-actions">
-        <a class="button-cta button-cta-primary" href={systemPath}>Explore the system</a>
-        <a class="button-cta button-cta-secondary" href={productToProfitPath("system")}>See the complete system</a>
+        <a
+          class="button-cta button-cta-primary"
+          href={scorecardProduct.storeUrl}
+          target="_blank"
+          rel="noopener"
+          data-product-cta
+          data-product={scorecardProduct.slug}
+          data-stage={scorecardProduct.stage}
+          data-page="home"
+          data-position="feature-primary"
+        >Get the Free Product Idea Scorecard <span aria-hidden="true">↗</span></a>
+        <a
+          class="button-cta button-cta-secondary"
+          href={bundleProduct.storeUrl}
+          target="_blank"
+          rel="noopener"
+          data-product-cta
+          data-product={bundleProduct.slug}
+          data-stage={bundleProduct.stage}
+          data-page="home"
+          data-position="feature-secondary"
+        >Explore the Complete System <span aria-hidden="true">↗</span></a>
+      </div>
+      <p class="home-system-note"><strong>Recommended start:</strong> the Scorecard is free / pay what you want. <a class="cta" href={systemPath}>Compare every stage</a></p>
+    </div>
+    <div class="home-system-visual">
+      <a class="home-system-media" href={productToProfitPath(scorecardProduct.slug)} aria-label="View the Product Idea Scorecard details">
+        <ProductCover src={scorecardProduct.cover} alt={scorecardProduct.coverAlt} loading="eager" sizes="(max-width: 900px) calc(100vw - 2rem), 520px" />
+      </a>
+      <div class="home-system-continuation" role="group" aria-label="Continue into the Builder, Launch Engine, and complete system">
+        {continuationProducts.map((product) => (
+          <a href={productToProfitPath(product.slug)} aria-label={`View ${product.shortTitle}`}>
+            <ProductCover src={product.cover} alt="" sizes="120px" />
+            <span>{product.shortTitle}</span>
+          </a>
+        ))}
       </div>
     </div>
-    <a class="home-system-media" href={systemPath} aria-label="Explore the KREATIV Product-to-Profit System">
-      <img
-        src={bundleProduct.cover}
-        alt={bundleProduct.coverAlt}
-        width="1200"
-        height="675"
-        loading="eager"
-        decoding="async"
-      />
-    </a>
   </section>
 
   <section class="home-featured" id="active-projects" aria-labelledby="home-featured-heading">

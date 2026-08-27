@@ -1,0 +1,128 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import HeroHeader from "../../components/HeroHeader.astro";
+import ProductStoreAction from "../../components/ProductStoreAction.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import {
+  aiBusinessPathways,
+  productInformationPath,
+  productPolicies,
+  productToProfitProducts,
+  systemPath
+} from "../../data/productToProfit";
+import {
+  createBreadcrumbSchema,
+  createPageSchema,
+  organizationSchema
+} from "../../data/site";
+
+const pageDescription = "Current Product-to-Profit availability, delivery formats, compatibility, personal-use license, support, updates, refunds, tax, and privacy information.";
+---
+
+<BaseLayout
+  title="Product-to-Profit Product Information | Made by Kreativ"
+  description={pageDescription}
+  canonicalPath={productInformationPath}
+  structuredData={[
+    organizationSchema,
+    createPageSchema({ name: "Product-to-Profit Product Information", description: pageDescription, path: productInformationPath }),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Product-to-Profit", path: systemPath },
+      { name: "Product Information", path: productInformationPath }
+    ])
+  ]}
+>
+  <HeroHeader
+    current="guides"
+    eyebrow="Product information"
+    title="Delivery, License, and Support"
+    tagline="The current availability and practical terms for every Product-to-Profit package."
+  />
+
+  <Breadcrumbs items={[
+    { label: "Home", href: "/" },
+    { label: "Product-to-Profit", href: systemPath },
+    { label: "Product Information" }
+  ]} />
+
+  <section class="content-card product-information-availability" aria-labelledby="availability-heading">
+    <div class="section-heading-row">
+      <div>
+        <p class="eyebrow">Current availability</p>
+        <h2 id="availability-heading">What can be acquired now</h2>
+        <p>The two free packages use €0+ Gumroad checkout. The Builder, Launch Engine, AI Business Pathways, and complete system are available as paid Gumroad products.</p>
+      </div>
+    </div>
+    <div class="product-information-list">
+      {productToProfitProducts.map((product) => (
+        <article>
+          <div>
+            <div class="product-information-product-meta">
+              <span>{product.stage}</span>
+              <span class:list={["ptp-access-badge", `ptp-access-${product.access}`]}>{product.accessSummary}</span>
+            </div>
+            <h3>{product.shortTitle}</h3>
+            <p>{product.storeStatus}</p>
+          </div>
+          <ProductStoreAction product={product} page="product-information" position="availability" showStatus={false} />
+        </article>
+      ))}
+      <article>
+        <div>
+          <div class="product-information-product-meta">
+            <span>Optional branch</span>
+            <span class="ptp-access-badge ptp-access-paid">Paid · {aiBusinessPathways.price}</span>
+          </div>
+          <h3>{aiBusinessPathways.shortTitle}</h3>
+          <p>Available now on Gumroad for {aiBusinessPathways.price}.</p>
+        </div>
+        <a class="button-cta button-cta-primary" href={aiBusinessPathways.storeUrl} target="_blank" rel="noopener" data-product-cta data-product="ai-business-pathways" data-stage="optional" data-page="product-information" data-position="availability">View on Gumroad <span aria-hidden="true">↗</span></a>
+      </article>
+    </div>
+  </section>
+
+  <section class="content-card" aria-labelledby="delivery-policy-heading">
+    <p class="eyebrow">Files and software</p>
+    <h2 id="delivery-policy-heading">Delivery and compatibility</h2>
+    <p>{productPolicies.compatibility}</p>
+    <p>Paid products are intended for immediate ZIP delivery after a successful Gumroad checkout. The bundle starts with <code>00_Start_Here/README_FIRST.md</code>; individual products begin with their main fillable PDF and the required handoff from the previous stage.</p>
+  </section>
+
+  <section class="content-card" aria-labelledby="license-heading">
+    <p class="eyebrow">Usage rights</p>
+    <h2 id="license-heading">Personal-use license</h2>
+    <p>{productPolicies.license}</p>
+    <p>You remain responsible for checking product claims, platform rules, policies, rights, taxes, legal requirements, AI-assisted output, and suitability before publishing your own product.</p>
+  </section>
+
+  <section class="content-card product-information-service" aria-labelledby="service-heading">
+    <p class="eyebrow">After delivery</p>
+    <h2 id="service-heading">Support and updates</h2>
+    <dl class="product-policy-grid">
+      <div><dt>Support</dt><dd>{productPolicies.support}</dd></div>
+      <div><dt>Updates</dt><dd>{productPolicies.updates}</dd></div>
+      <div><dt>Results</dt><dd>No income, sales, traffic, customer, conversion, ranking, or business result is guaranteed.</dd></div>
+    </dl>
+  </section>
+
+  <section class="content-card" aria-labelledby="checkout-heading">
+    <p class="eyebrow">Paid checkout</p>
+    <h2 id="checkout-heading">Refunds, tax, and pricing</h2>
+    <p>{productPolicies.refunds}</p>
+    <p>{productPolicies.tax}</p>
+    <p>The complete system is currently €49. It is not presented as a time-limited discount or guaranteed savings claim. No automatic credit for an earlier individual purchase is currently promised.</p>
+    <p><a class="cta" href="https://gumroad.com/help/article/335-custom-refund-policy" target="_blank" rel="noopener">How Gumroad displays refund policies</a> · <a class="cta" href="https://gumroad.com/help/article/121-sales-tax-on-gumroad" target="_blank" rel="noopener">How Gumroad handles sales tax</a></p>
+  </section>
+
+  <section class="content-card" aria-labelledby="privacy-heading">
+    <p class="eyebrow">Personal information</p>
+    <h2 id="privacy-heading">Privacy</h2>
+    <p>{productPolicies.privacy}</p>
+    <p>Made by KREATIV uses aggregate website analytics and stores the selected light or dark theme in the browser. Do not include payment-card or other sensitive information in support email.</p>
+    <p><a class="cta" href="https://gumroad.com/privacy" target="_blank" rel="noopener">Read Gumroad's privacy policy</a> · <a class="cta" href="/contact/">Contact Made by KREATIV</a></p>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>

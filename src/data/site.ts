@@ -3,7 +3,7 @@ export const site = {
   url: "https://madebykreativ.com/",
   logo: "https://madebykreativ.com/favicon.svg",
   email: "info@madebykreativ.com",
-  lastUpdated: "2026-08-20"
+  lastUpdated: "2026-08-25"
 };
 
 export const isExternalHref = (href: string) => /^https?:\/\//.test(href);

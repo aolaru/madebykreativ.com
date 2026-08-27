@@ -36,8 +36,10 @@ const relatedNews = project.relatedNews
   title={`${project.label} | Made by Kreativ`}
   description={project.description}
   canonicalPath={projectPath(project.slug)}
-  ogImage={buildUrl("/og-projects.png")}
-  ogImageAlt={`Made by Kreativ project profile card for ${project.label}.`}
+  ogImage={buildUrl(project.preview || "/og-projects.png")}
+  ogImageAlt={project.preview ? project.previewAlt : `Made by Kreativ project profile card for ${project.label}.`}
+  ogImageWidth="1200"
+  ogImageHeight={project.preview ? "750" : "630"}
   structuredData={[
     organizationSchema,
     createProjectSchema(project),

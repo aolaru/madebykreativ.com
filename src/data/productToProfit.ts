@@ -13,6 +13,18 @@ export interface ProductPreview {
   height: number;
 }
 
+export interface ProductDelivery {
+  version: string;
+  packageName: string;
+  packageSize: string;
+  fileCount: number;
+  formats: string[];
+  contents: string[];
+  firstStep: string;
+}
+
+export type ProductActionKind = "download" | "gumroad" | "wishlist" | "release-notice";
+
 export interface ProductToProfitProduct {
   slug: ProductToProfitSlug;
   stage: string;
@@ -30,10 +42,16 @@ export interface ProductToProfitProduct {
   cover: string;
   coverAlt: string;
   accent: string;
+  access: "free" | "paid";
+  accessLabel: string;
+  accessSummary: string;
   price: string;
   storeUrl: string | null;
   storeStatus: string;
   storeCta: string;
+  actionKind: ProductActionKind;
+  pricingNote: string;
+  delivery: ProductDelivery;
   nextSlug: ProductToProfitSlug | null;
   nextLabel: string | null;
   previews: ProductPreview[];
@@ -42,6 +60,7 @@ export interface ProductToProfitProduct {
 
 export const systemPath = "/product-to-profit/";
 export const productPath = (slug: ProductToProfitSlug) => `${systemPath}${slug}/`;
+export const productInformationPath = `${systemPath}product-information/`;
 
 export const productToProfitProducts: ProductToProfitProduct[] = [
   {
@@ -71,10 +90,24 @@ export const productToProfitProducts: ProductToProfitProduct[] = [
     cover: "/product-to-profit/covers/idea-library.png",
     coverAlt: "KREATIV Idea Library cover with a coral folder and 20 digital product idea cards.",
     accent: "coral",
+    access: "free",
+    accessLabel: "Free product",
+    accessSummary: "Free",
     price: "Free",
-    storeUrl: null,
-    storeStatus: "Made by KREATIV Gumroad URL pending owner verification.",
-    storeCta: "Gumroad link pending review",
+    storeUrl: "https://madebykreativ.gumroad.com/l/idea-library",
+    storeStatus: "Available now on Gumroad as a free EUR 0+ product.",
+    storeCta: "Get the free Idea Library on Gumroad",
+    actionKind: "gumroad",
+    pricingNote: "Enter EUR 0 to get it free, or choose a higher amount if you want to support the work. Gumroad handles checkout and delivery.",
+    delivery: {
+      version: "Idea Library v1.2 with Stage 0 v2 upgrade",
+      packageName: "KREATIV_Idea_Library_v2_Upgrade.zip",
+      packageSize: "132 KB",
+      fileCount: 3,
+      formats: ["Fillable PDF", "CSV", "Markdown"],
+      contents: ["44-page Idea Library PDF", "Editable Idea Shortlist CSV", "Stage 0 boundary and start instructions"],
+      firstStep: "Unzip the package, read START_HERE_Stage_0_Boundary.md, then use the PDF to shortlist no more than three ideas."
+    },
     nextSlug: "product-idea-scorecard",
     nextLabel: "Compare the shortlist",
     previews: [
@@ -115,10 +148,24 @@ export const productToProfitProducts: ProductToProfitProduct[] = [
     cover: "/product-to-profit/covers/product-idea-scorecard.png",
     coverAlt: "KREATIV Product Idea Scorecard cover with navy, yellow, orange, and teal decision cards.",
     accent: "teal",
-    price: "Free (€0+ listing)",
+    access: "free",
+    accessLabel: "Free product",
+    accessSummary: "Free",
+    price: "Free",
     storeUrl: "https://madebykreativ.gumroad.com/l/product-idea-scorecard",
-    storeStatus: "Verified on Gumroad on August 19, 2026; the listing is currently unavailable for purchase.",
-    storeCta: "View the free Gumroad listing",
+    storeStatus: "Available now on Gumroad as a free EUR 0+ product.",
+    storeCta: "Get the free Scorecard on Gumroad",
+    actionKind: "gumroad",
+    pricingNote: "Enter EUR 0 to get it free, or choose a higher amount if you want to support the work. Gumroad handles checkout and delivery.",
+    delivery: {
+      version: "Scorecard package v1.1",
+      packageName: "KREATIV_Product_Idea_Scorecard_v1.1.zip",
+      packageSize: "102 KB",
+      fileCount: 5,
+      formats: ["Fillable PDF", "Markdown", "CSV"],
+      contents: ["33-page Product Idea Scorecard PDF", "Evidence Test Kit and Evidence Log", "Product Brief and Builder Intake Pack"],
+      firstStep: "Unzip the package, open the Scorecard PDF, and compare no more than three ideas before completing the Product Brief."
+    },
     nextSlug: "workflow-product-builder",
     nextLabel: "Build from the Product Brief",
     previews: [
@@ -174,10 +221,24 @@ export const productToProfitProducts: ProductToProfitProduct[] = [
     cover: "/product-to-profit/covers/workflow-product-builder.png",
     coverAlt: "KREATIV Workflow Product Builder cover with blue and orange workflow blocks.",
     accent: "blue",
+    access: "paid",
+    accessLabel: "Paid product",
+    accessSummary: "Paid · €19",
     price: "€19",
     storeUrl: "https://madebykreativ.gumroad.com/l/workflow-product-builder",
-    storeStatus: "Verified on Gumroad on August 19, 2026; the €19 listing is currently unavailable for purchase.",
-    storeCta: "View the €19 Gumroad listing",
+    storeStatus: "Available now on Gumroad for €19.",
+    storeCta: "Get Workflow Product Builder on Gumroad",
+    actionKind: "gumroad",
+    pricingNote: "Gumroad displays the final total and any applicable tax before payment, then handles checkout and delivery.",
+    delivery: {
+      version: "Builder package v1.1",
+      packageName: "KREATIV_Workflow_Product_Builder_v1.1.zip",
+      packageSize: "154 KB",
+      fileCount: 20,
+      formats: ["Fillable PDF", "Markdown"],
+      contents: ["52-page Workflow Product Builder PDF", "Ten editable build, validation, pricing, QA, and handoff assets", "Complete fictional six-file onboarding sample and case study"],
+      firstStep: "After delivery, unzip the package, open the PDF, and bring a completed Product Brief into the validation and build workflow."
+    },
     nextSlug: "digital-product-launch-engine",
     nextLabel: "Launch the finished package",
     previews: [
@@ -233,10 +294,24 @@ export const productToProfitProducts: ProductToProfitProduct[] = [
     cover: "/product-to-profit/covers/digital-product-launch-engine.png",
     coverAlt: "KREATIV Digital Product Launch Engine cover with black, green, pink, and lime campaign elements.",
     accent: "lime",
+    access: "paid",
+    accessLabel: "Paid product",
+    accessSummary: "Paid · €19",
     price: "€19",
     storeUrl: "https://madebykreativ.gumroad.com/l/digital-product-launch-engine",
-    storeStatus: "Verified on Gumroad on August 19, 2026; the €19 listing is currently unavailable for purchase.",
-    storeCta: "View the €19 Gumroad listing",
+    storeStatus: "Available now on Gumroad for €19.",
+    storeCta: "Get the Launch Engine on Gumroad",
+    actionKind: "gumroad",
+    pricingNote: "Gumroad displays the final total and any applicable tax before payment, then handles checkout and delivery.",
+    delivery: {
+      version: "Launch Engine package v1.1",
+      packageName: "KREATIV_Digital_Product_Launch_Engine_v1.1.zip",
+      packageSize: "120 KB",
+      fileCount: 12,
+      formats: ["Fillable PDF", "Markdown", "CSV"],
+      contents: ["42-page Digital Product Launch Engine PDF", "Ten editable publishing, proof, sales, campaign, outreach, metrics, and improvement assets", "Clearly fictional end-to-end case study"],
+      firstStep: "After delivery, unzip the package and bring the completed Product Specification plus final product files into the publishing workflow."
+    },
     nextSlug: "system",
     nextLabel: "See the integrated system",
     previews: [
@@ -275,20 +350,20 @@ export const productToProfitProducts: ProductToProfitProduct[] = [
     slug: "system",
     stage: "Complete system",
     stageNumber: "All",
-    title: "The KREATIV Product-to-Profit System",
+    title: "Complete KREATIV Product-to-Profit System",
     shortTitle: "Complete System",
     role: "Integrated bundle",
     promise: "Carry one product from a plausible idea through a tested package, a buyer path, and an evidence-based improvement decision.",
     situation: "Use the bundle when you want the complete workflow, shared workspace, and standardized handoffs in one package.",
     requiredInput: "The input for your current stage: product ideas, a Product Brief, or a finished product package.",
-    output: "All stage products, the master workspace, complete fictional case study, sample product, implementation tracks, and AI Prompt Companion.",
+    output: "All core products, AI Business Pathways, the master workspace, complete fictional case study, sample product, implementation tracks, and prompt expansions.",
     handoff: "One connected system of stage outputs",
     included: [
-      "Idea Library, Scorecard, Builder, and Launch Engine",
+      "Idea Library, Scorecard, Builder, Launch Engine, and AI Business Pathways",
       "Integrated Excel master workspace and standardized handoffs",
       "Complete fictional case study and six-file sample product",
       "Weekend, Seven-Day MVP, and Thirty-Day implementation tracks",
-      "15-page curated AI Prompt Companion and editable source"
+      "Evidence-aware AI prompt vault and Choose, Create, and Sell expansions"
     ],
     exclusions: [
       "Guaranteed demand, sales, or revenue",
@@ -299,10 +374,24 @@ export const productToProfitProducts: ProductToProfitProduct[] = [
     cover: "/product-to-profit/covers/system.png",
     coverAlt: "The KREATIV Product-to-Profit System cover with connected purple product boxes.",
     accent: "violet",
-    price: "Price pending owner approval",
-    storeUrl: null,
-    storeStatus: "Bundle Gumroad URL and final visible price require owner verification before publication.",
-    storeCta: "Bundle checkout pending review",
+    access: "paid",
+    accessLabel: "Paid bundle",
+    accessSummary: "Paid bundle · €49",
+    price: "€49",
+    storeUrl: "https://madebykreativ.gumroad.com/l/product-to-profit-system",
+    storeStatus: "Available now on Gumroad for €49.",
+    storeCta: "Get the complete system on Gumroad",
+    actionKind: "gumroad",
+    pricingNote: "The €49 price is the current bundle price, not a time-limited discount or a guaranteed savings claim. Gumroad displays the final total and any applicable tax before payment.",
+    delivery: {
+      version: "Complete system v2.1",
+      packageName: "KREATIV_Product-to-Profit_System_v2.1.zip",
+      packageSize: "682 KB",
+      fileCount: 50,
+      formats: ["Fillable PDF", "Excel XLSX", "Markdown", "CSV"],
+      contents: ["Idea Library, Scorecard, Builder, Launch Engine, and AI Business Pathways", "Formula-driven master workspace, handoff files, and implementation tracks", "Complete sample product, case study, prompt expansions, license, boundaries, and release notes"],
+      firstStep: "After delivery, unzip the package, open 00_Start_Here/README_FIRST.md, then use the master workspace to identify the first stage gate."
+    },
     nextSlug: null,
     nextLabel: null,
     previews: [
@@ -321,13 +410,38 @@ export const productToProfitProducts: ProductToProfitProduct[] = [
         height: 2222
       }
     ],
-    description: "The complete Product-to-Profit workflow with all products, an integrated workspace, case study, sample, tracks, and Prompt Companion."
+    description: "The complete Product-to-Profit workflow with all core products, AI Business Pathways, an integrated workspace, case study, sample, tracks, and prompt expansions."
   }
 ];
 
 export const stageProducts = productToProfitProducts.filter((product) => product.slug !== "system");
 export const bundleProduct = productToProfitProducts.find((product) => product.slug === "system")!;
+export const scorecardProduct = productToProfitProducts.find((product) => product.slug === "product-idea-scorecard")!;
 export const getProductToProfitProduct = (slug: string) => productToProfitProducts.find((product) => product.slug === slug);
+
+export const aiBusinessPathways = {
+  title: "KREATIV AI Business Pathways",
+  shortTitle: "AI Business Pathways",
+  role: "Optional exploration branch",
+  bestFor: "Testing whether a product, service, content, or software path deserves a deeper commitment.",
+  requiredInput: "One explicit business-path hypothesis.",
+  output: "A Business Path Brief, a seven-day evidence experiment, and a Continue, Narrow, Reposition, or Stop decision.",
+  price: "€19",
+  cover: "/product-to-profit/covers/ai-business-pathways.png",
+  coverAlt: "KREATIV AI Business Pathways cover showing connected business-model routes and an evidence-led decision path.",
+  storeUrl: "https://madebykreativ.gumroad.com/l/ai-business-pathways",
+  storeCta: "Explore AI Business Pathways on Gumroad"
+} as const;
+
+export const productPolicies = {
+  license: "Personal use for your own projects and business planning. You may customize the materials for your own product work, but may not resell, redistribute, share, sublicense, repackage, publish, or claim authorship of the PDFs, templates, prompts, workbooks, or editable assets.",
+  support: "Best-effort support covers purchase access and file problems through the Made by KREATIV contact page. The products do not include consulting, implementation, product review, or a guaranteed response time.",
+  updates: "Releases use explicit version numbers. Material update information is published on the relevant product listing or delivery notice. No lifetime-update promise is included.",
+  compatibility: "Download and unzip the package before use. Fillable PDFs require a PDF reader that supports form fields. XLSX workbooks work best in Microsoft Excel or a compatible spreadsheet application; formula behavior can vary. Markdown opens in any text editor, and CSV files open in spreadsheet applications.",
+  refunds: "Any paid listing will display its current refund policy before purchase. Refund requests are handled through the storefront and applicable consumer law; no separate outcome-based guarantee is offered.",
+  tax: "For paid Gumroad purchases, the checkout displays the final total and applicable tax before payment. Gumroad processes the transaction and handles applicable digital-sales tax as merchant of record.",
+  privacy: "Gumroad handles checkout, delivery, and related buyer information for free and paid products under its privacy policy."
+};
 
 export const systemStages = [
   { stage: "Explore", product: "Idea Library", output: "Idea Shortlist", href: productPath("idea-library") },
@@ -383,10 +497,10 @@ export const systemFaqs = [
   },
   {
     question: "What makes the bundle more than the individual PDFs?",
-    answer: "The bundle adds an integrated master workspace, standardized handoffs, a complete fictional case study, a six-file sample product, three implementation tracks, and the curated AI Prompt Companion."
+    answer: "The bundle adds AI Business Pathways, an integrated master workspace, standardized handoffs, a complete fictional case study, a six-file sample product, three implementation tracks, and evidence-aware prompt expansions."
   },
   {
     question: "What formats are included?",
-    answer: "The package sources specify fillable PDFs plus editable Excel, Markdown, and CSV assets where relevant. Final compatibility testing and checkout delivery still require owner approval."
+    answer: "Packages use fillable PDFs plus editable Excel, Markdown, and CSV assets where relevant. Download and unzip the ZIP first, use a PDF reader that supports form fields, and open the XLSX workspace in Microsoft Excel or a compatible spreadsheet application."
   }
 ];

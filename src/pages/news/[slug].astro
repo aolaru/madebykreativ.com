@@ -40,6 +40,10 @@ const relatedProject = entry.data.project
   : undefined;
 const articleImage = entry.data.image || relatedProject?.preview;
 const articleImageAlt = relatedProject?.previewAlt || `${entry.data.title} product preview.`;
+const socialImage = slug === "ai-launch-toolkit-gumroad"
+  ? "/og-ai-launch-toolkit.png"
+  : articleImage || "/og-news.png";
+const socialImageHeight = relatedProject?.preview && !entry.data.image ? "750" : "630";
 const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-08-20T00:00:00.000Z").valueOf();
 ---
 
@@ -50,8 +54,10 @@ const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-08-20T
   ogType="article"
   ogTitle={`${entry.data.title} | Made by Kreativ`}
   ogDescription={entry.data.description}
-  ogImage={buildUrl("/og-news.png")}
-  ogImageAlt="Made by Kreativ project update card."
+  ogImage={buildUrl(socialImage)}
+  ogImageAlt={articleImage ? articleImageAlt : `Made by Kreativ news card for ${entry.data.title}.`}
+  ogImageWidth="1200"
+  ogImageHeight={socialImageHeight}
   publishedTime={publishedTime}
   modifiedTime={modifiedTime}
   structuredData={[

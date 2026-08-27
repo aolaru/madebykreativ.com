@@ -10,18 +10,36 @@ const productRoutes = [
   "/product-to-profit/product-idea-scorecard/",
   "/product-to-profit/workflow-product-builder/",
   "/product-to-profit/digital-product-launch-engine/",
-  "/product-to-profit/system/"
+  "/product-to-profit/system/",
+  "/product-to-profit/product-information/"
 ];
 
 const websiteRoutes = ["/updates/"];
 const requiredRoutes = [...productRoutes, ...websiteRoutes];
 
 const productAssets = [
+  "og-product-to-profit-guide.png",
+  "og-updates.png",
+  "downloads/product-to-profit/KREATIV_Idea_Library_v2_Upgrade.zip",
+  "downloads/product-to-profit/KREATIV_Product_Idea_Scorecard_v1.1.zip",
+  "product-to-profit/covers/ai-business-pathways.png",
   "product-to-profit/covers/digital-product-launch-engine.png",
   "product-to-profit/covers/idea-library.png",
   "product-to-profit/covers/product-idea-scorecard.png",
   "product-to-profit/covers/system.png",
   "product-to-profit/covers/workflow-product-builder.png",
+  "product-to-profit/covers/ai-business-pathways-600.webp",
+  "product-to-profit/covers/ai-business-pathways-1200.webp",
+  "product-to-profit/covers/digital-product-launch-engine-600.webp",
+  "product-to-profit/covers/digital-product-launch-engine-1200.webp",
+  "product-to-profit/covers/idea-library-600.webp",
+  "product-to-profit/covers/idea-library-1200.webp",
+  "product-to-profit/covers/product-idea-scorecard-600.webp",
+  "product-to-profit/covers/product-idea-scorecard-1200.webp",
+  "product-to-profit/covers/system-600.webp",
+  "product-to-profit/covers/system-1200.webp",
+  "product-to-profit/covers/workflow-product-builder-600.webp",
+  "product-to-profit/covers/workflow-product-builder-1200.webp",
   "product-to-profit/previews/builder/format-matrix.png",
   "product-to-profit/previews/builder/product-specification.png",
   "product-to-profit/previews/builder/signal-test-log.png",
@@ -49,6 +67,14 @@ const redirects = new Map([
 ]);
 
 const failures = [];
+
+const redirectManifest = await readFile(new URL("_redirects", distRoot), "utf8");
+for (const [source, destination] of redirects) {
+  const rule = `${source} ${destination} 301`;
+  if (!redirectManifest.split("\n").includes(rule)) {
+    failures.push(`_redirects: missing ${rule}`);
+  }
+}
 
 for (const route of requiredRoutes) {
   const relativeFile = join(route.slice(1), "index.html");
