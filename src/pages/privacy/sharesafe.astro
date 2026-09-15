@@ -1,0 +1,107 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import HeroHeader from "../../components/HeroHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import { createBreadcrumbSchema, createPageSchema, organizationSchema, site } from "../../data/site";
+
+const pageDescription = "Learn how ShareSafe, the private Android photo cleaner by Made by Kreativ, handles photos and personal information.";
+const lastUpdated = "September 16, 2026";
+const pagePath = "/privacy/sharesafe/";
+---
+
+<BaseLayout
+  title="ShareSafe Privacy Policy | Made by Kreativ"
+  description={pageDescription}
+  canonicalPath={pagePath}
+  structuredData={[
+    organizationSchema,
+    createPageSchema({
+      type: "WebPage",
+      name: "ShareSafe Privacy Policy | Made by Kreativ",
+      description: pageDescription,
+      path: pagePath
+    }),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Privacy", path: "/privacy/sharesafe/" },
+      { name: "ShareSafe", path: pagePath }
+    ])
+  ]}
+>
+  <HeroHeader
+    eyebrow="ShareSafe Android app"
+    title="Privacy Policy"
+    tagline="A clear explanation of how ShareSafe handles the photos you choose."
+  />
+
+  <Breadcrumbs items={[
+    { label: "Home", href: "/" },
+    { label: "Privacy" },
+    { label: "ShareSafe" }
+  ]} />
+
+  <section class="content-card privacy-summary" aria-labelledby="policy-intro-heading">
+    <p class="eyebrow">Last updated {lastUpdated}</p>
+    <h2 id="policy-intro-heading">ShareSafe keeps photo cleaning on your device</h2>
+    <p>This policy applies specifically to the ShareSafe Android app (package name <code>com.kreativ.sharesafe</code>), a private photo cleaner developed by Made by Kreativ.</p>
+    <p>ShareSafe is designed to create clean copies of photos you choose, without sending your photos or their information to us.</p>
+    <p><a class="cta" href="/">Back to Made by Kreativ homepage</a></p>
+  </section>
+
+  <section class="content-card" aria-labelledby="local-processing-heading">
+    <p class="eyebrow">Local-only processing</p>
+    <h2 id="local-processing-heading">Your photos stay on your Android device</h2>
+    <p>ShareSafe processes selected photos entirely on your Android device. Photos, location metadata, camera metadata, and other image information are not uploaded to Made by Kreativ or to any external server.</p>
+  </section>
+
+  <section class="content-card" aria-labelledby="photo-access-heading">
+    <p class="eyebrow">Photo access</p>
+    <h2 id="photo-access-heading">You choose which photos ShareSafe can use</h2>
+    <p>ShareSafe uses Android’s system photo picker. It only accesses photos that you explicitly select. It does not request broad access to your full photo library.</p>
+  </section>
+
+  <section class="content-card" aria-labelledby="metadata-heading">
+    <p class="eyebrow">Metadata removal</p>
+    <h2 id="metadata-heading">Clean copies, never altered originals</h2>
+    <p>ShareSafe creates new JPEG copies to remove embedded metadata, such as GPS location, camera and device details, and original timestamps. Your original photos are never modified.</p>
+  </section>
+
+  <section class="content-card" aria-labelledby="save-share-heading">
+    <p class="eyebrow">Saving and sharing</p>
+    <h2 id="save-share-heading">You control where clean copies go</h2>
+    <p>Clean copies are saved to your device gallery only when you choose <strong>Save to gallery</strong>, normally in <code>Pictures/ShareSafe</code>.</p>
+    <p>If you share a file through Android’s share sheet, the destination app you select handles that shared file under its own privacy policy. ShareSafe does not control how another app uses a file after you share it.</p>
+  </section>
+
+  <section class="content-card" aria-labelledby="collection-heading">
+    <p class="eyebrow">Data collection</p>
+    <h2 id="collection-heading">No account, analytics, ads, or cloud storage</h2>
+    <ul>
+      <li>ShareSafe does not require an account.</li>
+      <li>ShareSafe does not use analytics or display ads.</li>
+      <li>ShareSafe does not sell or share personal data.</li>
+      <li>ShareSafe does not use cloud storage.</li>
+    </ul>
+  </section>
+
+  <section class="content-card" aria-labelledby="temporary-files-heading">
+    <p class="eyebrow">Temporary files</p>
+    <h2 id="temporary-files-heading">Short-term private app cache</h2>
+    <p>While you prepare a share or save action, ShareSafe may temporarily store generated clean copies in its private app cache. These temporary files are not uploaded.</p>
+  </section>
+
+  <section class="content-card" aria-labelledby="changes-heading">
+    <p class="eyebrow">Changes to this policy</p>
+    <h2 id="changes-heading">We will update this page when needed</h2>
+    <p>Made by Kreativ may update this policy when ShareSafe changes. The date at the top of this page shows when it was last updated.</p>
+  </section>
+
+  <section class="content-card" aria-labelledby="contact-heading">
+    <p class="eyebrow">Contact</p>
+    <h2 id="contact-heading">Privacy questions</h2>
+    <p>For questions about ShareSafe privacy, contact Made by Kreativ at <a class="cta" href={`mailto:${site.email}`}>{site.email}</a>.</p>
+  </section>
+
+  <SiteFooter compact />
+</BaseLayout>

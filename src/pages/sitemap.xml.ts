@@ -12,6 +12,7 @@ const staticRoutes = [
   { path: "/product-to-profit/product-information/", changefreq: "monthly", priority: "0.6" },
   { path: "/projects/", changefreq: "weekly", priority: "0.9" },
   { path: "/updates/", changefreq: "weekly", priority: "0.8" },
+  { path: "/privacy/sharesafe/", changefreq: "monthly", priority: "0.6" },
   { path: "/news/", changefreq: "weekly", priority: "0.8" },
   { path: "/about/", changefreq: "monthly", priority: "0.7" },
   { path: "/contact/", changefreq: "monthly", priority: "0.7" }
