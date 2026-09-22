@@ -14,7 +14,7 @@ const productRoutes = [
   "/product-to-profit/product-information/"
 ];
 
-const websiteRoutes = ["/updates/", "/privacy/sharesafe/"];
+const websiteRoutes = ["/updates/", "/privacy/northlight/", "/privacy/sharesafe/"];
 const requiredRoutes = [...productRoutes, ...websiteRoutes];
 
 const productAssets = [

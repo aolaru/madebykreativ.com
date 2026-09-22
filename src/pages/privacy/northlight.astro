@@ -1,0 +1,81 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import HeroHeader from "../../components/HeroHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import { createBreadcrumbSchema, createPageSchema, organizationSchema, site } from "../../data/site";
+
+const pageDescription = "Northlight privacy policy: the compass and lantern app works entirely on your device and does not collect personal data.";
+const effectiveDate = "23 September 2026";
+const pagePath = "/privacy/northlight/";
+---
+
+<BaseLayout
+  title="Northlight Privacy Policy"
+  description={pageDescription}
+  canonicalPath={pagePath}
+  structuredData={[
+    organizationSchema,
+    createPageSchema({
+      type: "WebPage",
+      name: "Northlight Privacy Policy",
+      description: pageDescription,
+      path: pagePath
+    }),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Privacy", path: pagePath },
+      { name: "Northlight", path: pagePath }
+    ])
+  ]}
+>
+  <HeroHeader
+    eyebrow="Northlight"
+    title="Northlight Privacy Policy"
+    tagline="Northlight is designed to work entirely on your device."
+  />
+
+  <Breadcrumbs items={[
+    { label: "Home", href: "/" },
+    { label: "Privacy" },
+    { label: "Northlight" }
+  ]} />
+
+  <section class="content-card" aria-labelledby="effective-date-heading">
+    <p class="eyebrow" id="effective-date-heading">Effective {effectiveDate}</p>
+    <p>Northlight is a compass and lantern app made by Kreativ. It is designed to work entirely on your device.</p>
+  </section>
+
+  <section class="content-card" aria-labelledby="data-heading">
+    <p class="eyebrow">Privacy</p>
+    <h2 id="data-heading">Data we collect</h2>
+    <p>Northlight does not collect, store, sell, share, or transmit personal data. The app has no account system, analytics, advertising SDKs, cloud services, or internet permission.</p>
+  </section>
+
+  <section class="content-card" aria-labelledby="permissions-heading">
+    <p class="eyebrow">On-device permissions</p>
+    <h2 id="permissions-heading">Device permissions</h2>
+    <p>Northlight requests camera permission only when you use its LED lantern or SOS signal. Android requires this permission to control the camera flash. Northlight never takes photos, records video, or accesses your media.</p>
+    <p>The compass uses your device's orientation sensors locally to show magnetic north. Sensor readings do not leave your device.</p>
+  </section>
+
+  <section class="content-card" aria-labelledby="children-heading">
+    <p class="eyebrow">Children</p>
+    <h2 id="children-heading">Children</h2>
+    <p>Northlight does not knowingly collect personal information from anyone, including children.</p>
+  </section>
+
+  <section class="content-card" aria-labelledby="changes-heading">
+    <p class="eyebrow">Changes</p>
+    <h2 id="changes-heading">Changes</h2>
+    <p>If this policy changes, the updated version will be published on this page with a revised effective date.</p>
+  </section>
+
+  <section class="content-card" aria-labelledby="contact-heading">
+    <p class="eyebrow">Contact</p>
+    <h2 id="contact-heading">Contact</h2>
+    <p>For privacy questions, contact <a class="cta" href={`mailto:${site.email}`}>{site.email}</a>.</p>
+  </section>
+
+  <SiteFooter compact />
+</BaseLayout>
