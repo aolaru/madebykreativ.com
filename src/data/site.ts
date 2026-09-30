@@ -239,7 +239,10 @@ const adjacentProjects = [
 ];
 
 export const projectDirectory = [...coreProjects, ...adjacentProjects];
-export const activeProjects = projectDirectory.filter((project) => project.status === "Active");
+const excludedActiveProjectSlugs = new Set(["kreativ-auto", "how-much-music"]);
+export const activeProjects = projectDirectory.filter(
+  (project) => project.status === "Active" && !excludedActiveProjectSlugs.has(project.slug)
+);
 export const communityProjects = [
   projectDirectory.find((project) => project.slug === "kreativ-tools"),
   projectDirectory.find((project) => project.slug === "find-sera"),
