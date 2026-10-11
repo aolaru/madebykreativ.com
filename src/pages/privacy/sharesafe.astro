@@ -6,7 +6,7 @@ import SiteFooter from "../../components/SiteFooter.astro";
 import { createBreadcrumbSchema, createPageSchema, organizationSchema, site } from "../../data/site";
 
 const pageDescription = "Learn how ShareSafe, the private Android photo cleaner by Made by Kreativ, handles photos and personal information.";
-const lastUpdated = "September 16, 2026";
+const lastUpdated = "October 11, 2026";
 const pagePath = "/privacy/sharesafe/";
 ---
 
@@ -51,20 +51,28 @@ const pagePath = "/privacy/sharesafe/";
 
   <section class="content-card" aria-labelledby="local-processing-heading">
     <p class="eyebrow">Local-only processing</p>
-    <h2 id="local-processing-heading">Your photos stay on your Android device</h2>
-    <p>ShareSafe processes selected photos entirely on your Android device. Photos, location metadata, camera metadata, and other image information are not uploaded to Made by Kreativ or to any external server.</p>
+    <h2 id="local-processing-heading">Your photos are processed on your Android device</h2>
+    <p>Photo cleaning and manual privacy editing happen entirely on your Android device. ShareSafe does not upload your photos, image metadata, or edited copies to Made by Kreativ or another server. If you choose to share a copy, the receiving app may send it elsewhere; see Saving and sharing below.</p>
   </section>
 
   <section class="content-card" aria-labelledby="photo-access-heading">
     <p class="eyebrow">Photo access</p>
     <h2 id="photo-access-heading">You choose which photos ShareSafe can use</h2>
-    <p>ShareSafe uses Android’s system photo picker. It only accesses photos that you explicitly select. It does not request broad access to your full photo library.</p>
+    <p>ShareSafe uses Android’s system file/photo selection interface. It accesses only images that you explicitly select and does not request broad access to your full photo library. Android may retain permission for selected files so your selection can be reopened. If you select a file from a cloud provider, that provider may download the selected file under its own privacy policy.</p>
   </section>
 
   <section class="content-card" aria-labelledby="metadata-heading">
     <p class="eyebrow">Metadata removal</p>
     <h2 id="metadata-heading">Clean copies, never altered originals</h2>
     <p>ShareSafe creates new JPEG copies to remove embedded metadata, such as GPS location, camera and device details, and original timestamps. Your original photos are never modified.</p>
+    <p>Exported copies use neutral filenames rather than retaining potentially identifying original names. Large images may be reduced to at most 4096 pixels per side and 8 megapixels for safe memory use. Transparency becomes white, and animated images are exported as a single frame. Metadata removal does not hide information visible inside an image.</p>
+  </section>
+
+  <section class="content-card" aria-labelledby="editing-heading">
+    <p class="eyebrow">Optional privacy editing</p>
+    <h2 id="editing-heading">ShareSafe Pro edits stay on-device</h2>
+    <p>The Google Play edition may offer a one-time ShareSafe Pro purchase for manual Cover, blur, and pixelation tools. The app does not automatically detect faces or sensitive information. You choose the areas to edit, and the app exports a new flattened JPEG copy.</p>
+    <p>Solid Cover replaces the selected pixels and is recommended for sensitive visible details. Blur and pixelation retain visual information and are not guaranteed to anonymise text, faces, IDs, or other content. Review the exported copy before sharing.</p>
   </section>
 
   <section class="content-card" aria-labelledby="save-share-heading">
@@ -79,16 +87,25 @@ const pagePath = "/privacy/sharesafe/";
     <h2 id="collection-heading">No account, analytics, ads, or cloud storage</h2>
     <ul>
       <li>ShareSafe does not require an account.</li>
-      <li>ShareSafe does not use analytics or display ads.</li>
-      <li>ShareSafe does not sell or share personal data.</li>
-      <li>ShareSafe does not use cloud storage.</li>
+      <li>We do not add advertising or app-usage analytics SDKs.</li>
+      <li>ShareSafe does not sell your personal data or send your photos to Made by Kreativ.</li>
+      <li>ShareSafe does not use cloud storage for your photos or edits.</li>
     </ul>
+  </section>
+
+  <section class="content-card" aria-labelledby="purchases-heading">
+    <p class="eyebrow">Google Play purchases</p>
+    <h2 id="purchases-heading">Google Play handles optional Pro payments</h2>
+    <p>In the Google Play edition, purchases and restoration use Google Play Billing and its network services. Google processes payments and may handle purchase-related and operational information under its own policies. ShareSafe does not receive your card or bank details.</p>
+    <p>The app stores a signed purchase receipt and verification status privately on your device to restore access and allow previously verified Pro access while offline. It sends purchase tokens to Google Play to confirm delivery of the purchased feature. Purchase ownership is refreshed when Google Play is available; a confirmed refund or revocation removes Pro access. No photo content is involved in these requests, and no purchase receipt is sent to a Made by Kreativ server.</p>
+    <p>See <a href="https://policies.google.com/privacy">Google’s Privacy Policy</a>. Purchases made in one store do not automatically unlock another store edition. Store editions without an implemented payment system do not offer Pro purchases.</p>
   </section>
 
   <section class="content-card" aria-labelledby="temporary-files-heading">
     <p class="eyebrow">Temporary files</p>
     <h2 id="temporary-files-heading">Short-term private app cache</h2>
-    <p>While you prepare a share or save action, ShareSafe may temporarily store generated clean copies in its private app cache. These temporary files are not uploaded.</p>
+    <p>While you edit, share, or save, ShareSafe stores generated copies in its private app cache. Copies older than 24 hours are removed when a new app session starts; Android may clear cache files earlier. This is not a guarantee that files are erased exactly 24 hours after creation. Gallery copies and files you share are not removed by this cleanup.</p>
+    <p>You can clear ShareSafe’s app data or uninstall it using Android settings to remove its local cache and purchase receipt. Your original photos and gallery copies remain under your control. Reinstalling does not cancel a Google Play purchase; use Restore Pro purchase with the purchasing Google Play account.</p>
   </section>
 
   <section class="content-card" aria-labelledby="changes-heading">
