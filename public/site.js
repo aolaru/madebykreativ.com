@@ -1,3 +1,4 @@
+import { storefrontHref } from "/product-attribution.mjs";
 (() => {
   const THEME_KEY = "kreativ-theme";
   const LIGHT_THEME = "light";
@@ -115,6 +116,7 @@
   function wireProductTracking() {
     const productLinks = document.querySelectorAll("[data-product-cta]");
     productLinks.forEach((link) => {
+      link.href = storefrontHref(link.href, {page: link.dataset.page || window.location.pathname, position: link.dataset.position || "product"});
       link.addEventListener("click", () => {
         trackEvent("Product CTA Click", {
           product: link.dataset.product || "unknown",
@@ -160,13 +162,16 @@
     const filterButtons = document.querySelectorAll("[data-news-filter]");
     const searchInput = document.querySelector("[data-news-search-input]");
     const emptyState = document.querySelector("[data-news-empty-state]");
+    const moreButton = document.querySelector("[data-updates-more]");
+    const countLabel = document.querySelector("[data-updates-count]");
     if (!entries.length || !filterButtons.length || !searchInput) {
       return;
     }
 
     const state = {
       category: "all",
-      query: ""
+      query: "",
+      limit: window.location.hash ? Infinity : 12
     };
 
     function applyNewsFilters() {
@@ -177,7 +182,7 @@
         const categoryMatches = state.category === "all" || category === state.category;
         const queryMatches = !state.query || searchable.includes(state.query);
         const visible = categoryMatches && queryMatches;
-        entry.hidden = !visible;
+        entry.hidden = !visible || (moreButton && visibleCount >= state.limit);
         if (visible) {
           visibleCount += 1;
         }
@@ -185,11 +190,14 @@
       if (emptyState) {
         emptyState.hidden = visibleCount > 0;
       }
+      if (moreButton) moreButton.hidden = visibleCount <= state.limit;
+      if (countLabel) countLabel.textContent = `${visibleCount} updates`;
     }
 
     filterButtons.forEach((button) => {
       button.addEventListener("click", () => {
         state.category = button.getAttribute("data-news-filter") || "all";
+        state.limit = 12;
         filterButtons.forEach((item) => {
           item.setAttribute("aria-pressed", item === button ? "true" : "false");
         });
@@ -200,8 +208,11 @@
 
     searchInput.addEventListener("input", () => {
       state.query = searchInput.value.trim().toLowerCase();
+      state.limit = 12;
       applyNewsFilters();
     });
+    moreButton?.addEventListener("click", () => { state.limit += 12; applyNewsFilters(); });
+    applyNewsFilters();
   }
 
   function trackEvent(eventName, props) {
@@ -236,6 +247,7 @@
       return;
     }
     const script = document.createElement("script");
+    window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments); };
     script.defer = true;
     script.dataset.domain = plausible.domain;
     script.src = plausible.src;
@@ -243,10 +255,18 @@
   }
 
   function loadAnalytics() {
-    if (!isProductionHost()) {
+    if (!isProductionHost() || navigator.globalPrivacyControl === true || navigator.doNotTrack === "1") {
       return;
     }
     loadPlausible();
+    const beacon = config.analytics?.cloudflare;
+    if (beacon?.src && beacon?.token) {
+      const script = document.createElement("script");
+      script.defer = true;
+      script.src = beacon.src;
+      script.setAttribute("data-cf-beacon", JSON.stringify({token:beacon.token}));
+      document.head.appendChild(script);
+    }
   }
 
   function init() {

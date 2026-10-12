@@ -27,7 +27,7 @@ const { Content } = await render(entry);
 const slug = entry.id.replace(/\.md$/, "");
 const canonicalPath = `/news/${slug}/`;
 const publishedTime = entry.data.sortDate.toISOString();
-const modifiedTime = new Date(`${site.lastUpdated}T00:00:00.000Z`).toISOString();
+const modifiedTime = publishedTime;
 const articleSchema = createNewsArticleSchema({
   title: entry.data.title,
   description: entry.data.description,
@@ -44,7 +44,7 @@ const socialImage = slug === "ai-launch-toolkit-gumroad"
   ? "/og-ai-launch-toolkit.png"
   : articleImage || "/og-news.png";
 const socialImageHeight = relatedProject?.preview && !entry.data.image ? "750" : "630";
-const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-08-20T00:00:00.000Z").valueOf();
+const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-10-04T00:00:00.000Z").valueOf();
 ---
 
 <BaseLayout
@@ -65,7 +65,7 @@ const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-08-20T
     articleSchema,
     createBreadcrumbSchema([
       { name: "Home", path: "/" },
-      { name: "News", path: "/news/" },
+      { name: "Updates", path: "/updates/" },
       { name: entry.data.title, path: canonicalPath }
     ])
   ]}
@@ -79,7 +79,7 @@ const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-08-20T
     <p slot="afterTagline" class="meta-note">{entry.data.dateLabel} · {entry.data.category}</p>
   </HeroHeader>
 
-  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "News", href: "/news/" }, { label: entry.data.title }]} />
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Updates", href: "/updates/" }, { label: entry.data.title }]} />
 
   <article class="content-card news-detail">
     <dl class="article-fact-list">
@@ -97,12 +97,12 @@ const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-08-20T
       </div>
     </dl>
     {isHistoricalUpdate && (
-      <p class="article-archive-note"><strong>Historical update.</strong> This article predates the August 2026 handoff that opened three projects to contributors. The project directory shows the current status.</p>
+      <p class="article-archive-note"><strong>Historical update.</strong> Prices, releases, and status describe the publication date. See <a href="/product-to-profit/">current product details</a> and the <a href="/projects/">project directory</a> for the latest information.</p>
     )}
     {articleImage && (
       <figure class:list={["article-preview", !relatedProject && "article-preview-portrait"]}>
         <img src={articleImage} alt={articleImageAlt} width={relatedProject ? "1200" : "1191"} height={relatedProject ? "750" : "1684"} loading="eager" />
-        <figcaption>{relatedProject ? `Current ${relatedProject.label} public surface, verified ${relatedProject.updated}.` : "Current product cover and visual direction."}</figcaption>
+        <figcaption>{relatedProject ? `${relatedProject.label} reference screenshot from July 2026; the live site may differ.` : "Product artwork; consult the product page for current release specifications."}</figcaption>
       </figure>
     )}
     <Content />
@@ -115,11 +115,11 @@ const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-08-20T
       <div class="landing-actions">
         {relatedProject && <a class="button-cta button-cta-primary" href={projectPath(relatedProject.slug)}>Project details</a>}
         {!relatedProject && <a class="button-cta button-cta-primary" href="/product-to-profit/">Product-to-Profit</a>}
-        <a class="button-cta button-cta-secondary" href="/news/rss.xml">News RSS</a>
+        <a class="button-cta button-cta-secondary" href="/updates/rss.xml">Updates RSS</a>
       </div>
     </aside>
     <nav class="article-nav" aria-label="Update navigation">
-      <a class="cta" href="/news/">Back to News</a>
+      <a class="cta" href="/updates/">Back to Updates</a>
       <div class="article-nav-pair">
         {newerEntry && <a class="cta" href={newsPath(newerEntry.id)}>Newer: {newerEntry.data.title}</a>}
         {olderEntry && <a class="cta" href={newsPath(olderEntry.id)}>Older: {olderEntry.data.title}</a>}

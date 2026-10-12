@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteNav from "../../components/SiteNav.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { apps } from "../../data/apps";
+export function getStaticPaths() {
+  return apps.map((app) => ({ params: { slug: app.slug }, props: { app } }));
+}
+const { app } = Astro.props;
+const playUrl = `https://play.google.com/store/apps/details?id=com.kreativ.${app.slug}`;
+---
+
+<BaseLayout
+  title={`${app.name} for Android | Made by Kreativ`}
+  description={app.description}
+  canonicalPath={`/apps/${app.slug}/`}
+>
+  <SiteNav current="projects" />
+  <header class="app-hero">
+    <div>
+      <img src={`/apps/${app.slug}/icon.png`} width="80" height="80" alt="" />
+      <p class="eyebrow">Android app · free core tools</p>
+      <h1>{app.name}</h1>
+      <p>{app.description}</p>
+      <div class="landing-actions">
+        <a
+          class="button-cta button-cta-primary"
+          href={playUrl}
+          target="_blank"
+          rel="noopener"
+        >
+          Get it on Google Play
+        </a>
+        <a class="cta" href={`/privacy/${app.slug}/`}>
+          App privacy policy
+        </a>
+      </div>
+    </div>
+    <img
+      class="app-screen"
+      src={`/apps/${app.slug}/screen.png`}
+      width="1080"
+      height={app.slug === "northlight" ? 2340 : 1920}
+      alt={`${app.name} Android app screenshot.`}
+    />
+  </header>
+  <Breadcrumbs
+    items={[
+      { label: "Home", href: "/" },
+      { label: "Projects", href: "/projects/" },
+      { label: app.name },
+    ]}
+  />
+  <section class="ptp-section">
+    <h2>What you can do</h2>
+    <ul>
+      {app.features.map((feature) => (
+        <li>{feature}</li>
+      ))}
+    </ul>
+    <p>
+      No account, advertising, or developer-operated cloud processing. Optional
+      Pro features, when available in your installed version, are purchased
+      separately through Google Play; current availability and price are shown
+      there.
+    </p>
+    <p>{app.limitation}</p>
+    <p>
+      <a class="cta" href="/contact/">
+        App support
+      </a>
+    </p>
+  </section>
+  <SiteFooter />
+</BaseLayout>

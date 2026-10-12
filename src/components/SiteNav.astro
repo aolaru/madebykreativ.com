@@ -9,7 +9,6 @@ const { current } = Astro.props;
 const navigationItems = [
   { href: "/product-to-profit/", label: "Product System", key: "guides" },
   { href: "/projects/", label: "Projects", key: "projects" },
-  { href: "/news/", label: "News", key: "news" },
   { href: "/updates/", label: "Updates", key: "updates" },
   { href: "/about/", label: "About", key: "about" },
   { href: "/contact/", label: "Contact", key: "contact" }
@@ -23,7 +22,7 @@ const navigationItems = [
   </a>
   <div class="site-nav-links">
     {navigationItems.map((item) => (
-      <a class="site-nav-link" href={item.href} aria-current={current === item.key ? "page" : undefined}>{item.label}</a>
+      <a class="site-nav-link" href={item.href} aria-current={current === item.key || (current === "news" && item.key === "updates") ? "page" : undefined}>{item.label}</a>
     ))}
   </div>
   <div class="site-nav-actions" role="group" aria-label="Page actions">
@@ -33,7 +32,7 @@ const navigationItems = [
       <summary class="icon-button" aria-label="Open navigation menu" title="Menu"><Icon name="menu" /></summary>
       <nav class="site-nav-mobile-panel" aria-label="Mobile navigation">
         {navigationItems.map((item) => (
-          <a href={item.href} aria-current={current === item.key ? "page" : undefined}>{item.label}</a>
+          <a href={item.href} aria-current={current === item.key || (current === "news" && item.key === "updates") ? "page" : undefined}>{item.label}</a>
         ))}
       </nav>
     </details>

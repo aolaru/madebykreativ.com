@@ -1,0 +1,30 @@
+---
+import { apps } from "../data/apps";
+---
+
+<section class="ptp-section" aria-labelledby="apps-heading">
+  <div class="section-heading-row">
+    <div>
+      <p class="eyebrow">On-device tools</p>
+      <h2 id="apps-heading">Android apps</h2>
+    </div>
+  </div>
+  <div class="app-links">
+    {apps.map((app) => (
+      <a href={`/apps/${app.slug}/`}>
+        <img
+          src={`/apps/${app.slug}/icon.png`}
+          width="56"
+          height="56"
+          alt=""
+          loading="lazy"
+        />
+        <div>
+          <h3>{app.name}</h3>
+          <p>{app.description}</p>
+        </div>
+        <span aria-hidden="true">→</span>
+      </a>
+    ))}
+  </div>
+</section>

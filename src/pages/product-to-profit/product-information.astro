@@ -17,7 +17,7 @@ import {
   organizationSchema
 } from "../../data/site";
 
-const pageDescription = "Current Product-to-Profit availability, delivery formats, compatibility, personal-use license, support, updates, refunds, tax, and privacy information.";
+const pageDescription = "Current Product-to-Profit availability, delivery formats, compatibility, original-product and template usage rights, support, updates, refunds, tax, and privacy information.";
 ---
 
 <BaseLayout
@@ -69,17 +69,6 @@ const pageDescription = "Current Product-to-Profit availability, delivery format
           <ProductStoreAction product={product} page="product-information" position="availability" showStatus={false} />
         </article>
       ))}
-      <article>
-        <div>
-          <div class="product-information-product-meta">
-            <span>Optional branch</span>
-            <span class="ptp-access-badge ptp-access-paid">Paid · {aiBusinessPathways.price}</span>
-          </div>
-          <h3>{aiBusinessPathways.shortTitle}</h3>
-          <p>Available now on Gumroad for {aiBusinessPathways.price}.</p>
-        </div>
-        <a class="button-cta button-cta-primary" href={aiBusinessPathways.storeUrl} target="_blank" rel="noopener" data-product-cta data-product="ai-business-pathways" data-stage="optional" data-page="product-information" data-position="availability">View on Gumroad <span aria-hidden="true">↗</span></a>
-      </article>
     </div>
   </section>
 
@@ -92,7 +81,7 @@ const pageDescription = "Current Product-to-Profit availability, delivery format
 
   <section class="content-card" aria-labelledby="license-heading">
     <p class="eyebrow">Usage rights</p>
-    <h2 id="license-heading">Personal-use license</h2>
+    <h2 id="license-heading">Your original products and the supplied templates</h2>
     <p>{productPolicies.license}</p>
     <p>You remain responsible for checking product claims, platform rules, policies, rights, taxes, legal requirements, AI-assisted output, and suitability before publishing your own product.</p>
   </section>

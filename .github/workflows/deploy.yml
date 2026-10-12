@@ -36,7 +36,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate production site
+      - name: Install headless test browser
+        run: npx playwright install --with-deps --only-shell chromium
+
+      - name: Check pages, releases, accessibility, and responsive layouts
         run: npm run check
 
       - name: Upload Pages artifact

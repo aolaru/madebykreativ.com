@@ -1,5 +1,6 @@
 ---
 import type { ProductToProfitProduct } from "../data/productToProfit";
+import { storefrontHref } from "../../public/product-attribution.mjs";
 
 interface Props {
   product: ProductToProfitProduct;
@@ -18,7 +19,7 @@ const opensNewTab = isExternal;
   {product.storeUrl ? (
     <a
       class="button-cta button-cta-primary"
-      href={product.storeUrl}
+      href={storefrontHref(product.storeUrl, {page, position})}
       target={opensNewTab ? "_blank" : undefined}
       rel={opensNewTab ? "noopener" : undefined}
       download={isDownload ? product.delivery.packageName : undefined}

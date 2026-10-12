@@ -1,0 +1,84 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HeroHeader from "../../components/HeroHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+---
+
+<BaseLayout
+  title="Completed Product Brief Example | Made by Kreativ"
+  description="A fictional freelancer onboarding example showing how a product brief becomes a bounded product specification."
+  canonicalPath="/product-to-profit/example/"
+>
+  <HeroHeader
+    current="guides"
+    eyebrow="Fictional worked example"
+    title="Freelancer Client Onboarding Kit"
+    tagline="An example of a completed brief and a deliberately small first product."
+  />
+  <section class="ptp-section">
+    <h2>The completed brief</h2>
+    <p>
+      This is an illustrative scenario, not a customer testimonial. Interview
+      notes, scores, and results are fictional; they are not market evidence.
+    </p>
+    <dl class="ptp-contract-grid">
+      <div>
+        <dt>Buyer and situation</dt>
+        <dd>
+          A solo freelancer starting a new client engagement who needs a
+          repeatable way to collect project details and set expectations.
+        </dd>
+      </div>
+      <div>
+        <dt>Useful outcome</dt>
+        <dd>
+          A complete intake, kickoff checklist, and written scope before
+          delivery begins.
+        </dd>
+      </div>
+      <div>
+        <dt>First version</dt>
+        <dd>
+          A compact onboarding workflow with editable documents, rather than a
+          course or software platform.
+        </dd>
+      </div>
+      <div>
+        <dt>Next evidence test</dt>
+        <dd>
+          Show the workflow to relevant freelancers, record their actual
+          responses, and decide whether to proceed, revise, or stop.
+        </dd>
+      </div>
+    </dl>
+  </section>
+  <section class="ptp-section">
+    <h2>A real page from the Scorecard</h2>
+    <a href="/product-to-profit/previews/scorecard/completed-brief.png">
+      <img
+        class="completed-example"
+        src="/product-to-profit/previews/scorecard/completed-brief.webp"
+        width="1200"
+        height="1698"
+        alt="Completed fictional freelancer onboarding example from the current Product Idea Scorecard."
+        loading="lazy"
+      />
+    </a>
+    <p>
+      The full case study and editable sample files are included with the
+      Builder and the complete system.
+    </p>
+    <div class="landing-actions">
+      <a
+        class="button-cta button-cta-primary"
+        href="/product-to-profit/product-idea-scorecard/"
+      >
+        Start with the free Scorecard
+      </a>
+      <a class="cta" href="/product-to-profit/workflow-product-builder/">
+        View the Builder
+      </a>
+    </div>
+  </section>
+  <SiteFooter />
+</BaseLayout>

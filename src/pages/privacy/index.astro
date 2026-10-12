@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HeroHeader from "../../components/HeroHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+---
+
+<BaseLayout
+  title="Privacy | Made by Kreativ"
+  description="Website analytics, local preferences, storefronts, and Android app privacy policies."
+  canonicalPath="/privacy/"
+>
+  <HeroHeader
+    eyebrow="Effective 12 October 2026"
+    title="Privacy"
+    tagline="How this website and its linked services handle information."
+  />
+  <section class="ptp-section">
+    <h2>The website</h2>
+    <p>
+      This website is operated by Andrei Olaru, trading as Made by Kreativ, in
+      Bucharest, Romania. It is hosted on GitHub Pages. Hosting and network
+      providers receive technical request information needed to deliver and
+      protect the website.
+    </p>
+    <p>
+      We use Plausible for page views and clicks on navigation and product
+      links, and Cloudflare Web Analytics for performance and usage
+      measurements. We do not send names, email addresses, search text, payment
+      details, or download contents to these analytics tools. Product click
+      properties describe the product, page, and button position, not the
+      visitor. The website does not use advertising trackers.
+    </p>
+    <p>
+      <a href="https://plausible.io/data-policy">Plausible's data policy</a>{" "}
+      describes event processing, approximate location, and daily visitor
+      identifiers without persistent tracking cookies.{" "}
+      <a href="https://developers.cloudflare.com/web-analytics/">
+        Cloudflare's Web Analytics documentation
+      </a>{" "}
+      explains its performance measurements. These services have their own
+      processing and retention practices; this page is not a claim that no
+      network data is processed.
+    </p>
+    <h2>Your preferences</h2>
+    <p>
+      Your light or dark theme is saved in local storage as{" "}
+      <code>kreativ-theme</code>. This preference stays in your browser and can
+      be removed through your browser's site-data settings. You can block
+      analytics requests with browser privacy tools.
+    </p>
+    <h2>Purchases and contact</h2>
+    <p>
+      Gumroad handles product checkout, delivery, payment, and buyer information
+      under <a href="https://gumroad.com/privacy">its privacy policy</a>.
+      Product links contain campaign labels identifying this website and the
+      link position; these do not identify you. A storefront click is not
+      recorded here as a completed purchase.
+    </p>
+    <p>
+      If you email us, we receive the information you choose to send and use it
+      to respond and handle the request. Avoid sending sensitive personal
+      information or payment-card details. Contact{" "}
+      <a href="mailto:info@madebykreativ.com">info@madebykreativ.com</a> for
+      privacy questions or requests about information you have provided.
+    </p>
+    <h2>Android apps</h2>
+    <p>
+      The website's analytics do not run inside these apps. Their permissions,
+      local processing, and optional Google Play purchases are covered
+      separately:
+    </p>
+    <ul>
+      <li>
+        <a href="/privacy/sharesafe/">ShareSafe privacy policy</a>
+      </li>
+      <li>
+        <a href="/privacy/northlight/">Northlight privacy policy</a>
+      </li>
+    </ul>
+    <p>
+      Changes to this notice will be published here with a revised effective
+      date.
+    </p>
+  </section>
+  <SiteFooter compact />
+</BaseLayout>

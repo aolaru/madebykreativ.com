@@ -3,7 +3,7 @@ export const site = {
   url: "https://madebykreativ.com/",
   logo: "https://madebykreativ.com/favicon.svg",
   email: "info@madebykreativ.com",
-  lastUpdated: "2026-08-25"
+  lastUpdated: "2026-10-12"
 };
 
 export const isExternalHref = (href: string) => /^https?:\/\//.test(href);
@@ -23,13 +23,15 @@ export const analytics = {
 export const clientConfig = {
   analytics: {
     productionHost: analytics.productionHost,
-    plausible: analytics.plausible
+    plausible: analytics.plausible,
+    cloudflare: analytics.cloudflare
   }
 };
 
 export const statusDefinitions = [
   { label: "Active", description: "An active Made by KREATIV project maintained by Andrei." },
-  { label: "Open Source", description: "Source is public for contributors; these projects are not maintained by Andrei." }
+  { label: "Open Source", description: "Source is public for contributors; these projects are not maintained by Andrei." },
+  { label: "Archive", description: "A retained open-source research archive, not an actively maintained product." }
 ];
 
 const coreProjects = [
@@ -168,15 +170,15 @@ const adjacentProjects = [
     slug: "how-much-music",
     label: "How Much Music",
     category: "Discovery Projects",
-    status: "Active",
+    status: "Archive",
     logo: { mark: "HM" },
-    description: "A music-focused project around discovery, value, and practical listening context.",
-    longDescription: "How Much Music is a live music-focused project built around listening context, practical discovery, and clearer ways to think about music value.",
+    description: "A retained open-source research archive about music rights, ownership, and publicly documented demand.",
+    longDescription: "How Much Music preserves source-led case studies, rights explainers, and catalog research. Its public site identifies the project as an open-source archive.",
     whatItSolves: "It gives music discovery a clearer context layer by focusing on value, listening decisions, and practical ways to evaluate music.",
     audience: "Music listeners, collectors, creators, and people who want a more structured way to think about music discovery.",
-    currentStatus: "Active public project maintained by Andrei as part of Made by KREATIV.",
-    version: "Active project",
-    updated: "July 2026",
+    currentStatus: "The public site is retained as an open-source archive. It is not listed here as an active product.",
+    version: "Open-source research archive",
+    updated: "October 2026",
     preview: "/project-previews/how-much-music.png",
     previewAlt: "How Much Music homepage showing reviewed song and artist catalogs with methodology.",
     href: "https://howmuchmusic.com",
@@ -184,7 +186,7 @@ const adjacentProjects = [
     cta: "Open How Much Music",
     focus: ["Music discovery", "Listening context", "Value signals"],
     proof: ["Live standalone property", "Music discovery focus", "Listening context positioning"],
-    maintenanceNotes: ["Actively maintained by Andrei", "Public site available", "Updates are published when ready"],
+    maintenanceNotes: ["Retained research archive", "Public source available from the archive site", "No active product maintenance promise"],
     relatedNews: ["how-much-music-live"],
     isCore: false
   },
@@ -239,10 +241,10 @@ const adjacentProjects = [
 ];
 
 export const projectDirectory = [...coreProjects, ...adjacentProjects];
-const excludedActiveProjectSlugs = new Set(["kreativ-auto", "how-much-music"]);
 export const activeProjects = projectDirectory.filter(
-  (project) => project.status === "Active" && !excludedActiveProjectSlugs.has(project.slug)
+  (project) => project.status === "Active"
 );
+export const archivedProjects = projectDirectory.filter((project) => project.status === "Archive");
 export const communityProjects = [
   projectDirectory.find((project) => project.slug === "kreativ-tools"),
   projectDirectory.find((project) => project.slug === "find-sera"),

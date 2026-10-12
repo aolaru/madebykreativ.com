@@ -1,0 +1,210 @@
+{
+  "idea-library": {
+    "released": "2026-10-04",
+    "version": "v1.5",
+    "pdfVersion": "v1.5",
+    "packageName": "KREATIV_Idea_Library_v1.5.zip",
+    "packageBytes": 190538,
+    "packageSize": "186 KB",
+    "fileCount": 4,
+    "pages": 33,
+    "fields": 0,
+    "pdfCount": 1,
+    "formats": [
+      "PDF",
+      "HTML reading edition",
+      "Markdown",
+      "CSV"
+    ],
+    "sha256": "d7ae9366fc305b4f6a277a80bc28f68851348118867e8f7555002219e14908d7",
+    "previews": {
+      "idea-library/idea-handoff": {
+        "page": 33,
+        "width": 1200,
+        "height": 1698
+      }
+    }
+  },
+  "product-idea-scorecard": {
+    "released": "2026-10-04",
+    "version": "v1.5",
+    "pdfVersion": "v1.3",
+    "packageName": "KREATIV_Product_Idea_Scorecard_v1.5.zip",
+    "packageBytes": 210406,
+    "packageSize": "205 KB",
+    "fileCount": 10,
+    "pages": 33,
+    "fields": 147,
+    "pdfCount": 2,
+    "formats": [
+      "PDF",
+      "HTML reading edition",
+      "Markdown",
+      "CSV"
+    ],
+    "sha256": "fabae376ba40f9f2eaabd30d2c3e2d1727440ad909e899b48da4e372a8fa327e",
+    "previews": {
+      "scorecard/buyer-situation": {
+        "page": 10,
+        "width": 1200,
+        "height": 1698
+      },
+      "scorecard/idea-scorecard": {
+        "page": 24,
+        "width": 1200,
+        "height": 1698
+      },
+      "scorecard/product-brief": {
+        "page": 31,
+        "width": 1200,
+        "height": 1698
+      },
+      "scorecard/completed-brief": {
+        "page": 20,
+        "width": 1200,
+        "height": 1698
+      }
+    }
+  },
+  "workflow-product-builder": {
+    "released": "2026-10-04",
+    "version": "v1.5",
+    "pdfVersion": "v1.3",
+    "packageName": "KREATIV_Workflow_Product_Builder_v1.5.zip",
+    "packageBytes": 531989,
+    "packageSize": "520 KB",
+    "fileCount": 32,
+    "pages": 54,
+    "fields": 226,
+    "pdfCount": 3,
+    "formats": [
+      "PDF",
+      "HTML reading edition",
+      "Word DOCX",
+      "Markdown"
+    ],
+    "sha256": "58728ee030e90c41eca7fa8f6215cfdf9f294093ac8287142252fb3142b0dfca",
+    "previews": {
+      "builder/format-matrix": {
+        "page": 10,
+        "width": 1200,
+        "height": 1698
+      },
+      "builder/signal-test-log": {
+        "page": 16,
+        "width": 1200,
+        "height": 1698
+      },
+      "builder/product-specification": {
+        "page": 46,
+        "width": 1200,
+        "height": 1698
+      }
+    }
+  },
+  "digital-product-launch-engine": {
+    "released": "2026-10-04",
+    "version": "v1.5",
+    "pdfVersion": "v1.2",
+    "packageName": "KREATIV_Digital_Product_Launch_Engine_v1.5.zip",
+    "packageBytes": 252113,
+    "packageSize": "246 KB",
+    "fileCount": 17,
+    "pages": 43,
+    "fields": 264,
+    "pdfCount": 2,
+    "formats": [
+      "PDF",
+      "HTML reading edition",
+      "Markdown",
+      "CSV"
+    ],
+    "sha256": "7ac5ee57fe34e1aa733c0637be54ef3846784ef41297d5719265fa40502302ab",
+    "previews": {
+      "launch-engine/builder-handoff": {
+        "page": 4,
+        "width": 1200,
+        "height": 1698
+      },
+      "launch-engine/proof-trust": {
+        "page": 11,
+        "width": 1200,
+        "height": 1698
+      },
+      "launch-engine/campaign-calendar": {
+        "page": 36,
+        "width": 1200,
+        "height": 1698
+      },
+      "launch-engine/sell-ready-completion": {
+        "page": 43,
+        "width": 1200,
+        "height": 1698
+      }
+    }
+  },
+  "ai-business-pathways": {
+    "released": "2026-10-04",
+    "version": "v1.2",
+    "pdfVersion": "v1.2",
+    "packageName": "KREATIV_AI_Business_Pathways_v1.2.zip",
+    "packageBytes": 169401,
+    "packageSize": "165 KB",
+    "fileCount": 13,
+    "pages": 22,
+    "fields": 0,
+    "pdfCount": 2,
+    "formats": [
+      "PDF",
+      "HTML reading edition",
+      "Markdown",
+      "CSV"
+    ],
+    "sha256": "aa2df66749aa1a745cb28b0280f657194c7365a773563db5788fbeb73a202571",
+    "previews": {
+      "pathways/decision-matrix": {
+        "page": 21,
+        "width": 1200,
+        "height": 1698
+      },
+      "pathways/experiment": {
+        "page": 5,
+        "width": 1200,
+        "height": 1698
+      }
+    }
+  },
+  "system": {
+    "released": "2026-10-04",
+    "version": "v2.4",
+    "pdfVersion": "v2.4",
+    "packageName": "KREATIV_Product-to-Profit_System_v2.4.zip",
+    "packageBytes": 1470096,
+    "packageSize": "1.40 MB",
+    "fileCount": 85,
+    "pages": 14,
+    "fields": 50,
+    "pdfCount": 12,
+    "formats": [
+      "PDF",
+      "HTML reading edition",
+      "Excel XLSX",
+      "Word DOCX",
+      "Markdown",
+      "CSV"
+    ],
+    "sha256": "83bc52faac62f2a4f1e92016372aa84133c1ddcba4b1230899c3ef7dd52e3cff",
+    "previews": {
+      "system/handoff-map": {
+        "page": 11,
+        "width": 1200,
+        "height": 1698
+      },
+      "system/first-action": {
+        "page": 14,
+        "width": 1200,
+        "height": 1698
+      }
+    }
+  }
+}

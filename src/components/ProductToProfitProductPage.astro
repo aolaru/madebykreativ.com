@@ -8,87 +8,33 @@ import SiteFooter from "./SiteFooter.astro";
 import SiteNav from "./SiteNav.astro";
 import SystemStagePath from "./SystemStagePath.astro";
 import {
-  productInformationPath,
   productPath,
+  productInformationPath,
   productPolicies,
-  systemFaqs,
   systemPath,
-  type ProductToProfitProduct
+  type ProductToProfitProduct,
 } from "../data/productToProfit";
-import {
-  buildUrl,
-  createBreadcrumbSchema,
-  createPageSchema,
-  organizationSchema
-} from "../data/site";
-
+import { buildUrl, createPageSchema, organizationSchema } from "../data/site";
 interface Props {
   product: ProductToProfitProduct;
 }
-
 const { product } = Astro.props;
-const canonicalPath = productPath(product.slug);
+const path = productPath(product.slug);
 const isBundle = product.slug === "system";
-const isBuilder = product.slug === "workflow-product-builder";
-const isLaunch = product.slug === "digital-product-launch-engine";
-const nextHref = product.nextSlug ? productPath(product.nextSlug) : null;
-const pageTitle = isBundle
-  ? "Complete KREATIV Product-to-Profit Bundle | Made by Kreativ"
-  : `${product.title} | Made by Kreativ`;
-const isAvailableNow = product.actionKind === "download" || product.actionKind === "gumroad";
-const deliveryLabel = isAvailableNow ? "Available now" : "Prepared release package";
-const purchaseDescription = product.actionKind === "download"
-  ? "Download the complete ZIP directly from Made by KREATIV."
-  : product.actionKind === "gumroad"
-    ? product.access === "free"
-      ? "Complete the free Gumroad checkout to receive the ZIP package and future file updates."
-      : "Purchase securely through Gumroad to receive the current ZIP package and future file updates."
-  : product.actionKind === "wishlist"
-    ? "The product is not currently for sale. Use the Gumroad wishlist without starting a checkout."
-    : "Checkout is not live. Request a release notice without making a reservation or payment.";
-
-const visibleFaqs = [
-  {
-    question: `Where does ${product.shortTitle} fit in the system?`,
-    answer: `${product.role}. It owns the ${product.stage} stage and produces ${product.handoff}.`
-  },
-  {
-    question: "Can I skip earlier stages?",
-    answer: `Yes, if you already have the required input: ${product.requiredInput}`
-  },
-  ...(isBuilder ? [systemFaqs[2]] : []),
-  ...(isLaunch ? [systemFaqs[3]] : []),
-  ...(isBundle ? [systemFaqs[4], systemFaqs[5]] : [])
-];
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: visibleFaqs.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: { "@type": "Answer", text: item.answer }
-  }))
-};
+const title = `${product.title} | Made by Kreativ`;
 ---
 
 <BaseLayout
-  title={pageTitle}
+  title={title}
   description={product.description}
-  canonicalPath={canonicalPath}
+  canonicalPath={path}
   ogImage={buildUrl(product.cover)}
   ogImageAlt={product.coverAlt}
   ogImageWidth="1200"
   ogImageHeight="675"
   structuredData={[
     organizationSchema,
-    createPageSchema({ name: pageTitle, description: product.description, path: canonicalPath }),
-    createBreadcrumbSchema([
-      { name: "Home", path: "/" },
-      { name: "Product-to-Profit", path: systemPath },
-      { name: product.shortTitle, path: canonicalPath }
-    ]),
-    faqSchema
+    createPageSchema({ name: title, description: product.description, path }),
   ]}
 >
   <header class:list={["ptp-product-header", `ptp-accent-${product.accent}`]}>
@@ -96,224 +42,169 @@ const faqSchema = {
     <div class="ptp-product-hero">
       <div class="ptp-product-hero-copy">
         <div class="ptp-product-hero-meta">
-          <p class="eyebrow">{isBundle ? "Complete system" : `Stage ${product.stageNumber} · ${product.stage}`}</p>
-          <span class:list={["ptp-access-badge", `ptp-access-${product.access}`]}>{product.accessSummary}</span>
+          <p class="eyebrow">{product.stage}</p>
+          <span
+            class:list={["ptp-access-badge", `ptp-access-${product.access}`]}
+          >
+            {product.accessSummary}
+          </span>
         </div>
         <h1>{product.title}</h1>
         <p class="ptp-product-promise">{product.promise}</p>
-        <div class="ptp-hero-answer">
-          <span>1 · Current situation</span>
-          <p>{product.situation}</p>
+        <div class="landing-actions">
+          <ProductStoreAction
+            product={product}
+            page={product.slug}
+            position="hero"
+            showStatus={false}
+          />
+          <a class="cta" href="#included">
+            What is included
+          </a>
         </div>
-        <div class="landing-actions ptp-product-hero-actions">
-          <ProductStoreAction product={product} page={product.slug} position="hero" showStatus={false} />
-          <a class="button-cta button-cta-secondary" href="#owned-job">See what this product owns</a>
-        </div>
+        <p class="meta-note">
+          Package {product.delivery.version} · released {product.released} ·{" "}
+          {product.delivery.fileCount} files
+        </p>
       </div>
-      <ProductCover class="ptp-product-cover" src={product.cover} alt={product.coverAlt} loading="eager" />
+      <ProductCover
+        class="ptp-product-cover"
+        src={product.cover}
+        alt={product.coverAlt}
+        loading="eager"
+      />
     </div>
   </header>
-
   <div class:list={["ptp-product-content", `ptp-accent-${product.accent}`]}>
-  <Breadcrumbs items={[
-    { label: "Home", href: "/" },
-    { label: "Product-to-Profit", href: systemPath },
-    { label: product.shortTitle }
-  ]} />
-
-  <SystemStagePath currentHref={canonicalPath} compact />
-
-  <section class="ptp-section ptp-contract-section" id="owned-job" aria-labelledby="owned-job-heading">
-    <div class="ptp-section-heading">
-      <p class="eyebrow">2 · Owned job</p>
-      <h2 id="owned-job-heading">What this product is responsible for</h2>
-    </div>
-    <dl class="ptp-contract-grid">
-      <div>
-        <dt>Role</dt>
-        <dd>{product.role}</dd>
-      </div>
-      <div>
-        <dt>Job</dt>
-        <dd>{product.promise}</dd>
-      </div>
-    </dl>
-  </section>
-
-  <section class="ptp-section" aria-labelledby="required-input-heading">
-    <div class="ptp-section-heading">
-      <p class="eyebrow">3 · Required input</p>
-      <h2 id="required-input-heading">What you must already have</h2>
-    </div>
-    <p class="ptp-lead-answer">{product.requiredInput}</p>
-  </section>
-
-  <section class="ptp-section ptp-output-section" aria-labelledby="output-heading">
-    <div class="ptp-section-heading">
-      <p class="eyebrow">4 · Completed output</p>
-      <h2 id="output-heading">What you will produce</h2>
-    </div>
-    <p class="ptp-lead-answer">{product.output}</p>
-    <div class="ptp-handoff-callout">
-      <span>Stage handoff</span>
-      <strong>{product.handoff}</strong>
-    </div>
-  </section>
-
-  <section class="ptp-section" aria-labelledby="included-heading">
-    <div class="ptp-section-heading">
-      <p class="eyebrow">5 · Files and tools</p>
-      <h2 id="included-heading">What is included</h2>
-    </div>
-    <ul class="ptp-check-grid">
-      {product.included.map((item) => <li>{item}</li>)}
-    </ul>
-  </section>
-
-  <section class="ptp-section ptp-delivery-section" aria-labelledby="delivery-heading">
-    <div class="ptp-section-heading">
-      <p class="eyebrow">{deliveryLabel}</p>
-      <h2 id="delivery-heading">Delivery and first use</h2>
-      <p>{product.delivery.version}. {product.delivery.packageSize} ZIP containing {product.delivery.fileCount} files.</p>
-    </div>
-    <div class="ptp-delivery-grid">
-      <dl class="ptp-delivery-facts">
-        <div><dt>Package</dt><dd>{product.delivery.packageName}</dd></div>
-        <div><dt>Formats</dt><dd>{product.delivery.formats.join(", ")}</dd></div>
-        <div><dt>Compatibility</dt><dd>{productPolicies.compatibility}</dd></div>
-      </dl>
-      <div class="ptp-delivery-contents">
-        <h3>Inside the ZIP</h3>
-        <ul class="clean-list">
-          {product.delivery.contents.map((item) => <li>{item}</li>)}
-        </ul>
-      </div>
-    </div>
-    <p class="ptp-first-step"><strong>First action:</strong> {product.delivery.firstStep}</p>
-  </section>
-
-  {isBundle && (
-    <>
-      <section class="ptp-section ptp-bundle-workspace" aria-labelledby="workspace-heading">
-        <div class="ptp-section-heading">
-          <p class="eyebrow">Integrated, not just combined</p>
-          <h2 id="workspace-heading">One master workspace connects every handoff</h2>
-          <p>The Excel workspace carries the Idea Shortlist, Product Brief, Product Specification, Launch Record, and Product Change Request forward without rebuilding the same decisions from memory.</p>
-        </div>
-        <ol class="ptp-handoff-chain" aria-label="Product-to-Profit handoff chain">
-          {["Idea Shortlist", "Product Brief", "Product Specification", "Launch Record", "Product Change Request"].map((item, index) => (
-            <li>{item}{index < 4 && <b aria-hidden="true">→</b>}</li>
-          ))}
-        </ol>
-      </section>
-
-      <section class="ptp-section" aria-labelledby="tracks-heading">
-        <div class="ptp-section-heading">
-          <p class="eyebrow">Implementation tracks</p>
-          <h2 id="tracks-heading">Choose a pace that matches the work</h2>
-        </div>
-        <div class="ptp-track-grid">
-          <article><strong>Weekend</strong><p>Make one bounded decision and prepare the next handoff.</p></article>
-          <article><strong>Seven-Day MVP</strong><p>Move one chosen product through a tightly scoped first version.</p></article>
-          <article><strong>Thirty-Day</strong><p>Build, publish, measure, and review a more complete buyer path.</p></article>
-        </div>
-      </section>
-
-      <section class="ptp-section" aria-labelledby="sample-heading">
-        <div class="ptp-section-heading">
-          <p class="eyebrow">Fictional worked example</p>
-          <h2 id="sample-heading">Freelancer Client Onboarding Kit</h2>
-          <p>This simulated case study shows one product moving through every stage. It is instructional material, not a customer result or performance benchmark.</p>
-        </div>
-        <div class="ptp-case-study">
-          <div><span>Choose</span><strong>Solo brand designers after a proposal is accepted</strong><p>A Product Brief narrows the problem to scattered onboarding context.</p></div>
-          <div><span>Create</span><strong>Six-file onboarding package</strong><p>A workflow map, intake form, welcome email, asset checklist, kickoff agenda, and filled example.</p></div>
-          <div><span>Sell</span><strong>Simulated launch evidence</strong><p>620 reach, 74 clicks, 11 replies, 6 sales, 1 refund, and 2 support issues. These figures are fictional.</p></div>
-          <div><span>Improve</span><strong>One Product Change Request</strong><p>Add DOCX files and state the exact formats before purchase.</p></div>
-        </div>
-      </section>
-    </>
-  )}
-
-  <ProductPreviewGallery product={product} />
-
-  <section class="ptp-section ptp-boundary-section" aria-labelledby="boundary-heading">
-    <div class="ptp-section-heading">
-      <p class="eyebrow">6 · Deliberate boundary</p>
-      <h2 id="boundary-heading">What this product does not cover</h2>
-    </div>
-    <ul class="ptp-boundary-list">
-      {product.exclusions.map((item) => <li>{item}</li>)}
-    </ul>
-  </section>
-
-  <section class="ptp-section ptp-next-section" aria-labelledby="next-heading">
-    <div class="ptp-section-heading">
-      <p class="eyebrow">7 · Next handoff</p>
-      <h2 id="next-heading">What happens after this stage</h2>
-    </div>
-    {nextHref ? (
-      <div class="ptp-next-action">
+    <Breadcrumbs
+      items={[
+        { label: "Home", href: "/" },
+        { label: "Product-to-Profit", href: systemPath },
+        { label: product.shortTitle },
+      ]}
+    />
+    <details class="ptp-details">
+      <summary>Where this fits in the system</summary>
+      <SystemStagePath currentHref={path} compact />
+    </details>
+    <section class="ptp-section" aria-labelledby="result-heading">
+      <h2 id="result-heading">Start with this. Leave with this.</h2>
+      <dl class="ptp-contract-grid">
         <div>
-          <span>Carry forward</span>
-          <strong>{product.handoff}</strong>
+          <dt>Your input</dt>
+          <dd>{product.requiredInput}</dd>
         </div>
-        <a
-          class="button-cta button-cta-secondary"
-          href={nextHref}
-          data-product-cta
-          data-product={product.nextSlug}
-          data-stage="next"
-          data-page={product.slug}
-          data-position="next-handoff"
-        >{product.nextLabel}</a>
+        <div>
+          <dt>Your result</dt>
+          <dd>{product.output}</dd>
+        </div>
+      </dl>
+    </section>
+    <section
+      class="ptp-section"
+      id="included"
+      aria-labelledby="included-heading"
+    >
+      <h2 id="included-heading">Inside the package</h2>
+      <ul class="ptp-check-grid">
+        {product.included.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+      <details class="ptp-details">
+        <summary>Files, compatibility, and first use</summary>
+        <p>
+          {product.delivery.packageName} · {product.delivery.packageSize} ·{" "}
+          {product.delivery.fileCount} files
+        </p>
+        <p>{product.delivery.formats.join(", ")}</p>
+        <p>{productPolicies.compatibility}</p>
+        <ul>
+          {product.delivery.contents.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+        <p>
+          <strong>First action:</strong> {product.delivery.firstStep}
+        </p>
+      </details>
+      {isBundle && (
+        <div class="ptp-bundle-difference">
+          <h3>What the bundle adds</h3>
+          <p>
+            All six products, a cross-stage master workspace, integrated
+            handoffs, and Weekend, Seven-Day MVP, and Thirty-Day implementation
+            tracks. Builder and Launch Engine cost €38 together; the €39 bundle
+            also includes the €19 AI Business Pathways.
+          </p>
+          <p>
+            The fictional case study and six editable sample DOCX files are also
+            included with the standalone Builder. They are not bundle-exclusive
+            bonuses.
+          </p>
+        </div>
+      )}
+      <p>
+        <a class="cta" href="/product-to-profit/example/">
+          See a completed fictional product brief
+        </a>
+      </p>
+    </section>
+    <ProductPreviewGallery product={product} />
+    <section class="ptp-section" aria-label="Scope and purchase policies">
+      <details class="ptp-details">
+        <summary>What this product does not do</summary>
+        <ul>
+          {product.exclusions.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+        <p>
+          These are workbooks and tools, not guarantees of traffic, customers,
+          sales, or income.
+        </p>
+      </details>
+      <details class="ptp-details">
+        <summary>License, support, and refunds</summary>
+        <p>{productPolicies.license}</p>
+        <p>{productPolicies.support}</p>
+        <p>{productPolicies.refunds}</p>
+        <a class="cta" href={productInformationPath}>
+          Full product policies
+        </a>
+      </details>
+    </section>
+    <section
+      class="ptp-section ptp-final-section"
+      aria-labelledby="purchase-heading"
+    >
+      <div>
+        <h2 id="purchase-heading">
+          {product.access === "free"
+            ? "Get the free package"
+            : `Get ${product.shortTitle}`}
+        </h2>
+        <p>
+          {product.access === "free"
+            ? "Choose €0 at Gumroad checkout, or optionally pay more."
+            : "One-time purchase. The amount and any applicable tax are shown at Gumroad checkout."}
+        </p>
+        <p>{product.pricingNote}</p>
       </div>
-    ) : (
-      <p class="ptp-lead-answer">Start at the first stage whose required input you already have, then move forward only when its handoff is complete.</p>
-    )}
-  </section>
-
-  <section class="ptp-section ptp-purchase-section" aria-labelledby="purchase-heading">
-    <div>
-      <p class="eyebrow">8 · Price and store</p>
-      <span class:list={["ptp-access-badge", `ptp-access-${product.access}`]}>{product.accessLabel}</span>
-      <h2 id="purchase-heading">{product.price}</h2>
-      <p>{purchaseDescription}</p>
-      <p class="ptp-pricing-note">{product.pricingNote}</p>
-    </div>
-    <ProductStoreAction product={product} page={product.slug} position="final" />
-  </section>
-
-  <section class="ptp-section ptp-trust-section" aria-labelledby="trust-heading">
-    <div class="ptp-section-heading">
-      <p class="eyebrow">Trust and fit</p>
-      <h2 id="trust-heading">What to know before checkout</h2>
-    </div>
-    <div class="ptp-trust-grid">
-      <div><strong>No guaranteed sales</strong><p>The system structures decisions and evidence. It does not guarantee demand, sales, revenue, or any other commercial outcome.</p></div>
-      <div><strong>Personal-use license</strong><p>Use and customize the materials for your own product work. Do not resell, redistribute, repackage, or publish them as templates or products.</p></div>
-      <div><strong>Support and updates</strong><p>Best-effort access and file support; versioned material updates; no consulting, guaranteed response time, or lifetime-update promise.</p></div>
-      <div><strong>Checkout and privacy</strong><p>Gumroad handles free and paid product checkout, delivery, and buyer information under its current store terms.</p></div>
-    </div>
-    <p class="ptp-evidence-note"><strong>Evidence status:</strong> The packages and form fields have been release-checked. The worked example is fictional, and no customer quote or commercial outcome is claimed.</p>
-    <p class="ptp-policy-link"><a class="cta" href={productInformationPath}>Read delivery, license, support, refund, tax, and privacy details</a></p>
-  </section>
-
-  <section class="ptp-section" aria-labelledby="product-faq-heading">
-    <div class="ptp-section-heading">
-      <p class="eyebrow">FAQ</p>
-      <h2 id="product-faq-heading">Questions before you choose</h2>
-    </div>
-    <div class="faq-list">
-      {visibleFaqs.map((item) => (
-        <details>
-          <summary>{item.question}</summary>
-          <p>{item.answer}</p>
-        </details>
-      ))}
-    </div>
-  </section>
-
-  <SiteFooter />
+      <div class="landing-actions">
+        <ProductStoreAction
+          product={product}
+          page={product.slug}
+          position="final"
+          showStatus={false}
+        />
+        {product.nextSlug && (
+          <a class="cta" href={productPath(product.nextSlug)}>
+            Next: {product.nextLabel}
+          </a>
+        )}
+      </div>
+    </section>
   </div>
+  <SiteFooter />
 </BaseLayout>

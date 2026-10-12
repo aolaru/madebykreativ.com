@@ -14,7 +14,11 @@ const staticRoutes = [
   { path: "/updates/", changefreq: "weekly", priority: "0.8" },
   { path: "/privacy/northlight/", changefreq: "monthly", priority: "0.6" },
   { path: "/privacy/sharesafe/", changefreq: "monthly", priority: "0.6" },
-  { path: "/news/", changefreq: "weekly", priority: "0.8" },
+  { path: "/privacy/", changefreq: "monthly", priority: "0.6" },
+  { path: "/apps/northlight/", changefreq: "monthly", priority: "0.8" },
+  { path: "/apps/sharesafe/", changefreq: "monthly", priority: "0.8" },
+  { path: "/product-to-profit/ai-business-pathways/", changefreq: "monthly", priority: "0.8" },
+  { path: "/product-to-profit/example/", changefreq: "monthly", priority: "0.6" },
   { path: "/about/", changefreq: "monthly", priority: "0.7" },
   { path: "/contact/", changefreq: "monthly", priority: "0.7" }
 ];
@@ -29,9 +33,14 @@ const escapeXml = (value: string) =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
 
-const renderUrl = ({ path, changefreq, priority, lastmod }: { path: string; changefreq: string; priority: string; lastmod: string }) => `  <url>
+const pageDates: Record<string, string> = {
+  "/": "2026-10-12", "/product-to-profit/": "2026-10-12", "/projects/": "2026-10-12",
+  "/updates/": "2026-10-12", "/privacy/": "2026-10-12", "/about/": "2026-10-12",
+  "/privacy/northlight/": "2026-10-10", "/privacy/sharesafe/": "2026-10-11"
+};
+const renderUrl = ({ path, changefreq, priority, lastmod }: { path: string; changefreq: string; priority: string; lastmod?: string }) => `  <url>
     <loc>${escapeXml(buildUrl(path))}</loc>
-    <lastmod>${lastmod}</lastmod>
+    ${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
   </url>`;
@@ -47,12 +56,12 @@ export async function GET() {
     }));
 
   const routes = [
-    ...staticRoutes.map((route) => ({ ...route, lastmod: site.lastUpdated })),
+    ...staticRoutes.map((route) => ({ ...route, lastmod: pageDates[route.path] || (route.path.startsWith("/product-to-profit/") || route.path.startsWith("/apps/") ? "2026-10-12" : undefined) })),
     ...projectDirectory.map((project) => ({
       path: projectPath(project.slug),
       changefreq: "monthly",
       priority: project.isCore ? "0.8" : "0.7",
-      lastmod: site.lastUpdated
+      lastmod: "2026-10-12"
     })),
     ...newsRoutes
   ];

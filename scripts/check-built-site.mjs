@@ -11,10 +11,12 @@ const productRoutes = [
   "/product-to-profit/workflow-product-builder/",
   "/product-to-profit/digital-product-launch-engine/",
   "/product-to-profit/system/",
+  "/product-to-profit/ai-business-pathways/",
+  "/product-to-profit/example/",
   "/product-to-profit/product-information/"
 ];
 
-const websiteRoutes = ["/updates/", "/privacy/northlight/", "/privacy/sharesafe/"];
+const websiteRoutes = ["/updates/", "/privacy/", "/privacy/northlight/", "/privacy/sharesafe/", "/apps/northlight/", "/apps/sharesafe/"];
 const requiredRoutes = [...productRoutes, ...websiteRoutes];
 
 const productAssets = [
@@ -60,8 +62,9 @@ const redirects = new Map([
   ["/guides/", "/product-to-profit/"],
   ["/your-first-digital-product/", "/product-to-profit/idea-library/"],
   ["/ai-launch-toolkit/", "/product-to-profit/system/"],
-  ["/news.html", "/news/"],
-  ["/posts.html", "/news/"],
+  ["/news/", "/updates/"],
+  ["/news.html", "/updates/"],
+  ["/posts.html", "/updates/"],
   ["/about.html", "/about/"],
   ["/contact.html", "/contact/"]
 ]);

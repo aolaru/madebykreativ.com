@@ -10,6 +10,9 @@ export interface SiteUpdate {
 }
 
 export const siteUpdates: SiteUpdate[] = [
+  {id:"unified-updates",date:"2026-10-12",kind:"Update",title:"News and website changes combined into Updates",description:"One searchable archive now holds product announcements, project notes, additions, and fixes. Existing article links and RSS subscriptions remain available.",href:"/updates/"},
+  {id:"android-product-pages",date:"2026-10-12",kind:"New",title:"ShareSafe and Northlight product pages added",description:"Android app pages now include real screenshots, Google Play links, app capabilities, limitations, and their separate privacy policies.",href:"/projects/"},
+  {id:"release-and-mobile-alignment",date:"2026-10-12",kind:"Fix",title:"Product specifications, previews, and mobile comparisons refreshed",description:"Aligned package details and free download compatibility links with verified October releases, shortened product pages, and made all stages and prices visible on mobile.",href:"/product-to-profit/"},
   {
     id: "scorecard-first-product-to-profit-guide",
     date: "2026-08-27",

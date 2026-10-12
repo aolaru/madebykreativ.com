@@ -1,5 +1,5 @@
 ---
-import { analytics, clientConfig } from "../data/site";
+import { clientConfig } from "../data/site";
 
 interface Props {
   title: string;
@@ -38,7 +38,6 @@ const {
 } = Astro.props;
 
 const canonicalUrl = new URL(canonicalPath, Astro.site);
-const shouldLoadProductionAnalytics = import.meta.env.PROD;
 ---
 
 <!DOCTYPE html>
@@ -82,7 +81,7 @@ const shouldLoadProductionAnalytics = import.meta.env.PROD;
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="alternate" type="application/rss+xml" title="Made by Kreativ News" href="/news/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Made by Kreativ Updates" href="/updates/rss.xml" />
 
     <script is:inline>
       try {
@@ -95,15 +94,7 @@ const shouldLoadProductionAnalytics = import.meta.env.PROD;
     <link rel="preload" href="/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/style.css" />
     <script is:inline set:html={`window.KREATIV_CONFIG = ${JSON.stringify(clientConfig)};`} />
-    <script is:inline defer src="/site.js"></script>
-    {shouldLoadProductionAnalytics && (
-      <script
-        is:inline
-        type="module"
-        src={analytics.cloudflare.src}
-        data-cf-beacon={JSON.stringify({ token: analytics.cloudflare.token })}
-      ></script>
-    )}
+    <script is:inline type="module" src="/site.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>

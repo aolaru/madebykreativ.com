@@ -14,11 +14,17 @@
     "validate:links": "node scripts/check-local-links.mjs",
     "validate:artifact": "node scripts/check-built-site.mjs",
     "validate": "npm run build && npm run validate:html && npm run validate:links && npm run validate:artifact",
-    "check": "npm run validate"
+    "validate:browser": "playwright test",
+    "validate:storefronts": "node scripts/check-storefronts.mjs",
+    "check": "npm run validate && npm run validate:browser"
   },
   "devDependencies": {
-    "astro": "^7.1.6",
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.64.0",
+    "astro": "^7.3.8",
     "html-validate": "^11.8.0",
-    "linkinator": "^8.0.4"
+    "linkinator": "^8.0.4",
+    "prettier": "^3.9.10",
+    "prettier-plugin-astro": "^1.1.1"
   }
 }

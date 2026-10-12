@@ -12,13 +12,13 @@ const { product } = Astro.props;
   <div class="ptp-section-heading">
     <p class="eyebrow">Real workbook pages</p>
     <h2 id={`${product.slug}-preview-heading`}>Inspect the working material</h2>
-    <p>These previews are rendered from the current product files. Open any page to inspect it at full size.</p>
+    <p>Package {product.delivery.version}, released {product.released}. {product.slug === "ai-business-pathways" ? "Guide v1.2; prompt vault v1.1." : `Main PDF ${product.pdfVersion}${product.pages ? `, ${product.pages} pages` : ""}${product.fields ? `, ${product.fields} fillable fields` : ""}.`}</p>
   </div>
   <div class:list={["ptp-preview-grid", { "ptp-preview-grid-single": product.previews.length === 1 }]}>
-    {product.previews.map((preview) => (
+    {product.previews.slice(0, 2).map((preview) => (
       <a href={preview.src} target="_blank" rel="noopener" class="ptp-preview">
         <img
-          src={preview.src}
+          src={preview.src.replace(/\.png$/, ".webp")}
           alt={preview.alt}
           width={preview.width}
           height={preview.height}
@@ -29,4 +29,5 @@ const { product } = Astro.props;
       </a>
     ))}
   </div>
+  {product.previews.length > 2 && <details class="ptp-details"><summary>More workbook previews</summary><ul>{product.previews.slice(2).map((preview)=><li><a href={preview.src} target="_blank" rel="noopener">{preview.label}</a></li>)}</ul></details>}
 </section>

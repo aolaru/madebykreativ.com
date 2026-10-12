@@ -4,6 +4,7 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
 import ProjectDirectoryCard from "../../components/ProjectDirectoryCard.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
+import AppLinks from "../../components/AppLinks.astro";
 import {
   activeProjects,
   buildUrl,
@@ -11,7 +12,8 @@ import {
   ecosystemItemListSchema,
   organizationSchema,
   projectPath,
-  statusDefinitions
+  statusDefinitions,
+  archivedProjects
 } from "../../data/site";
 ---
 
@@ -78,6 +80,8 @@ import {
       ))}
     </div>
 
+    <div class="section-heading-row directory-group-heading"><div><p class="eyebrow">Retained reference</p><h2>Archived projects</h2></div></div>
+    <div class="project-directory-grid">{archivedProjects.map((project)=><ProjectDirectoryCard href={projectPath(project.slug)} slug={project.slug} label={project.label} category={project.category} status={project.status} description={project.description} logo={project.logo} />)}</div>
     <dl class="status-legend project-status-reference">
       {statusDefinitions.map((status) => (
         <div>
@@ -88,5 +92,6 @@ import {
     </dl>
   </section>
 
+  <AppLinks />
   <SiteFooter />
 </BaseLayout>
