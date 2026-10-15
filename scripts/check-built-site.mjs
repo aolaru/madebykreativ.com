@@ -137,6 +137,27 @@ if (cname !== "madebykreativ.com") {
   failures.push(`CNAME: expected madebykreativ.com, received ${cname || "empty value"}`);
 }
 
+const shareSafePolicy = await readFile(new URL("privacy/sharesafe/index.html", distRoot), "utf8");
+for (const requirement of [
+  'id="privacy-check-heading"',
+  'id="sdk-diagnostics-heading"',
+  'id="external-links-heading"',
+  'https://developers.google.com/ml-kit/android-data-disclosure',
+  'https://developers.google.com/ml-kit/terms',
+  'per-installation identifiers',
+  'images and detection results are not sent to Google',
+  'October 15, 2026'
+]) {
+  if (!shareSafePolicy.includes(requirement)) failures.push(`ShareSafe privacy policy: missing ${requirement}`);
+}
+for (const obsoleteClaim of [
+  'No account, analytics, ads, or cloud storage',
+  'We do not add advertising or app-usage analytics SDKs.',
+  'The app does not automatically detect faces or sensitive information.'
+]) {
+  if (shareSafePolicy.includes(obsoleteClaim)) failures.push(`ShareSafe privacy policy: obsolete claim ${obsoleteClaim}`);
+}
+
 if (failures.length > 0) {
   console.error(`Built-site validation failed:\n- ${failures.join("\n- ")}`);
   process.exitCode = 1;

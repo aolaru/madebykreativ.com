@@ -6,7 +6,7 @@ import SiteFooter from "../../components/SiteFooter.astro";
 import { createBreadcrumbSchema, createPageSchema, organizationSchema, site } from "../../data/site";
 
 const pageDescription = "Learn how ShareSafe, the private Android photo cleaner by Made by Kreativ, handles photos and personal information.";
-const lastUpdated = "October 11, 2026";
+const lastUpdated = "October 15, 2026";
 const pagePath = "/privacy/sharesafe/";
 ---
 
@@ -46,13 +46,14 @@ const pagePath = "/privacy/sharesafe/";
     <h2 id="policy-intro-heading">ShareSafe keeps photo cleaning on your device</h2>
     <p>This policy applies specifically to the ShareSafe Android app (package name <code>com.kreativ.sharesafe</code>), a private photo cleaner developed by Made by Kreativ.</p>
     <p>ShareSafe is designed to create clean copies of photos you choose, without sending your photos or their information to us.</p>
+    <p>This policy also covers Privacy Check and Face Assist in the upcoming Google Play update. Older versions and other store editions may not include these features. The ML Kit disclosure below applies to Play editions that bundle Face Assist; Amazon and Samsung editions do not include that SDK.</p>
     <p><a class="cta" href="/">Back to Made by Kreativ homepage</a></p>
   </section>
 
   <section class="content-card" aria-labelledby="local-processing-heading">
     <p class="eyebrow">Local-only processing</p>
     <h2 id="local-processing-heading">Your photos are processed on your Android device</h2>
-    <p>Photo cleaning and manual privacy editing happen entirely on your Android device. ShareSafe does not upload your photos, image metadata, or edited copies to Made by Kreativ or another server. If you choose to share a copy, the receiving app may send it elsewhere; see Saving and sharing below.</p>
+    <p>Photo cleaning, Privacy Check, manual editing and face detection happen on your Android device. ShareSafe does not upload photos, original EXIF field values, face detection results or edited copies to Made by Kreativ or Google. Image-format and resolution metrics are different from photo content and are covered under SDK diagnostics below. If you choose to share a copy, the receiving app may send it elsewhere; see Saving and sharing below.</p>
   </section>
 
   <section class="content-card" aria-labelledby="photo-access-heading">
@@ -68,10 +69,18 @@ const pagePath = "/privacy/sharesafe/";
     <p>Exported copies use neutral filenames rather than retaining potentially identifying original names. Large images may be reduced to at most 4096 pixels per side and 8 megapixels for safe memory use. Transparency becomes white, and animated images are exported as a single frame. Metadata removal does not hide information visible inside an image.</p>
   </section>
 
+  <section class="content-card" aria-labelledby="privacy-check-heading">
+    <p class="eyebrow">Free Privacy Check</p>
+    <h2 id="privacy-check-heading">A local check of selected metadata fields</h2>
+    <p>Privacy Check reads selected EXIF location, date/time and camera/device fields locally. It keeps field-presence counts for the report, not the actual coordinates, dates or identifying field values. Android or the selected provider may hide source metadata. Unsupported or unreadable inputs are marked unknown, not safe.</p>
+    <p>Generated JPEGs are checked again for these fields. Copies that cannot be verified or still contain checked fields are skipped. This check does not cover every metadata format or guarantee anonymity, and it cannot assess private details visible inside a photo.</p>
+  </section>
+
   <section class="content-card" aria-labelledby="editing-heading">
     <p class="eyebrow">Optional privacy editing</p>
     <h2 id="editing-heading">ShareSafe Pro edits stay on-device</h2>
-    <p>The Google Play edition may offer a one-time ShareSafe Pro purchase for manual Cover, blur, and pixelation tools. The app does not automatically detect faces or sensitive information. You choose the areas to edit, and the app exports a new flattened JPEG copy.</p>
+    <p>The Google Play edition offers a one-time ShareSafe Pro unlock for Cover, blur and pixelation tools. Advanced Edit supports selecting, moving, resizing and deleting areas, undo/redo, and exporting a new flattened JPEG copy.</p>
+    <p>In the updated Play edition, optional Pro Face Assist uses a bundled Google ML Kit model to find possible faces on-device without downloading a model first. It is face detection, not identity recognition. Suggestions can miss people or mark the wrong area. You must review suggestions and apply selected solid covers or dismiss them before export; finding a face does not itself redact it. Face Assist does not automatically detect names, addresses, IDs, plates or private chat content.</p>
     <p>Solid Cover replaces the selected pixels and is recommended for sensitive visible details. Blur and pixelation retain visual information and are not guaranteed to anonymise text, faces, IDs, or other content. Review the exported copy before sharing.</p>
   </section>
 
@@ -84,13 +93,22 @@ const pagePath = "/privacy/sharesafe/";
 
   <section class="content-card" aria-labelledby="collection-heading">
     <p class="eyebrow">Data collection</p>
-    <h2 id="collection-heading">No account, analytics, ads, or cloud storage</h2>
+    <h2 id="collection-heading">No account, ads or photo cloud storage</h2>
     <ul>
       <li>ShareSafe does not require an account.</li>
-      <li>We do not add advertising or app-usage analytics SDKs.</li>
+      <li>We do not include advertising SDKs or sell data for advertising.</li>
+      <li>The Play edition with Face Assist includes Google ML Kit, which collects diagnostic and usage metrics as explained below. We do not operate a separate photo-upload or analytics server.</li>
       <li>ShareSafe does not sell your personal data or send your photos to Made by Kreativ.</li>
       <li>ShareSafe does not use cloud storage for your photos or edits.</li>
     </ul>
+  </section>
+
+  <section class="content-card" aria-labelledby="sdk-diagnostics-heading">
+    <p class="eyebrow">Google ML Kit diagnostics</p>
+    <h2 id="sdk-diagnostics-heading">On-device photos, SDK diagnostic and usage data</h2>
+    <p>Google ML Kit collects device and app information, per-installation identifiers, performance measurements, API configuration, feature-event information and error codes. Examples include device model and OS version, app version, processing latency, image format and resolution, feature initialisation and detection events. These are used for diagnostics and usage analytics; images and detection results are not sent to Google.</p>
+    <p>Google states that this data is encrypted in transit using HTTPS and is not transferred onward to third parties by ML Kit. The SDK may also contact Google for maintenance and compatibility information. ShareSafe has no in-app switch to disable SDK metrics; Pro access being optional does not mean all SDK collection is opt-in.</p>
+    <p>Google processes metrics to maintain and improve its APIs and detect misuse under <a href="https://policies.google.com/privacy">Google’s Privacy Policy</a>. See <a href="https://developers.google.com/ml-kit/android-data-disclosure">ML Kit’s Android data disclosure</a> and <a href="https://developers.google.com/ml-kit/terms">ML Kit Terms &amp; Privacy</a>. We do not control Google’s retention of SDK metrics or promise deletion of that data through ShareSafe.</p>
   </section>
 
   <section class="content-card" aria-labelledby="purchases-heading">
@@ -106,6 +124,14 @@ const pagePath = "/privacy/sharesafe/";
     <h2 id="temporary-files-heading">Short-term private app cache</h2>
     <p>While you edit, share, or save, ShareSafe stores generated copies in its private app cache. Copies older than 24 hours are removed when a new app session starts; Android may clear cache files earlier. This is not a guarantee that files are erased exactly 24 hours after creation. Gallery copies and files you share are not removed by this cleanup.</p>
     <p>You can clear ShareSafe’s app data or uninstall it using Android settings to remove its local cache and purchase receipt. Your original photos and gallery copies remain under your control. Reinstalling does not cancel a Google Play purchase; use Restore Pro purchase with the purchasing Google Play account.</p>
+    <p>Clearing app data or uninstalling ShareSafe does not delete files already shared with other apps, cloud-backed gallery copies, Google Play transaction records or SDK metrics already sent to Google. Those are governed by the respective provider’s privacy and retention controls.</p>
+  </section>
+
+  <section class="content-card" aria-labelledby="external-links-heading">
+    <p class="eyebrow">Only when selected</p>
+    <h2 id="external-links-heading">External website and support links</h2>
+    <p>The Made by Kreativ credit and privacy-policy link open a website in your browser when you choose them. ShareSafe does not attach photos, EXIF values, detection results or purchase receipts to those links. Your browser and the destination website handle the visit under their own privacy settings and policies.</p>
+    <p>Contact support opens your email app. If you send us a message, we use the information you choose to include to respond; do not attach private photos or sensitive information unless necessary.</p>
   </section>
 
   <section class="content-card" aria-labelledby="changes-heading">
