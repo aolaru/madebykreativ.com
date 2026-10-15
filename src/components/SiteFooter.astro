@@ -12,6 +12,7 @@ const { compact = false } = Astro.props;
   {!compact && (
     <nav class="ecosystem-links" aria-label="Made by Kreativ project links">
       <a href="/product-to-profit/">Product-to-Profit</a>
+      <a href="/apps/">Apps</a>
       {activeProjects.map((project) => (
         <a href={projectPath(project.slug)}>{project.label}</a>
       ))}

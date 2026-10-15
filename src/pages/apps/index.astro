@@ -1,0 +1,136 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HeroHeader from "../../components/HeroHeader.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import { apps } from "../../data/apps";
+import {
+  buildUrl,
+  createBreadcrumbSchema,
+  organizationSchema,
+} from "../../data/site";
+
+const description =
+  "Explore ShareSafe, Northlight, and mobile apps by Made by Kreativ. See real screenshots, free and paid options, and official store links.";
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Kreativ Apps",
+  description,
+  url: buildUrl("/apps/"),
+  mainEntity: {
+    "@type": "ItemList",
+    numberOfItems: apps.length,
+    itemListElement: apps.map((app, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "SoftwareApplication",
+        name: app.name,
+        description: app.description,
+        operatingSystem: [
+          ...new Set(app.stores.map((store) => store.platform)),
+        ].join(", "),
+        url: buildUrl(`/apps/${app.slug}/`),
+        image: buildUrl(`/apps/${app.slug}/icon.png`),
+        installUrl: app.stores.map((store) => store.url),
+      },
+    })),
+  },
+};
+---
+
+<BaseLayout
+  title="Kreativ Apps | Made by Kreativ"
+  description={description}
+  canonicalPath="/apps/"
+  structuredData={[
+    organizationSchema,
+    collectionSchema,
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Apps", path: "/apps/" },
+    ]),
+  ]}
+>
+  <HeroHeader
+    current="apps"
+    eyebrow="Made by Kreativ"
+    title="Kreativ Apps"
+    tagline="Small, focused tools for everyday tasks."
+  />
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Apps" }]} />
+
+  <section class="apps-catalogue" aria-label="Available mobile apps">
+    {apps.map((app) => (
+      <article class="apps-card" aria-labelledby={`${app.slug}-heading`}>
+        <div class="apps-card-heading">
+          <img
+            src={`/apps/${app.slug}/icon.png`}
+            alt=""
+            width="56"
+            height="56"
+          />
+          <div>
+            <p class="eyebrow">{app.category}</p>
+            <h2 id={`${app.slug}-heading`}>
+              <a href={`/apps/${app.slug}/`}>{app.name}</a>
+            </h2>
+          </div>
+        </div>
+        <div class="apps-card-meta">
+          {[...new Set(app.stores.map((store) => store.platform))].map(
+            (platform) => (
+              <span class="apps-platform">{platform}</span>
+            ),
+          )}
+          <span>{app.accessLabel}</span>
+        </div>
+        <p class="apps-card-description">{app.description}</p>
+        <a
+          class="apps-card-preview"
+          href={`/apps/${app.slug}/`}
+          aria-label={`See ${app.name} screenshots and details`}
+        >
+          <img
+            src={`/apps/${app.slug}/screen.png`}
+            alt={`${app.name} app interface.`}
+            width="1080"
+            height={app.screenshotHeight}
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
+        <div class="apps-card-actions">
+          {app.stores.map((store) => (
+            <a
+              class="button-cta button-cta-primary"
+              href={store.url}
+              target="_blank"
+              rel="noopener"
+            >
+              Get it on {store.name}
+            </a>
+          ))}
+          <a class="cta" href={`/apps/${app.slug}/`}>
+            App details
+          </a>
+        </div>
+        <p class="apps-card-policies">
+          <a href={`/privacy/${app.slug}/`}>Privacy policy</a>
+          <a href="/contact/">Support</a>
+        </p>
+      </article>
+    ))}
+  </section>
+  <section class="apps-contact" aria-labelledby="apps-contact-heading">
+    <div>
+      <h2 id="apps-contact-heading">Questions about an app?</h2>
+      <p>Get help with a purchase, report a problem, or share feedback.</p>
+    </div>
+    <a class="cta" href="/contact/">
+      Contact Andrei
+    </a>
+  </section>
+  <SiteFooter />
+</BaseLayout>

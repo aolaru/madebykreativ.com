@@ -11,6 +11,7 @@ const staticRoutes = [
   { path: "/product-to-profit/system/", changefreq: "monthly", priority: "0.8" },
   { path: "/product-to-profit/product-information/", changefreq: "monthly", priority: "0.6" },
   { path: "/projects/", changefreq: "weekly", priority: "0.9" },
+  { path: "/apps/", changefreq: "monthly", priority: "0.9" },
   { path: "/updates/", changefreq: "weekly", priority: "0.8" },
   { path: "/privacy/northlight/", changefreq: "monthly", priority: "0.6" },
   { path: "/privacy/sharesafe/", changefreq: "monthly", priority: "0.6" },
@@ -34,8 +35,9 @@ const escapeXml = (value: string) =>
     .replace(/'/g, "&apos;");
 
 const pageDates: Record<string, string> = {
-  "/": "2026-10-12", "/product-to-profit/": "2026-10-12", "/projects/": "2026-10-12",
-  "/updates/": "2026-10-12", "/privacy/": "2026-10-12", "/about/": "2026-10-12",
+  "/": "2026-10-15", "/product-to-profit/": "2026-10-12", "/projects/": "2026-10-15",
+  "/apps/": "2026-10-15", "/apps/northlight/": "2026-10-15", "/apps/sharesafe/": "2026-10-15",
+  "/updates/": "2026-10-15", "/privacy/": "2026-10-12", "/about/": "2026-10-12",
   "/privacy/northlight/": "2026-10-10", "/privacy/sharesafe/": "2026-10-11"
 };
 const renderUrl = ({ path, changefreq, priority, lastmod }: { path: string; changefreq: string; priority: string; lastmod?: string }) => `  <url>

@@ -8,30 +8,36 @@ export function getStaticPaths() {
   return apps.map((app) => ({ params: { slug: app.slug }, props: { app } }));
 }
 const { app } = Astro.props;
-const playUrl = `https://play.google.com/store/apps/details?id=com.kreativ.${app.slug}`;
+const platforms = [...new Set(app.stores.map((store) => store.platform))].join(
+  " and ",
+);
 ---
 
 <BaseLayout
-  title={`${app.name} for Android | Made by Kreativ`}
+  title={`${app.name} for ${platforms} | Made by Kreativ`}
   description={app.description}
   canonicalPath={`/apps/${app.slug}/`}
 >
-  <SiteNav current="projects" />
+  <SiteNav current="apps" />
   <header class="app-hero">
     <div>
       <img src={`/apps/${app.slug}/icon.png`} width="80" height="80" alt="" />
-      <p class="eyebrow">Android app · free core tools</p>
+      <p class="eyebrow">
+        {platforms} · {app.accessLabel}
+      </p>
       <h1>{app.name}</h1>
       <p>{app.description}</p>
       <div class="landing-actions">
-        <a
-          class="button-cta button-cta-primary"
-          href={playUrl}
-          target="_blank"
-          rel="noopener"
-        >
-          Get it on Google Play
-        </a>
+        {app.stores.map((store) => (
+          <a
+            class="button-cta button-cta-primary"
+            href={store.url}
+            target="_blank"
+            rel="noopener"
+          >
+            Get it on {store.name}
+          </a>
+        ))}
         <a class="cta" href={`/privacy/${app.slug}/`}>
           App privacy policy
         </a>
@@ -41,14 +47,14 @@ const playUrl = `https://play.google.com/store/apps/details?id=com.kreativ.${app
       class="app-screen"
       src={`/apps/${app.slug}/screen.png`}
       width="1080"
-      height={app.slug === "northlight" ? 2340 : 1920}
-      alt={`${app.name} Android app screenshot.`}
+      height={app.screenshotHeight}
+      alt={`${app.name} app screenshot.`}
     />
   </header>
   <Breadcrumbs
     items={[
       { label: "Home", href: "/" },
-      { label: "Projects", href: "/projects/" },
+      { label: "Apps", href: "/apps/" },
       { label: app.name },
     ]}
   />
@@ -59,12 +65,8 @@ const playUrl = `https://play.google.com/store/apps/details?id=com.kreativ.${app
         <li>{feature}</li>
       ))}
     </ul>
-    <p>
-      No account, advertising, or developer-operated cloud processing. Optional
-      Pro features, when available in your installed version, are purchased
-      separately through Google Play; current availability and price are shown
-      there.
-    </p>
+    <p>No account, advertising, or developer-operated cloud processing.</p>
+    <p>{app.proDescription}</p>
     <p>{app.limitation}</p>
     <p>
       <a class="cta" href="/contact/">
