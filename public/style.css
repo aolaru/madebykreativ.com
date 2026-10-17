@@ -1936,6 +1936,36 @@ a {
   margin-top: 0.9rem;
 }
 
+.app-tutorial h2 {
+  margin-top: 2rem;
+}
+
+.app-tutorial h3 {
+  margin: 1.75rem 0 0.65rem;
+}
+
+.news-detail table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+  font-size: 0.9rem;
+}
+
+.news-detail th,
+.news-detail td {
+  padding: 0.7rem;
+  border-bottom: 1px solid var(--card-border);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.news-detail th:first-child,
+.news-detail td:first-child {
+  width: 33%;
+}
+
 .article-fact-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1998,6 +2028,34 @@ a {
   margin-top: 1.2rem;
   padding-top: 1rem;
   border-top: 1px solid var(--card-border);
+}
+
+.news-detail .tutorial-screenshot {
+  margin: 1.75rem auto 2.25rem;
+  max-width: 440px;
+}
+
+.tutorial-screenshot > a {
+  display: block;
+  width: min(100%, 340px);
+  margin-inline: auto;
+}
+
+.tutorial-screenshot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  box-shadow: 0 12px 30px var(--shadow);
+}
+
+.tutorial-screenshot figcaption {
+  margin-top: 0.7rem;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.6;
+  text-align: center;
 }
 
 .article-archive-note {

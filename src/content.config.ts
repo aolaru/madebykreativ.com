@@ -10,6 +10,7 @@ const news = defineCollection({
     sortDate: z.date(),
     category: z.enum(["Product", "Project", "Ecosystem", "Engineering"]),
     project: z.string().optional(),
+    app: z.enum(["sharesafe", "northlight"]).optional(),
     image: z.string().optional()
   })
 });

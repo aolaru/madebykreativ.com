@@ -17,9 +17,10 @@ const productRoutes = [
 ];
 
 const websiteRoutes = ["/updates/", "/privacy/", "/privacy/northlight/", "/privacy/sharesafe/", "/apps/", "/apps/northlight/", "/apps/sharesafe/"];
-const requiredRoutes = [...productRoutes, ...websiteRoutes];
+const requiredRoutes = [...productRoutes, ...websiteRoutes, "/news/remove-photo-metadata-android-sharesafe/"];
 
 const productAssets = [
+  ...["01-choose-photos", "02-original-metadata", "03-export-options", "04-before-after", "05-ready-to-share"].map((name) => `images/sharesafe/tutorial/${name}.png`),
   "og-product-to-profit-guide.png",
   "og-updates.png",
   "downloads/product-to-profit/KREATIV_Idea_Library_v2_Upgrade.zip",
