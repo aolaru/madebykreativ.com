@@ -16,7 +16,7 @@ const productRoutes = [
   "/product-to-profit/product-information/"
 ];
 
-const websiteRoutes = ["/updates/", "/privacy/", "/privacy/northlight/", "/privacy/sharesafe/", "/apps/", "/apps/northlight/", "/apps/sharesafe/"];
+const websiteRoutes = ["/updates/", "/privacy/", "/privacy/blockshift/", "/privacy/northlight/", "/privacy/sharesafe/", "/apps/", "/apps/northlight/", "/apps/sharesafe/"];
 const requiredRoutes = [...productRoutes, ...websiteRoutes, "/news/remove-photo-metadata-android-sharesafe/"];
 
 const productAssets = [
