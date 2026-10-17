@@ -47,8 +47,8 @@ export const apps: KreativApp[] = [
     category: "Compass and light",
     accessLabel: "Free + optional paid Pro",
     proDescription:
-      "Optional Northlight Pro adds saved bearings, amber and green screen lights, and an adjustable flash strobe through a one-time Google Play purchase. The core compass, lantern, red light, and SOS stay free. Your local Pro price is shown before purchase.",
-    screenshotHeight: 2340,
+      "Optional Northlight Pro adds up to eight saved magnetic bearings, spoken phone-turn guidance, optional alignment vibration, amber and green screen lights, and an adjustable strobe through a one-time Google Play purchase. Core compass, speech, GPS altitude, lantern, red light and SOS remain free. Your local Pro price is shown before purchase.",
+    screenshotHeight: 1920,
     stores: [
       {
         platform: "Android",
@@ -57,13 +57,14 @@ export const apps: KreativApp[] = [
       },
     ],
     description:
-      "An offline magnetic compass, LED lantern, red-light screen, and SOS light for Android.",
+      "An offline magnetic compass for Android, with spoken headings, optional GPS altitude estimates and practical light tools.",
     features: [
-      "Magnetic compass with accuracy feedback",
-      "Adjustable LED lantern on supported devices",
-      "Red-light screen, SOS signal, and Quick Settings torch tile",
+      "Read magnetic headings with a clear degree dial and accuracy feedback",
+      "Hear headings using an installed offline voice",
+      "Enable GPS altitude estimates with reference and uncertainty labels",
+      "Use the LED lantern, adjustable red screen light, SOS and Quick Settings torch tile",
     ],
     limitation:
-      "Compass accuracy depends on your phone's sensors and nearby magnetic interference. Flash brightness varies by device. SOS is a flashing light, not an emergency call or a substitute for dedicated safety equipment.",
+      "Compass accuracy depends on the phone's sensors and nearby magnetic interference. GPS altitude is approximate; read the displayed reference and vertical uncertainty. Bearing cues describe phone orientation, not routes or safe paths. SOS is a flashing light, not an emergency call. Flash brightness and haptics depend on hardware and Android settings.",
   },
 ];

@@ -17,9 +17,10 @@ const productRoutes = [
 ];
 
 const websiteRoutes = ["/updates/", "/privacy/", "/privacy/blockshift/", "/privacy/northlight/", "/privacy/sharesafe/", "/apps/", "/apps/northlight/", "/apps/sharesafe/"];
-const requiredRoutes = [...productRoutes, ...websiteRoutes, "/news/remove-photo-metadata-android-sharesafe/"];
+const requiredRoutes = [...productRoutes, ...websiteRoutes, "/news/remove-photo-metadata-android-sharesafe/", "/news/offline-compass-android-northlight/"];
 
 const productAssets = [
+  ...["01-compass", "02-spoken-compass", "03-altimeter", "04-red-light"].map((name) => `images/northlight/tutorial/${name}.png`),
   ...["01-choose-photos", "02-original-metadata", "03-export-options", "04-before-after", "05-ready-to-share"].map((name) => `images/sharesafe/tutorial/${name}.png`),
   "og-product-to-profit-guide.png",
   "og-updates.png",
