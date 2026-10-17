@@ -12,7 +12,10 @@ test("Northlight tutorial has real screenshots, limitations and attributed Play 
   for (const [index, figure] of figures.entries()) {
     const image = figure.locator("img");
     await image.scrollIntoViewIfNeeded();
-    await expect.poll(() => image.evaluate((img) => [img.complete, img.naturalWidth, img.naturalHeight])).toEqual([true, ...dimensions[index]]);
+    await expect.poll(() => image.evaluate((img) => img.complete && img.naturalWidth > 0)).toBe(true);
+    await expect(image).toHaveAttribute("width", String(dimensions[index][0]));
+    await expect(image).toHaveAttribute("height", String(dimensions[index][1]));
+    await expect(image).toHaveAttribute("srcset", /480\.webp 480w.*960\.webp 960w/);
     await expect(figure.locator("a")).toHaveAttribute("href", await image.getAttribute("src"));
     await expect(image).toHaveAttribute("alt", /.+/);
     await expect(figure.locator("figcaption")).not.toBeEmpty();

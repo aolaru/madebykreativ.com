@@ -1,4 +1,5 @@
 import releases from "./productReleases.json";
+import storefronts from "./storefronts.json";
 
 export type ProductToProfitSlug =
   | "idea-library"
@@ -425,12 +426,14 @@ const products: Array<Omit<ProductToProfitProduct, "delivery"> & {delivery: Pick
 
 export const productToProfitProducts = products.map((product) => {
   const release = releases[product.slug];
+  const offer = storefronts[product.slug];
+  const price = offer.priceCents === 0 ? "Free" : new Intl.NumberFormat("en", {style:"currency", currency:offer.currency, maximumFractionDigits:0}).format(offer.priceCents / 100);
   const previews = product.previews.map((preview) => {
     const key = preview.src.replace("/product-to-profit/previews/", "").replace(".png", "");
     const dimensions = (release.previews as Record<string, {width: number; height: number}>)[key];
     return {...preview, ...dimensions};
   });
-  return {...product, released: release.released, pdfVersion: release.pdfVersion, pages: release.pages, fields: release.fields, previews,
+  return {...product, price, storeUrl: `https://madebykreativ.gumroad.com/l/${offer.slug}`, accessSummary: product.access === "free" ? "Free" : `${product.slug === "system" ? "Paid bundle" : "Paid"} · ${price}`, released: release.released, pdfVersion: release.pdfVersion, pages: release.pages, fields: release.fields, previews,
     delivery: {...product.delivery, version: `${release.version} / PDF ${release.pdfVersion}`, packageName: release.packageName, packageSize: release.packageSize, fileCount: release.fileCount, formats: release.formats,
       firstStep: product.slug === "idea-library" ? "Unzip the package and open START_HERE.md. Explore the guide, then record up to three candidates in Idea_Shortlist.csv." : product.delivery.firstStep}
   };

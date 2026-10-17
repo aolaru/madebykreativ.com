@@ -3,8 +3,8 @@ import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
-import SiteFooter from "../../components/SiteFooter.astro";
 import { apps } from "../../data/apps";
+import {lastModified} from "../../data/modified";
 import { buildUrl, createBreadcrumbSchema, createNewsArticleSchema, organizationSchema, projectDirectory, projectPath, site } from "../../data/site";
 
 const newsPath = (id: string) => `/news/${id.replace(/\.md$/, "")}/`;
@@ -28,7 +28,7 @@ const { Content } = await render(entry);
 const slug = entry.id.replace(/\.md$/, "");
 const canonicalPath = `/news/${slug}/`;
 const publishedTime = entry.data.sortDate.toISOString();
-const modifiedTime = publishedTime;
+const modifiedTime = entry.data.modifiedDate?.toISOString() || `${lastModified([`src/content/news/${slug}.md`], publishedTime.slice(0, 10))}T00:00:00.000Z`;
 const articleSchema = createNewsArticleSchema({
   title: entry.data.title,
   description: entry.data.description,
@@ -42,7 +42,7 @@ const relatedProject = entry.data.project
 const relatedApp = apps.find((app) => app.slug === entry.data.app);
 const articleImage = entry.data.image || relatedProject?.preview;
 const articleImageAlt = relatedProject?.previewAlt || `${entry.data.title} product preview.`;
-const socialImage = slug === "ai-launch-toolkit-gumroad"
+const socialImage = relatedApp ? `/apps/${relatedApp.slug}/social.png` : slug === "ai-launch-toolkit-gumroad"
   ? "/og-ai-launch-toolkit.png"
   : articleImage || "/og-news.png";
 const socialImageHeight = relatedProject?.preview && !entry.data.image ? "750" : "630";
@@ -104,7 +104,7 @@ const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-10-04T
     {articleImage && (
       <figure class:list={["article-preview", !relatedProject && "article-preview-portrait"]}>
         <img src={articleImage} alt={articleImageAlt} width={relatedProject ? "1200" : "1191"} height={relatedProject ? "750" : "1684"} loading="eager" />
-        <figcaption>{relatedProject ? `${relatedProject.label} reference screenshot from July 2026; the live site may differ.` : "Product artwork; consult the product page for current release specifications."}</figcaption>
+        <figcaption>{relatedProject ? `${relatedProject.label} reference screenshot from October 17, 2026; the live site may differ.` : "Product artwork; consult the product page for current release specifications."}</figcaption>
       </figure>
     )}
     <Content />
@@ -130,5 +130,4 @@ const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-10-04T
     </nav>
   </article>
 
-  <SiteFooter />
 </BaseLayout>

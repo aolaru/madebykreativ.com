@@ -1,0 +1,20 @@
+---
+import { appStoreHref } from "../../public/app-attribution.mjs";
+interface Props {
+  url: string;
+  name: string;
+  position: string;
+}
+const { url, name, position } = Astro.props;
+---
+
+<a
+  class="button-cta button-cta-primary"
+  href={appStoreHref(url, { page: Astro.url.pathname, position })}
+  data-position={position}
+  target="_blank"
+  rel="noopener"
+>
+  Get it on {name}
+  <span class="sr-only"> (opens in a new tab)</span>
+</a>

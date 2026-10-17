@@ -2,7 +2,6 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
-import SiteFooter from "../components/SiteFooter.astro";
 import { getUpdates } from "../data/updates";
 const updates = await getUpdates();
 const kinds = [...new Set(updates.map((entry) => entry.kind))];
@@ -19,6 +18,8 @@ const formatDate = (date: string) =>
   title="Updates | Made by Kreativ"
   description="Product releases, project announcements, and website improvements in one chronological archive."
   canonicalPath="/updates/"
+  ogImage="https://madebykreativ.com/og-updates.png"
+  ogImageAlt="Product releases, app guides and website changes from Made by Kreativ."
 >
   <HeroHeader
     current="updates"
@@ -100,5 +101,4 @@ const formatDate = (date: string) =>
   >
     Show older updates
   </button>
-  <SiteFooter />
 </BaseLayout>

@@ -23,11 +23,11 @@ test("Apps directory has published store links, pricing, and working detail page
     for (const store of app.stores) {
       await expect(
         card.getByRole("link", { name: `Get it on ${store.name}` }),
-      ).toHaveAttribute("href", store.url);
+      ).toHaveAttribute("href", new RegExp(`^${store.url.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}&referrer=`));
     }
     await expect(
       card.getByRole("link", { name: "Privacy policy" }),
-    ).toHaveAttribute("href", `/privacy/${slug}/`);
+    ).toHaveAttribute("href", app.privacyUrl);
     await card.getByRole("link", { name: /^App details/ }).click();
     await expect(page).toHaveURL(new RegExp(`/apps/${slug}/$`));
     await expect(

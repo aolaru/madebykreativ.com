@@ -5,6 +5,9 @@ export interface KreativApp {
   category: string;
   accessLabel: string;
   proDescription: string;
+  privacyUrl: string;
+  privacyNote: string;
+  screenshotWidth: number;
   screenshotHeight: number;
   stores: Array<{
     platform: "Android" | "iOS";
@@ -21,8 +24,11 @@ export const apps: KreativApp[] = [
     name: "ShareSafe",
     category: "Photo privacy",
     accessLabel: "Free + optional paid Pro",
+    privacyUrl: "/privacy/sharesafe/",
+    privacyNote: "Photo processing stays on-device. The Play edition includes ML Kit SDK metrics; the privacy policy explains what those metrics contain.",
     proDescription:
-      "Optional ShareSafe Pro adds manual Cover, blur, and pixelation tools through a one-time Google Play purchase. Metadata cleaning stays free. Your local Pro price is shown before purchase.",
+      "Optional ShareSafe Pro adds on-device Face Assist, editable solid Cover areas, blur and pixelation through a one-time Google Play purchase. Face suggestions require review and can miss faces. Metadata cleaning and Privacy Check stay free. Your local Pro price is shown before purchase.",
+    screenshotWidth: 1080,
     screenshotHeight: 1920,
     stores: [
       {
@@ -34,7 +40,9 @@ export const apps: KreativApp[] = [
     description:
       "Remove photo metadata before sharing. Clean copies stay on your device; originals stay untouched.",
     features: [
+      "Use free Privacy Check to inspect selected EXIF fields before and after cleaning",
       "Remove EXIF location, camera, and timestamp metadata",
+      "Replace original filenames with neutral filenames",
       "Choose JPEG quality and export individual files or a ZIP",
       "Save cleaned copies to your gallery or share them",
     ],
@@ -46,8 +54,11 @@ export const apps: KreativApp[] = [
     name: "Northlight",
     category: "Compass and light",
     accessLabel: "Free + optional paid Pro",
+    privacyUrl: "/privacy/northlight/",
+    privacyNote: "No account, ads or analytics. Optional location access is used for the altimeter; coordinates and altitude history are not saved or uploaded.",
     proDescription:
       "Optional Northlight Pro adds up to eight saved magnetic bearings, spoken phone-turn guidance, optional alignment vibration, amber and green screen lights, and an adjustable strobe through a one-time Google Play purchase. Core compass, speech, GPS altitude, lantern, red light and SOS remain free. Your local Pro price is shown before purchase.",
+    screenshotWidth: 1080,
     screenshotHeight: 1920,
     stores: [
       {
@@ -66,5 +77,35 @@ export const apps: KreativApp[] = [
     ],
     limitation:
       "Compass accuracy depends on the phone's sensors and nearby magnetic interference. GPS altitude is approximate; read the displayed reference and vertical uncertainty. Bearing cues describe phone orientation, not routes or safe paths. SOS is a flashing light, not an emergency call. Flash brightness and haptics depend on hardware and Android settings.",
+  },
+  {
+    slug: "paperbuild",
+    name: "PaperBuild",
+    category: "Document tools",
+    accessLabel: "Free + optional paid Pro",
+    privacyUrl: "https://github.com/aolaru/kreativ-mobile-apps/blob/main/paperbuild/PRIVACY_POLICY.md",
+    privacyNote: "Documents are processed on-device without an account, advertising or uploads. The app has no internet permission; Google Play handles optional purchases.",
+    description: "Turn photos and scans into a PDF, with private on-device drafts and a library of recent documents.",
+    proDescription: "The free PDF maker supports up to 10 pages. Optional one-time Pro unlocks unlimited pages, smaller exports, merge and extract tools, output passwords, watermarks, page numbers and reusable presets. Your local price is shown in Google Play before purchase.",
+    screenshotWidth: 1080,
+    screenshotHeight: 2340,
+    stores: [{platform: "Android", name: "Google Play", url: "https://play.google.com/store/apps/details?id=com.kreativ.paperbuild"}],
+    features: ["Capture or select images, then crop, rotate and reorder pages", "Export A4 or US Letter PDFs in colour, grayscale or high contrast", "Resume a saved draft and find, rename or share Recent PDFs"],
+    limitation: "Password-protected input PDFs require an unlocked copy. Editing a signed PDF invalidates its signature. Watermarks do not redact sensitive content; keep exported copies before uninstalling.",
+  },
+  {
+    slug: "kreativ-font",
+    name: "Kreativ Font",
+    category: "Font discovery",
+    accessLabel: "Free",
+    privacyUrl: "https://kreativfont.com/blog/terms-of-use-privacy-policy",
+    privacyNote: "Catalog searches are sent to kreativfont.com. Favorites and searches within favorites stay on the device. The official store listing and linked privacy policy describe data handling.",
+    description: "Browse and search the Kreativ Font catalogue, inspect typeface previews and save favorites on your Android phone.",
+    proDescription: "The font-discovery app is free. Font purchases and downloads are handled by linked websites under their own prices and licenses.",
+    screenshotWidth: 1080,
+    screenshotHeight: 2340,
+    stores: [{platform: "Android", name: "Google Play", url: "https://play.google.com/store/apps/details?id=com.kreativ.fontapp"}],
+    features: ["Browse commercial and free font articles in separate feeds", "Search the website catalogue with All, Commercial and Free filters", "Zoom preview images and save favorites without an account"],
+    limitation: "This is a discovery app, not a font installer or editor. It does not change your phone's system font. Catalogue search and opening articles need internet; check each font's license before use.",
   },
 ];

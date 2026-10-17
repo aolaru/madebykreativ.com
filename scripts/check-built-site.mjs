@@ -16,10 +16,14 @@ const productRoutes = [
   "/product-to-profit/product-information/"
 ];
 
-const websiteRoutes = ["/updates/", "/privacy/", "/privacy/blockshift/", "/privacy/northlight/", "/privacy/sharesafe/", "/apps/", "/apps/northlight/", "/apps/sharesafe/"];
+const websiteRoutes = ["/updates/", "/privacy/", "/privacy/blockshift/", "/privacy/northlight/", "/privacy/sharesafe/", "/apps/", "/apps/northlight/", "/apps/sharesafe/", "/apps/paperbuild/", "/apps/kreativ-font/", "/apps/support/"];
 const requiredRoutes = [...productRoutes, ...websiteRoutes, "/news/remove-photo-metadata-android-sharesafe/", "/news/offline-compass-android-northlight/"];
 
 const productAssets = [
+  "app-attribution.mjs",
+  "product-to-profit/previews/system/workspace-dashboard.webp",
+  "og-apps.png",
+  ...["sharesafe", "northlight", "paperbuild", "kreativ-font"].flatMap((slug) => ["icon.png", "social.png", "screen-320.webp", "screen-640.webp", "screen-1080.webp"].map((asset) => `apps/${slug}/${asset}`)),
   ...["01-compass", "02-spoken-compass", "03-altimeter", "04-red-light"].map((name) => `images/northlight/tutorial/${name}.png`),
   ...["01-choose-photos", "02-original-metadata", "03-export-options", "04-before-after", "05-ready-to-share"].map((name) => `images/sharesafe/tutorial/${name}.png`),
   "og-product-to-profit-guide.png",

@@ -81,7 +81,7 @@ test("Updates combines archives, filters, paginates, and preserves legacy links"
   await expect(page.locator("[data-news-entry]:visible")).toHaveCount(24);
   await page.getByRole("searchbox").fill("refreshed for the October");
   await expect(page.locator("[data-news-entry]:visible")).toHaveCount(1);
-  await expect(page.locator("[data-updates-count]")).toHaveText("1 updates");
+  await expect(page.locator("[data-updates-count]")).toHaveText("Showing 1 of 1 update");
   await page.getByRole("searchbox").fill("zzzznonexistent");
   await expect(page.locator("[data-news-empty-state]")).toBeVisible();
   await page.goto("/news/");

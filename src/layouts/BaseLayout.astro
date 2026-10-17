@@ -1,5 +1,7 @@
 ---
 import { clientConfig } from "../data/site";
+import SiteNav from "../components/SiteNav.astro";
+import SiteFooter from "../components/SiteFooter.astro";
 
 interface Props {
   title: string;
@@ -38,6 +40,9 @@ const {
 } = Astro.props;
 
 const canonicalUrl = new URL(canonicalPath, Astro.site);
+const section = canonicalPath.split("/")[1];
+const navigationSections = {"product-to-profit":"guides", news:"updates", projects:"projects", apps:"apps", updates:"updates", about:"about", contact:"contact"} as const;
+const navCurrent = canonicalPath === "/" ? "home" : navigationSections[section as keyof typeof navigationSections];
 ---
 
 <!DOCTYPE html>
@@ -98,8 +103,13 @@ const canonicalUrl = new URL(canonicalPath, Astro.site);
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <main class="container" id="main-content">
-      <slot />
-    </main>
+    <div class="container">
+      {!redirectTo && <header class="site-header"><SiteNav current={navCurrent} /></header>}
+      <main id="main-content" tabindex="-1">
+        <slot />
+      </main>
+      {!redirectTo && <SiteFooter compact={canonicalPath === "/" || section === "privacy"} />}
+    </div>
+    <p id="page-feedback" class="page-feedback" role="status" aria-live="polite" aria-atomic="true"></p>
   </body>
 </html>

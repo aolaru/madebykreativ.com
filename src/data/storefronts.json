@@ -1,0 +1,32 @@
+{
+  "idea-library": {
+    "slug": "idea-library",
+    "currency": "eur",
+    "priceCents": 0
+  },
+  "product-idea-scorecard": {
+    "slug": "product-idea-scorecard",
+    "currency": "eur",
+    "priceCents": 0
+  },
+  "workflow-product-builder": {
+    "slug": "workflow-product-builder",
+    "currency": "eur",
+    "priceCents": 1900
+  },
+  "digital-product-launch-engine": {
+    "slug": "digital-product-launch-engine",
+    "currency": "eur",
+    "priceCents": 1900
+  },
+  "ai-business-pathways": {
+    "slug": "ai-business-pathways",
+    "currency": "eur",
+    "priceCents": 1900
+  },
+  "system": {
+    "slug": "product-to-profit-system",
+    "currency": "eur",
+    "priceCents": 3900
+  }
+}

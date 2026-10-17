@@ -2,8 +2,9 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
-import SiteFooter from "../../components/SiteFooter.astro";
 import { apps } from "../../data/apps";
+import AppScreenshot from "../../components/AppScreenshot.astro";
+import AppStoreLink from "../../components/AppStoreLink.astro";
 import {
   buildUrl,
   createBreadcrumbSchema,
@@ -11,7 +12,7 @@ import {
 } from "../../data/site";
 
 const description =
-  "Explore ShareSafe, Northlight, and mobile apps by Made by Kreativ. See real screenshots, free and paid options, and official store links.";
+  "Explore ShareSafe, Northlight, PaperBuild and Kreativ Font for Android. Compare free features, optional Pro tools and official Google Play links.";
 const collectionSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -44,6 +45,8 @@ const collectionSchema = {
   title="Kreativ Apps | Made by Kreativ"
   description={description}
   canonicalPath="/apps/"
+  ogImage={buildUrl("/og-apps.png")}
+  ogImageAlt="ShareSafe, Northlight, PaperBuild and Kreativ Font Android apps."
   structuredData={[
     organizationSchema,
     collectionSchema,
@@ -92,33 +95,25 @@ const collectionSchema = {
           href={`/apps/${app.slug}/`}
           aria-label={`See ${app.name} screenshots and details`}
         >
-          <img
-            src={`/apps/${app.slug}/screen.png`}
+          <AppScreenshot
+            slug={app.slug}
             alt={`${app.name} app interface.`}
-            width="1080"
+            width={app.screenshotWidth}
             height={app.screenshotHeight}
             loading="lazy"
-            decoding="async"
           />
         </a>
         <div class="apps-card-actions">
           {app.stores.map((store) => (
-            <a
-              class="button-cta button-cta-primary"
-              href={store.url}
-              target="_blank"
-              rel="noopener"
-            >
-              Get it on {store.name}
-            </a>
+            <AppStoreLink url={store.url} name={store.name} position="catalogue" />
           ))}
           <a class="cta" href={`/apps/${app.slug}/`}>
             App details
           </a>
         </div>
         <p class="apps-card-policies">
-          <a href={`/privacy/${app.slug}/`}>Privacy policy</a>
-          <a href="/contact/">Support</a>
+          <a href={app.privacyUrl}>Privacy policy</a>
+          <a href={`/apps/support/?app=${app.slug}`}>Support</a>
         </p>
       </article>
     ))}
@@ -128,9 +123,8 @@ const collectionSchema = {
       <h2 id="apps-contact-heading">Questions about an app?</h2>
       <p>Get help with a purchase, report a problem, or share feedback.</p>
     </div>
-    <a class="cta" href="/contact/">
-      Contact Andrei
+    <a class="cta" href="/apps/support/">
+      App support
     </a>
   </section>
-  <SiteFooter />
 </BaseLayout>

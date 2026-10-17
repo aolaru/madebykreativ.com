@@ -1,7 +1,5 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import SiteNav from "../../components/SiteNav.astro";
-import SiteFooter from "../../components/SiteFooter.astro";
 import ProductCover from "../../components/ProductCover.astro";
 import ProductStoreAction from "../../components/ProductStoreAction.astro";
 import SystemStagePath from "../../components/SystemStagePath.astro";
@@ -17,9 +15,11 @@ import {
   title="KREATIV Product-to-Profit System | Made by Kreativ"
   description="Choose an idea, create a useful digital product, and launch it. Compare two free entry products, three focused paid tools, and the €39 complete system."
   canonicalPath="/product-to-profit/"
+  ogImage="https://madebykreativ.com/product-to-profit/covers/system.png"
+  ogImageAlt="The KREATIV Product-to-Profit System and its connected product workbooks."
+  ogImageHeight="675"
 >
   <header class="ptp-overview-header ptp-accent-teal">
-    <SiteNav current="guides" />
     <div class="ptp-overview-hero">
       <div class="ptp-overview-copy">
         <p class="eyebrow">KREATIV Product-to-Profit</p>
@@ -151,7 +151,7 @@ import {
     <div class="ptp-bundle-layout">
       <div>
         <p class="eyebrow">Complete system · paid</p>
-        <h2 id="bundle-heading">All six products. One connected workspace.</h2>
+        <h2 id="bundle-heading">Five products. One connected workspace.</h2>
         <p class="ptp-bundle-price">{bundleProduct.price}</p>
         <p>
           Includes the integrated master workspace, stage handoffs, and three
@@ -178,5 +178,4 @@ import {
       <ProductCover src={bundleProduct.cover} alt={bundleProduct.coverAlt} />
     </div>
   </section>
-  <SiteFooter />
 </BaseLayout>

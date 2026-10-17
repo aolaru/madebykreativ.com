@@ -2,13 +2,12 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import HeroHeader from "../components/HeroHeader.astro";
-import SiteFooter from "../components/SiteFooter.astro";
 import { buildUrl, communityProjects, contactPageSchema, createBreadcrumbSchema, organizationSchema, projectPath, site } from "../data/site";
 ---
 
 <BaseLayout
   title="Contact | Made by Kreativ"
-  description="Contact Andrei Olaru about existing Made by Kreativ purchases, licensing, or public project repositories. Replies are best effort."
+  description="Contact Andrei Olaru about Kreativ apps, product purchases, licensing or public project repositories. Replies are best effort."
   canonicalPath="/contact/"
   ogImage={buildUrl("/og-contact.png")}
   ogImageAlt="Made by Kreativ contact card."
@@ -23,9 +22,9 @@ import { buildUrl, communityProjects, contactPageSchema, createBreadcrumbSchema,
 >
   <HeroHeader
     current="contact"
-    eyebrow="Limited contact"
+    eyebrow="Get in touch"
     title="Contact"
-    tagline="For existing purchases, licensing questions, and focused project feedback."
+    tagline="For app support, product purchases, licensing and focused project feedback."
   />
 
   <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
@@ -33,13 +32,19 @@ import { buildUrl, communityProjects, contactPageSchema, createBreadcrumbSchema,
   <section class="content-card contact-email-card" aria-labelledby="email-heading">
     <p class="eyebrow">Best-effort replies</p>
     <h2 id="email-heading">Email</h2>
-    <p>Use <a class="cta" href={`mailto:${site.email}`}>{site.email}</a> for purchase access, licensing, or a concise question that cannot be handled in a public repository.</p>
+    <p>Use <a class="cta" href={`mailto:${site.email}`}>{site.email}</a> for purchase access, app issues, licensing, or a concise question that cannot be handled in a public repository.</p>
     <p>Made by KREATIV remains active. Messages are reviewed when time allows, but no response time is guaranteed.</p>
     <div class="contact-copy-row">
       <code>{site.email}</code>
       <button class="button-cta button-cta-secondary" type="button" data-copy-email={site.email}>Copy email address</button>
       <span class="copy-status" data-copy-status aria-live="polite"></span>
     </div>
+  </section>
+
+  <section class="ptp-section" aria-labelledby="app-support-heading">
+    <h2 id="app-support-heading">Help with an Android app</h2>
+    <p>Include the app and Android versions, your phone model, and the steps that reproduce the issue.</p>
+    <p><a class="cta" href="/apps/support/">Prepare an app support report</a></p>
   </section>
 
   <section class="contact-intents standalone-section" aria-labelledby="project-feedback-heading">
@@ -83,5 +88,4 @@ import { buildUrl, communityProjects, contactPageSchema, createBreadcrumbSchema,
     </dl>
   </section>
 
-  <SiteFooter />
 </BaseLayout>

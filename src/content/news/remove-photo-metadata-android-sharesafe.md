@@ -33,7 +33,7 @@ For a first try, use a non-sensitive photo. If you choose a file from a cloud pr
 
 <figure class="tutorial-screenshot">
   <a href="/images/sharesafe/tutorial/01-choose-photos.png">
-    <img src="/images/sharesafe/tutorial/01-choose-photos.png" width="1080" height="2340" loading="lazy" decoding="async" alt="ShareSafe home screen with the Choose photos button and a note that originals stay untouched." />
+    <img src="/images/sharesafe/tutorial/01-choose-photos.png" srcset="/images/sharesafe/tutorial/01-choose-photos-480.webp 480w, /images/sharesafe/tutorial/01-choose-photos-960.webp 960w" sizes="(max-width: 600px) calc(100vw - 4rem), 480px" width="1080" height="2340" loading="lazy" decoding="async" alt="ShareSafe home screen with the Choose photos button and a note that originals stay untouched." />
   </a>
   <figcaption>Start with Choose photos. The screenshots do not show a private gallery.</figcaption>
 </figure>
@@ -54,7 +54,7 @@ The check does not cover every metadata format. Android or your selected photo p
 
 <figure class="tutorial-screenshot">
   <a href="/images/sharesafe/tutorial/02-original-metadata.png">
-    <img src="/images/sharesafe/tutorial/02-original-metadata.png" width="1080" height="2340" loading="lazy" decoding="async" alt="Expanded original Privacy Check report showing location, date and time, and camera or device tags found in one demo photo, with the check limitations underneath." />
+    <img src="/images/sharesafe/tutorial/02-original-metadata.png" srcset="/images/sharesafe/tutorial/02-original-metadata-480.webp 480w, /images/sharesafe/tutorial/02-original-metadata-960.webp 960w" sizes="(max-width: 600px) calc(100vw - 4rem), 480px" width="1080" height="2340" loading="lazy" decoding="async" alt="Expanded original Privacy Check report showing location, date and time, and camera or device tags found in one demo photo, with the check limitations underneath." />
   </a>
   <figcaption>The demo file contains all three checked categories. Only their presence is shown, not the underlying values.</figcaption>
 </figure>
@@ -67,7 +67,7 @@ Choose **Individual photos** for separate images, or **One ZIP file** to package
 
 <figure class="tutorial-screenshot">
   <a href="/images/sharesafe/tutorial/03-export-options.png">
-    <img src="/images/sharesafe/tutorial/03-export-options.png" width="1080" height="2340" loading="lazy" decoding="async" alt="Expanded export options with Balanced, High and Maximum JPEG quality settings, plus Individual photos and One ZIP file formats." />
+    <img src="/images/sharesafe/tutorial/03-export-options.png" srcset="/images/sharesafe/tutorial/03-export-options-480.webp 480w, /images/sharesafe/tutorial/03-export-options-960.webp 960w" sizes="(max-width: 600px) calc(100vw - 4rem), 480px" width="1080" height="2340" loading="lazy" decoding="async" alt="Expanded export options with Balanced, High and Maximum JPEG quality settings, plus Individual photos and One ZIP file formats." />
   </a>
   <figcaption>Balanced quality and Individual photos are selected here. Change them before cleaning if needed.</figcaption>
 </figure>
@@ -86,7 +86,7 @@ If an image is skipped, read the app’s status message. Do not substitute an un
 
 <figure class="tutorial-screenshot">
   <a href="/images/sharesafe/tutorial/04-before-after.png">
-    <img src="/images/sharesafe/tutorial/04-before-after.png" width="1080" height="2340" loading="lazy" decoding="async" alt="Before and after Privacy Check report showing checked tags found in the demo original and not found in readable metadata in its exported copy." />
+    <img src="/images/sharesafe/tutorial/04-before-after.png" srcset="/images/sharesafe/tutorial/04-before-after-480.webp 480w, /images/sharesafe/tutorial/04-before-after-960.webp 960w" sizes="(max-width: 600px) calc(100vw - 4rem), 480px" width="1080" height="2340" loading="lazy" decoding="async" alt="Before and after Privacy Check report showing checked tags found in the demo original and not found in readable metadata in its exported copy." />
   </a>
   <figcaption>Compare the original with the exported copy. The same check limitations still apply.</figcaption>
 </figure>
@@ -99,7 +99,7 @@ When ready, return to ShareSafe and use **Share cleaned photos** or **Share ZIP*
 
 <figure class="tutorial-screenshot">
   <a href="/images/sharesafe/tutorial/05-ready-to-share.png">
-    <img src="/images/sharesafe/tutorial/05-ready-to-share.png" width="1080" height="2340" loading="lazy" decoding="async" alt="Ready to share result card with the export summary, Share cleaned photos button and Save to gallery button." />
+    <img src="/images/sharesafe/tutorial/05-ready-to-share.png" srcset="/images/sharesafe/tutorial/05-ready-to-share-480.webp 480w, /images/sharesafe/tutorial/05-ready-to-share-960.webp 960w" sizes="(max-width: 600px) calc(100vw - 4rem), 480px" width="1080" height="2340" loading="lazy" decoding="async" alt="Ready to share result card with the export summary, Share cleaned photos button and Save to gallery button." />
   </a>
   <figcaption>Use the new copy from the result card. Cleaning does not send or publish the photo.</figcaption>
 </figure>

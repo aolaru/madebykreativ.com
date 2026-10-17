@@ -25,7 +25,7 @@ Read the accuracy message under the dial. If calibration is needed, tap that mes
 
 <figure class="tutorial-screenshot">
   <a href="/images/northlight/tutorial/01-compass.png">
-    <img src="/images/northlight/tutorial/01-compass.png" width="976" height="1680" loading="lazy" decoding="async" alt="Northlight's real compass shows 290 degrees West, magnetic north, sensor accuracy feedback, and Lantern, Night light and SOS controls." />
+    <img src="/images/northlight/tutorial/01-compass.png" srcset="/images/northlight/tutorial/01-compass-480.webp 480w, /images/northlight/tutorial/01-compass-960.webp 960w" sizes="(max-width: 600px) calc(100vw - 4rem), 480px" width="976" height="1680" loading="lazy" decoding="async" alt="Northlight's real compass shows 290 degrees West, magnetic north, sensor accuracy feedback, and Lantern, Night light and SOS controls." />
   </a>
   <figcaption>A real captured heading. Northlight reports the direction the phone points, not the direction a person is walking.</figcaption>
 </figure>
@@ -42,7 +42,7 @@ With a screen reader active, explicitly requested readings are handed to that sc
 
 <figure class="tutorial-screenshot">
   <a href="/images/northlight/tutorial/02-spoken-compass.png">
-    <img src="/images/northlight/tutorial/02-spoken-compass.png" width="976" height="810" loading="lazy" decoding="async" alt="The spoken compass panel shows an offline voice ready, Speak direction, automatic-announcement and speech-setting controls, and a real West heading result." />
+    <img src="/images/northlight/tutorial/02-spoken-compass.png" srcset="/images/northlight/tutorial/02-spoken-compass-480.webp 480w, /images/northlight/tutorial/02-spoken-compass-960.webp 960w" sizes="(max-width: 600px) calc(100vw - 4rem), 480px" width="976" height="810" loading="lazy" decoding="async" alt="The spoken compass panel shows an offline voice ready, Speak direction, automatic-announcement and speech-setting controls, and a real West heading result." />
   </a>
   <figcaption>Spoken headings describe phone orientation. They are not obstacle warnings, walking directions or safe-crossing instructions. Keep surrounding sounds audible.</figcaption>
 </figure>
@@ -63,7 +63,7 @@ Read the information beside the number:
 
 <figure class="tutorial-screenshot">
   <a href="/images/northlight/tutorial/03-altimeter.png">
-    <img src="/images/northlight/tutorial/03-altimeter.png" width="976" height="850" loading="lazy" decoding="async" alt="A real GPS capture shows 94 metres, an Android-reported mean-sea-level reference, plus or minus 84 metres of reported vertical uncertainty, and a low-accuracy warning." />
+    <img src="/images/northlight/tutorial/03-altimeter.png" srcset="/images/northlight/tutorial/03-altimeter-480.webp 480w, /images/northlight/tutorial/03-altimeter-960.webp 960w" sizes="(max-width: 600px) calc(100vw - 4rem), 480px" width="976" height="850" loading="lazy" decoding="async" alt="A real GPS capture shows 94 metres, an Android-reported mean-sea-level reference, plus or minus 84 metres of reported vertical uncertainty, and a low-accuracy warning." />
   </a>
   <figcaption>This example shows why the uncertainty matters: 94 m is accompanied by ±84 m at 68 percent confidence and a low-accuracy warning. Do not read it as a precise elevation.</figcaption>
 </figure>
@@ -82,7 +82,7 @@ The three controls beneath the compass open **Lantern**, **Night light** and **S
 
 <figure class="tutorial-screenshot">
   <a href="/images/northlight/tutorial/04-red-light.png">
-    <img src="/images/northlight/tutorial/04-red-light.png" width="1080" height="1130" loading="lazy" decoding="async" alt="Northlight's actual red screen-light mode, with a screen-brightness slider and Close Red light button." />
+    <img src="/images/northlight/tutorial/04-red-light.png" srcset="/images/northlight/tutorial/04-red-light-480.webp 480w, /images/northlight/tutorial/04-red-light-960.webp 960w" sizes="(max-width: 600px) calc(100vw - 4rem), 480px" width="1080" height="1130" loading="lazy" decoding="async" alt="Northlight's actual red screen-light mode, with a screen-brightness slider and Close Red light button." />
   </a>
   <figcaption>A steady red screen light, not a flashing demonstration.</figcaption>
 </figure>

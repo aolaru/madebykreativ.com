@@ -1,5 +1,4 @@
 ---
-import SiteNav from "./SiteNav.astro";
 
 interface Props {
   current?: "home" | "guides" | "projects" | "apps" | "updates" | "news" | "about" | "contact";
@@ -14,7 +13,6 @@ interface Props {
 }
 
 const {
-  current,
   logoSrc = "/favicon.svg",
   logoAlt = "Kreativ brand mark",
   logoWidth = 104,
@@ -27,7 +25,6 @@ const {
 ---
 
 <header class="hero">
-  <SiteNav current={current} />
   <slot name="preface" />
   {showLogo && <img class="brand-logo" src={logoSrc} width={logoWidth} height={logoHeight} alt={logoAlt} />}
   <p class="eyebrow">{eyebrow}</p>

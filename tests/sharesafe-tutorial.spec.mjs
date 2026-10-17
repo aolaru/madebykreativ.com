@@ -10,7 +10,10 @@ test("ShareSafe tutorial has five real screenshots and attributed Play links", a
   for (const figure of await page.locator(".tutorial-screenshot").all()) {
     const image = figure.locator("img");
     await image.scrollIntoViewIfNeeded();
-    await expect.poll(() => image.evaluate((img) => img.complete && img.naturalWidth === 1080 && img.naturalHeight === 2340)).toBe(true);
+    await expect.poll(() => image.evaluate((img) => img.complete && img.naturalWidth > 0)).toBe(true);
+    await expect(image).toHaveAttribute("width", "1080");
+    await expect(image).toHaveAttribute("height", "2340");
+    await expect(image).toHaveAttribute("srcset", /480\.webp 480w.*960\.webp 960w/);
     await expect(figure.locator("a")).toHaveAttribute("href", await image.getAttribute("src"));
     await expect(image).toHaveAttribute("alt", /.+/);
     await expect(figure.locator("figcaption")).not.toBeEmpty();

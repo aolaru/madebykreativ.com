@@ -4,8 +4,6 @@ import Breadcrumbs from "./Breadcrumbs.astro";
 import ProductCover from "./ProductCover.astro";
 import ProductPreviewGallery from "./ProductPreviewGallery.astro";
 import ProductStoreAction from "./ProductStoreAction.astro";
-import SiteFooter from "./SiteFooter.astro";
-import SiteNav from "./SiteNav.astro";
 import SystemStagePath from "./SystemStagePath.astro";
 import {
   productPath,
@@ -38,7 +36,6 @@ const title = `${product.title} | Made by Kreativ`;
   ]}
 >
   <header class:list={["ptp-product-header", `ptp-accent-${product.accent}`]}>
-    <SiteNav current="guides" />
     <div class="ptp-product-hero">
       <div class="ptp-product-hero-copy">
         <div class="ptp-product-hero-meta">
@@ -132,7 +129,7 @@ const title = `${product.title} | Made by Kreativ`;
         <div class="ptp-bundle-difference">
           <h3>What the bundle adds</h3>
           <p>
-            All six products, a cross-stage master workspace, integrated
+            All five individual products, a cross-stage master workspace, integrated
             handoffs, and Weekend, Seven-Day MVP, and Thirty-Day implementation
             tracks. Builder and Launch Engine cost €38 together; the €39 bundle
             also includes the €19 AI Business Pathways.
@@ -142,6 +139,12 @@ const title = `${product.title} | Made by Kreativ`;
             included with the standalone Builder. They are not bundle-exclusive
             bonuses.
           </p>
+          <figure class="workspace-preview">
+            <a href="/product-to-profit/previews/system/workspace-dashboard.png" target="_blank" rel="noopener">
+              <img src="/product-to-profit/previews/system/workspace-dashboard.webp" width="1640" height="400" loading="lazy" alt="Actual master workspace v2.2 dashboard: five stage artifacts, completion percentages, gate status and next actions, shown before any inputs are completed." />
+            </a>
+            <figcaption>The actual Excel master workspace v2.2, included in system package v2.4. This empty-state preview shows the stage gates before you enter your own product evidence. <a class="cta" href="/product-to-profit/previews/system/workspace-dashboard.png" target="_blank" rel="noopener">Full-size workspace preview</a></figcaption>
+          </figure>
         </div>
       )}
       <p>
@@ -206,5 +209,4 @@ const title = `${product.title} | Made by Kreativ`;
       </div>
     </section>
   </div>
-  <SiteFooter />
 </BaseLayout>

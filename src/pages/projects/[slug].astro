@@ -5,7 +5,6 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
 import ProjectLogo from "../../components/ProjectLogo.astro";
 import ProjectDirectoryCard from "../../components/ProjectDirectoryCard.astro";
-import SiteFooter from "../../components/SiteFooter.astro";
 import { buildUrl, createBreadcrumbSchema, createProjectSchema, isExternalHref, organizationSchema, projectDirectory, projectPath, statusDefinitions } from "../../data/site";
 
 export function getStaticPaths() {
@@ -113,7 +112,7 @@ const relatedNews = project.relatedNews
       </div>
     )}
     <p class="project-preview-caption">
-      {project.preview ? `Reference screenshot captured July 2026; the live site may have changed. Status reviewed ${project.updated}.` : "Public source archive; no standalone product site is operated."}
+      {project.preview ? `Reference screenshot captured October 17, 2026. The live site may change. Status reviewed ${project.updated}.` : "Public source archive; no standalone product site is operated."}
     </p>
   </section>
 
@@ -225,5 +224,4 @@ const relatedNews = project.relatedNews
     </section>
   )}
 
-  <SiteFooter />
 </BaseLayout>

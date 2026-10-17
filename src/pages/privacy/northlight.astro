@@ -2,7 +2,6 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
-import SiteFooter from "../../components/SiteFooter.astro";
 import { createBreadcrumbSchema, createPageSchema, organizationSchema, site } from "../../data/site";
 
 const pageDescription = "Northlight privacy policy: on-device compass, optional GPS altitude and speech, local preferences, and optional Pro purchases through Google Play.";
@@ -24,7 +23,7 @@ const pagePath = "/privacy/northlight/";
     }),
     createBreadcrumbSchema([
       { name: "Home", path: "/" },
-      { name: "Privacy", path: pagePath },
+      { name: "Privacy", path: "/privacy/" },
       { name: "Northlight", path: pagePath }
     ])
   ]}
@@ -37,7 +36,7 @@ const pagePath = "/privacy/northlight/";
 
   <Breadcrumbs items={[
     { label: "Home", href: "/" },
-    { label: "Privacy" },
+    { label: "Privacy", href: "/privacy/" },
     { label: "Northlight" }
   ]} />
 
@@ -102,5 +101,4 @@ const pagePath = "/privacy/northlight/";
     <p>For privacy questions, contact <a class="cta" href={`mailto:${site.email}`}>{site.email}</a>.</p>
   </section>
 
-  <SiteFooter compact />
 </BaseLayout>

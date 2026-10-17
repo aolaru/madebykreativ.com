@@ -43,10 +43,21 @@ npm run check
 
 The same check runs for pull requests and before every GitHub Pages deployment.
 
-Browser checks use the installed Google Chrome locally and Playwright Chromium in CI.
+Browser checks use the same pinned Playwright Chromium locally and in CI.
+Install it once with `npx playwright install --only-shell chromium`.
+An explicit `PLAYWRIGHT_CHANNEL=chrome` override can use a system Chrome instead.
+Install Firefox/WebKit with `npx playwright install firefox webkit` and run the
+optional local `npm run validate:cross-browser` for the additional smoke suite.
 They visit every generated non-redirect page at mobile and desktop widths, check
 light/dark accessibility with axe, and verify images, comparison prices, Updates
-filtering, attribution, and free-package SHA-256 hashes. CI installs Chromium first.
+filtering, attribution, and free-package SHA-256 hashes. A focused Firefox/WebKit
+suite also covers keyboard navigation, sharing, update history, app support and
+narrow mobile layouts. CI installs all three engines and runs both scripts.
+
+`npm run validate:performance` starts an isolated local production preview and
+runs mobile Lighthouse budgets on six current routes. Results are saved in
+`.lighthouse/` and retained as CI artifacts. `lighthouse.config.mjs` owns the routes
+and thresholds. Performance checks run after browser tests, not concurrently.
 
 ## Releases And Updates
 
@@ -61,14 +72,24 @@ serve the same current content as their versioned replacements.
 News announcements and website change records share `/updates/`. Existing
 `/news/<slug>/` articles keep their addresses; `/news/`, `news.html`, and `posts.html`
 forward to Updates. Both RSS addresses serve the combined archive with stable GUIDs.
-The sitemap uses per-page dates; unknown dates are omitted rather than guessed.
+The sitemap and article modification metadata use source Git history; CI checks
+out full history. An explicit article `modifiedDate` can override that history.
+Unknown dates are omitted rather than guessed or replaced with the build date.
 
 ## Storefront Health And Attribution
 
 `npm run validate:storefronts` checks all six public Gumroad listings with bounded
-timeouts and retries. A separate weekly/manual GitHub Action runs it without
-blocking deployments on temporary external outages. It tests public availability,
-not authenticated delivery files or a purchase transaction.
+timeouts and retries, including their published state, base EUR prices and release
+specifications. `src/data/storefronts.json` supplies the base prices used by both
+the website and monitor. It reads Gumroad's product currency and minor-unit price,
+not its converted buyer-currency display. Google Play links from the source catalogue
+are checked too. Private delivered files and purchase transactions are not tested.
+
+The weekly/manual Storefront Health action also runs `npm run validate:production`
+to check live pages, XML feeds, HTTP redirection and both HTTPS hostnames. Deploy
+smoke checks verify the main hostname; the independent `www` certificate check is
+kept in the scheduled monitor so DNS/certificate propagation cannot hold a healthy
+main-site deployment. External store outages do not block deployment.
 
 Gumroad CTAs carry anonymous `utm_source`, `utm_medium`, `utm_campaign`, and
 page/position `utm_content` labels. Plausible counts **Product CTA Click** events;
@@ -77,6 +98,39 @@ referrer reporting, where available. No buyer identity is sent to site analytics
 and no cross-domain revenue integration is configured. Production analytics are
 disabled on localhost and respect browser GPC/Do Not Track signals.
 
+Google Play links include an encoded Install Referrer campaign. Plausible records
+**App Store Click** with the package ID, page and placement, never support-form
+contents. These are outbound clicks, not installs or purchases; use Play Console
+acquisition and conversion reports for downstream results. Share events contain
+only the canonical page URL, with arbitrary query strings and fragments removed.
+Displaying custom events in Plausible requires the matching custom goal in that
+account; repository tests do not verify dashboard configuration. Google Play
+referrer attribution works independently of that optional reporting dashboard.
+
+## Web Assets And App Support
+
+The Apps catalogue includes ShareSafe, Northlight, PaperBuild and Kreativ Font.
+Their published store and privacy links are defined in `src/data/apps.ts`.
+Official store artwork provenance is recorded in each `public/apps/*/source.json`.
+Run `npm run assets:web` to regenerate responsive WebP screenshots and app social
+images from the originals. `npm run assets:web -- --refresh-stores` also downloads
+the current official store artwork; review the resulting screenshots and update
+their dimensions in the catalogue when needed. The existing real Northlight
+capture is preserved. Project reference screenshots were refreshed October 17,
+2026. The public bundle workspace image is a read-only crop of the actual v2.2
+master dashboard, not a full paid-workbook download or a customer result.
+
+App support at `/apps/support/` composes an email locally. Reports are not uploaded,
+saved in browser storage, or sent to analytics. Without JavaScript the page offers
+a direct support email link.
+
 ## Redirects
 
 GitHub Pages serves static files and cannot return custom HTTP `301` responses. The legacy routes therefore retain accessible `noindex` compatibility pages for the current deployment. The `_redirects` manifest activates real permanent redirects if the site is moved behind Cloudflare Pages or another host that supports the same redirect syntax.
+
+The `www` DNS CNAME was corrected to `aolaru.github.io` on October 17, 2026; the apex
+remains `madebykreativ.com` in GitHub Pages with HTTPS enforced. GitHub provisions
+the additional certificate and canonical hostname redirect after DNS propagation.
+Do not remove HTTPS enforcement or point `www` back to the apex to bypass a
+certificate error. Real per-path HTTP redirects require a redirect-capable host
+or reverse proxy; this patch deliberately does not migrate the live hosting.

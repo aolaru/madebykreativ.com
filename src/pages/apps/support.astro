@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HeroHeader from "../../components/HeroHeader.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { apps } from "../../data/apps";
+import { site } from "../../data/site";
+---
+
+<BaseLayout
+  title="App Support | Made by Kreativ"
+  description="Get help with ShareSafe, Northlight, PaperBuild or Kreativ Font. Prepare a reproducible report or ask about a Google Play purchase."
+  canonicalPath="/apps/support/"
+>
+  <HeroHeader
+    eyebrow="Kreativ Apps"
+    title="App support"
+    tagline="Report a problem, ask about a purchase, or share focused feedback."
+  />
+  <Breadcrumbs
+    items={[
+      { label: "Home", href: "/" },
+      { label: "Apps", href: "/apps/" },
+      { label: "Support" },
+    ]}
+  />
+  <section class="ptp-section" aria-labelledby="report-heading">
+    <h2 id="report-heading">Report a problem</h2>
+    <form data-app-support data-email={site.email}>
+      <fieldset disabled data-support-fields class="app-support-fields">
+        <legend class="sr-only">App and device details</legend>
+        <label>
+          App
+          <select name="app" required>
+            {apps.map((app) => (
+              <option value={app.slug}>{app.name}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          App version
+          <input type="text" name="version" maxlength="60" autocomplete="off" />
+        </label>
+        <label>
+          Android version and phone model
+          <input type="text" name="device" maxlength="120" autocomplete="off" />
+        </label>
+        <label class="app-support-wide">
+          What happened?
+          <textarea
+            name="details"
+            rows="7"
+            maxlength="4000"
+            required
+            placeholder="Steps to reproduce, expected result, and actual result"
+          ></textarea>
+        </label>
+        <button type="submit" class="button-cta button-cta-primary">
+          Compose support email
+        </button>
+      </fieldset>
+    </form>
+    <p class="app-support-note">
+      The form prepares a draft in your email app. It does not upload or store
+      the report. Do not include private photos, documents, passwords or payment
+      details.
+    </p>
+    <noscript>
+      <p>
+        Email{" "}
+        <a
+          class="cta"
+          href={`mailto:${site.email}?subject=Kreativ%20app%20support`}
+        >
+          {site.email}
+        </a>{" "}
+        with the app name, app version, Android version and steps to reproduce
+        the problem.
+      </p>
+    </noscript>
+  </section>
+  <section class="ptp-section" aria-labelledby="purchase-heading">
+    <h2 id="purchase-heading">Google Play purchases</h2>
+    <p>
+      Restore Pro with the Google Play account used for the original purchase.
+      Include the app name and a description of the access problem, not
+      payment-card details. The current price and refund options are shown by
+      Google Play.
+    </p>
+    <p>
+      Support is best effort; no response time or product-review service is
+      promised. You can also email{" "}
+      <a class="cta" href={`mailto:${site.email}`}>
+        {site.email}
+      </a>{" "}
+      directly.
+    </p>
+  </section>
+</BaseLayout>

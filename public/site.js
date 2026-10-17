@@ -1,4 +1,5 @@
 import { storefrontHref } from "/product-attribution.mjs";
+import { appStoreHref } from "/app-attribution.mjs";
 (() => {
   const THEME_KEY = "kreativ-theme";
   const LIGHT_THEME = "light";
@@ -63,53 +64,63 @@ import { storefrontHref } from "/product-attribution.mjs";
     saveTheme(nextTheme);
   }
 
-  function onThemeKeydown(event) {
-    const toggle = getToggle();
-    if (!toggle) {
-      return;
-    }
-    if (event.defaultPrevented || event.repeat || event.metaKey || event.ctrlKey || event.altKey) {
-      return;
-    }
-    const target = event.target;
-    const tag = (target && target.tagName) || "";
-    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (target && target.isContentEditable)) {
-      return;
-    }
-    if (event.key.toLowerCase() === "t") {
-      toggle.click();
-    }
+  function wireMobileMenu() {
+    const menu = document.querySelector(".site-nav-mobile-menu");
+    const trigger = menu?.querySelector("summary");
+    if (!menu || !trigger) return;
+    menu.addEventListener("toggle", () => trigger.setAttribute("aria-label", menu.open ? "Close navigation menu" : "Open navigation menu"));
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || !menu.open) return;
+      event.preventDefault();
+      menu.open = false;
+      trigger.focus();
+    });
+    document.addEventListener("pointerdown", (event) => {
+      if (menu.open && !menu.contains(event.target)) menu.open = false;
+    });
+    menu.addEventListener("focusout", (event) => {
+      if (event.relatedTarget && !menu.contains(event.relatedTarget)) menu.open = false;
+    });
+  }
+
+  let feedbackTimeout;
+  function announce(message) {
+    const status = document.getElementById("page-feedback");
+    if (!status) return;
+    window.clearTimeout(feedbackTimeout);
+    status.textContent = message;
+    feedbackTimeout = window.setTimeout(() => { status.textContent = ""; }, 6000);
+  }
+
+  function canonicalPageUrl() {
+    return document.querySelector('link[rel="canonical"]')?.href || `${window.location.origin}${window.location.pathname}`;
   }
 
   async function onShare() {
     const shareData = {
       title: document.title,
       text: document.querySelector('meta[name="description"]')?.getAttribute("content") || document.title,
-      url: window.location.href
+      url: canonicalPageUrl()
     };
 
     try {
       if (navigator.share) {
         await navigator.share(shareData);
         trackEvent("Share Page", { method: "native", url: shareData.url });
+        announce("Page shared.");
         return;
       }
-    } catch (_) {
-      return;
+    } catch (error) {
+      if (error.name === "AbortError") return;
     }
 
     try {
       await navigator.clipboard.writeText(shareData.url);
       trackEvent("Share Page", { method: "clipboard", url: shareData.url });
-      const shareButton = getShareButton();
-      if (shareButton) {
-        shareButton.setAttribute("title", "Link copied");
-        window.setTimeout(() => {
-          shareButton.setAttribute("title", "Share this page");
-        }, 1400);
-      }
+      announce("Page link copied.");
     } catch (_) {
       trackEvent("Share Page", { method: "unsupported", url: shareData.url });
+      announce("Could not copy the link. You can copy the page address from your browser.");
     }
   }
 
@@ -157,6 +168,34 @@ import { storefrontHref } from "/product-attribution.mjs";
     });
   }
 
+  function wireAppTracking() {
+    document.querySelectorAll('a[href*="play.google.com/store/apps/details"]').forEach((link) => {
+      const url = new URL(link.href);
+      if (url.hostname !== "play.google.com") return;
+      const app = url.searchParams.get("id");
+      link.href = appStoreHref(link.href, { page: window.location.pathname, position: link.dataset.position || "article" });
+      link.addEventListener("click", () => trackEvent("App Store Click", { app, page: window.location.pathname, position: link.dataset.position || "article", store: "Google Play" }));
+    });
+  }
+
+  function wireAppSupport() {
+    const form = document.querySelector("[data-app-support]");
+    if (!form) return;
+    const select = form.elements.namedItem("app");
+    const requested = new URLSearchParams(window.location.search).get("app");
+    if ([...select.options].some((option) => option.value === requested)) select.value = requested;
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const name = select.selectedOptions[0].textContent;
+      const body = `App: ${name}\nApp version: ${data.get("version") || "Not provided"}\nAndroid and phone: ${data.get("device") || "Not provided"}\n\n${data.get("details")}\n`;
+      const url = `mailto:${form.dataset.email}?subject=${encodeURIComponent(`${name} support`)}&body=${encodeURIComponent(body)}`;
+      window.location.href = url;
+      announce("Support email prepared. Review it in your email app before sending.");
+    });
+    form.querySelector("[data-support-fields]").disabled = false;
+  }
+
   function wireNewsFilters() {
     const entries = document.querySelectorAll("[data-news-entry]");
     const filterButtons = document.querySelectorAll("[data-news-filter]");
@@ -168,11 +207,31 @@ import { storefrontHref } from "/product-attribution.mjs";
       return;
     }
 
-    const state = {
-      category: "all",
-      query: "",
-      limit: window.location.hash ? Infinity : 12
-    };
+    const categories = new Set([...filterButtons].map((button) => button.dataset.newsFilter));
+    const pageSize = 12;
+    let state;
+
+    function readUrlState() {
+      const params = new URLSearchParams(window.location.search);
+      const page = Number(params.get("page"));
+      state = {
+        category: categories.has(params.get("kind")) ? params.get("kind") : "all",
+        query: (params.get("q") || "").trim().toLowerCase(),
+        limit: Number.isSafeInteger(page) && page > 0 ? Math.min(page, Math.ceil(entries.length / pageSize)) * pageSize : pageSize
+      };
+      searchInput.value = params.get("q") || "";
+      filterButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.newsFilter === state.category)));
+    }
+
+    function writeUrlState(push = false) {
+      const url = new URL(window.location.href);
+      for (const key of ["kind", "q", "page"]) url.searchParams.delete(key);
+      if (state.category !== "all") url.searchParams.set("kind", state.category);
+      if (searchInput.value.trim()) url.searchParams.set("q", searchInput.value.trim());
+      if (state.limit > pageSize) url.searchParams.set("page", String(Math.ceil(state.limit / pageSize)));
+      url.hash = "";
+      window.history[push ? "pushState" : "replaceState"](null, "", url);
+    }
 
     function applyNewsFilters() {
       let visibleCount = 0;
@@ -191,7 +250,7 @@ import { storefrontHref } from "/product-attribution.mjs";
         emptyState.hidden = visibleCount > 0;
       }
       if (moreButton) moreButton.hidden = visibleCount <= state.limit;
-      if (countLabel) countLabel.textContent = `${visibleCount} updates`;
+      if (countLabel) countLabel.textContent = `Showing ${Math.min(visibleCount, state.limit)} of ${visibleCount} ${visibleCount === 1 ? "update" : "updates"}`;
     }
 
     filterButtons.forEach((button) => {
@@ -201,6 +260,7 @@ import { storefrontHref } from "/product-attribution.mjs";
         filterButtons.forEach((item) => {
           item.setAttribute("aria-pressed", item === button ? "true" : "false");
         });
+        writeUrlState(true);
         applyNewsFilters();
         trackEvent("News Filter", { category: state.category });
       });
@@ -209,10 +269,38 @@ import { storefrontHref } from "/product-attribution.mjs";
     searchInput.addEventListener("input", () => {
       state.query = searchInput.value.trim().toLowerCase();
       state.limit = 12;
+      writeUrlState();
       applyNewsFilters();
     });
-    moreButton?.addEventListener("click", () => { state.limit += 12; applyNewsFilters(); });
+    moreButton?.addEventListener("click", () => {
+      const hiddenEntries = [...entries].filter((entry) => entry.hidden);
+      state.limit += pageSize;
+      writeUrlState();
+      applyNewsFilters();
+      const firstAdded = hiddenEntries.find((entry) => !entry.hidden);
+      if (firstAdded) { firstAdded.tabIndex = -1; firstAdded.focus(); }
+    });
+    function revealHashTarget() {
+      let id;
+      try { id = decodeURIComponent(window.location.hash.slice(1)); } catch (_) { return; }
+      const index = [...entries].findIndex((entry) => entry.id === id);
+      if (index < 0) return;
+      if (entries[index].hidden) {
+        state.category = "all";
+        state.query = "";
+        searchInput.value = "";
+        state.limit = Math.max(state.limit, Math.ceil((index + 1) / pageSize) * pageSize);
+        filterButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.newsFilter === "all")));
+        applyNewsFilters();
+      }
+      entries[index].tabIndex = -1;
+      entries[index].focus();
+    }
+    window.addEventListener("popstate", () => { readUrlState(); applyNewsFilters(); revealHashTarget(); });
+    window.addEventListener("hashchange", revealHashTarget);
+    readUrlState();
     applyNewsFilters();
+    revealHashTarget();
   }
 
   function trackEvent(eventName, props) {
@@ -285,8 +373,10 @@ import { storefrontHref } from "/product-attribution.mjs";
       applyTheme(root.getAttribute("data-theme") === DARK_THEME ? DARK_THEME : LIGHT_THEME);
       toggle.addEventListener("click", onThemeToggle);
     }
-    document.addEventListener("keydown", onThemeKeydown);
+    wireMobileMenu();
     wireProductTracking();
+    wireAppTracking();
+    wireAppSupport();
     wireNewsFilters();
     wireEmailCopy();
     wireLinkTracking(".site-nav a", "Navigation Click", "site-nav");
