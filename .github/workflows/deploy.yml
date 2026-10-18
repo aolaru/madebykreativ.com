@@ -86,4 +86,4 @@ jobs:
         with:
           node-version-file: .nvmrc
       - name: Smoke-test live pages and canonical HTTPS
-        run: node scripts/check-production.mjs --skip-www
+        run: node scripts/check-production.mjs

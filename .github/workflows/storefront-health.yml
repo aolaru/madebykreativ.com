@@ -23,4 +23,4 @@ jobs:
         run: node scripts/check-storefronts.mjs
       - name: Check live pages, redirects and certificates
         if: always()
-        run: node scripts/check-production.mjs
+        run: node scripts/check-production.mjs --redirects

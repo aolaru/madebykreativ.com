@@ -87,9 +87,10 @@ are checked too. Private delivered files and purchase transactions are not teste
 
 The weekly/manual Storefront Health action also runs `npm run validate:production`
 to check live pages, XML feeds, HTTP redirection and both HTTPS hostnames. Deploy
-smoke checks verify the main hostname; the independent `www` certificate check is
-kept in the scheduled monitor so DNS/certificate propagation cannot hold a healthy
-main-site deployment. External store outages do not block deployment.
+smoke checks verify both hostnames, including a real `301` from `www` that preserves
+the path and query string. The independent weekly/manual monitor also passes
+`--redirects` to check every legacy URL over HTTP and HTTPS. External store outages
+do not block deployment.
 
 Gumroad CTAs carry anonymous `utm_source`, `utm_medium`, `utm_campaign`, and
 page/position `utm_content` labels. Plausible counts **Product CTA Click** events;
@@ -126,11 +127,37 @@ a direct support email link.
 
 ## Redirects
 
-GitHub Pages serves static files and cannot return custom HTTP `301` responses. The legacy routes therefore retain accessible `noindex` compatibility pages for the current deployment. The `_redirects` manifest activates real permanent redirects if the site is moved behind Cloudflare Pages or another host that supports the same redirect syntax.
+GitHub Pages is still the static origin and deployment target. GitHub's certificate
+for `www` was activated and its HTTPS `301` verified on October 18, 2026. The `www`
+CNAME points to `aolaru.github.io`; the canonical hostname remains `madebykreativ.com`.
+Keep GitHub's HTTPS enforcement enabled.
 
-The `www` DNS CNAME was corrected to `aolaru.github.io` on October 17, 2026; the apex
-remains `madebykreativ.com` in GitHub Pages with HTTPS enforced. GitHub provisions
-the additional certificate and canonical hostname redirect after DNS propagation.
-Do not remove HTTPS enforcement or point `www` back to the apex to bypass a
-certificate error. Real per-path HTTP redirects require a redirect-capable host
-or reverse proxy; this patch deliberately does not migrate the live hosting.
+Cloudflare's free DNS/proxy setup was activated October 18, 2026, using
+`ken.ns.cloudflare.com` and `mary.ns.cloudflare.com`. Its Universal SSL certificate
+is active, and the four apex A records and `www` CNAME are proxied. Cloudflare is
+configured for **Full (Strict)** origin TLS,
+Always Use HTTPS, and TLS 1.2 minimum. Never use Flexible mode or disable certificate
+validation as a workaround. The `info@` forward was recreated in Cloudflare Email
+Routing with the same verified destination. Mail uses Cloudflare's three MX records
+and its SPF/DKIM records. The Google verification TXT and Domain Connect TXT were
+preserved. Do not remove the original WordPress forward while older DNS caches
+still use it. Old resolver caches may temporarily serve GitHub directly during
+nameserver propagation, so keep the compatibility pages intact.
+
+`public/_redirects` is the source of truth for legacy routes. Run
+`npm run redirects:export` to regenerate `infrastructure/cloudflare-redirects.csv`,
+then import it into the Cloudflare Bulk Redirect List `madebykreativ_legacy_urls`.
+The enabled rule is **Made by Kreativ legacy URLs**. It covers 14 exact paths on
+both hostnames (28 entries), including slashless legacy URLs. It preserves query
+strings and does not match other subdomains or descendants such as `/news/<slug>/`.
+The CSV has no header, per Cloudflare's import format.
+
+`npm run validate:redirects` tests the manifest and detects a stale CSV. Run
+`npm run validate:production -- --redirects` to require one-hop HTTP `301` responses
+and preserved queries for all 28 legacy URLs over both HTTP and HTTPS (56 checks).
+All 56 were verified directly against Cloudflare's edge with certificate validation
+on October 18, 2026. Ordinary DNS-based checks also depend on resolver propagation.
+Static `noindex` compatibility pages remain as a fallback for direct origin access;
+they are not a substitute for the edge redirects. If Cloudflare HTTPS breaks,
+temporarily set only the four apex A records and the `www` CNAME to DNS only.
+Keep the Cloudflare nameservers and email records intact to avoid disrupting mail.
