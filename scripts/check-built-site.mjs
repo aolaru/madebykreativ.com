@@ -17,9 +17,10 @@ const productRoutes = [
 ];
 
 const websiteRoutes = ["/updates/", "/privacy/", "/privacy/blockshift/", "/privacy/northlight/", "/privacy/sharesafe/", "/apps/", "/apps/northlight/", "/apps/sharesafe/", "/apps/paperbuild/", "/apps/kreativ-font/", "/apps/support/"];
-const requiredRoutes = [...productRoutes, ...websiteRoutes, "/news/remove-photo-metadata-android-sharesafe/", "/news/offline-compass-android-northlight/", "/news/photos-to-pdf-android-paperbuild/"];
+const requiredRoutes = [...productRoutes, ...websiteRoutes, "/news/remove-photo-metadata-android-sharesafe/", "/news/offline-compass-android-northlight/", "/news/photos-to-pdf-android-paperbuild/", "/news/discover-fonts-android-kreativ-font/"];
 
 const productAssets = [
+  ...["01-browse-fonts", "02-load-more", "03-search-catalogue", "04-filter-results", "05-save-shortlist"].flatMap((name) => [".png", "-480.webp", "-960.webp"].map((suffix) => `images/kreativ-font/tutorial/${name}${suffix}`)),
   ...["01-photos-to-pdf", "02-crop-pages", "03-pdf-settings", "04-save-share", "05-recent-pdfs"].flatMap((name) => [".png", "-480.webp", "-960.webp"].map((suffix) => `images/paperbuild/tutorial/${name}${suffix}`)),
   "app-attribution.mjs",
   "product-to-profit/previews/system/workspace-dashboard.webp",

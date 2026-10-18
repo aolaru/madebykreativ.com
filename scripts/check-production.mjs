@@ -8,6 +8,7 @@ const routes = [
   "/apps/paperbuild/",
   "/news/photos-to-pdf-android-paperbuild/",
   "/apps/kreativ-font/",
+  "/news/discover-fonts-android-kreativ-font/",
   "/apps/support/",
   "/updates/",
   "/product-to-profit/",
