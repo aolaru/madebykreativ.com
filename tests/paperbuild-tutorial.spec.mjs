@@ -37,7 +37,7 @@ test("PaperBuild tutorial has real screenshots, free/Pro scope and working app l
   await expect(page.locator('.article-next-step a[href="/product-to-profit/"]')).toHaveCount(0);
   await page.getByRole("link", { name: "PaperBuild app details", exact: true }).click();
   await expect(page).toHaveURL(/\/apps\/paperbuild\/$/);
-  await page.getByRole("link", { name: "Read the PaperBuild tutorial", exact: true }).click();
+  await page.getByRole("link", { name: /^Read the PaperBuild tutorial/ }).click();
   await expect(page).toHaveURL(new RegExp(`${route}$`));
 });
 
