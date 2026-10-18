@@ -130,7 +130,7 @@ await sharp(appsCard)
   .png()
   .toFile(fileURLToPath(new URL("og-apps.png", publicDir)));
 
-for (const slug of ["sharesafe", "northlight"]) {
+for (const slug of ["sharesafe", "northlight", "paperbuild"]) {
   const dir = new URL(`images/${slug}/tutorial/`, publicDir);
   for (const name of await readdir(dir))
     if (name.endsWith(".png")) {

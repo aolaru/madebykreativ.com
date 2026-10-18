@@ -6,6 +6,7 @@ const routes = [
   "/",
   "/apps/",
   "/apps/paperbuild/",
+  "/news/photos-to-pdf-android-paperbuild/",
   "/apps/kreativ-font/",
   "/apps/support/",
   "/updates/",
