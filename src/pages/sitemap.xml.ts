@@ -18,6 +18,7 @@ const staticRoutes = [
   { path: "/privacy/blockshift/", changefreq: "monthly", priority: "0.6" },
   { path: "/privacy/northlight/", changefreq: "monthly", priority: "0.6" },
   { path: "/privacy/kreativ-fancy-text/", changefreq: "monthly", priority: "0.6" },
+  { path: "/privacy/photofeather/", changefreq: "monthly", priority: "0.6" },
   { path: "/privacy/sharesafe/", changefreq: "monthly", priority: "0.6" },
   { path: "/privacy/", changefreq: "monthly", priority: "0.6" },
   { path: "/apps/support/", changefreq: "monthly", priority: "0.5" },

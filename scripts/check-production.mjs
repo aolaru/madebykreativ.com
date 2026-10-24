@@ -15,6 +15,7 @@ const routes = [
   "/sitemap.xml",
   "/updates/rss.xml",
   "/privacy/sharesafe/",
+  "/privacy/photofeather/",
 ];
 const failures = [];
 const revision = process.env.GITHUB_SHA || String(Date.now());
