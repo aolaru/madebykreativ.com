@@ -9,10 +9,15 @@ const pagePath = "/privacy/photofeather/";
 const pageDescription = "PhotoFeather privacy policy: on-device photo compression and resizing, private working copies, JPEG metadata removal, saving and sharing.";
 const [header, ...blocks] = policy.trim().split(/\n\n/);
 const metadata = header.split("\n").slice(1);
-const sections = blocks.map((block, index) => {
+const sections: { heading: string; paragraphs: string[]; id: string }[] = [];
+for (const block of blocks) {
   const [heading, ...lines] = block.split("\n");
-  return { heading, text: lines.join(" "), id: `policy-section-${index + 1}` };
-});
+  if (lines.length === 0 && sections.length > 0) {
+    sections[sections.length - 1].paragraphs.push(heading);
+  } else {
+    sections.push({ heading, paragraphs: [lines.join(" ")], id: `policy-section-${sections.length + 1}` });
+  }
+}
 ---
 
 <BaseLayout
@@ -46,7 +51,7 @@ const sections = blocks.map((block, index) => {
   {sections.map((section) => (
     <section class="content-card" aria-labelledby={section.id}>
       <h2 id={section.id}>{section.heading}</h2>
-      <p>{section.text}</p>
+      {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
     </section>
   ))}
   <section class="content-card" aria-labelledby="contact-link-heading">
