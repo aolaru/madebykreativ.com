@@ -16,7 +16,7 @@ const productRoutes = [
   "/product-to-profit/product-information/"
 ];
 
-const websiteRoutes = ["/updates/", "/privacy/", "/privacy/blockshift/", "/privacy/northlight/", "/privacy/sharesafe/", "/apps/", "/apps/northlight/", "/apps/sharesafe/", "/apps/paperbuild/", "/apps/kreativ-font/", "/apps/support/"];
+const websiteRoutes = ["/updates/", "/privacy/", "/privacy/blockshift/", "/privacy/kreativ-fancy-text/", "/privacy/northlight/", "/privacy/sharesafe/", "/apps/", "/apps/northlight/", "/apps/sharesafe/", "/apps/paperbuild/", "/apps/kreativ-font/", "/apps/support/"];
 const requiredRoutes = [...productRoutes, ...websiteRoutes, "/news/remove-photo-metadata-android-sharesafe/", "/news/offline-compass-android-northlight/", "/news/photos-to-pdf-android-paperbuild/", "/news/discover-fonts-android-kreativ-font/"];
 
 const productAssets = [

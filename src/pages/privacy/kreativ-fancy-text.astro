@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import HeroHeader from "../../components/HeroHeader.astro";
+import { createBreadcrumbSchema, createPageSchema, organizationSchema } from "../../data/site";
+import policy from "../../data/privacy/kreativ-fancy-text.txt?raw";
+
+const pagePath = "/privacy/kreativ-fancy-text/";
+const pageDescription = "Kreativ Fancy Text privacy policy: on-device text styling, local drafts and favorites, PNG saving, and sharing only when you choose.";
+const [header, scope, ...blocks] = policy.trim().split(/\n\n/);
+const metadata = header.split("\n").slice(1);
+const sections = blocks.map((block, index) => {
+  const [heading, ...lines] = block.split("\n");
+  return { heading, text: lines.join(" "), id: `policy-section-${index + 1}` };
+});
+---
+
+<BaseLayout
+  title="Kreativ Fancy Text Privacy Policy"
+  description={pageDescription}
+  canonicalPath={pagePath}
+  structuredData={[
+    organizationSchema,
+    createPageSchema({ type: "WebPage", name: "Kreativ Fancy Text Privacy Policy", description: pageDescription, path: pagePath }),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Privacy", path: "/privacy/" },
+      { name: "Kreativ Fancy Text", path: pagePath }
+    ])
+  ]}
+>
+  <HeroHeader
+    eyebrow="Kreativ Fancy Text"
+    title="Kreativ Fancy Text Privacy Policy"
+    tagline="Your text and designs stay on your device. You choose what to copy, save, or share."
+  />
+  <Breadcrumbs items={[
+    { label: "Home", href: "/" },
+    { label: "Privacy", href: "/privacy/" },
+    { label: "Kreativ Fancy Text" }
+  ]} />
+  <section class="content-card" aria-labelledby="policy-details-heading">
+    <h2 id="policy-details-heading">About this policy</h2>
+    {metadata.map((line) => <p>{line}</p>)}
+    <p>{scope.replaceAll("\n", " ")}</p>
+  </section>
+  {sections.map((section) => (
+    <section class="content-card" aria-labelledby={section.id}>
+      <h2 id={section.id}>{section.heading}</h2>
+      <p>{section.text}</p>
+    </section>
+  ))}
+  <section class="content-card" aria-labelledby="contact-link-heading">
+    <h2 id="contact-link-heading">Contact Kreativ</h2>
+    <p><a class="cta" href="mailto:info@madebykreativ.com">info@madebykreativ.com</a></p>
+  </section>
+</BaseLayout>
