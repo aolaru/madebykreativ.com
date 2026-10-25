@@ -158,7 +158,8 @@ for (const requirement of [
   'https://developers.google.com/ml-kit/terms',
   'per-installation identifiers',
   'images and detection results are not sent to Google',
-  'October 15, 2026'
+  'October 25, 2026',
+  'released in Google Play version 1.2.0'
 ]) {
   if (!shareSafePolicy.includes(requirement)) failures.push(`ShareSafe privacy policy: missing ${requirement}`);
 }
