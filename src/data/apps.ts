@@ -20,6 +20,21 @@ export interface KreativApp {
 
 export const apps: KreativApp[] = [
   {
+    slug: "photofeather",
+    name: "PhotoFeather",
+    category: "Photo compression",
+    accessLabel: "Free",
+    privacyUrl: "/privacy/photofeather/",
+    privacyNote: "Photos are processed on-device, with no account, ads, analytics SDK or internet permission. Android's system picker may retrieve a photo from a cloud provider you choose.",
+    description: "Compress and resize photos for forms, email and sharing. Check measured results and save new JPEG copies while keeping your originals.",
+    proDescription: "All described features are included in version 1.0.0, with no purchases or subscriptions.",
+    screenshotWidth: 1188,
+    screenshotHeight: 2112,
+    stores: [{platform: "Android", name: "Google Play", url: "https://play.google.com/store/apps/details?id=com.kreativ.photofeather"}],
+    features: ["Choose a 200 KB, 500 KB, 1 MB or custom file-size target", "Resize with Small, Medium, Large or custom longest-edge settings", "Check actual file sizes and dimensions, compare before and after, then save or share new copies"],
+    limitation: "Output is lossy JPEG; quality and savings vary. Targets can reduce dimensions and may not always be met. Inputs are JPEG, PNG and static WebP. Metadata removal does not hide visible sensitive details.",
+  },
+  {
     slug: "sharesafe",
     name: "ShareSafe",
     category: "Photo privacy",

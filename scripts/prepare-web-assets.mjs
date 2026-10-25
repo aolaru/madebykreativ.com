@@ -6,6 +6,12 @@ import { fileURLToPath } from "node:url";
 const publicDir = new URL("../public/", import.meta.url);
 const apps = [
   {
+    slug: "photofeather",
+    id: "com.kreativ.photofeather",
+    title: "PhotoFeather",
+    subtitle: "Lighter photos. Ready to share.",
+  },
+  {
     slug: "sharesafe",
     id: "com.kreativ.sharesafe",
     title: "ShareSafe",
@@ -123,14 +129,14 @@ for (const [index, app] of apps.entries())
     top: 360,
   });
 const appsCard = Buffer.from(
-  '<svg width="1200" height="630"><rect width="1200" height="630" fill="#f3f6fb"/><text x="80" y="160" fill="#236b45" font-family="Arial" font-size="28">MADE BY KREATIV</text><text x="80" y="255" fill="#172235" font-family="Arial" font-weight="bold" font-size="72">Kreativ Apps</text><text x="80" y="550" fill="#3f516d" font-family="Arial" font-size="27">ShareSafe · Northlight · PaperBuild · Kreativ Font</text></svg>',
+  '<svg width="1200" height="630"><rect width="1200" height="630" fill="#f3f6fb"/><text x="80" y="160" fill="#236b45" font-family="Arial" font-size="28">MADE BY KREATIV</text><text x="80" y="255" fill="#172235" font-family="Arial" font-weight="bold" font-size="72">Kreativ Apps</text><text x="80" y="550" fill="#3f516d" font-family="Arial" font-size="25">PhotoFeather · ShareSafe · Northlight · PaperBuild · Kreativ Font</text></svg>',
 );
 await sharp(appsCard)
   .composite(appIcons)
   .png()
   .toFile(fileURLToPath(new URL("og-apps.png", publicDir)));
 
-for (const slug of ["sharesafe", "northlight", "paperbuild", "kreativ-font"]) {
+for (const slug of ["sharesafe", "northlight", "paperbuild", "kreativ-font", "photofeather"]) {
   const dir = new URL(`images/${slug}/tutorial/`, publicDir);
   for (const name of await readdir(dir))
     if (name.endsWith(".png")) {

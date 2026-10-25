@@ -11,7 +11,7 @@ const news = defineCollection({
     modifiedDate: z.date().optional(),
     category: z.enum(["Product", "Project", "Ecosystem", "Engineering"]),
     project: z.string().optional(),
-    app: z.enum(["sharesafe", "northlight", "paperbuild", "kreativ-font"]).optional(),
+    app: z.enum(["sharesafe", "northlight", "paperbuild", "kreativ-font", "photofeather"]).optional(),
     image: z.string().optional()
   })
 });

@@ -16,16 +16,17 @@ const productRoutes = [
   "/product-to-profit/product-information/"
 ];
 
-const websiteRoutes = ["/updates/", "/privacy/", "/privacy/blockshift/", "/privacy/kreativ-fancy-text/", "/privacy/photofeather/", "/privacy/northlight/", "/privacy/sharesafe/", "/apps/", "/apps/northlight/", "/apps/sharesafe/", "/apps/paperbuild/", "/apps/kreativ-font/", "/apps/support/"];
+const websiteRoutes = ["/updates/", "/privacy/", "/privacy/blockshift/", "/privacy/kreativ-fancy-text/", "/privacy/photofeather/", "/privacy/northlight/", "/privacy/sharesafe/", "/apps/", "/apps/northlight/", "/apps/sharesafe/", "/apps/paperbuild/", "/apps/kreativ-font/", "/apps/photofeather/", "/news/compress-photos-android-photofeather/", "/apps/support/"];
 const requiredRoutes = [...productRoutes, ...websiteRoutes, "/news/remove-photo-metadata-android-sharesafe/", "/news/offline-compass-android-northlight/", "/news/photos-to-pdf-android-paperbuild/", "/news/discover-fonts-android-kreativ-font/"];
 
 const productAssets = [
+  ...["01-select-photos", "02-resize-presets", "03-custom-resize", "04-measured-results", "05-compare-photos"].flatMap((name) => [".png", "-480.webp", "-960.webp"].map((suffix) => `images/photofeather/tutorial/${name}${suffix}`)),
   ...["01-browse-fonts", "02-load-more", "03-search-catalogue", "04-filter-results", "05-save-shortlist"].flatMap((name) => [".png", "-480.webp", "-960.webp"].map((suffix) => `images/kreativ-font/tutorial/${name}${suffix}`)),
   ...["01-photos-to-pdf", "02-crop-pages", "03-pdf-settings", "04-save-share", "05-recent-pdfs"].flatMap((name) => [".png", "-480.webp", "-960.webp"].map((suffix) => `images/paperbuild/tutorial/${name}${suffix}`)),
   "app-attribution.mjs",
   "product-to-profit/previews/system/workspace-dashboard.webp",
   "og-apps.png",
-  ...["sharesafe", "northlight", "paperbuild", "kreativ-font"].flatMap((slug) => ["icon.png", "social.png", "screen-320.webp", "screen-640.webp", "screen-1080.webp"].map((asset) => `apps/${slug}/${asset}`)),
+  ...["sharesafe", "northlight", "paperbuild", "kreativ-font", "photofeather"].flatMap((slug) => ["icon.png", "social.png", "screen-320.webp", "screen-640.webp", "screen-1080.webp"].map((asset) => `apps/${slug}/${asset}`)),
   ...["01-compass", "02-spoken-compass", "03-altimeter", "04-red-light"].map((name) => `images/northlight/tutorial/${name}.png`),
   ...["01-choose-photos", "02-original-metadata", "03-export-options", "04-before-after", "05-ready-to-share"].map((name) => `images/sharesafe/tutorial/${name}.png`),
   "og-product-to-profit-guide.png",

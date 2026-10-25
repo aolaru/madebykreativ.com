@@ -71,6 +71,14 @@ const platforms = [...new Set(app.stores.map((store) => store.platform))].join(
       </a>
     </p>
   </section>
+  {app.slug === "photofeather" && (
+    <section class="content-card" aria-labelledby="photofeather-tutorial-heading">
+      <p class="eyebrow">Step-by-step guide</p>
+      <h2 id="photofeather-tutorial-heading">Make photos fit an upload limit on Android</h2>
+      <p>Choose photos, resize or set a maximum file size, inspect measured results and compare before saving a new JPEG copy.</p>
+      <p><a class="cta" href="/news/compress-photos-android-photofeather/">Read the PhotoFeather tutorial</a></p>
+    </section>
+  )}
   {app.slug === "sharesafe" && (
     <section class="content-card" aria-labelledby="sharesafe-tutorial-heading">
       <p class="eyebrow">Step-by-step guide</p>
