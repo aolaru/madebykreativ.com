@@ -110,7 +110,7 @@ referrer attribution works independently of that optional reporting dashboard.
 
 ## Web Assets And App Support
 
-The Apps catalogue includes ShareSafe, Northlight, PaperBuild and Kreativ Font.
+The Apps catalogue includes Kreativ Fancy Text, PhotoFeather, ShareSafe, Northlight, PaperBuild and Kreativ Font.
 Their published store and privacy links are defined in `src/data/apps.ts`.
 Official store artwork provenance is recorded in each `public/apps/*/source.json`.
 Run `npm run assets:web` to regenerate responsive WebP screenshots and app social

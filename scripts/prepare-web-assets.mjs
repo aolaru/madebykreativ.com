@@ -6,6 +6,12 @@ import { fileURLToPath } from "node:url";
 const publicDir = new URL("../public/", import.meta.url);
 const apps = [
   {
+    slug: "kreativ-fancy-text",
+    id: "com.kreativfont.studio",
+    title: "Kreativ Fancy Text",
+    subtitle: "Style words. Copy text. Create PNG designs.",
+  },
+  {
     slug: "photofeather",
     id: "com.kreativ.photofeather",
     title: "PhotoFeather",
@@ -37,6 +43,11 @@ const apps = [
   },
 ];
 
+const appArg = process.argv.indexOf("--app");
+const requestedApp = appArg < 0 ? null : process.argv[appArg + 1];
+if (appArg >= 0 && !apps.some((app) => app.slug === requestedApp))
+  throw new Error("--app must name an app in the artwork catalogue");
+
 async function download(url, target) {
   const response = await fetch(url, { signal: AbortSignal.timeout(30000) });
   if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
@@ -46,6 +57,7 @@ async function download(url, target) {
 }
 
 for (const app of apps) {
+  if (requestedApp && app.slug !== requestedApp) continue;
   const folder = new URL(`apps/${app.slug}/`, publicDir);
   await mkdir(folder, { recursive: true });
   if (process.argv.includes("--refresh-stores")) {
@@ -129,14 +141,15 @@ for (const [index, app] of apps.entries())
     top: 360,
   });
 const appsCard = Buffer.from(
-  '<svg width="1200" height="630"><rect width="1200" height="630" fill="#f3f6fb"/><text x="80" y="160" fill="#236b45" font-family="Arial" font-size="28">MADE BY KREATIV</text><text x="80" y="255" fill="#172235" font-family="Arial" font-weight="bold" font-size="72">Kreativ Apps</text><text x="80" y="550" fill="#3f516d" font-family="Arial" font-size="25">PhotoFeather · ShareSafe · Northlight · PaperBuild · Kreativ Font</text></svg>',
+  '<svg width="1200" height="630"><rect width="1200" height="630" fill="#f3f6fb"/><text x="80" y="160" fill="#236b45" font-family="Arial" font-size="28">MADE BY KREATIV</text><text x="80" y="255" fill="#172235" font-family="Arial" font-weight="bold" font-size="72">Kreativ Apps</text><text x="80" y="530" fill="#3f516d" font-family="Arial" font-size="25">Kreativ Fancy Text · PhotoFeather · ShareSafe</text><text x="80" y="575" fill="#3f516d" font-family="Arial" font-size="25">Northlight · PaperBuild · Kreativ Font</text></svg>',
 );
 await sharp(appsCard)
   .composite(appIcons)
   .png()
   .toFile(fileURLToPath(new URL("og-apps.png", publicDir)));
 
-for (const slug of ["sharesafe", "northlight", "paperbuild", "kreativ-font", "photofeather"]) {
+for (const slug of ["sharesafe", "northlight", "paperbuild", "kreativ-font", "photofeather", "kreativ-fancy-text"]) {
+  if (requestedApp && slug !== requestedApp) continue;
   const dir = new URL(`images/${slug}/tutorial/`, publicDir);
   for (const name of await readdir(dir))
     if (name.endsWith(".png")) {

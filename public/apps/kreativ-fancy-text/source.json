@@ -1,0 +1,51 @@
+{
+  "checked": "2026-10-25",
+  "listing": "https://play.google.com/store/apps/details?id=com.kreativfont.studio",
+  "version": "1.0.1",
+  "capture": "Actual bundled 1.0.1 interface in Chromium at 432x768 CSS px and 2.5x scale. Not physical-phone screenshots. Native clipboard/file/share dialogs not depicted.",
+  "icon": "Existing brand SVG rendered for the Play store icon.",
+  "assets": [
+    {
+      "file": "screenshots/01-create.png",
+      "width": 1080,
+      "height": 1920,
+      "source": "Actual bundled web interface in Chromium, 432×768 CSS px at 2.5×; no Android system chrome.",
+      "sha256": "54d72776d9a0ec025b38486add38976e99d3beac7d4bcea73045683bd54f1868"
+    },
+    {
+      "file": "screenshots/02-word-styles.png",
+      "width": 1080,
+      "height": 1920,
+      "source": "Actual bundled web interface in Chromium, 432×768 CSS px at 2.5×; no Android system chrome.",
+      "sha256": "376744ceaefd0ffcc44e41979fcaab8f35220f4540b034b8dd6091633e07475e"
+    },
+    {
+      "file": "screenshots/03-matching-image.png",
+      "width": 1080,
+      "height": 1920,
+      "source": "Actual bundled web interface in Chromium, 432×768 CSS px at 2.5×; no Android system chrome.",
+      "sha256": "0b0c38bc2c10f196eab1009a08a0f7b5c2cf7e49e1c798504754b74921c2485a"
+    },
+    {
+      "file": "screenshots/04-png-options.png",
+      "width": 1080,
+      "height": 1920,
+      "source": "Actual bundled web interface in Chromium, 432×768 CSS px at 2.5×; no Android system chrome.",
+      "sha256": "bffda64b33a67185216618e3ef3573b47c948ab4bb389916a2d6af630922d087"
+    },
+    {
+      "file": "screenshots/05-saved-designs.png",
+      "width": 1080,
+      "height": 1920,
+      "source": "Actual bundled web interface in Chromium, 432×768 CSS px at 2.5×; no Android system chrome.",
+      "sha256": "0e290674fc8fedf76469df7220c48dafee49c1445df3c4c9a7d9bf9ac52d2ca1"
+    },
+    {
+      "file": "icon-512.png",
+      "width": 512,
+      "height": 512,
+      "source": "Existing public/icon.svg, full-bleed square for the Play icon mask.",
+      "sha256": "c11b45756061c03f9f4faf6c15d3e2a2cf869790ea5a5ad18ef5cc0b7f196088"
+    }
+  ]
+}

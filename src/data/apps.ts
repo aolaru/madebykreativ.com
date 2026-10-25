@@ -20,6 +20,21 @@ export interface KreativApp {
 
 export const apps: KreativApp[] = [
   {
+    slug: "kreativ-fancy-text",
+    name: "Kreativ Fancy Text",
+    category: "Text and PNG designs",
+    accessLabel: "Free",
+    privacyUrl: "/privacy/kreativ-fancy-text/",
+    privacyNote: "Create on your device without an account, ads, analytics SDK or internet permission. Drafts and saved designs stay local; sharing follows the destination app's policies.",
+    description: "Style individual words, copy fancy Unicode text or create matching PNG artwork. An offline Android editor for messages with personality.",
+    proDescription: "The app is free, with no purchases or subscriptions. Six themes, 17 text styles and PNG exports are included.",
+    screenshotWidth: 1080,
+    screenshotHeight: 1920,
+    stores: [{platform: "Android", name: "Google Play", url: "https://play.google.com/store/apps/details?id=com.kreativfont.studio"}],
+    features: ["Style a whole message or individual words, with per-word image colors", "Export square, portrait or story PNGs at standard or 2x resolution, with optional transparency", "Save up to 50 designs locally, reopen them and keep editing"],
+    limitation: "Copied Unicode text depends on the receiving app and does not preserve image colors or artwork. Use PNG to keep the design. This does not install phone fonts or a keyboard. Clearing storage or uninstalling removes local designs; export copies you want to keep.",
+  },
+  {
     slug: "photofeather",
     name: "PhotoFeather",
     category: "Photo compression",
