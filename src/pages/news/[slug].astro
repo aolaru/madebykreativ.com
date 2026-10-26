@@ -4,6 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
 import { apps } from "../../data/apps";
+import RelatedApps from "../../components/RelatedApps.astro";
 import {lastModified} from "../../data/modified";
 import { buildUrl, createBreadcrumbSchema, createNewsArticleSchema, organizationSchema, projectDirectory, projectPath, site } from "../../data/site";
 
@@ -130,4 +131,5 @@ const isHistoricalUpdate = entry.data.sortDate.valueOf() < new Date("2026-10-04T
     </nav>
   </article>
 
+  {relatedApp && <RelatedApps slug={relatedApp.slug} />}
 </BaseLayout>

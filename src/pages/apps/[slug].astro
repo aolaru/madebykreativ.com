@@ -4,6 +4,7 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { apps } from "../../data/apps";
 import AppScreenshot from "../../components/AppScreenshot.astro";
 import AppStoreLink from "../../components/AppStoreLink.astro";
+import RelatedApps from "../../components/RelatedApps.astro";
 import {buildUrl} from "../../data/site";
 export function getStaticPaths() {
   return apps.map((app) => ({ params: { slug: app.slug }, props: { app } }));
@@ -119,4 +120,5 @@ const platforms = [...new Set(app.stores.map((store) => store.platform))].join(
       <p><a class="cta" href="/news/discover-fonts-android-kreativ-font/">Read the Kreativ Font tutorial</a></p>
     </section>
   )}
+  <RelatedApps slug={app.slug} />
 </BaseLayout>

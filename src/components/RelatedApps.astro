@@ -1,0 +1,23 @@
+---
+import { apps } from "../data/apps";
+interface Props { slug: string }
+const related: Record<string, string[]> = {
+  photofeather: ["sharesafe", "paperbuild"],
+  sharesafe: ["photofeather", "paperbuild"],
+  paperbuild: ["photofeather", "sharesafe"],
+  northlight: ["sharesafe", "photofeather"],
+  "kreativ-font": ["kreativ-fancy-text"],
+  "kreativ-fancy-text": ["kreativ-font"],
+};
+const suggestions = (related[Astro.props.slug] || []).map(slug => apps.find(app => app.slug === slug)).filter(Boolean);
+---
+{suggestions.length > 0 && <section class="ptp-section" aria-labelledby="related-apps-heading">
+  <h2 id="related-apps-heading">More tools from Made by Kreativ</h2>
+  <div class="app-links">
+    {suggestions.map(app => app && <a href={`/apps/${app.slug}/`}>
+      <img src={`/apps/${app.slug}/icon.png`} alt="" width="56" height="56" loading="lazy" />
+      <div><h3>{app.name}</h3><p>{app.description}</p></div>
+      <span aria-hidden="true">→</span>
+    </a>)}
+  </div>
+</section>}

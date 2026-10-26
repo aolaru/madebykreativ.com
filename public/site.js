@@ -173,7 +173,7 @@ import { appStoreHref } from "/app-attribution.mjs";
       const url = new URL(link.href);
       if (url.hostname !== "play.google.com") return;
       const app = url.searchParams.get("id");
-      link.href = appStoreHref(link.href, { page: window.location.pathname, position: link.dataset.position || "article" });
+      link.href = appStoreHref(link.href, { page: window.location.pathname, position: link.dataset.position || "article", search: window.location.search });
       link.addEventListener("click", () => trackEvent("App Store Click", { app, page: window.location.pathname, position: link.dataset.position || "article", store: "Google Play" }));
     });
   }
