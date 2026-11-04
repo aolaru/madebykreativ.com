@@ -4,8 +4,8 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
 import { createBreadcrumbSchema, createPageSchema, organizationSchema, site } from "../../data/site";
 
-const pageDescription = "Northlight privacy policy: on-device compass, optional GPS altitude and speech, local preferences, and optional Pro purchases through Google Play.";
-const effectiveDate = "15 October 2026";
+const pageDescription = "Northlight privacy policy: on-device compass, optional GPS altitude, saved places and speech, and Pro purchases through Google Play.";
+const effectiveDate = "4 November 2026";
 const pagePath = "/privacy/northlight/";
 ---
 
@@ -31,7 +31,7 @@ const pagePath = "/privacy/northlight/";
   <HeroHeader
     eyebrow="Northlight"
     title="Northlight Privacy Policy"
-    tagline="On-device compass and light tools, optional GPS altitude and speech, and Pro purchases through Google Play."
+    tagline="On-device compass and light tools, optional GPS altitude, saved places and speech, and Pro purchases through Google Play."
   />
 
   <Breadcrumbs items={[
@@ -48,7 +48,7 @@ const pagePath = "/privacy/northlight/";
   <section class="content-card" aria-labelledby="data-heading">
     <p class="eyebrow">Privacy</p>
     <h2 id="data-heading">Data we collect</h2>
-    <p>Kreativ does not collect, sell, or share personal data through Northlight. The app has no account system, analytics, advertising SDKs, or developer-operated cloud services. Saved bearings, light-brightness preferences, speech speed and interval, the optional alignment-haptic preference, altitude units and whether a location permission request has been made, a cached Pro entitlement, and pending purchase-confirmation tokens are stored only on your device. Northlight does not save coordinates, routes, altitude history or audio recordings. These app records are excluded from Android cloud backup and device transfer.</p>
+    <p>Kreativ does not collect, sell, or share personal data through Northlight. The app has no account system, analytics, advertising SDKs, or developer-operated cloud services. Saved bearings, light-brightness preferences, speech speed and interval, the optional alignment-haptic preference, altitude units and whether a location permission request has been made, a cached Pro entitlement, and pending purchase-confirmation tokens are stored only on your device. Starting with the planned version 1.3.0, Pro owners can also choose to save places, including their names, coordinates and reported GPS accuracy, on the device. Northlight does not record routes, altitude history or audio. These app records are excluded from Android cloud backup and device transfer.</p>
   </section>
 
   <section class="content-card" aria-labelledby="pro-heading">
@@ -67,20 +67,27 @@ const pagePath = "/privacy/northlight/";
   <section class="content-card" aria-labelledby="altimeter-heading">
     <p class="eyebrow">Optional location access</p>
     <h2 id="altimeter-heading">Optional GPS altimeter</h2>
-    <p>The free altimeter requests precise foreground location only after you choose to enable it. Android supplies a GPS/GNSS location fix; Northlight uses its altitude, vertical uncertainty, timing and simulated-location flag to display a current altitude estimate. Northlight does not save the fix or coordinates, build a route, or send location or altitude to Kreativ or an elevation server. Only the current altitude estimate is held temporarily in memory. GPS measurement stops when you stop it, leave the home screen or lock the phone, and does not restart automatically. The app does not request background location. Compass, light and spoken-compass features work without location access. Android's own location services and device settings govern how the operating system obtains satellite fixes.</p>
+    <p>The free altimeter requests precise foreground location only after you choose to enable it. Android supplies a GPS/GNSS location fix; Northlight uses its altitude, vertical uncertainty, timing and simulated-location flag to display a current altitude estimate. The altimeter does not save the fix or coordinates, build a route, or send location or altitude to Kreativ or an elevation server. Only the current altitude estimate is held temporarily in memory. GPS measurement stops when you stop it, leave the home screen or lock the phone, and does not restart automatically. The app does not request background location. Compass, light and spoken-compass features work without location access. Android's own location services and device settings govern how the operating system obtains satellite fixes.</p>
+  </section>
+
+  <section class="content-card" aria-labelledby="saved-places-heading">
+    <p class="eyebrow">Optional Pro feature</p>
+    <h2 id="saved-places-heading">Saved places</h2>
+    <p>In the planned version 1.3.0, Pro owners can explicitly save named GPS places on their device. Each saved place includes its name, coordinates and reported GPS accuracy. These records stay on the phone, are excluded from Android cloud backup and device transfer, and can be renamed or deleted in the app. Uninstalling Northlight removes its local app data.</p>
+    <p>When you start GPS on the saved-places screen, Northlight uses fresh, precise foreground location and compass readings to estimate straight-line distance and the phone's direction towards a selected place. Current fixes are held temporarily in memory and cleared when GPS stops or you leave the screen. The app does not upload locations, record routes, request background location or restart GPS automatically. GPS and compass readings can be inaccurate; the guidance does not identify obstacles, routes or safe passage.</p>
   </section>
 
   <section class="content-card" aria-labelledby="speech-heading">
     <p class="eyebrow">Optional on-device audio</p>
     <h2 id="speech-heading">Optional spoken compass</h2>
     <p>Northlight sends a direction or accuracy warning to an installed Android text-to-speech engine using a voice marked as offline and installed, in the app's language. It does not send headings to a developer-operated speech service, use the microphone, or record audio. Speech stops when you leave the app. If a screen reader is active, an explicitly requested reading is handed to that accessibility service instead, which uses its own voice, connectivity and privacy settings. Choosing to manage or download voices opens external Android/voice-engine settings; voice downloads may use the internet and are governed by that provider.</p>
-    <p>Pro owners can optionally request spoken phone-turn/alignment instructions for a saved magnetic bearing, with optional native alignment haptic feedback. This uses the same local speech path, not GPS or a routing service. Saved bearing names are not spoken; prompts use direction and degrees. Guidance pauses when you leave its screen or change/clear the target and never restarts automatically. The haptic preference is stored locally, and feedback respects Android settings and hardware availability. These cues describe phone orientation, not obstacle avoidance, safe routes or arrival at a place.</p>
+    <p>Pro owners can optionally request spoken phone-turn/alignment instructions for a saved magnetic bearing, with optional native alignment haptic feedback. In the planned version 1.3.0, the same local speech and haptic feedback can also guide the phone towards a saved place, using GPS on the device without a routing service. Saved names and coordinates are not spoken; prompts use direction and degrees. Guidance pauses when you leave its screen or change/clear the target and never restarts automatically. Feedback respects Android settings and hardware availability. These cues describe phone orientation, not obstacle avoidance, safe routes or arrival at a place.</p>
   </section>
 
   <section class="content-card" aria-labelledby="links-heading">
     <p class="eyebrow">Only when selected</p>
     <h2 id="links-heading">External website links</h2>
-    <p>The Made by Kreativ credit and privacy-policy link open a website in your browser only when you choose them. Northlight does not attach compass readings, altitude, saved bearings or purchase tokens to these links. Your browser and the destination website handle the visit under their own privacy settings and policies.</p>
+    <p>The Made by Kreativ credit and privacy-policy link open a website in your browser only when you choose them. Northlight does not attach compass readings, altitude, saved bearings, saved places or purchase tokens to these links. Your browser and the destination website handle the visit under their own privacy settings and policies.</p>
   </section>
 
   <section class="content-card" aria-labelledby="children-heading">
