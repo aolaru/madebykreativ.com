@@ -6,13 +6,23 @@ import { createBreadcrumbSchema, createPageSchema, organizationSchema } from "..
 import policy from "../../data/privacy/kreativ-fancy-text.txt?raw";
 
 const pagePath = "/privacy/kreativ-fancy-text/";
-const pageDescription = "Kreativ Fancy Text privacy policy: on-device text styling, local drafts and favorites, PNG saving, and sharing only when you choose.";
+const pageDescription = "Kreativ Fancy Text privacy policy: on-device text styling, local drafts and style presets, optional Google Play Pro purchases, PNG saving, and sharing only when you choose.";
 const [header, scope, ...blocks] = policy.trim().split(/\n\n/);
 const metadata = header.split("\n").slice(1);
-const sections = blocks.map((block, index) => {
+const sectionHeadings = new Set([
+  "Processing on your device", "Drafts, favorites, presets, and retention",
+  "Clipboard, files, and sharing", "Optional Pro purchase", "Temporary image files",
+  "Permissions and third-party components", "Support correspondence", "Changes and contact"
+]);
+const sections: { heading: string; paragraphs: string[]; id: string }[] = [];
+for (const block of blocks) {
   const [heading, ...lines] = block.split("\n");
-  return { heading, text: lines.join(" "), id: `policy-section-${index + 1}` };
-});
+  if (sectionHeadings.has(heading)) {
+    sections.push({ heading, paragraphs: [lines.join(" ")], id: `policy-section-${sections.length + 1}` });
+  } else if (sections.length) {
+    sections[sections.length - 1].paragraphs.push(block.replaceAll("\n", " "));
+  }
+}
 ---
 
 <BaseLayout
@@ -47,7 +57,7 @@ const sections = blocks.map((block, index) => {
   {sections.map((section) => (
     <section class="content-card" aria-labelledby={section.id}>
       <h2 id={section.id}>{section.heading}</h2>
-      <p>{section.text}</p>
+      {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
     </section>
   ))}
   <section class="content-card" aria-labelledby="contact-link-heading">
