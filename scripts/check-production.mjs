@@ -6,6 +6,11 @@ const origin = "https://madebykreativ.com";
 const routes = [
   "/",
   "/services/",
+  "/services/wordpress/",
+  "/services/qa-api-testing/",
+  "/work/",
+  "/work/website-quality-checks/",
+  "/contact/",
   "/apps/",
   "/apps/paperbuild/",
   "/news/photos-to-pdf-android-paperbuild/",

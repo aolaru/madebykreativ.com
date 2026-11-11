@@ -2,9 +2,9 @@ import { test, expect } from "@playwright/test";
 
 const navigation = [
   ["Services", "/services/", "/services/"],
-  ["Books", "/product-to-profit/", "/product-to-profit/idea-library/"],
   ["Websites", "/projects/", "/projects/kreativ-font/"],
   ["Apps", "/apps/", "/apps/sharesafe/"],
+  ["Resources", "/product-to-profit/", "/product-to-profit/idea-library/"],
   ["Updates", "/updates/"],
   ["About", "/about/"],
   ["Contact", "/contact/"],
@@ -39,7 +39,7 @@ for (const width of [320, 1280]) {
           () => document.documentElement.scrollWidth <= innerWidth,
         ),
       ).toBe(true);
-      if (process.env.VISUAL_PROOF && label === "Books") {
+      if (process.env.VISUAL_PROOF && label === "Resources") {
         await page
           .locator(mobile ? ".site-nav-mobile-panel" : ".site-header")
           .screenshot({

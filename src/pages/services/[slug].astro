@@ -1,0 +1,173 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HeroHeader from "../../components/HeroHeader.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import EngagementPackages from "../../components/EngagementPackages.astro";
+import CaseStudyCard from "../../components/CaseStudyCard.astro";
+import InquiryTools from "../../components/InquiryTools.astro";
+import { serviceLandingPages, inquiryPath } from "../../data/engagements";
+import { caseStudies } from "../../data/caseStudies";
+import {
+  buildUrl,
+  createBreadcrumbSchema,
+  createPageSchema,
+  organizationSchema,
+  site,
+} from "../../data/site";
+export function getStaticPaths() {
+  return serviceLandingPages.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+const { service } = Astro.props;
+const path = `/services/${service.slug}/`;
+const study = caseStudies.find((item) => item.slug === service.caseStudy)!;
+const packageId =
+  service.slug === "wordpress" ? "wordpress-repair" : "qa-audit";
+---
+
+<BaseLayout
+  title={service.seoTitle}
+  description={service.description}
+  canonicalPath={path}
+  ogImage={buildUrl("/og-services.png")}
+  ogImageAlt="Made by KREATIV software development and quality engineering."
+  structuredData={[
+    organizationSchema,
+    createPageSchema({
+      name: service.title,
+      description: service.description,
+      path,
+    }),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Services", path: "/services/" },
+      { name: service.title, path },
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: service.title,
+      description: service.description,
+      url: buildUrl(path),
+      provider: { "@type": "Organization", name: site.name, url: site.url },
+    },
+  ]}
+>
+  <HeroHeader
+    eyebrow="Work directly with Andrei Olaru"
+    title={service.title}
+    tagline={service.intro}
+  >
+    <div slot="afterTagline" class="landing-actions">
+      <a
+        class="button-cta button-cta-primary"
+        href={inquiryPath(packageId)}
+        data-service-cta
+        data-package={packageId}
+      >
+        Discuss Your Project
+      </a>
+      <a class="button-cta button-cta-secondary" href="#service-work">
+        See Relevant Work
+      </a>
+    </div>
+  </HeroHeader>
+  <Breadcrumbs
+    items={[
+      { label: "Home", href: "/" },
+      { label: "Services", href: "/services/" },
+      { label: service.title },
+    ]}
+  />
+  <section class="services-section" aria-labelledby="fit-heading">
+    <p class="eyebrow">The right fit</p>
+    <h2 id="fit-heading">A defined problem, not an open-ended contract</h2>
+    <p>{service.audience}</p>
+    <ul class="client-outcomes">
+      {service.outcomes.map((text) => (
+        <li>{text}</li>
+      ))}
+    </ul>
+  </section>
+  <section class="services-section" aria-labelledby="packages-heading">
+    <h2 id="packages-heading">Starting packages</h2>
+    <EngagementPackages service={service.slug} />
+    <p class="services-price-note">
+      Indicative EUR starting prices, not fixed quotes. Complexity, integrations
+      and agreed testing determine the final proposal.
+    </p>
+  </section>
+  <section
+    class="services-section client-scope-grid"
+    aria-label="Scope and preparation"
+  >
+    <div>
+      <h2>What you receive</h2>
+      <ul>
+        {service.receive.map((text) => (
+          <li>{text}</li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h2>What to bring</h2>
+      <ul>
+        {service.prepare.map((text) => (
+          <li>{text}</li>
+        ))}
+      </ul>
+    </div>
+    <p class="services-price-note">{service.boundaries}</p>
+  </section>
+  <section
+    class="services-section"
+    id="service-work"
+    aria-labelledby="service-work-heading"
+  >
+    <p class="eyebrow">Independent project evidence</p>
+    <h2 id="service-work-heading">Relevant work</h2>
+    <div class="case-grid case-grid-single">
+      <CaseStudyCard study={study} />
+    </div>
+  </section>
+  <section class="services-section" aria-labelledby="service-faq-heading">
+    <h2 id="service-faq-heading">Before we start</h2>
+    <div class="client-faq">
+      {service.faq.map((item) => (
+        <details>
+          <summary>{item.question}</summary>
+          <p>{item.answer}</p>
+        </details>
+      ))}
+    </div>
+    <a class="cta" href={`/news/${service.article}/`}>
+      Read the project preparation guide
+    </a>
+  </section>
+  <section
+    class="services-project-cta"
+    aria-labelledby="service-project-heading"
+  >
+    <h2 id="service-project-heading">Let's define the useful next step.</h2>
+    <p>
+      Send a short brief. I'll review the fit and discuss scope and availability
+      before a proposal.
+    </p>
+    <div class="landing-actions">
+      <a
+        class="button-cta button-cta-primary"
+        href={inquiryPath(packageId)}
+        data-service-cta
+        data-package={packageId}
+      >
+        Discuss Your Project
+      </a>
+      <a class="cta" href="/services/">
+        All services
+      </a>
+    </div>
+    <InquiryTools id={`service-${service.slug}`} />
+  </section>
+</BaseLayout>

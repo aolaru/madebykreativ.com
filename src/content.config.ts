@@ -11,6 +11,7 @@ const news = defineCollection({
     modifiedDate: z.date().optional(),
     category: z.enum(["Product", "Project", "Ecosystem", "Engineering"]),
     project: z.string().optional(),
+    service: z.enum(["wordpress", "qa-api-testing"]).optional(),
     app: z.enum(["sharesafe", "northlight", "paperbuild", "kreativ-font", "photofeather", "kreativ-fancy-text"]).optional(),
     image: z.string().optional()
   })

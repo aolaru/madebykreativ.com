@@ -97,7 +97,7 @@ export const formatServicePrice = (amount: number) =>
     maximumFractionDigits: 0,
   }).format(amount);
 
-export const projectInquiryHref = `mailto:${site.email}?subject=${encodeURIComponent("Software Development Project Inquiry")}&body=${encodeURIComponent(
+export const projectInquiryBrief =
   [
     "Hello Andrei,",
     "",
@@ -109,8 +109,9 @@ export const projectInquiryHref = `mailto:${site.email}?subject=${encodeURICompo
     "Relevant links:",
     "",
     "Please do not include passwords, API keys, payment details or confidential customer data.",
-  ].join("\n"),
-)}`;
+  ].join("\n");
+
+export const projectInquiryHref = `mailto:${site.email}?subject=${encodeURIComponent("Software Development Project Inquiry")}&body=${encodeURIComponent(projectInquiryBrief)}`;
 
 export const professionalSkills = [
   {

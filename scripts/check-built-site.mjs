@@ -21,8 +21,10 @@ const websiteRoutes = ["/updates/", "/privacy/", "/privacy/blockshift/", "/priva
 const requiredRoutes = [...productRoutes, ...websiteRoutes, "/services/", "/news/remove-photo-metadata-android-sharesafe/", "/news/offline-compass-android-northlight/", "/news/photos-to-pdf-android-paperbuild/", "/news/discover-fonts-android-kreativ-font/"];
 
 requiredRoutes.push("/apps/kreativ-fancy-text/", "/news/fancy-text-png-designs-android-kreativ/");
+requiredRoutes.push("/contact/", "/services/wordpress/", "/services/qa-api-testing/", "/work/", "/work/wordpress-link-reporting/", "/work/website-quality-checks/", "/news/wordpress-repair-project-brief/", "/news/what-a-focused-qa-audit-delivers/");
 
 const productAssets = [
+  "work/website-quality-checks/report.json", "icons/copy.svg", "icons/clipboard-list.svg", "icons/lucide-license.txt",
   "og-services.png",
   "services/hero-work.webp",
   ...["report-broken-link", "broken-image-finder", "font-finder", "font-updates"].map((name) => `services/work/${name}.webp`),

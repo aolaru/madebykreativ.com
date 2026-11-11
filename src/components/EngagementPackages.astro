@@ -1,0 +1,52 @@
+---
+import { engagementPackages, inquiryPath } from "../data/engagements";
+import { formatServicePrice } from "../data/services";
+interface Props {
+  service?: string;
+  compact?: boolean;
+}
+const { service, compact = false } = Astro.props;
+const packages = engagementPackages.filter(
+  (item) => !service || item.service === service,
+);
+---
+
+<div class:list={["engagement-grid", compact && "engagement-grid-compact"]}>
+  {packages.map((item) => (
+    <article class="engagement" data-package={item.id}>
+      <h3>{item.name}</h3>
+      <p class="engagement-price">
+        From <strong>{formatServicePrice(item.from)}</strong>
+      </p>
+      <p>{item.summary}</p>
+      {!compact && (
+        <>
+          <dl class="engagement-fit">
+            <dt>Best for</dt>
+            <dd>{item.buyer}</dd>
+            <dt>Bring</dt>
+            <dd>{item.inputs}</dd>
+          </dl>
+          <h4>Agreed deliverables</h4>
+        </>
+      )}
+      <ul>
+        {item.deliverables.map((text) => (
+          <li>{text}</li>
+        ))}
+      </ul>
+      {!compact && <p class="services-price-note">{item.excludes}</p>}
+      <div class="engagement-actions">
+        <a
+          class="cta"
+          href={inquiryPath(item.id)}
+          data-service-cta
+          data-package={item.id}
+        >
+          Discuss this project
+        </a>
+        <a href={`/services/${item.service}/`}>Scope and details</a>
+      </div>
+    </article>
+  ))}
+</div>

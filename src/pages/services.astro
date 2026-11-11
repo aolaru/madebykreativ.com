@@ -3,6 +3,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import QuoteLink from "../components/QuoteLink.astro";
 import ServiceWorkCard from "../components/ServiceWorkCard.astro";
+import EngagementPackages from "../components/EngagementPackages.astro";
+import CaseStudyCard from "../components/CaseStudyCard.astro";
+import InquiryTools from "../components/InquiryTools.astro";
+import { caseStudies } from "../data/caseStudies";
 import {
   buildUrl,
   createBreadcrumbSchema,
@@ -66,6 +70,10 @@ const pageTitle = "Software Development Services | Made by KREATIV";
 
   <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Services" }]} />
 
+  <nav class="client-section-nav" aria-label="Services sections"><a href="#starting-packages">Starting packages</a><a href="#services-heading">All services</a><a href="#service-case-studies">Case studies</a><a href="#process-heading">Process</a><a href="/contact/#project-inquiry">Project inquiry</a></nav>
+
+  <section class="services-section" id="starting-packages" aria-labelledby="starting-packages-heading"><p class="eyebrow">Defined scope, tangible deliverables</p><h2 id="starting-packages-heading">Choose a starting point</h2><EngagementPackages /><p class="services-price-note">Starting prices are indicative, in EUR. Each proposal defines the included work, acceptance criteria and handover before implementation begins.</p></section>
+
   <section class="services-section" aria-labelledby="services-heading">
     <div class="services-section-heading">
       <p class="eyebrow">Focused engagements</p>
@@ -85,11 +93,14 @@ const pageTitle = "Software Development Services | Made by KREATIV";
         >
           <h3 id={`${service.id}-heading`}>{service.name}</h3>
           <p class="service-summary">{service.summary}</p>
+          <details class="service-capability-details"><summary>Capabilities and scope</summary>
           <ul class="service-capabilities">
             {service.capabilities.map((capability) => (
               <li>{capability}</li>
             ))}
           </ul>
+          <p class="service-scope">{service.scope}</p>
+          </details>
           <dl class="service-prices">
             {service.prices.length ? (
               service.prices.map((price) => (
@@ -109,7 +120,7 @@ const pageTitle = "Software Development Services | Made by KREATIV";
               </div>
             )}
           </dl>
-          <p class="service-scope">{service.scope}</p>
+          {(service.id === "wordpress" || service.id === "software-qa") && <a class="cta" href={`/services/${service.id === "wordpress" ? "wordpress" : "qa-api-testing"}/`}>Detailed service scope</a>}
         </article>
       ))}
     </div>
@@ -121,6 +132,8 @@ const pageTitle = "Software Development Services | Made by KREATIV";
       software platform.
     </p>
   </section>
+
+  <section class="services-section" id="service-case-studies" aria-labelledby="service-case-heading"><p class="eyebrow">Independent work, not client commissions</p><h2 id="service-case-heading">The decisions behind the work</h2><div class="case-grid">{caseStudies.map((study) => <CaseStudyCard study={study} />)}</div><a class="cta" href="/work/website-quality-checks/#qa-report">Inspect the sample QA finding</a></section>
 
   <section
     class="services-section"
@@ -217,5 +230,6 @@ const pageTitle = "Software Development Services | Made by KREATIV";
         Project inquiry details
       </a>
     </div>
+    <InquiryTools id="services-inquiry" />
   </section>
 </BaseLayout>

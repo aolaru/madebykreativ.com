@@ -1,0 +1,116 @@
+---
+import InquiryTools from "./InquiryTools.astro";
+import { inquiryOptions } from "../data/engagements";
+import { site } from "../data/site";
+---
+
+<section
+  class="services-section project-inquiry"
+  id="project-inquiry"
+  aria-labelledby="paid-project-heading"
+>
+  <p class="eyebrow">Work directly with Andrei Olaru</p>
+  <h2 id="paid-project-heading">Tell me about your project</h2>
+  <p>
+    Share the problem you need solved. I'll review the fit, clarify the scope
+    and discuss a proposal before any work starts.
+  </p>
+  <p class="services-price-note">
+    Selected, fixed-scope projects, subject to availability. Your brief stays in
+    this browser tab; the website does not send or store it. No passwords, API
+    keys or confidential customer data.
+  </p>
+  <form data-project-inquiry data-email={site.email} hidden>
+    <div class="project-inquiry-fields">
+      <div>
+        <label for="inquiry-service">Project type</label>
+        <select id="inquiry-service" name="service" required>
+          <option value="">Choose a project type</option>
+          {inquiryOptions.map((item) => (
+            <option value={item.id}>{item.label}</option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label for="inquiry-budget">Approximate budget (EUR, optional)</label>
+        <input
+          id="inquiry-budget"
+          name="budget"
+          type="number"
+          min="0"
+          max="1000000"
+          step="any"
+          inputmode="decimal"
+        />
+      </div>
+      <div class="inquiry-wide">
+        <label for="inquiry-summary">What needs building or fixing?</label>
+        <textarea
+          id="inquiry-summary"
+          name="summary"
+          rows="4"
+          maxlength="1500"
+          required
+        ></textarea>
+      </div>
+      <div class="inquiry-wide">
+        <label for="inquiry-functionality">
+          Required functionality (optional)
+        </label>
+        <textarea
+          id="inquiry-functionality"
+          name="functionality"
+          rows="3"
+          maxlength="1000"
+        ></textarea>
+      </div>
+      <div>
+        <label for="inquiry-deadline">Desired deadline (optional)</label>
+        <input id="inquiry-deadline" name="deadline" type="date" />
+      </div>
+      <div>
+        <label for="inquiry-links">Relevant public link (optional)</label>
+        <input id="inquiry-links" name="links" type="url" maxlength="500" />
+      </div>
+    </div>
+    <button type="submit" class="button-cta button-cta-primary">
+      Prepare Project Email
+    </button>
+  </form>
+  <div
+    class="project-inquiry-preview"
+    data-project-draft
+    data-inquiry-tools
+    hidden
+  >
+    <h3 id="draft-heading" tabindex="-1">
+      Your project brief
+    </h3>
+    <label for="project-brief-draft">Email draft</label>
+    <textarea id="project-brief-draft" rows="10" readonly></textarea>
+    <div class="landing-actions">
+      <a
+        class="button-cta button-cta-primary"
+        data-project-email
+        href={`mailto:${site.email}`}
+      >
+        Open Email Draft
+      </a>
+      <button
+        class="icon-button"
+        title="Copy completed project brief"
+        aria-label="Copy completed project brief"
+        type="button"
+        data-copy-target="project-brief-draft"
+      >
+        <span class="copy-glyph" aria-hidden="true"></span>
+      </button>
+      <span class="copy-status" data-inquiry-copy-status role="status"></span>
+    </div>
+    <p class="services-price-note">
+      Nothing has been sent. Review and send the draft in your email app, or
+      copy it into your preferred email service.
+    </p>
+  </div>
+  <InquiryTools id="contact-inquiry" />
+</section>

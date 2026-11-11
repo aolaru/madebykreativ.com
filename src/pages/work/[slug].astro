@@ -1,0 +1,161 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HeroHeader from "../../components/HeroHeader.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import InquiryTools from "../../components/InquiryTools.astro";
+import { caseStudies, caseStudyPath, qaSample } from "../../data/caseStudies";
+import { inquiryPath } from "../../data/engagements";
+import {
+  buildUrl,
+  createPageSchema,
+  createBreadcrumbSchema,
+} from "../../data/site";
+export function getStaticPaths() {
+  return caseStudies.map((study) => ({
+    params: { slug: study.slug },
+    props: { study },
+  }));
+}
+const { study } = Astro.props;
+const path = caseStudyPath(study.slug);
+const isQa = study.slug === "website-quality-checks";
+---
+
+<BaseLayout
+  title={`${study.shortTitle} | Made by KREATIV Case Study`}
+  description={study.summary}
+  canonicalPath={path}
+  ogImage={buildUrl("/og-services.png")}
+  structuredData={[
+    createPageSchema({ name: study.title, description: study.summary, path }),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Case studies", path: "/work/" },
+      { name: study.shortTitle, path },
+    ]),
+  ]}
+>
+  <HeroHeader
+    eyebrow={`${study.category} · Independent work`}
+    title={study.title}
+    tagline={study.summary}
+  />
+  <Breadcrumbs
+    items={[
+      { label: "Home", href: "/" },
+      { label: "Case studies", href: "/work/" },
+      { label: study.shortTitle },
+    ]}
+  />
+  <figure class="case-study-figure">
+    <img
+      src={study.image}
+      alt={study.imageAlt}
+      width={study.width}
+      height={study.height}
+      loading="eager"
+    />
+    <figcaption>
+      {study.product}. Published product imagery, not a client commission.
+    </figcaption>
+  </figure>
+  <div class="case-study-reading">
+    <section class="services-section">
+      <h2>The problem</h2>
+      <p>{study.problem}</p>
+    </section>
+    <section class="services-section">
+      <h2>My contribution</h2>
+      <p>{study.contribution}</p>
+    </section>
+    <section class="services-section">
+      <h2>Implementation decisions</h2>
+      {study.decisions.map((item) => (
+        <div class="case-decision">
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </div>
+      ))}
+    </section>
+    <section class="services-section">
+      <h2>{study.testingTitle}</h2>
+      <p>{study.testing}</p>
+      <ul class="case-evidence-links">
+        {study.evidence.map((item) => (
+          <li>
+            <a href={item.href} target="_blank" rel="noopener">
+              {item.label}
+              <span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+    {isQa && (
+      <section
+        class="services-section qa-sample"
+        id="qa-report"
+        aria-labelledby="qa-report-heading"
+      >
+        <p class="eyebrow">Sample QA finding · Own website</p>
+        <h2 id="qa-report-heading">
+          {qaSample.id}: {qaSample.title}
+        </h2>
+        <dl>
+          <dt>Observed</dt>
+          <dd>
+            <time datetime={qaSample.observedOn}>November 11, 2026</time>
+          </dd>
+          <dt>Status</dt>
+          <dd>{qaSample.status}</dd>
+          <dt>Environment</dt>
+          <dd>{qaSample.environment}</dd>
+          <dt>Impact</dt>
+          <dd>{qaSample.impact}</dd>
+        </dl>
+        <h3>Reproduction</h3>
+        <ol>
+          {qaSample.steps.map((text) => (
+            <li>{text}</li>
+          ))}
+        </ol>
+        <h3>Expected</h3>
+        <p>{qaSample.expected}</p>
+        <h3>Actual</h3>
+        <p>{qaSample.actual}</p>
+        <h3>Resolution</h3>
+        <p>{qaSample.resolution}</p>
+        <h3>Regression checks</h3>
+        <ul>
+          {qaSample.regression.map((text) => (
+            <li>{text}</li>
+          ))}
+        </ul>
+        <p class="services-price-note">{qaSample.limitations}</p>
+        <a class="cta" href="/work/website-quality-checks/report.json" download>
+          Download sample finding (JSON)
+        </a>
+      </section>
+    )}
+    <section class="services-section">
+      <h2>The result and its limits</h2>
+      <p>{study.result}</p>
+    </section>
+  </div>
+  <section class="services-project-cta" aria-labelledby="case-project-heading">
+    <h2 id="case-project-heading">Need a similar problem solved?</h2>
+    <div class="landing-actions">
+      <a
+        class="button-cta button-cta-primary"
+        href={inquiryPath(isQa ? "qa-audit" : "wordpress-repair")}
+        data-service-cta
+      >
+        Discuss Your Project
+      </a>
+      <a class="cta" href={`/services/${study.service}/`}>
+        Relevant services and scope
+      </a>
+    </div>
+    <InquiryTools id={`case-${study.slug}`} />
+  </section>
+</BaseLayout>

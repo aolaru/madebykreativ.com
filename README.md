@@ -139,6 +139,28 @@ unversioned assets and assert that portfolio images stay inside their grid.
 
 ## Development And QA Services
 
+Services are the primary homepage offer. Books remain under Resources; the app,
+website and product catalogues are retained. `src/data/engagements.ts` owns three
+starting packages and the two focused service pages. Existing prices are reused;
+the owner should review the proposed deliverables and exclusions before publishing.
+
+`src/data/caseStudies.ts` owns two independent-work case studies and the downloadable
+sample QA finding. The QA example records the real November 11, 2026 cache issue,
+its fix and public source evidence, not a new client audit or a certification.
+WordPress product statements are based on the official listing and release history.
+
+The contact brief builder is browser-local. It prepares a `mailto:` draft or a
+copyable brief; there is no server submission, automatic email, file upload or
+browser-storage persistence. Without JavaScript, the direct email and brief template
+remain available. Only the fixed package ID can prefill from a URL. Inquiry analytics
+exclude the brief, budget, deadline, links and clipboard contents; clicks and prepared
+drafts are not confirmed leads or sent messages. Copy icons are from Lucide, with
+the license retained in `public/icons/lucide-license.txt`.
+
+Service preparation articles use the optional `service` field in the news collection
+to link back to the relevant offer, and automatically appear in Updates and both RSS
+feeds. New service and case-study routes are included in sitemap and release checks.
+
 `/services/` introduces selected, fixed-scope development and QA work without
 replacing the product catalogue. Homepage, About, Contact, primary navigation and
 footer link to it. The contributor handoff projects retain their existing status.

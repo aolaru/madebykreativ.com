@@ -1,0 +1,39 @@
+---
+import { projectInquiryBrief, projectInquiryHref } from "../data/services";
+import { site } from "../data/site";
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+---
+
+<div class="inquiry-tools" data-inquiry-tools>
+  <div class="inquiry-tools-actions">
+    <a href={projectInquiryHref}>{site.email}</a>
+    <button
+      class="icon-button"
+      type="button"
+      title="Copy email address"
+      aria-label="Copy email address"
+      data-copy-value={site.email}
+      hidden
+    >
+      <span class="copy-glyph" aria-hidden="true"></span>
+    </button>
+    <button
+      class="icon-button"
+      type="button"
+      title="Copy project brief template"
+      aria-label="Copy project brief template"
+      data-copy-target={`${id}-template`}
+      hidden
+    >
+      <span class="brief-glyph" aria-hidden="true"></span>
+    </button>
+    <span class="copy-status" data-inquiry-copy-status role="status"></span>
+  </div>
+  <details>
+    <summary>Project brief template</summary>
+    <pre id={`${id}-template`}>{projectInquiryBrief}</pre>
+  </details>
+</div>

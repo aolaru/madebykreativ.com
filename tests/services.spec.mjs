@@ -131,7 +131,7 @@ test("Quote links open a real email draft with a complete project brief", async 
   await expect(
     page
       .locator("#project-inquiry")
-      .getByRole("link", { name: "Request a Quote", exact: true }),
+      .getByRole("link", { name: "info@madebykreativ.com", exact: true }),
   ).toHaveAttribute("href", projectInquiryHref);
   await expect(
     page.getByRole("link", { name: "Prepare an app support report" }),
@@ -146,7 +146,7 @@ test("Products, professional experience and contributor handoffs remain distinct
   await expect(page.locator(".home-system-feature")).toBeVisible();
   await expect(
     page.getByRole("link", {
-      name: "Explore Development Services",
+      name: "View Services",
       exact: true,
     }),
   ).toHaveAttribute("href", "/services/");

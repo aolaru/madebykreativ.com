@@ -2,10 +2,13 @@ import { getCollection } from "astro:content";
 import { buildUrl, projectDirectory, projectPath, site } from "../data/site";
 import {lastModified, pageModified} from "../data/modified";
 import {apps} from "../data/apps";
+import { serviceLandingPages } from "../data/engagements";
+import { caseStudies, caseStudyPath } from "../data/caseStudies";
 
 const staticRoutes = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/services/", changefreq: "monthly", priority: "0.9" },
+  { path: "/work/", changefreq: "monthly", priority: "0.8" },
   { path: "/product-to-profit/", changefreq: "monthly", priority: "0.9" },
   { path: "/product-to-profit/idea-library/", changefreq: "monthly", priority: "0.8" },
   { path: "/product-to-profit/product-idea-scorecard/", changefreq: "monthly", priority: "0.8" },
@@ -58,6 +61,8 @@ export async function GET() {
 
   const routes = [
     ...staticRoutes.map((route) => ({ ...route, lastmod: pageModified(route.path) })),
+    ...serviceLandingPages.map((service) => ({path:`/services/${service.slug}/`,changefreq:"monthly",priority:"0.9",lastmod:pageModified(`/services/${service.slug}/`)})),
+    ...caseStudies.map((study) => ({path:caseStudyPath(study.slug),changefreq:"monthly",priority:"0.8",lastmod:pageModified(caseStudyPath(study.slug))})),
     ...apps.map((app) => ({path: `/apps/${app.slug}/`, changefreq: "monthly", priority: "0.8", lastmod: pageModified(`/apps/${app.slug}/`)})),
     ...projectDirectory.map((project) => ({
       path: projectPath(project.slug),

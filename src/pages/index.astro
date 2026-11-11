@@ -1,158 +1,207 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import HeroHeader from "../components/HeroHeader.astro";
+import EngagementPackages from "../components/EngagementPackages.astro";
+import CaseStudyCard from "../components/CaseStudyCard.astro";
 import ProductCover from "../components/ProductCover.astro";
-import ProjectLogo from "../components/ProjectLogo.astro";
-import AppLinks from "../components/AppLinks.astro";
+import { caseStudies } from "../data/caseStudies";
+import { inquiryPath } from "../data/engagements";
+import { scorecardProduct } from "../data/productToProfit";
 import { storefrontHref } from "../../public/product-attribution.mjs";
-import {
-  bundleProduct,
-  productPath as productToProfitPath,
-  scorecardProduct,
-  stageProducts,
-  systemPath
-} from "../data/productToProfit";
 import {
   activeProjects,
   buildUrl,
   organizationSchema,
   projectPath,
-  websiteSchema
+  websiteSchema,
 } from "../data/site";
-
-const latestNews = (await getCollection("news"))
-  .filter((entry) => !entry.id.startsWith("maintenance-open-source-transition"))
-  .sort((a, b) => b.data.sortDate.valueOf() - a.data.sortDate.valueOf())
-  .slice(0, 1)
-  .map((entry) => ({
-    ...entry,
-    path: `/news/${entry.id.replace(/\.md$/, "")}/`
-  }));
-
-const continuationProducts = [
-  stageProducts.find((product) => product.slug === "workflow-product-builder")!,
-  stageProducts.find((product) => product.slug === "digital-product-launch-engine")!,
-  bundleProduct
-];
+const latest = (await getCollection("news")).sort(
+  (a, b) => b.data.sortDate.valueOf() - a.data.sortDate.valueOf(),
+)[0];
 ---
 
 <BaseLayout
-  title="Made by Kreativ | Independent Products and Active Projects"
-  description="Independent digital products, Android apps, software development and quality engineering by Andrei Olaru. Explore Made by KREATIV products and focused project services."
+  title="Software Development & QA | Made by KREATIV"
+  description="Hire independent developer and software QA professional Andrei Olaru for scoped WordPress development, web tools and API testing. Real products, clear scope and direct communication."
   canonicalPath="/"
-  ogImage={buildUrl("/og-home.png")}
-  ogImageAlt="Made by Kreativ overview card for independent products and active projects."
+  ogImage={buildUrl("/og-services.png")}
+  ogImageAlt="Made by KREATIV software development and QA, with real WordPress and Android project screenshots."
   structuredData={[organizationSchema, websiteSchema]}
 >
-  <HeroHeader
-    current="home"
-    showLogo={false}
-    eyebrow="Independent product studio"
-    title="Made by Kreativ"
-    tagline="Active digital products and focused independent projects by Andrei Olaru."
-  >
-    <div slot="afterTagline" class="hero-home-after">
-      <div class="landing-actions hero-home-actions">
-        <a class="button-cta button-cta-primary" href="/product-to-profit/">Explore Product-to-Profit</a>
-        <a class="button-cta button-cta-secondary" href="#active-projects">View active projects</a>
-      </div>
-      <p class="meta-note home-status-note">Active product studio · {activeProjects.length} ongoing web projects</p>
+  <header class="services-hero client-home-hero">
+    <p class="eyebrow">Independent software development and QA</p>
+    <h1>Made by Kreativ</h1>
+    <p class="client-home-position">Custom software. Built and tested.</p>
+    <p class="services-intro">
+      I help small teams fix WordPress problems, build useful software and test
+      their web applications and APIs.
+    </p>
+    <div class="landing-actions">
+      <a
+        class="button-cta button-cta-primary"
+        href={inquiryPath()}
+        data-service-cta
+      >
+        Discuss Your Project
+      </a>
+      <a class="button-cta button-cta-secondary" href="/services/">
+        View Services
+      </a>
     </div>
-  </HeroHeader>
+    <p class="services-hero-note">
+      Andrei Olaru · Around 15 years in professional software QA · Direct
+      collaboration
+    </p>
+  </header>
 
-  <section class="home-services-callout" aria-labelledby="home-services-heading">
-    <div><h2 id="home-services-heading">Need Something Custom Built?</h2><p>WordPress plugins, browser extensions, mobile applications and software QA.</p></div>
-    <a class="button-cta button-cta-secondary" href="/services/">Explore Development Services</a>
+  <section class="services-section" aria-labelledby="home-engagements-heading">
+    <div class="section-heading-row">
+      <div>
+        <p class="eyebrow">Clear starting points</p>
+        <h2 id="home-engagements-heading">What do you need solved?</h2>
+      </div>
+      <a class="cta" href="/services/">
+        All development services
+      </a>
+    </div>
+    <EngagementPackages compact />
+    <p class="services-price-note">
+      Indicative EUR starting prices. Scope, deliverables and the final
+      quotation are agreed before work starts.
+    </p>
   </section>
 
-  <section class="home-system-feature" aria-labelledby="home-system-heading">
-    <div class="home-system-copy">
-      <p class="eyebrow">KREATIV Product-to-Profit</p>
-      <h2 id="home-system-heading">Choose a product worth testing. Build it. Launch it. Improve it.</h2>
-      <p>A connected set of practical workbooks and editable tools for moving from several possible ideas to one tested digital product and a clear buyer path.</p>
-      <div class="landing-actions home-system-actions">
+  <section class="services-section" aria-labelledby="home-work-heading">
+    <div class="section-heading-row">
+      <div>
+        <p class="eyebrow">Independent work, inspectable evidence</p>
+        <h2 id="home-work-heading">How I approach the work</h2>
+      </div>
+      <a class="cta" href="/work/">
+        All case studies
+      </a>
+    </div>
+    <div class="case-grid">
+      {caseStudies.map((study) => (
+        <CaseStudyCard study={study} />
+      ))}
+    </div>
+  </section>
+
+  <section
+    class="services-project-cta home-project-cta"
+    aria-labelledby="home-project-heading"
+  >
+    <div>
+      <h2 id="home-project-heading">
+        A specific problem is a good starting point.
+      </h2>
+      <p>Tell me what needs building, fixing or testing.</p>
+    </div>
+    <a
+      class="button-cta button-cta-primary"
+      href={inquiryPath()}
+      data-service-cta
+    >
+      Discuss Your Project
+    </a>
+  </section>
+
+  <section class="services-section" aria-labelledby="home-products-heading">
+    <p class="eyebrow">Also made by KREATIV</p>
+    <h2 id="home-products-heading">Independent products and resources</h2>
+    <div class="home-system-feature client-products">
+      <article>
+        <div class="client-product-image">
+          <ProductCover
+            src={scorecardProduct.cover}
+            alt={scorecardProduct.coverAlt}
+            sizes="(max-width: 700px) calc(100vw - 4rem), 280px"
+          />
+        </div>
+        <h3>Product-to-Profit</h3>
+        <p>
+          Workbooks and editable tools for testing, building and launching a
+          digital product.
+        </p>
+        <a class="cta" href="/product-to-profit/">
+          Browse books and workbooks
+        </a>
         <a
-          class="button-cta button-cta-primary"
-          href={storefrontHref(scorecardProduct.storeUrl, {page:"home",position:"feature-primary"})}
+          class="client-product-secondary"
+          href={storefrontHref(scorecardProduct.storeUrl, {
+            page: "home",
+            position: "resource-scorecard",
+          })}
           target="_blank"
           rel="noopener"
           data-product-cta
           data-product={scorecardProduct.slug}
           data-stage={scorecardProduct.stage}
           data-page="home"
-          data-position="feature-primary"
-        >Get the Free Product Idea Scorecard <span aria-hidden="true">↗</span></a>
-        <a
-          class="button-cta button-cta-secondary"
-          href={storefrontHref(bundleProduct.storeUrl, {page:"home",position:"feature-secondary"})}
-          target="_blank"
-          rel="noopener"
-          data-product-cta
-          data-product={bundleProduct.slug}
-          data-stage={bundleProduct.stage}
-          data-page="home"
-          data-position="feature-secondary"
-        >Explore the Complete System <span aria-hidden="true">↗</span></a>
-      </div>
-      <p class="home-system-note"><strong>Recommended start:</strong> the Scorecard is free / pay what you want. <a class="cta" href={systemPath}>Compare every stage</a></p>
+          data-position="resource-scorecard"
+        >
+          Get the free Scorecard
+        </a>
+      </article>
+      <article>
+        <div class="client-product-image">
+          <img
+            src="/apps/paperbuild/screen-320.webp"
+            alt="PaperBuild, one of the independently published Android apps."
+            width="1080"
+            height="1920"
+            loading="lazy"
+          />
+        </div>
+        <h3>Android apps</h3>
+        <p>
+          Small utilities for photos, documents, typography and everyday tasks.
+        </p>
+        <a class="cta" href="/apps/">
+          View all apps
+        </a>
+      </article>
+      <article>
+        <div class="client-product-image">
+          <img
+            src="/services/work/report-broken-link.webp"
+            alt="A published Kreativ WordPress plugin dashboard."
+            width="960"
+            height="600"
+            loading="lazy"
+          />
+        </div>
+        <h3>Websites and plugins</h3>
+        <p>
+          Published projects, practical web tools and their current maintenance
+          status.
+        </p>
+        <a class="cta" href="/projects/">
+          View the project directory
+        </a>
+      </article>
     </div>
-    <div class="home-system-visual">
-      <a class="home-system-media" href={productToProfitPath(scorecardProduct.slug)} aria-label="View the Product Idea Scorecard details">
-        <ProductCover src={scorecardProduct.cover} alt={scorecardProduct.coverAlt} loading="eager" sizes="(max-width: 900px) calc(100vw - 2rem), 520px" />
-      </a>
-      <div class="home-system-continuation" role="group" aria-label="Continue into the Builder, Launch Engine, and complete system">
-        {continuationProducts.map((product) => (
-          <a href={productToProfitPath(product.slug)} aria-label={`View ${product.shortTitle}`}>
-            <ProductCover src={product.cover} alt="" sizes="120px" />
-            <span>{product.shortTitle}</span>
-          </a>
+    <div class="client-active-projects" id="active-projects">
+      <p class="eyebrow">Active web projects</p>
+      <div>
+        {activeProjects.map((project) => (
+          <a href={projectPath(project.slug)}>{project.label}</a>
         ))}
       </div>
+      <a href="/projects/#community-projects">
+        Open-source contributor projects
+      </a>
     </div>
   </section>
-
-  <section class="home-featured" id="active-projects" aria-labelledby="home-featured-heading">
-    <div class="section-heading-row">
-      <div>
-        <p class="eyebrow">Current work</p>
-        <h2 id="home-featured-heading">Active projects</h2>
-        <p>Independent properties currently developed and maintained under Made by KREATIV.</p>
-      </div>
-      <a class="cta" href="/projects/">Project directory</a>
-    </div>
-    <div class="home-public-grid">
-      {activeProjects.map((project) => (
-        <article class="content-card home-public-card">
-          <div class="home-public-card-header">
-            <ProjectLogo slug={project.slug} mark={project.logo.mark} />
-            <div>
-              <span class="pillar-status">{project.status}</span>
-              <h3>{project.label}</h3>
-            </div>
-          </div>
-          <p>{project.description}</p>
-          <div class="home-public-actions">
-            <a class="cta" href={projectPath(project.slug)}>Overview</a>
-            <a class="cta" href={project.href} target="_blank" rel="noopener">Public site</a>
-          </div>
-        </article>
-      ))}
-    </div>
-    <div class="home-archive-summary">
-      <span><strong>Open-source projects:</strong> Kreativ Tools, Findsera, and News Ledger are available to contributors under their published licenses.</span>
-      <a class="cta" href="/projects/#community-projects">View open-source projects</a>
-    </div>
-  </section>
-
-  <AppLinks />
-  {latestNews.map((entry) => (
-    <a class="home-latest" href={entry.path}>
-      <span class="home-latest-label">Latest</span>
-      <strong>{entry.data.title}</strong>
-      <span class="home-latest-date">{entry.data.dateLabel}</span>
-      <span class="home-project-arrow" aria-hidden="true">→</span>
+  {latest && (
+    <a class="home-latest" href={`/news/${latest.id.replace(/\.md$/, "")}/`}>
+      <span class="home-latest-label">Latest article</span>
+      <strong>{latest.data.title}</strong>
+      <span class="home-latest-date">{latest.data.dateLabel}</span>
+      <span class="home-project-arrow" aria-hidden="true">
+        →
+      </span>
     </a>
-  ))}
-
+  )}
 </BaseLayout>

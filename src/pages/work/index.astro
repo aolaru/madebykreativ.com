@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HeroHeader from "../../components/HeroHeader.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import CaseStudyCard from "../../components/CaseStudyCard.astro";
+import { caseStudies } from "../../data/caseStudies";
+import {
+  buildUrl,
+  createPageSchema,
+  createBreadcrumbSchema,
+} from "../../data/site";
+const description =
+  "Independent WordPress development and website QA case studies by Andrei Olaru, with real interfaces, implementation decisions and inspectable evidence.";
+---
+
+<BaseLayout
+  title="Software Development & QA Case Studies | Made by KREATIV"
+  description={description}
+  canonicalPath="/work/"
+  ogImage={buildUrl("/og-services.png")}
+  structuredData={[
+    createPageSchema({
+      name: "Software development and QA case studies",
+      description,
+      path: "/work/",
+    }),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Case studies", path: "/work/" },
+    ]),
+  ]}
+>
+  <HeroHeader
+    eyebrow="Independent work"
+    title="Case Studies"
+    tagline="The problem, the decisions and the evidence behind the work."
+  />
+  <Breadcrumbs
+    items={[{ label: "Home", href: "/" }, { label: "Case studies" }]}
+  />
+  <p class="client-evidence-note">
+    These are independently developed products and this studio's own website,
+    not commissioned client projects. No client systems, private code or
+    institutional endorsements are presented.
+  </p>
+  <section class="services-section" aria-labelledby="studies-heading">
+    <h2 id="studies-heading">Development and QA in practice</h2>
+    <div class="case-grid">
+      {caseStudies.map((study) => (
+        <CaseStudyCard study={study} />
+      ))}
+    </div>
+  </section>
+  <p class="services-related">
+    <a class="cta" href="/services/">
+      Explore development and QA services
+    </a>
+    <a class="cta" href="/contact/#project-inquiry">
+      Discuss Your Project
+    </a>
+  </p>
+</BaseLayout>

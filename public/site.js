@@ -196,6 +196,85 @@ import { appStoreHref } from "/app-attribution.mjs";
     form.querySelector("[data-support-fields]").disabled = false;
   }
 
+  function wireInquiryTools() {
+    document.querySelectorAll("[data-copy-value], [data-copy-target]").forEach((button) => {
+      button.hidden = false;
+      button.addEventListener("click", async () => {
+        const target = document.getElementById(button.dataset.copyTarget || "");
+        const text = button.dataset.copyValue || target?.value || target?.textContent?.trim();
+        const status = button.closest("[data-inquiry-tools]")?.querySelector("[data-inquiry-copy-status]");
+        if (!text) return;
+        try {
+          if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
+          await navigator.clipboard.writeText(text);
+          if (status) status.textContent = "Copied";
+        } catch (_) {
+          const details = target?.closest("details");
+          if (details) details.open = true;
+          if (target instanceof HTMLTextAreaElement) {
+            target.focus();
+            target.select();
+          }
+          if (status) status.textContent = "Copy unavailable. Select the visible address or brief and copy it manually.";
+        }
+      });
+    });
+  }
+
+  function wireProjectInquiry() {
+    const form = document.querySelector("[data-project-inquiry]");
+    if (!form) return;
+    const select = form.elements.namedItem("service");
+    const requested = new URLSearchParams(window.location.search).get("service");
+    if (requested && [...select.options].some((option) => option.value === requested)) select.value = requested;
+    const preview = document.querySelector("[data-project-draft]");
+    const draft = document.getElementById("project-brief-draft");
+    const email = document.querySelector("[data-project-email]");
+    const summary = form.elements.namedItem("summary");
+    const links = form.elements.namedItem("links");
+    form.hidden = false;
+    form.addEventListener("input", () => {
+      summary.setCustomValidity("");
+      links.setCustomValidity("");
+      preview.hidden = true;
+      draft.value = "";
+      email.href = `mailto:${form.dataset.email}`;
+    });
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      summary.setCustomValidity(summary.value.trim() ? "" : "Describe what needs building or fixing.");
+      if (links.value && !/^https?:\/\//i.test(links.value)) links.setCustomValidity("Use an HTTP or HTTPS public link.");
+      if (!form.reportValidity()) return;
+      const data = new FormData(form);
+      const body = [
+        "Hello Andrei,", "",
+        `Project type: ${select.selectedOptions[0].textContent}`,
+        `Brief description: ${String(data.get("summary")).trim()}`, "",
+        `Required functionality: ${String(data.get("functionality") || "To discuss").trim()}`,
+        `Approximate budget (EUR): ${data.get("budget") || "To discuss"}`,
+        `Desired deadline: ${data.get("deadline") || "To discuss"}`,
+        `Relevant links: ${data.get("links") || "Not provided"}`, "",
+        "Please do not include passwords, API keys, payment details or confidential customer data.",
+      ].join("\n");
+      draft.value = body;
+      email.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent("Software Development Project Inquiry")}&body=${encodeURIComponent(body)}`;
+      preview.hidden = false;
+      preview.querySelector("[data-inquiry-copy-status]").textContent = "";
+      document.getElementById("draft-heading").focus();
+      // Record only the fixed service identifier, never the visitor's brief.
+      trackEvent("Project Brief Prepared", { service: select.value, page: window.location.pathname });
+    });
+  }
+
+  function wireServiceTracking() {
+    document.querySelectorAll("[data-service-cta]").forEach((link) => {
+      link.addEventListener("click", () => trackEvent("Service Inquiry Click", {
+        page: window.location.pathname,
+        package: link.dataset.package || "general",
+      }));
+    });
+  }
+
   function wireNewsFilters() {
     const entries = document.querySelectorAll("[data-news-entry]");
     const filterButtons = document.querySelectorAll("[data-news-filter]");
@@ -377,6 +456,9 @@ import { appStoreHref } from "/app-attribution.mjs";
     wireProductTracking();
     wireAppTracking();
     wireAppSupport();
+    wireProjectInquiry();
+    wireInquiryTools();
+    wireServiceTracking();
     wireNewsFilters();
     wireEmailCopy();
     wireLinkTracking(".site-nav a", "Navigation Click", "site-nav");
