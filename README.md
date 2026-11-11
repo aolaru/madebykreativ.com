@@ -125,6 +125,39 @@ App support at `/apps/support/` composes an email locally. Reports are not uploa
 saved in browser storage, or sent to analytics. Without JavaScript the page offers
 a direct support email link.
 
+## Development And QA Services
+
+`/services/` introduces selected, fixed-scope development and QA work without
+replacing the product catalogue. Homepage, About, Contact, primary navigation and
+footer link to it. The contributor handoff projects retain their existing status.
+
+- `src/data/services.ts` owns services, indicative EUR starting prices, the project
+  inquiry email, professional capabilities, selected independent work and Service
+  structured data. Experience and prices come from the owner's supplied brief;
+  review them before publication. No client endorsements or commissioned work are
+  claimed, and no confidential employer project information is included.
+- `src/pages/services.astro`, `src/components/QuoteLink.astro` and
+  `src/components/ServiceWorkCard.astro` render the page and reusable elements.
+- Quote links use the existing public email with a prefilled project brief. They
+  work without site JavaScript and require the visitor's email application. The
+  website does not submit a form, store inquiries or send an email automatically.
+- Existing app and website images are reused. Official WordPress screenshots and
+  Chrome extension icons are stored in `public/services/work/`; their source URLs
+  and verification dates are in `public/services/sources.json`. The hero and social
+  image contain real product captures, not invented interface or customer results.
+- `npm run assets:services` regenerates the hero/social assets from the local
+  captures. Add `-- --refresh` to refresh the four official portfolio images.
+- `npm run validate:portfolio` checks all eight public portfolio destinations and
+  their project titles. It is an on-demand external check, not a deployment gate.
+- `tests/services.spec.mjs` covers pricing, metadata, quote destinations, no-JS
+  access, retained products/handoffs, responsive layout and both theme contrasts.
+  The focused Firefox/WebKit suite includes navigation and Services journeys.
+  Lighthouse includes `/services/`, and artifact/production checks require it.
+
+No public QA automation sample repository was supplied, so none is linked. The
+professional capabilities are described without exposing client systems or code.
+These services changes are prepared locally; publication needs explicit approval.
+
 ## Redirects
 
 GitHub Pages is still the static origin and deployment target. GitHub's certificate

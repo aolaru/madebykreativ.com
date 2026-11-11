@@ -1,0 +1,66 @@
+---
+import AppScreenshot from "./AppScreenshot.astro";
+import { appStoreHref } from "../../public/app-attribution.mjs";
+import type { ServiceWork } from "../data/services";
+interface Props {
+  work: ServiceWork;
+}
+const { work } = Astro.props;
+const href = work.appSlug
+  ? appStoreHref(work.href, { page: "/services/", position: "portfolio" })
+  : work.href;
+---
+
+<article
+  class="service-work-card"
+  data-service-work={work.id}
+  aria-labelledby={`work-${work.id}`}
+>
+  <div
+    class:list={[
+      "service-work-image",
+      work.imageKind === "logo" && "service-work-logo",
+    ]}
+  >
+    {work.appSlug ? (
+      <AppScreenshot
+        slug={work.appSlug}
+        alt={work.imageAlt}
+        width={work.width}
+        height={work.height}
+      />
+    ) : (
+      <img
+        src={work.image}
+        alt={work.imageAlt}
+        width={work.width}
+        height={work.height}
+        loading="lazy"
+        decoding="async"
+      />
+    )}
+  </div>
+  <div class="service-work-copy">
+    <p class="eyebrow">{work.category}</p>
+    <h3 id={`work-${work.id}`}>{work.name}</h3>
+    <p>{work.description}</p>
+    <ul
+      class="service-work-capabilities"
+      aria-label={`${work.name} capabilities`}
+    >
+      {work.capabilities.map((capability) => (
+        <li>{capability}</li>
+      ))}
+    </ul>
+    <a
+      class="cta"
+      href={href}
+      data-position={work.appSlug ? "portfolio" : undefined}
+      target="_blank"
+      rel="noopener"
+    >
+      {work.linkLabel}
+      <span class="sr-only"> (opens in a new tab)</span>
+    </a>
+  </div>
+</article>

@@ -2,9 +2,11 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import HeroHeader from "../components/HeroHeader.astro";
+import QuoteLink from "../components/QuoteLink.astro";
+import { professionalSkills } from "../data/services";
 import { buildUrl, communityProjects, createBreadcrumbSchema, createPageSchema, organizationSchema, projectPath } from "../data/site";
 
-const pageDescription = "Learn about Made by Kreativ, Andrei Olaru's active independent product studio, its current products, and open-source contributor projects.";
+const pageDescription = "Meet Andrei Olaru: independent developer and experienced software QA professional. Made by KREATIV combines digital products, software development and quality engineering.";
 ---
 
 <BaseLayout
@@ -31,7 +33,7 @@ const pageDescription = "Learn about Made by Kreativ, Andrei Olaru's active inde
     current="about"
     eyebrow="Independent work"
     title="About Made by Kreativ"
-    tagline="An active independent studio for practical products, public source projects, and useful digital work."
+    tagline="Independent digital products, software development and quality engineering by Andrei Olaru."
   />
 
   <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About" }]} />
@@ -43,13 +45,21 @@ const pageDescription = "Learn about Made by Kreativ, Andrei Olaru's active inde
     <div class="founder-copy">
       <p class="eyebrow">Independent builder</p>
       <h2 id="founder-heading">Built by Andrei Olaru</h2>
-      <p>Made by Kreativ brings together independent products and experiments created across design, development, publishing, and practical software.</p>
+      <p>Made by Kreativ is Andrei Olaru's independent studio, combining practical digital products, software development and professional software quality engineering.</p>
       <p>Made by KREATIV remains active. Product-to-Profit and future independent work continue here, while Kreativ Tools, Findsera, and News Ledger have been opened to contributors because I no longer maintain those three projects.</p>
       <div class="landing-actions founder-actions">
         <a class="button-cta button-cta-primary" href="/product-to-profit/">Explore current work</a>
         <a class="button-cta button-cta-secondary" href="/updates/">Read status updates</a>
       </div>
     </div>
+  </section>
+
+  <section class="services-section" aria-labelledby="professional-heading">
+    <p class="eyebrow">Development and QA expertise together</p>
+    <h2 id="professional-heading">Professional experience, practical software</h2>
+    <div class="services-principles services-skills">{professionalSkills.map((item) => <article><h3>{item.title}</h3><p>{item.skills}</p></article>)}</div>
+    <p class="services-related">Selected, fixed-scope development and QA projects are considered individually, subject to fit and availability.</p>
+    <div class="landing-actions"><a class="button-cta button-cta-secondary" href="/services/">Explore Development Services</a><QuoteLink /></div>
   </section>
 
   <section class="content-card landing-section" aria-labelledby="principles-heading">

@@ -1,0 +1,221 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import QuoteLink from "../components/QuoteLink.astro";
+import ServiceWorkCard from "../components/ServiceWorkCard.astro";
+import {
+  buildUrl,
+  createBreadcrumbSchema,
+  createPageSchema,
+  organizationSchema,
+} from "../data/site";
+import {
+  services,
+  servicesDescription,
+  servicesSchema,
+  formatServicePrice,
+  selectedServiceWork,
+  workingPrinciples,
+  projectProcess,
+} from "../data/services";
+const pageTitle = "Software Development Services | Made by KREATIV";
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={servicesDescription}
+  canonicalPath="/services/"
+  ogImage={buildUrl("/og-services.png")}
+  ogImageAlt="Made by KREATIV software development and quality engineering, illustrated with real WordPress and Android product screenshots."
+  structuredData={[
+    organizationSchema,
+    createPageSchema({
+      name: pageTitle,
+      description: servicesDescription,
+      path: "/services/",
+    }),
+    createBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Services", path: "/services/" },
+    ]),
+    servicesSchema,
+  ]}
+>
+  <header class="services-hero">
+    <p class="eyebrow">Made by KREATIV · Independent development</p>
+    <h1>
+      Custom Software.
+      <br />
+      Built and Tested.
+    </h1>
+    <p class="services-intro">
+      From WordPress plugins and Chrome extensions to mobile apps and API
+      automation, Made by KREATIV helps turn practical ideas into reliable
+      software.
+    </p>
+    <div class="landing-actions">
+      <QuoteLink />
+      <a class="button-cta button-cta-secondary" href="#selected-work">
+        Explore My Work
+      </a>
+    </div>
+    <p class="services-hero-note">
+      Andrei Olaru · Around 15 years in professional software QA
+    </p>
+  </header>
+
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Services" }]} />
+
+  <section class="services-section" aria-labelledby="services-heading">
+    <div class="services-section-heading">
+      <p class="eyebrow">Focused engagements</p>
+      <h2 id="services-heading">A clear scope. Something useful delivered.</h2>
+      <p>
+        Independent software development and quality engineering for businesses,
+        startups and creators. Small and medium-sized projects are reviewed
+        individually for fit and availability.
+      </p>
+    </div>
+    <div class="service-offerings">
+      {services.map((service) => (
+        <article
+          class="service-offering"
+          id={service.id}
+          aria-labelledby={`${service.id}-heading`}
+        >
+          <h3 id={`${service.id}-heading`}>{service.name}</h3>
+          <p class="service-summary">{service.summary}</p>
+          <ul class="service-capabilities">
+            {service.capabilities.map((capability) => (
+              <li>{capability}</li>
+            ))}
+          </ul>
+          <dl class="service-prices">
+            {service.prices.length ? (
+              service.prices.map((price) => (
+                <div>
+                  <dt>{price.label}</dt>
+                  <dd>
+                    from <strong>{formatServicePrice(price.from)}</strong>
+                  </dd>
+                </div>
+              ))
+            ) : (
+              <div>
+                <dt>Project pricing</dt>
+                <dd>
+                  <strong>Custom quote</strong>
+                </dd>
+              </div>
+            )}
+          </dl>
+          <p class="service-scope">{service.scope}</p>
+        </article>
+      ))}
+    </div>
+    <p class="services-price-note">
+      <strong>Indicative starting prices, in EUR, not fixed quotes.</strong> The
+      final price depends on scope, complexity, integrations and delivery
+      requirements. A fixed-price engagement starts with an agreed proposal; the
+      starting price does not cover a full-featured mobile app or complex
+      software platform.
+    </p>
+  </section>
+
+  <section
+    class="services-section"
+    id="selected-work"
+    aria-labelledby="selected-work-heading"
+  >
+    <div class="services-section-heading">
+      <p class="eyebrow">Published software</p>
+      <h2 id="selected-work-heading">Selected Work</h2>
+      <p>
+        These are independently developed products and websites, not
+        commissioned client projects. Their public listings show the kind of
+        practical software I build.
+      </p>
+    </div>
+    <div class="services-work-grid">
+      {selectedServiceWork.map((work) => (
+        <ServiceWorkCard work={work} />
+      ))}
+    </div>
+    <p class="services-related">
+      <a class="cta" href="/apps/">
+        All Android apps
+      </a>
+      <a class="cta" href="/projects/">
+        Website portfolio and project status
+      </a>
+    </p>
+    <div class="services-qa-experience">
+      <h3>Professional QA and API automation</h3>
+      <p>
+        My professional experience includes enterprise web application and API
+        testing, test strategy, regression scenarios, Postman collections and
+        Java automation with RestAssured, JUnit and Cucumber. SQL, Maven,
+        Jenkins and CI/CD support the wider testing and delivery workflow.
+      </p>
+      <p>
+        Client systems, code and confidential project information are not part
+        of this public portfolio.
+      </p>
+    </div>
+  </section>
+
+  <section class="services-section" aria-labelledby="why-kreativ-heading">
+    <div class="services-section-heading">
+      <p class="eyebrow">
+        Development expertise. Professional testing experience.
+      </p>
+      <h2 id="why-kreativ-heading">Why work with KREATIV</h2>
+    </div>
+    <div class="services-principles">
+      {workingPrinciples.map((item) => (
+        <article>
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="services-section" aria-labelledby="process-heading">
+    <div class="services-section-heading">
+      <p class="eyebrow">From the first brief to handover</p>
+      <h2 id="process-heading">How it works</h2>
+    </div>
+    <ol class="services-process">
+      {projectProcess.map((step, index) => (
+        <li>
+          <span aria-hidden="true">0{index + 1}</span>
+          <h3>{step.title}</h3>
+          <p>{step.description}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="services-price-note">
+      Timing, testing, acceptance criteria and handover are agreed for each
+      project. No guaranteed turnaround or ongoing retainer is implied.
+    </p>
+  </section>
+
+  <section
+    class="services-project-cta"
+    aria-labelledby="project-inquiry-heading"
+  >
+    <p class="eyebrow">A practical next step</p>
+    <h2 id="project-inquiry-heading">Have a project in mind?</h2>
+    <p>
+      Tell me what you want to build or improve, and I'll review whether it's a
+      good fit.
+    </p>
+    <div class="landing-actions">
+      <QuoteLink />
+      <a class="cta" href="/contact/#project-inquiry">
+        Project inquiry details
+      </a>
+    </div>
+  </section>
+</BaseLayout>

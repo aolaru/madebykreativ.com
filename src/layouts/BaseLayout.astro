@@ -41,7 +41,7 @@ const {
 
 const canonicalUrl = new URL(canonicalPath, Astro.site);
 const section = canonicalPath.split("/")[1];
-const navigationSections = {"product-to-profit":"guides", news:"updates", projects:"projects", apps:"apps", updates:"updates", about:"about", contact:"contact"} as const;
+const navigationSections = {services:"services", "product-to-profit":"guides", news:"updates", projects:"projects", apps:"apps", updates:"updates", about:"about", contact:"contact"} as const;
 const navCurrent = canonicalPath === "/" ? "home" : navigationSections[section as keyof typeof navigationSections];
 ---
 

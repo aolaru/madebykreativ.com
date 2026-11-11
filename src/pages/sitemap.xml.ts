@@ -5,6 +5,7 @@ import {apps} from "../data/apps";
 
 const staticRoutes = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
+  { path: "/services/", changefreq: "monthly", priority: "0.9" },
   { path: "/product-to-profit/", changefreq: "monthly", priority: "0.9" },
   { path: "/product-to-profit/idea-library/", changefreq: "monthly", priority: "0.8" },
   { path: "/product-to-profit/product-idea-scorecard/", changefreq: "monthly", priority: "0.8" },

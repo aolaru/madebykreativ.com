@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 const navigation = [
+  ["Services", "/services/", "/services/"],
   ["Books", "/product-to-profit/", "/product-to-profit/idea-library/"],
   ["Websites", "/projects/", "/projects/kreativ-font/"],
   ["Apps", "/apps/", "/apps/sharesafe/"],
@@ -10,7 +11,9 @@ const navigation = [
 ];
 
 for (const width of [320, 1280]) {
-  for (const [label, href, detail] of navigation.slice(0, 3)) {
+  for (const [label, href, detail] of navigation.filter(
+    (item) => item.length === 3,
+  )) {
     test(`${width}px navigation labels and active ${label} link`, async ({
       page,
     }) => {

@@ -1,6 +1,7 @@
 export default {
   routes: [
     "/",
+    "/services/",
     "/apps/",
     "/apps/sharesafe/",
     "/product-to-profit/",

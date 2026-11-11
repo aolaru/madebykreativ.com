@@ -378,7 +378,7 @@ export const contactPageSchema = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
   name: `Contact | ${site.name}`,
-  description: "Contact Made by Kreativ about existing purchases, licensing, and public project feedback.",
+  description: "Contact Made by Kreativ for selected software development and QA projects, product support, licensing, and public project feedback.",
   url: buildUrl("/contact/"),
   mainEntity: {
     "@type": "Organization",

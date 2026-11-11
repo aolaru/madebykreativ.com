@@ -17,11 +17,14 @@ const productRoutes = [
 ];
 
 const websiteRoutes = ["/updates/", "/privacy/", "/privacy/blockshift/", "/privacy/kreativ-fancy-text/", "/privacy/photofeather/", "/privacy/northlight/", "/privacy/sharesafe/", "/apps/", "/apps/northlight/", "/apps/sharesafe/", "/apps/paperbuild/", "/apps/kreativ-font/", "/apps/photofeather/", "/news/compress-photos-android-photofeather/", "/apps/support/"];
-const requiredRoutes = [...productRoutes, ...websiteRoutes, "/news/remove-photo-metadata-android-sharesafe/", "/news/offline-compass-android-northlight/", "/news/photos-to-pdf-android-paperbuild/", "/news/discover-fonts-android-kreativ-font/"];
+const requiredRoutes = [...productRoutes, ...websiteRoutes, "/services/", "/news/remove-photo-metadata-android-sharesafe/", "/news/offline-compass-android-northlight/", "/news/photos-to-pdf-android-paperbuild/", "/news/discover-fonts-android-kreativ-font/"];
 
 requiredRoutes.push("/apps/kreativ-fancy-text/", "/news/fancy-text-png-designs-android-kreativ/");
 
 const productAssets = [
+  "og-services.png",
+  "services/hero-work.webp",
+  ...["report-broken-link", "broken-image-finder", "font-finder", "font-updates"].map((name) => `services/work/${name}.webp`),
   ...["01-create", "02-word-styles", "03-matching-image", "04-png-options", "05-saved-designs"].flatMap((name) => [".png", "-480.webp", "-960.webp"].map((suffix) => `images/kreativ-fancy-text/tutorial/${name}${suffix}`)),
   ...["01-select-photos", "02-resize-presets", "03-custom-resize", "04-measured-results", "05-compare-photos"].flatMap((name) => [".png", "-480.webp", "-960.webp"].map((suffix) => `images/photofeather/tutorial/${name}${suffix}`)),
   ...["01-browse-fonts", "02-load-more", "03-search-catalogue", "04-filter-results", "05-save-shortlist"].flatMap((name) => [".png", "-480.webp", "-960.webp"].map((suffix) => `images/kreativ-font/tutorial/${name}${suffix}`)),

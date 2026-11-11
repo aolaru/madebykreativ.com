@@ -12,8 +12,8 @@ export default defineConfig({
   },
   projects: [
     {name: "chromium", use: {browserName: "chromium", channel: process.env.PLAYWRIGHT_CHANNEL || undefined}},
-    {name: "firefox", testMatch: "cross-browser.spec.mjs", use: {browserName: "firefox"}},
-    {name: "webkit", testMatch: "cross-browser.spec.mjs", use: {browserName: "webkit"}}
+    {name: "firefox", testMatch: ["cross-browser.spec.mjs", "navigation.spec.mjs", "services.spec.mjs"], use: {browserName: "firefox"}},
+    {name: "webkit", testMatch: ["cross-browser.spec.mjs", "navigation.spec.mjs", "services.spec.mjs"], use: {browserName: "webkit"}}
   ],
   webServer: {
     command: "npm run preview -- --ignore-lock --host 127.0.0.1 --port 4339",

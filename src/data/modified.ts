@@ -57,6 +57,7 @@ export function pageModified(path: string) {
   if (path === "/" || path === "/updates/")
     sources.push("src/content/news", "src/data/siteUpdates.ts");
   if (path === "/apps/") sources.push("src/data/apps.ts");
+  if (path === "/services/") sources.push("src/data/services.ts", "src/data/apps.ts");
   if (path === "/projects/") sources.push("src/data/site.ts");
   if (path === "/product-to-profit/")
     sources.push(

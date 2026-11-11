@@ -1,0 +1,14 @@
+---
+import { projectInquiryHref } from "../data/services";
+interface Props {
+  variant?: "primary" | "secondary";
+}
+const { variant = "primary" } = Astro.props;
+---
+
+<a
+  class:list={["button-cta", `button-cta-${variant}`]}
+  href={projectInquiryHref}
+>
+  Request a Quote
+</a>

@@ -4,6 +4,7 @@ import { readRedirects, siteHosts } from "./redirect-rules.mjs";
 const origin = "https://madebykreativ.com";
 const routes = [
   "/",
+  "/services/",
   "/apps/",
   "/apps/paperbuild/",
   "/news/photos-to-pdf-android-paperbuild/",
