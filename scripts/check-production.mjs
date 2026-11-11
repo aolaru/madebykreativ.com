@@ -1,6 +1,7 @@
 import { setTimeout as delay } from "node:timers/promises";
 import { readRedirects, siteHosts } from "./redirect-rules.mjs";
 import { sharedAssetReferences, verifyAssetVersion } from "./shared-assets.mjs";
+import { requirePublicEmailLink } from "./public-email.mjs";
 
 const origin = "https://madebykreativ.com";
 const routes = [
@@ -27,6 +28,7 @@ const routes = [
 const failures = [];
 const revision = process.env.GITHUB_SHA || String(Date.now());
 const sharedAssetUrls = new Set();
+const emailRoutes = new Set(["/services/", "/services/wordpress/", "/services/qa-api-testing/", "/work/website-quality-checks/", "/contact/", "/apps/support/", "/privacy/sharesafe/", "/privacy/photofeather/"]);
 async function verify(
   url,
   test,
@@ -78,6 +80,7 @@ for (const route of routes)
     if (!route.endsWith(".xml"))
       for (const url of sharedAssetReferences(body).values())
         sharedAssetUrls.add(url.href);
+    if (emailRoutes.has(route)) requirePublicEmailLink(body);
   });
 for (const url of sharedAssetUrls)
   await verify(url, (response, body) => verifyAssetVersion(new URL(url), body), { cacheBust: false });

@@ -14,7 +14,7 @@
     "validate:links": "node scripts/check-local-links.mjs",
     "validate:artifact": "node scripts/check-built-site.mjs",
     "validate": "npm run validate:attribution && npm run validate:assets && npm run build && npm run validate:html && npm run validate:links && npm run validate:artifact && npm run validate:redirects",
-    "validate:assets": "node --test scripts/shared-assets.test.mjs",
+    "validate:assets": "node --test scripts/shared-assets.test.mjs scripts/public-email.test.mjs",
     "validate:attribution": "node --test scripts/app-attribution.test.mjs",
     "validate:browser": "playwright test --project=chromium",
     "validate:cross-browser": "playwright test --project=firefox --project=webkit",

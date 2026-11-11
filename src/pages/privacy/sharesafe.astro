@@ -2,7 +2,8 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
-import { createBreadcrumbSchema, createPageSchema, organizationSchema, site } from "../../data/site";
+import PublicEmail from "../../components/PublicEmail.astro";
+import { createBreadcrumbSchema, createPageSchema, organizationSchema } from "../../data/site";
 
 const pageDescription = "Learn how ShareSafe, the private Android photo cleaner by Made by Kreativ, handles photos and personal information.";
 const lastUpdated = "October 25, 2026";
@@ -142,7 +143,7 @@ const pagePath = "/privacy/sharesafe/";
   <section class="content-card" aria-labelledby="contact-heading">
     <p class="eyebrow">Contact</p>
     <h2 id="contact-heading">Privacy questions</h2>
-    <p>For questions about ShareSafe privacy, contact Made by Kreativ at <a class="cta" href={`mailto:${site.email}`}>{site.email}</a>.</p>
+    <p>For questions about ShareSafe privacy, contact Made by Kreativ at <PublicEmail class="cta" />.</p>
   </section>
 
 </BaseLayout>

@@ -57,6 +57,7 @@ export function pageModified(path: string) {
     ? `${page}/index`
     : page;
   const sources = [`src/pages/${file}.astro`];
+  if (["/", "/about/", "/contact/"].includes(path)) sources.push("src/data/site.ts");
   if (path === "/" || path === "/updates/")
     sources.push("src/content/news", "src/data/siteUpdates.ts");
   if (path === "/apps/") sources.push("src/data/apps.ts");

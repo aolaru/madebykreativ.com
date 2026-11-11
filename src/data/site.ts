@@ -30,6 +30,7 @@ export const clientConfig = {
 
 export const statusDefinitions = [
   { label: "Active", description: "An active Made by KREATIV project maintained by Andrei." },
+  { label: "Paused", description: "A retained project without a current active-development commitment." },
   { label: "Open Source", description: "Source is public for contributors; these projects are not maintained by Andrei." },
   { label: "Archive", description: "A retained open-source research archive, not an actively maintained product." }
 ];
@@ -120,22 +121,22 @@ const coreProjects = [
     product: "Kreativ Tools",
     label: "Kreativ Tools",
     category: "Utility Software",
-    status: "Open Source",
+    status: "Active",
     title: "Kreativ Tools",
     logo: { mark: "T" },
     description: "Browser-first utilities for image, video, PDF, document, and file workflows built for practical daily use.",
     longDescription: "Kreativ Tools brings file, image, video, PDF, and document utilities into a browser-first workspace for fast everyday production tasks.",
     whatItSolves: "It removes small workflow bottlenecks around file conversion, media utilities, PDFs, and everyday browser-first productivity tasks.",
     audience: "Creators, operators, developers, and anyone who needs fast utility tools without installing desktop software.",
-    currentStatus: "The source is public for contributors. The existing site may remain available, but Andrei no longer maintains the project.",
-    version: "Open-source handoff",
-    updated: "October 17, 2026",
+    currentStatus: "An active project maintained by Andrei again. The source remains public and contributions are welcome under the published license.",
+    version: "Active project",
+    updated: "November 11, 2026",
     preview: "/project-previews/kreativ-tools.png",
     previewAlt: "Kreativ Tools homepage showing browser-first job and workflow selection.",
     cta: "Open Kreativ Tools",
     focus: ["Image tools", "PDF and document utilities", "File workflows"],
     proof: ["Live browser utility hub", "Image, PDF, document, and file workflows", "Public ecosystem update"],
-    maintenanceNotes: ["No owner maintenance commitment", "Contributions and forks are welcome under the published license", "Public site availability may change"],
+    maintenanceNotes: ["Actively maintained by Andrei", "Open-source contributions remain welcome under the published license", "Updates are published when ready"],
     relatedNews: ["maintenance-open-source-transition", "kreativ-tools-live", "homepage-directory-refinement"],
     isCore: true
   }
@@ -146,15 +147,15 @@ const adjacentProjects = [
     slug: "kreativ-auto",
     label: "Kreativ Auto",
     category: "Reference Projects",
-    status: "Active",
+    status: "Paused",
     logo: { mark: "A" },
     description: "An automotive project for practical content, useful references, and workflow-oriented tools.",
-    longDescription: "Kreativ Auto is an active automotive reference project covering practical buying, diagnosis, maintenance-cost, and parts questions.",
+    longDescription: "Kreativ Auto is a paused automotive reference project covering practical buying, diagnosis, maintenance-cost, and parts questions.",
     whatItSolves: "It preserves structured automotive research and practical reference paths in a dedicated public property.",
     audience: "Automotive enthusiasts and practical users looking for structured reference material.",
-    currentStatus: "Active public project maintained by Andrei as part of Made by KREATIV.",
-    version: "Active project",
-    updated: "October 17, 2026",
+    currentStatus: "Paused while active project work focuses on the other Made by KREATIV properties. Existing reference material may remain available.",
+    version: "Paused project",
+    updated: "November 11, 2026",
     preview: "/project-previews/kreativ-auto.png",
     previewAlt: "Kreativ Auto homepage with used-car checks, diagnosis paths and ownership worksheets.",
     href: "https://kreativauto.com",
@@ -162,7 +163,7 @@ const adjacentProjects = [
     cta: "Open Kreativ Auto",
     focus: ["Automotive references", "Practical content", "Ownership context"],
     proof: ["Reviewed buying and diagnostic paths", "Used-car viewing worksheet", "Vehicle maintenance record"],
-    maintenanceNotes: ["Actively maintained by Andrei", "Public reference site available", "Updates are published when ready"],
+    maintenanceNotes: ["No current active-development commitment", "Existing reference material may remain available", "No new release schedule is promised"],
     relatedNews: ["kreativ-auto-domain-added", "kreativ-auto-roadmap"],
     isCore: false
   },
@@ -245,11 +246,8 @@ export const activeProjects = projectDirectory.filter(
   (project) => project.status === "Active"
 );
 export const archivedProjects = projectDirectory.filter((project) => project.status === "Archive");
-export const communityProjects = [
-  projectDirectory.find((project) => project.slug === "kreativ-tools"),
-  projectDirectory.find((project) => project.slug === "find-sera"),
-  projectDirectory.find((project) => project.slug === "signal-ledger")
-].filter((project): project is (typeof projectDirectory)[number] => Boolean(project));
+export const pausedProjects = projectDirectory.filter((project) => project.status === "Paused");
+export const communityProjects = projectDirectory.filter((project) => project.status === "Open Source");
 export const publicProjects = communityProjects;
 
 export const ecosystemLinks = projectDirectory.map((project) => ({

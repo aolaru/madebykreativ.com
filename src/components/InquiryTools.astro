@@ -1,6 +1,7 @@
 ---
 import { projectInquiryBrief, projectInquiryHref } from "../data/services";
 import { site } from "../data/site";
+import PublicEmail from "./PublicEmail.astro";
 interface Props {
   id: string;
 }
@@ -9,7 +10,7 @@ const { id } = Astro.props;
 
 <div class="inquiry-tools" data-inquiry-tools>
   <div class="inquiry-tools-actions">
-    <a href={projectInquiryHref}>{site.email}</a>
+    <PublicEmail href={projectInquiryHref} />
     <button
       class="icon-button"
       type="button"

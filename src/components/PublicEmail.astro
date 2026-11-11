@@ -1,0 +1,13 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { site } from "../data/site";
+
+type Props = HTMLAttributes<"a">;
+const { href = `mailto:${site.email}`, ...attributes } = Astro.props;
+---
+
+<Fragment set:html="<!--email_off-->" />
+<a {...attributes} href={href}>
+  <slot>{site.email}</slot>
+</a>
+<Fragment set:html="<!--/email_off-->" />

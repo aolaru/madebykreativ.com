@@ -2,7 +2,8 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
-import { createBreadcrumbSchema, createPageSchema, organizationSchema, site } from "../../data/site";
+import PublicEmail from "../../components/PublicEmail.astro";
+import { createBreadcrumbSchema, createPageSchema, organizationSchema } from "../../data/site";
 
 const pageDescription = "Northlight privacy policy: on-device compass, optional GPS altitude, saved places and speech, and Pro purchases through Google Play.";
 const effectiveDate = "4 November 2026";
@@ -105,7 +106,7 @@ const pagePath = "/privacy/northlight/";
   <section class="content-card" aria-labelledby="contact-heading">
     <p class="eyebrow">Contact</p>
     <h2 id="contact-heading">Contact</h2>
-    <p>For privacy questions, contact <a class="cta" href={`mailto:${site.email}`}>{site.email}</a>.</p>
+    <p>For privacy questions, contact <PublicEmail class="cta" />.</p>
   </section>
 
 </BaseLayout>

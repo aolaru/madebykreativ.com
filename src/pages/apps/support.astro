@@ -4,6 +4,7 @@ import HeroHeader from "../../components/HeroHeader.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { apps } from "../../data/apps";
 import { site } from "../../data/site";
+import PublicEmail from "../../components/PublicEmail.astro";
 ---
 
 <BaseLayout
@@ -67,12 +68,12 @@ import { site } from "../../data/site";
     <noscript>
       <p>
         Email{" "}
-        <a
+        <PublicEmail
           class="cta"
           href={`mailto:${site.email}?subject=Kreativ%20app%20support`}
         >
           {site.email}
-        </a>{" "}
+        </PublicEmail>{" "}
         with the app name, app version, Android version and steps to reproduce
         the problem.
       </p>
@@ -89,9 +90,7 @@ import { site } from "../../data/site";
     <p>
       Support is best effort; no response time or product-review service is
       promised. You can also email{" "}
-      <a class="cta" href={`mailto:${site.email}`}>
-        {site.email}
-      </a>{" "}
+      <PublicEmail class="cta" />{" "}
       directly.
     </p>
   </section>

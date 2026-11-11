@@ -1,6 +1,7 @@
 import { access, readFile, readdir } from "node:fs/promises";
 import { join } from "node:path";
 import { sharedAssetReferences, verifyAssetVersion } from "./shared-assets.mjs";
+import { publicEmailLinks } from "./public-email.mjs";
 
 const distRoot = new URL("../dist/", import.meta.url);
 const siteUrl = "https://madebykreativ.com";
@@ -98,6 +99,7 @@ for (const file of htmlFiles) {
     const html = await readFile(new URL(file, distRoot), "utf8");
     // Minimal legacy redirect documents do not load shared assets.
     if (redirects.has(`/${file}`) && html.includes('http-equiv="refresh"')) continue;
+    publicEmailLinks(html, { requireExemption: true });
     for (const [path, url] of sharedAssetReferences(html))
       verifyAssetVersion(url, sharedAssets.get(path));
   } catch (error) {

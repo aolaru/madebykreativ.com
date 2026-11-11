@@ -6,6 +6,63 @@ import {
 } from "../src/data/engagements";
 import { caseStudies, qaSample } from "../src/data/caseStudies";
 import { formatServicePrice, projectInquiryHref } from "../src/data/services";
+import { activeProjects, communityProjects } from "../src/data/site";
+
+test("Kreativ Tools replaces Auto as an active owner-maintained project", async ({
+  page,
+}) => {
+  expect(activeProjects.map((project) => project.slug)).toEqual([
+    "kreativ-font",
+    "kreativ-sound",
+    "kreativ-wp",
+    "kreativ-tools",
+  ]);
+  expect(communityProjects.map((project) => project.slug)).toEqual([
+    "find-sera",
+    "signal-ledger",
+  ]);
+  await page.goto("/");
+  await expect(
+    page
+      .locator("#active-projects")
+      .getByRole("link", { name: "Kreativ Tools", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page
+      .locator("#active-projects")
+      .getByRole("link", { name: "Kreativ Auto", exact: true }),
+  ).toHaveCount(0);
+  await page.goto("/projects/");
+  await expect(page.locator(".project-directory-grid-public")).toContainText(
+    "Kreativ Tools",
+  );
+  await expect(
+    page.locator(".project-directory-grid-public"),
+  ).not.toContainText("Kreativ Auto");
+  await page.goto("/projects/kreativ-tools/");
+  await expect(page.locator(".project-hero-actions .meta-note")).toContainText(
+    "Active",
+  );
+  await expect(page.locator(".project-evidence")).toContainText(
+    "Actively maintained by Andrei",
+  );
+  await expect(
+    page.getByRole("link", { name: "View source code", exact: true }).first(),
+  ).toHaveAttribute("href", "https://github.com/aolaru/kreativtools");
+  await page.goto("/projects/kreativ-auto/");
+  await expect(page.locator(".project-hero-actions .meta-note")).toContainText(
+    "Paused",
+  );
+  await page.goto("/about/");
+  await expect(page.locator(".about-public-grid")).not.toContainText(
+    "Kreativ Tools",
+  );
+  await expect(page.locator(".about-public-grid")).toContainText("Findsera");
+  await expect(page.locator(".about-public-grid")).toContainText("News Ledger");
+  await page.goto("/news/maintenance-open-source-transition/");
+  await expect(page.locator(".article-archive-note")).toBeVisible();
+  await expect(page.locator(".news-detail")).toContainText("Kreativ Tools");
+});
 
 test("Homepage leads with hiring and keeps resources secondary", async ({
   page,

@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { appStoreHref } from "../public/app-attribution.mjs";
+import { communityProjects } from "../src/data/site";
 import { assetVersion } from "../src/data/assets.ts";
 import {
   selectedServiceWork,
@@ -136,7 +137,7 @@ test("Quote links open a real email draft with a complete project brief", async 
   await expect(
     page.getByRole("link", { name: "Prepare an app support report" }),
   ).toBeVisible();
-  await expect(page.locator('a[href$="/issues"]')).toHaveCount(3);
+  await expect(page.locator('a[href$="/issues"]')).toHaveCount(communityProjects.length);
 });
 
 test("Products, professional experience and contributor handoffs remain distinct", async ({
@@ -164,10 +165,10 @@ test("Products, professional experience and contributor handoffs remain distinct
     "Astro",
   ])
     await expect(page.locator("main")).toContainText(text);
-  for (const name of ["Kreativ Tools", "Findsera", "News Ledger"])
+  for (const name of ["Findsera", "News Ledger"])
     await expect(page.locator(".about-public-grid")).toContainText(name);
   await expect(page.locator(".founder-copy")).toContainText(
-    "I no longer maintain those three projects",
+    "I no longer maintain those projects",
   );
   await expect(page.locator("main")).not.toContainText(
     /semi.?retired|lost my job|European Commission/i,

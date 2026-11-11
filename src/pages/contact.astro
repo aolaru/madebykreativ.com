@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import ProjectInquiry from "../components/ProjectInquiry.astro";
+import PublicEmail from "../components/PublicEmail.astro";
 import { buildUrl, communityProjects, contactPageSchema, createBreadcrumbSchema, organizationSchema, projectPath, site } from "../data/site";
 ---
 
@@ -35,10 +36,10 @@ import { buildUrl, communityProjects, contactPageSchema, createBreadcrumbSchema,
   <section class="content-card contact-email-card" aria-labelledby="email-heading">
     <p class="eyebrow">Product support and general questions</p>
     <h2 id="email-heading">Need help with an existing product?</h2>
-    <p>Use <a class="cta" href={`mailto:${site.email}`}>{site.email}</a> for purchase access, app issues, licensing, or a question that cannot be handled in a public repository.</p>
+    <p>Use <PublicEmail class="cta" /> for purchase access, app issues, licensing, or a question that cannot be handled in a public repository.</p>
     <p>Include the product name and relevant details. Please keep passwords and payment information out of your message.</p>
     <div class="contact-copy-row">
-      <code>{site.email}</code>
+      <code><PublicEmail /></code>
       <button class="button-cta button-cta-secondary" type="button" data-copy-email={site.email}>Copy email address</button>
       <span class="copy-status" data-copy-status aria-live="polite"></span>
     </div>

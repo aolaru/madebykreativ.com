@@ -139,6 +139,18 @@ unversioned assets and assert that portfolio images stay inside their grid.
 
 ## Development And QA Services
 
+Kreativ Tools is active and maintained by Andrei again as of November 11, 2026.
+Kreativ Auto is paused; Findsera and News Ledger remain contributor handoffs.
+Current project lists come from `src/data/site.ts`; historical announcements keep
+their original context.
+
+Public contact links use `PublicEmail.astro`, which emits Cloudflare's scoped
+`<!--email_off-->` exemption markers around the public business email only.
+Keep these markers in generated HTML so links work without JavaScript. Artifact
+checks enforce the markers, and production checks require a direct public mailto
+link rather than accepting a rewritten email-protection page. No zone-wide
+Cloudflare setting is changed.
+
 Services are the primary homepage offer. Books remain under Resources; the app,
 website and product catalogues are retained. `src/data/engagements.ts` owns three
 starting packages and the two focused service pages. Existing prices are reused;

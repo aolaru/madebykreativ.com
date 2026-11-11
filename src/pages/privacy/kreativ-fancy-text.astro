@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
+import PublicEmail from "../../components/PublicEmail.astro";
 import { createBreadcrumbSchema, createPageSchema, organizationSchema } from "../../data/site";
 import policy from "../../data/privacy/kreativ-fancy-text.txt?raw";
 
@@ -62,6 +63,6 @@ for (const block of blocks) {
   ))}
   <section class="content-card" aria-labelledby="contact-link-heading">
     <h2 id="contact-link-heading">Contact Kreativ</h2>
-    <p><a class="cta" href="mailto:info@madebykreativ.com">info@madebykreativ.com</a></p>
+    <p><PublicEmail class="cta" /></p>
   </section>
 </BaseLayout>

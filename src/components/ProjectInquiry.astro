@@ -1,5 +1,6 @@
 ---
 import InquiryTools from "./InquiryTools.astro";
+import PublicEmail from "./PublicEmail.astro";
 import { inquiryOptions } from "../data/engagements";
 import { site } from "../data/site";
 ---
@@ -89,13 +90,13 @@ import { site } from "../data/site";
     <label for="project-brief-draft">Email draft</label>
     <textarea id="project-brief-draft" rows="10" readonly></textarea>
     <div class="landing-actions">
-      <a
+      <PublicEmail
         class="button-cta button-cta-primary"
         data-project-email
         href={`mailto:${site.email}`}
       >
         Open Email Draft
-      </a>
+      </PublicEmail>
       <button
         class="icon-button"
         title="Copy completed project brief"

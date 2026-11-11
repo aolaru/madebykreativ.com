@@ -12,13 +12,14 @@ import {
   organizationSchema,
   projectPath,
   statusDefinitions,
-  archivedProjects
+  archivedProjects,
+  pausedProjects
 } from "../../data/site";
 ---
 
 <BaseLayout
   title="Projects | Made by Kreativ"
-  description="Explore active Made by Kreativ projects and the three open-source projects available to contributors."
+  description="Explore active Made by Kreativ projects, paused references, and the open-source projects available to contributors."
   canonicalPath="/projects/"
   ogImage={buildUrl("/og-projects.png")}
   ogImageAlt="Made by Kreativ project directory card."
@@ -28,7 +29,7 @@ import {
     current="projects"
     eyebrow="Project directory"
     title="KREATIV Projects"
-    tagline="Active independent projects and three open-source contributor handoffs in one clear directory."
+    tagline="Active independent projects, paused references and open-source contributor handoffs."
   />
 
   <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Projects" }]} />
@@ -61,7 +62,7 @@ import {
       <div>
         <p class="eyebrow">Open-source handoff</p>
         <h2>Open to contributors</h2>
-        <p>Andrei no longer maintains these three projects. Their source is public for contributors under the published licenses.</p>
+        <p>Andrei no longer maintains these contributor projects. Their source remains public under the published licenses.</p>
       </div>
     </div>
 
@@ -79,6 +80,7 @@ import {
       ))}
     </div>
 
+    {pausedProjects.length > 0 && <><div class="section-heading-row directory-group-heading"><div><p class="eyebrow">Not in active development</p><h2>Paused projects</h2></div></div><div class="project-directory-grid">{pausedProjects.map((project)=><ProjectDirectoryCard href={projectPath(project.slug)} slug={project.slug} label={project.label} category={project.category} status={project.status} description={project.description} logo={project.logo} />)}</div></>}
     <div class="section-heading-row directory-group-heading"><div><p class="eyebrow">Retained reference</p><h2>Archived projects</h2></div></div>
     <div class="project-directory-grid">{archivedProjects.map((project)=><ProjectDirectoryCard href={projectPath(project.slug)} slug={project.slug} label={project.label} category={project.category} status={project.status} description={project.description} logo={project.logo} />)}</div>
     <dl class="status-legend project-status-reference">
