@@ -1,5 +1,6 @@
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
 import { join } from "node:path";
+import { sharedAssetReferences, verifyAssetVersion } from "./shared-assets.mjs";
 
 const distRoot = new URL("../dist/", import.meta.url);
 const siteUrl = "https://madebykreativ.com";
@@ -85,6 +86,22 @@ const redirects = new Map([
 ]);
 
 const failures = [];
+
+const sharedAssets = new Map(await Promise.all(
+  ["/style.css", "/site.js"].map(async (path) => [path, await readFile(new URL(path.slice(1), distRoot))]),
+));
+const htmlFiles = (await readdir(distRoot, { recursive: true })).filter((path) => path.endsWith(".html"));
+for (const file of htmlFiles) {
+  try {
+    const html = await readFile(new URL(file, distRoot), "utf8");
+    // Minimal legacy redirect documents do not load shared assets.
+    if (redirects.has(`/${file}`) && html.includes('http-equiv="refresh"')) continue;
+    for (const [path, url] of sharedAssetReferences(html))
+      verifyAssetVersion(url, sharedAssets.get(path));
+  } catch (error) {
+    failures.push(`${file}: ${error.message}`);
+  }
+}
 
 const redirectManifest = await readFile(new URL("_redirects", distRoot), "utf8");
 for (const [source, destination] of redirects) {

@@ -14,6 +14,8 @@ Astro-based static site for the Kreativ ecosystem.
 - `public/style.css` - shared site styles
 - `public/site.js` - shared behavior for theme, footer year, and analytics events
 - `public/` - static assets, icons, social images, `robots.txt`, and `CNAME`
+- `src/data/assets.ts` - content-versioned shared stylesheet and script URLs; a
+  content change gets a new cache key without disabling browser or CDN caching.
 - `public/_redirects` - permanent redirect rules for redirect-capable static hosts such as Cloudflare Pages
 - `scripts/check-built-site.mjs` - production artifact checks for required routes, assets, canonicals, sitemap entries, and the custom domain
 - `astro.config.mjs` - Astro configuration
@@ -124,6 +126,16 @@ master dashboard, not a full paid-workbook download or a customer result.
 App support at `/apps/support/` composes an email locally. Reports are not uploaded,
 saved in browser storage, or sent to analytics. Without JavaScript the page offers
 a direct support email link.
+
+## Asset Caching
+
+Shared CSS and JavaScript entry points use SHA-256 content versions in their URLs.
+This prevents cached pre-deployment styles from breaking new pages. Keep using
+`versionedPublicAsset()` in the shared layout. `npm run validate:assets` tests the
+cache checks, artifact validation checks every generated HTML page, and the
+production smoke test verifies the exact referenced asset contents without adding
+cache-busting parameters. The Services browser checks also simulate stale,
+unversioned assets and assert that portfolio images stay inside their grid.
 
 ## Development And QA Services
 

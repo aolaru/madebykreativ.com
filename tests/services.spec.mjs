@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { appStoreHref } from "../public/app-attribution.mjs";
+import { assetVersion } from "../src/data/assets.ts";
 import {
   selectedServiceWork,
   services,
@@ -66,6 +67,33 @@ test("Services has scoped EUR pricing, real independent work and SEO metadata", 
     "<loc>https://madebykreativ.com/services/</loc>",
   );
   expect((await request.get("/og-services.png")).ok()).toBe(true);
+});
+
+test("Services bypasses stale unversioned CSS and JavaScript caches", async ({ page }) => {
+  const requested = [];
+  const staleRequests = [];
+  await page.route(/\/(style\.css|site\.js)(\?|$)/, async (route) => {
+    const url = new URL(route.request().url());
+    requested.push(url.pathname);
+    if (!url.searchParams.has("v")) {
+      staleRequests.push(url.pathname);
+      await route.fulfill({
+        contentType: url.pathname.endsWith("css") ? "text/css" : "text/javascript",
+        body: "/* cached before Services was added */",
+      });
+    } else {
+      const response = await route.fetch();
+      expect(url.searchParams.get("v")).toBe(assetVersion(await response.body()));
+      await route.fulfill({ response });
+    }
+  });
+  await page.goto("/services/");
+  await expect(page.locator(".services-work-grid")).toHaveCSS("display", "grid");
+  await expect(page.locator(".service-offerings")).toHaveCSS("display", "grid");
+  await page.locator("#theme-toggle").click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  expect(requested.sort()).toEqual(["/site.js", "/style.css"]);
+  expect(staleRequests).toEqual([]);
 });
 
 test("Quote links open a real email draft with a complete project brief", async ({
@@ -169,6 +197,13 @@ for (const width of [320, 768, 861, 1280]) {
       .toBe(0);
     for (const theme of ["light", "dark"]) {
       if (theme === "dark") await page.locator("#theme-toggle").click();
+      await expect(page.locator(".service-offerings")).toHaveCSS("display", "grid");
+      await expect(page.locator(".services-work-grid")).toHaveCSS("display", "grid");
+      for (const image of await page.locator(".service-work-image img").all()) {
+        const box = await image.boundingBox();
+        expect(box.width).toBeLessThanOrEqual(width);
+        expect(box.height).toBeLessThanOrEqual(210);
+      }
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth,

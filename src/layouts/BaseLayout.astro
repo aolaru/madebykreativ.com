@@ -2,6 +2,7 @@
 import { clientConfig } from "../data/site";
 import SiteNav from "../components/SiteNav.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import { versionedPublicAsset } from "../data/assets";
 
 interface Props {
   title: string;
@@ -97,9 +98,9 @@ const navCurrent = canonicalPath === "/" ? "home" : navigationSections[section a
       }
     </script>
     <link rel="preload" href="/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href={versionedPublicAsset("/style.css")} />
     <script is:inline set:html={`window.KREATIV_CONFIG = ${JSON.stringify(clientConfig)};`} />
-    <script is:inline type="module" src="/site.js"></script>
+    <script is:inline type="module" src={versionedPublicAsset("/site.js")}></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>

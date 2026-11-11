@@ -85,5 +85,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
+          cache: npm
+      - name: Install production check dependencies
+        run: npm ci --ignore-scripts
       - name: Smoke-test live pages and canonical HTTPS
         run: node scripts/check-production.mjs

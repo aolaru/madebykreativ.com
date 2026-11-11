@@ -1,5 +1,6 @@
 import { setTimeout as delay } from "node:timers/promises";
 import { readRedirects, siteHosts } from "./redirect-rules.mjs";
+import { sharedAssetReferences, verifyAssetVersion } from "./shared-assets.mjs";
 
 const origin = "https://madebykreativ.com";
 const routes = [
@@ -20,18 +21,19 @@ const routes = [
 ];
 const failures = [];
 const revision = process.env.GITHUB_SHA || String(Date.now());
+const sharedAssetUrls = new Set();
 async function verify(
   url,
   test,
-  { redirect = "follow", status, attempts = 6 } = {},
+  { redirect = "follow", status, attempts = 6, cacheBust = true } = {},
 ) {
   for (let attempt = 0; attempt < attempts; attempt++) {
     try {
       const target = new URL(url);
-      target.searchParams.set("_check", revision);
+      if (cacheBust) target.searchParams.set("_check", revision);
       const response = await fetch(target, {
         redirect,
-        headers: { "Cache-Control": "no-cache" },
+        headers: cacheBust ? { "Cache-Control": "no-cache" } : undefined,
         signal: AbortSignal.timeout(15000),
       });
       if (status ? response.status !== status : !response.ok)
@@ -68,7 +70,12 @@ for (const route of routes)
         !body.includes("/apps/kreativ-font/"))
     )
       throw new Error("Current app catalogue has not reached this edge yet");
+    if (!route.endsWith(".xml"))
+      for (const url of sharedAssetReferences(body).values())
+        sharedAssetUrls.add(url.href);
   });
+for (const url of sharedAssetUrls)
+  await verify(url, (response, body) => verifyAssetVersion(new URL(url), body), { cacheBust: false });
 await verify("http://madebykreativ.com/", (response) => {
   if (new URL(response.url).origin !== origin)
     throw new Error("HTTP did not redirect to canonical HTTPS");
