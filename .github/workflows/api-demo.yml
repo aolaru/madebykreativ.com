@@ -28,7 +28,7 @@ jobs:
         run: mvn -B -ntp verify
       - name: Save readable test evidence
         if: always()
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: api-demo-surefire-reports
           path: examples/api-automation/target/surefire-reports/
