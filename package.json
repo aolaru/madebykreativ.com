@@ -41,16 +41,16 @@
   "devDependencies": {
     "esbuild": "^0.28.2",
     "mimetext": "^3.0.28",
-    "@axe-core/playwright": "^4.13.0",
-    "@playwright/test": "^1.64.0",
-    "astro": "^7.3.8",
-    "chrome-launcher": "^1.2.2",
-    "html-validate": "^11.8.0",
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.0",
+    "astro": "^7.4.8",
+    "chrome-launcher": "^1.2.3",
+    "html-validate": "^11.21.0",
     "htmlparser2": "^12.0.0",
-    "lighthouse": "^13.5.0",
+    "lighthouse": "^13.6.0",
     "linkinator": "^8.1.0",
     "prettier": "^3.9.10",
-    "prettier-plugin-astro": "^1.1.1",
+    "prettier-plugin-astro": "^1.1.2",
     "sharp": "^0.35.5"
   }
 }
