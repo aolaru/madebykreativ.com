@@ -3,10 +3,19 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import HeroHeader from "../components/HeroHeader.astro";
 import QuoteLink from "../components/QuoteLink.astro";
+import PublicEmail from "../components/PublicEmail.astro";
 import { professionalSkills } from "../data/services";
-import { buildUrl, communityProjects, createBreadcrumbSchema, createPageSchema, organizationSchema, projectPath } from "../data/site";
+import {
+  buildUrl,
+  communityProjects,
+  createBreadcrumbSchema,
+  createPageSchema,
+  organizationSchema,
+  projectPath,
+} from "../data/site";
 
-const pageDescription = "Meet Andrei Olaru: independent developer and experienced software QA professional. Made by KREATIV combines digital products, software development and quality engineering.";
+const pageDescription =
+  "Meet Andrei Olaru: independent developer and experienced software QA professional. Made by KREATIV combines digital products, software development and quality engineering.";
 ---
 
 <BaseLayout
@@ -21,12 +30,12 @@ const pageDescription = "Meet Andrei Olaru: independent developer and experience
       type: "AboutPage",
       name: "About | Made by Kreativ",
       description: pageDescription,
-      path: "/about/"
+      path: "/about/",
     }),
     createBreadcrumbSchema([
       { name: "Home", path: "/" },
-      { name: "About", path: "/about/" }
-    ])
+      { name: "About", path: "/about/" },
+    ]),
   ]}
 >
   <HeroHeader
@@ -38,49 +47,151 @@ const pageDescription = "Meet Andrei Olaru: independent developer and experience
 
   <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About" }]} />
 
-  <section class="content-card founder-profile" aria-labelledby="founder-heading">
+  <section
+    class="content-card founder-profile"
+    aria-labelledby="founder-heading"
+  >
     <div class="founder-mark" aria-hidden="true">
       <span>AO</span>
     </div>
     <div class="founder-copy">
       <p class="eyebrow">Direct collaboration</p>
       <h2 id="founder-heading">Built by Andrei Olaru</h2>
-      <p>Made by Kreativ is Andrei Olaru's independent studio, combining practical digital products, software development and professional software quality engineering.</p>
-      <p>I work directly with small teams on clearly scoped development and QA projects. My independently published software provides practical examples of the work, alongside around 15 years of professional software QA experience.</p>
-      <p>Made by KREATIV remains active, and I maintain Kreativ Tools again. Findsera and News Ledger remain open to contributors because I no longer maintain those projects. Kreativ Auto is currently paused.</p>
+      <p>
+        Made by Kreativ is Andrei Olaru's independent studio, combining
+        practical digital products, software development and professional
+        software quality engineering.
+      </p>
+      <p>
+        I work directly with small teams on clearly scoped development and QA
+        projects. My independently published software provides practical
+        examples of the work, alongside around 15 years of professional software
+        QA experience.
+      </p>
+      <p>
+        Based in Bucharest, Romania (Europe/Bucharest). You work directly with
+        me, from the first technical discussion through handover.
+      </p>
+      <p>
+        <a
+          class="cta"
+          href="https://github.com/aolaru"
+          target="_blank"
+          rel="noopener"
+        >
+          Public GitHub profile and source code
+        </a>{" "}
+        ·{" "}
+        <a class="cta" href="/work/">
+          Published work and testing evidence
+        </a>
+      </p>
+      <p>
+        Made by KREATIV remains active, and I maintain Kreativ Tools again.
+        Findsera and News Ledger remain open to contributors because I no longer
+        maintain those projects. Kreativ Auto is currently paused.
+      </p>
       <div class="landing-actions founder-actions">
-        <a class="button-cta button-cta-primary" href="/contact/#project-inquiry">Discuss Your Project</a>
-        <a class="button-cta button-cta-secondary" href="/work/">Read case studies</a>
+        <a
+          class="button-cta button-cta-primary"
+          href="/contact/#project-inquiry"
+        >
+          Discuss Your Project
+        </a>
+        <a class="button-cta button-cta-secondary" href="/work/">
+          Read case studies
+        </a>
       </div>
+      <p>Prefer email? <PublicEmail /></p>
     </div>
   </section>
 
   <section class="services-section" aria-labelledby="professional-heading">
     <p class="eyebrow">Development and QA expertise together</p>
-    <h2 id="professional-heading">Professional experience, practical software</h2>
-    <div class="services-principles services-skills">{professionalSkills.map((item) => <article><h3>{item.title}</h3><p>{item.skills}</p></article>)}</div>
-    <p class="services-related">Selected, fixed-scope development and QA projects are considered individually, subject to fit and availability.</p>
-    <div class="landing-actions"><a class="button-cta button-cta-secondary" href="/services/">Explore Development Services</a><QuoteLink /></div>
+    <h2 id="professional-heading">
+      Professional experience, practical software
+    </h2>
+    <div class="services-principles services-skills">
+      {professionalSkills.map((item) => (
+        <article>
+          <h3>{item.title}</h3>
+          <p>{item.skills}</p>
+        </article>
+      ))}
+    </div>
+    <p class="services-related">
+      Selected, fixed-scope development and QA projects are considered
+      individually, subject to fit and availability.
+    </p>
+    <div class="landing-actions">
+      <a class="button-cta button-cta-secondary" href="/services/">
+        Explore Development Services
+      </a>
+      <QuoteLink />
+    </div>
+  </section>
+  <section class="services-section" aria-labelledby="working-together-heading">
+    <p class="eyebrow">What happens next</p>
+    <h2 id="working-together-heading">A clear decision before work begins</h2>
+    <ol class="services-process">
+      <li>
+        <h3>Fit and questions</h3>
+        <p>
+          I review the problem and ask for the missing technical context. An
+          inquiry is not a commitment to start.
+        </p>
+      </li>
+      <li>
+        <h3>Scope and schedule</h3>
+        <p>
+          We agree deliverables, acceptance checks, communication, a proposed
+          schedule and the quotation before implementation.
+        </p>
+      </li>
+      <li>
+        <h3>Changes and handover</h3>
+        <p>
+          Scope changes are discussed before extra work. Included retests,
+          source delivery and any future support are explicit in the proposal.
+        </p>
+      </li>
+    </ol>
+    <p class="services-price-note">
+      Availability, milestones and communication are confirmed for each project
+      in the proposal.
+    </p>
   </section>
 
-  <section class="content-card landing-section" aria-labelledby="principles-heading">
+  <section
+    class="content-card landing-section"
+    aria-labelledby="principles-heading"
+  >
     <p class="eyebrow">Portfolio approach</p>
     <h2 id="principles-heading">How the work is managed</h2>
     <div class="about-principle-grid">
       <article>
         <span>01</span>
         <h3>Development and QA</h3>
-        <p>Client engagements start with a defined scope. Independently published plugins, apps and resources remain separate from commissioned work.</p>
+        <p>
+          Client engagements start with a defined scope. Independently published
+          plugins, apps and resources remain separate from commissioned work.
+        </p>
       </article>
       <article>
         <span>02</span>
         <h3>Community handoff</h3>
-        <p>Findsera and News Ledger are no longer maintained by Andrei. Their source remains public for contributors to inspect, fork, and improve.</p>
+        <p>
+          Findsera and News Ledger are no longer maintained by Andrei. Their
+          source remains public for contributors to inspect, fork, and improve.
+        </p>
       </article>
       <article>
         <span>03</span>
         <h3>Clear project status</h3>
-        <p>Active work and contributor projects are presented separately, so ownership and maintenance expectations stay clear.</p>
+        <p>
+          Active work and contributor projects are presented separately, so
+          ownership and maintenance expectations stay clear.
+        </p>
       </article>
     </div>
   </section>
@@ -94,13 +205,18 @@ const pageDescription = "Meet Andrei Olaru: independent developer and experience
           <span class="pillar-status">{project.status}</span>
           <h3>{project.label}</h3>
           <p>{project.description}</p>
-          <a class="cta" href={projectPath(project.slug)}>Project overview</a>
+          <a class="cta" href={projectPath(project.slug)}>
+            Project overview
+          </a>
         </article>
       ))}
     </div>
   </section>
 
-  <section class="content-card landing-section" aria-labelledby="timeline-heading">
+  <section
+    class="content-card landing-section"
+    aria-labelledby="timeline-heading"
+  >
     <p class="eyebrow">Selected milestones</p>
     <h2 id="timeline-heading">How the project family evolved</h2>
     <ol class="about-timeline">
@@ -108,25 +224,42 @@ const pageDescription = "Meet Andrei Olaru: independent developer and experience
         <time datetime="2026-03">March 2026</time>
         <div>
           <h3>The project family was organized</h3>
-          <p>Independent tools, creative resources, and guides gained a shared Made by Kreativ home.</p>
+          <p>
+            Independent tools, creative resources, and guides gained a shared
+            Made by Kreativ home.
+          </p>
         </div>
       </li>
       <li>
         <time datetime="2026-05">May 2026</time>
         <div>
           <h3>The wider archive took shape</h3>
-          <p>Project profiles and release notes made the body of work easier to understand and preserve.</p>
+          <p>
+            Project profiles and release notes made the body of work easier to
+            understand and preserve.
+          </p>
         </div>
       </li>
       <li>
         <time datetime="2026-08">August 2026</time>
         <div>
           <h3>Three projects opened to contributors</h3>
-          <p>Kreativ Tools, Findsera, and News Ledger were opened to contributors while Made by KREATIV continued its active product work.</p>
+          <p>
+            Kreativ Tools, Findsera, and News Ledger were opened to contributors
+            while Made by KREATIV continued its active product work.
+          </p>
         </div>
       </li>
-      <li><time datetime="2026-11">November 2026</time><div><h3>Kreativ Tools returns to active work</h3><p>Andrei resumes maintaining Kreativ Tools. Kreativ Auto is paused; Findsera and News Ledger remain contributor handoffs.</p></div></li>
+      <li>
+        <time datetime="2026-11">November 2026</time>
+        <div>
+          <h3>Kreativ Tools returns to active work</h3>
+          <p>
+            Andrei resumes maintaining Kreativ Tools. Kreativ Auto is paused;
+            Findsera and News Ledger remain contributor handoffs.
+          </p>
+        </div>
+      </li>
     </ol>
   </section>
-
 </BaseLayout>

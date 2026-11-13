@@ -13,8 +13,12 @@
     "validate:html": "html-validate --config .htmlvalidate.json \"dist/**/*.html\"",
     "validate:links": "node scripts/check-local-links.mjs",
     "validate:artifact": "node scripts/check-built-site.mjs",
-    "validate": "npm run validate:attribution && npm run validate:assets && npm run build && npm run validate:html && npm run validate:links && npm run validate:artifact && npm run validate:redirects",
+    "validate": "npm run validate:attribution && npm run validate:assets && npm run validate:inquiries && npm run validate:api-demo && npm run build && npm run validate:html && npm run validate:links && npm run validate:artifact && npm run validate:redirects",
     "validate:assets": "node --test scripts/shared-assets.test.mjs scripts/public-email.test.mjs",
+    "validate:inquiries": "node --test infrastructure/inquiries/handler.test.mjs scripts/leads.test.mjs",
+    "validate:api-demo": "node scripts/prepare-api-demo-report.mjs --check",
+    "build:inquiries": "esbuild infrastructure/inquiries/worker.mjs --bundle --format=esm --platform=browser --external:cloudflare:email --minify --outfile=infrastructure/inquiries/bundle.mjs",
+    "leads": "node scripts/leads.mjs",
     "validate:attribution": "node --test scripts/app-attribution.test.mjs",
     "validate:browser": "playwright test --project=chromium",
     "validate:cross-browser": "playwright test --project=firefox --project=webkit",
@@ -25,10 +29,18 @@
     "validate:redirects": "node --test scripts/redirect-rules.test.mjs && node scripts/export-cloudflare-redirects.mjs --check",
     "validate:performance": "node scripts/check-performance.mjs",
     "assets:web": "node scripts/prepare-web-assets.mjs",
+    "assets:client": "node scripts/prepare-client-assets.mjs",
     "assets:services": "node scripts/prepare-services-assets.mjs",
     "check": "npm run validate && npm run validate:browser"
   },
+  "overrides": {
+    "linkinator": {
+      "glob": "^14.0.6"
+    }
+  },
   "devDependencies": {
+    "esbuild": "^0.28.2",
+    "mimetext": "^3.0.28",
     "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.64.0",
     "astro": "^7.3.8",
@@ -36,7 +48,7 @@
     "html-validate": "^11.8.0",
     "htmlparser2": "^12.0.0",
     "lighthouse": "^13.5.0",
-    "linkinator": "^8.0.4",
+    "linkinator": "^8.1.0",
     "prettier": "^3.9.10",
     "prettier-plugin-astro": "^1.1.1",
     "sharp": "^0.35.5"

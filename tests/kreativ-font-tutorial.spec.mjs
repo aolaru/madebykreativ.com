@@ -43,6 +43,7 @@ test("Kreativ Font tutorial has real screenshots, licence limits and working app
 
 test("Kreativ Font tutorial appears in Updates, both RSS feeds and sitemap", async ({ page, request }) => {
   await page.goto("/updates/");
+  await page.getByRole("searchbox", {name: "Search updates"}).fill("How to discover fonts on Android with Kreativ Font");
   await expect(page.getByRole("link", {name: "How to discover fonts on Android with Kreativ Font", exact: true})).toBeVisible();
   for (const path of ["/updates/rss.xml", "/news/rss.xml", "/sitemap.xml"]) {
     const response = await request.get(path);

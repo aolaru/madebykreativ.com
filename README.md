@@ -156,18 +156,21 @@ website and product catalogues are retained. `src/data/engagements.ts` owns thre
 starting packages and the two focused service pages. Existing prices are reused;
 the owner should review the proposed deliverables and exclusions before publishing.
 
-`src/data/caseStudies.ts` owns two independent-work case studies and the downloadable
+`src/data/caseStudies.ts` owns independent-work case studies and the downloadable
 sample QA finding. The QA example records the real November 11, 2026 cache issue,
 its fix and public source evidence, not a new client audit or a certification.
 WordPress product statements are based on the official listing and release history.
 
-The contact brief builder is browser-local. It prepares a `mailto:` draft or a
-copyable brief; there is no server submission, automatic email, file upload or
-browser-storage persistence. Without JavaScript, the direct email and brief template
-remain available. Only the fixed package ID can prefill from a URL. Inquiry analytics
-exclude the brief, budget, deadline, links and clipboard contents; clicks and prepared
-drafts are not confirmed leads or sent messages. Copy icons are from Lucide, with
-the license retained in `public/icons/lucide-license.txt`.
+The contact form posts to the isolated Cloudflare Worker at `/api/inquiry`.
+GitHub Pages remains the static website host. Native no-JavaScript submissions
+receive an HTML confirmation; JavaScript submissions receive an inline result.
+The local email-draft and copy alternatives remain available, including on
+delivery failures. No brief is saved in browser storage or a website database.
+Inquiry analytics contain only fixed source/package labels, never names, email
+addresses, budgets, deadlines, links, brief text or reference IDs. **Inquiry
+Accepted** means the email provider accepted the message, not a signed contract
+or completed sale. Copy icons are from Lucide; the license is retained in
+`public/icons/lucide-license.txt`.
 
 Service preparation articles use the optional `service` field in the news collection
 to link back to the relevant offer, and automatically appear in Updates and both RSS
@@ -184,9 +187,8 @@ footer link to it. The contributor handoff projects retain their existing status
   claimed, and no confidential employer project information is included.
 - `src/pages/services.astro`, `src/components/QuoteLink.astro` and
   `src/components/ServiceWorkCard.astro` render the page and reusable elements.
-- Quote links use the existing public email with a prefilled project brief. They
-  work without site JavaScript and require the visitor's email application. The
-  website does not submit a form, store inquiries or send an email automatically.
+- Primary service actions share the Contact form. Direct business-email links
+  remain a fallback, but are no longer the main quote action.
 - Existing app and website images are reused. Official WordPress screenshots and
   Chrome extension icons are stored in `public/services/work/`; their source URLs
   and verification dates are in `public/services/sources.json`. The hero and social
@@ -200,9 +202,67 @@ footer link to it. The contributor handoff projects retain their existing status
   The focused Firefox/WebKit suite includes navigation and Services journeys.
   Lighthouse includes `/services/`, and artifact/production checks require it.
 
-No public QA automation sample repository was supplied, so none is linked. The
-professional capabilities are described without exposing client systems or code.
-These services changes are prepared locally; publication needs explicit approval.
+The public API demonstration in `examples/api-automation/` uses Java, RestAssured
+and JUnit with a synthetic, isolated loopback fixture. Its ten checks include
+negative paths and an assertion that rejects a deliberate contract fault. Run
+`mvn -B -ntp verify` in that folder, then `node scripts/prepare-api-demo-report.mjs`
+to update its source-hashed snapshot. `npm run validate:api-demo` rejects stale
+evidence. The separate API Automation Demo workflow publishes Surefire reports.
+No employer or client code is included. The test-report image is a capture of the
+actual recorded results, not an invented customer result.
+
+### Inquiry Worker
+
+`infrastructure/inquiries/handler.mjs` owns validation, bounded body reading,
+origin checks, honeypot rejection, per-client rate limiting and delivery errors.
+`worker.mjs` adapts Cloudflare's native EmailMessage API. MIMEText supplies MIME
+encoding; the browser build runs without Node compatibility flags. The recipient
+is a **private** `DESTINATION_EMAIL` runtime variable in Cloudflare, never source
+code, a browser setting or a user-supplied form field. It must be an existing
+verified destination. Bind `INQUIRY_EMAIL` and `INQUIRY_LIMIT` as shown in
+`wrangler.jsonc`; the limiter namespace is account-unique, with 3 requests per
+60 seconds per hashed network address at each Cloudflare location. This is an
+approximate abuse limit, not a global guarantee or a replacement for monitoring.
+
+Run `npm run validate:inquiries` and `npm run build:inquiries` before deploying.
+The generated `bundle.mjs` is ignored and can replace the dashboard Worker source.
+Alternatively, an authenticated maintainer can use Wrangler with the checked-in
+configuration. Keep the recipient configured privately and preserve it on deploy.
+The Pages workflow does **not** deploy or change this Worker. Future Worker
+updates require a separate deployment. The only production route is
+`madebykreativ.com/api/inquiry*`; do not route the whole website to this Worker.
+GET `/api/inquiry` returns readiness without sending mail. Do not probe POST
+repeatedly on production: use the unit/browser mocks, then one clearly marked
+synthetic delivery check to the owner's existing inbox when authorized.
+
+### Outcome Reporting
+
+`npm run leads -- report` shows received, qualified, proposal and paid stages by
+source. Record **received** only after finding the email in the inbox, using its
+random reference and fixed source/package labels:
+
+```sh
+npm run leads -- record REFERENCE --stage received --source services --service qa-audit
+npm run leads -- record REFERENCE --stage qualified
+npm run leads -- record REFERENCE --stage proposal
+npm run leads -- record REFERENCE --stage paid --amount 490
+npm run leads -- report
+```
+
+The local register is `.private/leads.json`, excluded from Git and never included
+in the site build or analytics. It contains references and stage history, not
+client names, email addresses or briefs. It starts empty; no inquiries, sales or
+revenue are invented. Keep correspondence and commercial records in the business
+inbox or the owner's existing business systems. Add the **Inquiry Accepted** goal
+to the Plausible account if it is not already configured; dashboard goals are not
+configured by source code or claimed as verified by repository tests.
+
+Run `npm run assets:client` to regenerate compact app artwork, 300px covers and
+WordPress previews. The first Apps screenshot loads eagerly; other images remain
+lazy. Linkinator's scoped `glob` override selects the patched 14.x API until its
+upstream range catches up. Local link validation exercises it; do not use the
+audit tool's suggested breaking downgrade. Dependabot proposes compatible updates
+weekly; deployment checks block high-severity advisories and use bounded job times.
 
 ## Redirects
 

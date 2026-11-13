@@ -137,7 +137,7 @@ const coreProjects = [
     focus: ["Image tools", "PDF and document utilities", "File workflows"],
     proof: ["Live browser utility hub", "Image, PDF, document, and file workflows", "Public ecosystem update"],
     maintenanceNotes: ["Actively maintained by Andrei", "Open-source contributions remain welcome under the published license", "Updates are published when ready"],
-    relatedNews: ["maintenance-open-source-transition", "kreativ-tools-live", "homepage-directory-refinement"],
+    relatedNews: ["kreativ-tools-maintenance-resumed", "maintenance-open-source-transition", "kreativ-tools-live", "homepage-directory-refinement"],
     isCore: true
   }
 ];

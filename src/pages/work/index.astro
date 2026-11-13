@@ -3,6 +3,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import CaseStudyCard from "../../components/CaseStudyCard.astro";
+import ServiceWorkCard from "../../components/ServiceWorkCard.astro";
+import { selectedServiceWork } from "../../data/services";
 import { caseStudies } from "../../data/caseStudies";
 import {
   buildUrl,
@@ -32,7 +34,7 @@ const description =
 >
   <HeroHeader
     eyebrow="Independent work"
-    title="Case Studies"
+    title="Work"
     tagline="The problem, the decisions and the evidence behind the work."
   />
   <Breadcrumbs
@@ -48,6 +50,23 @@ const description =
     <div class="case-grid">
       {caseStudies.map((study) => (
         <CaseStudyCard study={study} />
+      ))}
+    </div>
+  </section>
+  <section
+    class="services-section"
+    id="selected-work"
+    aria-labelledby="selected-work-heading"
+  >
+    <p class="eyebrow">Published software</p>
+    <h2 id="selected-work-heading">Selected work</h2>
+    <p class="client-evidence-note">
+      These are independently developed products, not commissioned client
+      projects. Explore the official listings and live interfaces.
+    </p>
+    <div class="services-work-grid">
+      {selectedServiceWork.map((work) => (
+        <ServiceWorkCard work={work} page="/work/" />
       ))}
     </div>
   </section>

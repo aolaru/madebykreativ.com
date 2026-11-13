@@ -4,10 +4,11 @@ import { appStoreHref } from "../../public/app-attribution.mjs";
 import type { ServiceWork } from "../data/services";
 interface Props {
   work: ServiceWork;
+  page?: string;
 }
-const { work } = Astro.props;
+const { work, page = "/work/" } = Astro.props;
 const href = work.appSlug
-  ? appStoreHref(work.href, { page: "/services/", position: "portfolio" })
+  ? appStoreHref(work.href, { page, position: "portfolio" })
   : work.href;
 ---
 
@@ -28,6 +29,7 @@ const href = work.appSlug
         alt={work.imageAlt}
         width={work.width}
         height={work.height}
+        displayHeight={186}
       />
     ) : (
       <img

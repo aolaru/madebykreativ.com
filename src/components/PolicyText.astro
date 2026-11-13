@@ -1,0 +1,15 @@
+---
+import PublicEmail from "./PublicEmail.astro";
+import { site } from "../data/site";
+interface Props {
+  text: string;
+}
+const parts = Astro.props.text.split(site.email);
+---
+
+{parts.map((part, index) => (
+  <>
+    {index > 0 && <PublicEmail />}
+    {part}
+  </>
+))}

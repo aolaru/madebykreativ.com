@@ -1,0 +1,35 @@
+name: API Automation Demo
+on:
+  push:
+    branches: [main]
+    paths: ["examples/api-automation/**", ".github/workflows/api-demo.yml"]
+  pull_request:
+    paths: ["examples/api-automation/**", ".github/workflows/api-demo.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: api-demo-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  contract-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+          cache-dependency-path: examples/api-automation/pom.xml
+      - name: Verify synthetic API contracts
+        working-directory: examples/api-automation
+        run: mvn -B -ntp verify
+      - name: Save readable test evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: api-demo-surefire-reports
+          path: examples/api-automation/target/surefire-reports/
+          retention-days: 14

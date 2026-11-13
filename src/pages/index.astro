@@ -82,7 +82,7 @@ const latest = (await getCollection("news")).sort(
       </a>
     </div>
     <div class="case-grid">
-      {caseStudies.map((study) => (
+      {caseStudies.slice(0, 2).map((study) => (
         <CaseStudyCard study={study} />
       ))}
     </div>
@@ -116,7 +116,7 @@ const latest = (await getCollection("news")).sort(
           <ProductCover
             src={scorecardProduct.cover}
             alt={scorecardProduct.coverAlt}
-            sizes="(max-width: 700px) calc(100vw - 4rem), 280px"
+            sizes="(max-width: 700px) 231px, 260px"
           />
         </div>
         <h3>Product-to-Profit</h3>
@@ -147,7 +147,7 @@ const latest = (await getCollection("news")).sort(
       <article>
         <div class="client-product-image">
           <img
-            src="/apps/paperbuild/screen-320.webp"
+            src="/apps/paperbuild/screen-160.webp"
             alt="PaperBuild, one of the independently published Android apps."
             width="1080"
             height="1920"
@@ -165,7 +165,7 @@ const latest = (await getCollection("news")).sort(
       <article>
         <div class="client-product-image">
           <img
-            src="/services/work/report-broken-link.webp"
+            src="/services/work/report-broken-link-320.webp"
             alt="A published Kreativ WordPress plugin dashboard."
             width="960"
             height="600"

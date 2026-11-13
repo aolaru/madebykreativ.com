@@ -2,39 +2,125 @@
 import Icon from "./Icon.astro";
 
 interface Props {
-  current?: "home" | "services" | "guides" | "projects" | "apps" | "updates" | "news" | "about" | "contact";
+  current?:
+    | "home"
+    | "services"
+    | "work"
+    | "guides"
+    | "projects"
+    | "apps"
+    | "updates"
+    | "news"
+    | "about"
+    | "contact";
 }
 
 const { current } = Astro.props;
-const navigationItems = [
+const primaryItems = [
   { href: "/services/", label: "Services", key: "services" },
+  { href: "/work/", label: "Work", key: "work" },
+  { href: "/about/", label: "About", key: "about" },
+  { href: "/contact/", label: "Contact", key: "contact" },
+] as const;
+const secondaryItems = [
   { href: "/projects/", label: "Websites", key: "projects" },
   { href: "/apps/", label: "Apps", key: "apps" },
   { href: "/product-to-profit/", label: "Resources", key: "guides" },
   { href: "/updates/", label: "Updates", key: "updates" },
-  { href: "/about/", label: "About", key: "about" },
-  { href: "/contact/", label: "Contact", key: "contact" }
 ] as const;
+const navigationItems = [...primaryItems, ...secondaryItems];
 ---
 
 <nav class="site-nav" aria-label="Site navigation">
-  <a class="site-nav-brand" href="/" aria-current={current === "home" ? "page" : undefined} aria-label="Made by Kreativ home">
-    <img class="site-nav-brand-mark" src="/favicon.svg" width="38" height="38" alt="" />
+  <a
+    class="site-nav-brand"
+    href="/"
+    aria-current={current === "home" ? "page" : undefined}
+    aria-label="Made by Kreativ home"
+  >
+    <img
+      class="site-nav-brand-mark"
+      src="/favicon.svg"
+      width="38"
+      height="38"
+      alt=""
+    />
     <span class="site-nav-brand-text">Made by Kreativ</span>
   </a>
   <div class="site-nav-links">
-    {navigationItems.map((item) => (
-      <a class="site-nav-link" href={item.href} aria-current={current === item.key || (current === "news" && item.key === "updates") ? "page" : undefined}>{item.label}</a>
+    {primaryItems.map((item) => (
+      <a
+        class="site-nav-link"
+        href={item.href}
+        aria-current={current === item.key ? "page" : undefined}
+      >
+        {item.label}
+      </a>
     ))}
+    <details class="site-nav-more" data-nav-disclosure>
+      <summary class="site-nav-link">More</summary>
+      <div
+        class="site-nav-panel site-nav-secondary-panel"
+        role="group"
+        aria-label="More from KREATIV"
+      >
+        {secondaryItems.map((item) => (
+          <a
+            class="site-nav-link"
+            href={item.href}
+            aria-current={
+              current === item.key ||
+              (current === "news" && item.key === "updates")
+                ? "page"
+                : undefined
+            }
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+    </details>
   </div>
   <div class="site-nav-actions" role="group" aria-label="Page actions">
-    <button class="icon-button share-toggle" id="share-button" type="button" aria-label="Share this page" title="Share this page"><Icon name="share" /></button>
-    <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode"><Icon name="moon" /></button>
-    <details class="site-nav-mobile-menu">
-      <summary class="icon-button" aria-label="Open navigation menu" title="Menu"><Icon name="menu" /></summary>
-      <nav class="site-nav-mobile-panel" aria-label="Mobile navigation">
+    <button
+      class="icon-button share-toggle"
+      id="share-button"
+      type="button"
+      aria-label="Share this page"
+      title="Share this page"
+    >
+      <Icon name="share" />
+    </button>
+    <button
+      class="icon-button theme-toggle"
+      id="theme-toggle"
+      type="button"
+      aria-pressed="false"
+      aria-label="Toggle dark mode"
+    >
+      <Icon name="moon" />
+    </button>
+    <details class="site-nav-mobile-menu" data-nav-disclosure>
+      <summary
+        class="icon-button"
+        aria-label="Open navigation menu"
+        title="Menu"
+      >
+        <Icon name="menu" />
+      </summary>
+      <nav class="site-nav-panel site-nav-mobile-panel" aria-label="Mobile navigation">
         {navigationItems.map((item) => (
-          <a href={item.href} aria-current={current === item.key || (current === "news" && item.key === "updates") ? "page" : undefined}>{item.label}</a>
+          <a
+            href={item.href}
+            aria-current={
+              current === item.key ||
+              (current === "news" && item.key === "updates")
+                ? "page"
+                : undefined
+            }
+          >
+            {item.label}
+          </a>
         ))}
       </nav>
     </details>

@@ -17,12 +17,49 @@ import { site } from "../data/site";
     and discuss a proposal before any work starts.
   </p>
   <p class="services-price-note">
-    Selected, fixed-scope projects, subject to availability. Your brief stays in
-    this browser tab; the website does not send or store it. No passwords, API
-    keys or confidential customer data.
+    Selected, fixed-scope projects, subject to availability. Sending shares your
+    reply address and brief with Andrei for this inquiry. No passwords, API keys
+    or confidential customer data. <a href="/privacy/">Privacy details</a>.
   </p>
-  <form data-project-inquiry data-email={site.email} hidden>
+  <form
+    data-project-inquiry
+    data-email={site.email}
+    action="/api/inquiry"
+    method="post"
+  >
+    <input type="hidden" name="source" value="direct" />
+    <div class="inquiry-honeypot" aria-hidden="true">
+      <label for="inquiry-website">Leave this field empty</label>
+      <input
+        id="inquiry-website"
+        name="website"
+        type="text"
+        tabindex="-1"
+        autocomplete="off"
+      />
+    </div>
     <div class="project-inquiry-fields">
+      <div>
+        <label for="inquiry-name">Name (optional)</label>
+        <input
+          id="inquiry-name"
+          name="name"
+          type="text"
+          maxlength="80"
+          autocomplete="name"
+        />
+      </div>
+      <div>
+        <label for="inquiry-email">Reply email</label>
+        <input
+          id="inquiry-email"
+          name="email"
+          type="email"
+          maxlength="254"
+          autocomplete="email"
+          required
+        />
+      </div>
       <div>
         <label for="inquiry-service">Project type</label>
         <select id="inquiry-service" name="service" required>
@@ -74,9 +111,28 @@ import { site } from "../data/site";
         <input id="inquiry-links" name="links" type="url" maxlength="500" />
       </div>
     </div>
-    <button type="submit" class="button-cta button-cta-primary">
-      Prepare Project Email
-    </button>
+    <label class="inquiry-consent">
+      <input type="checkbox" name="consent" value="yes" required /> Send these
+      details to Andrei to discuss this project.
+    </label>
+    <div class="landing-actions">
+      <button
+        type="submit"
+        class="button-cta button-cta-primary"
+        data-inquiry-submit
+      >
+        Send Inquiry
+      </button>
+      <button
+        type="button"
+        class="button-cta button-cta-secondary"
+        data-prepare-inquiry
+        hidden
+      >
+        Prepare Email Instead
+      </button>
+    </div>
+    <div data-inquiry-result role="status" tabindex="-1" hidden></div>
   </form>
   <div
     class="project-inquiry-preview"
@@ -109,7 +165,7 @@ import { site } from "../data/site";
       <span class="copy-status" data-inquiry-copy-status role="status"></span>
     </div>
     <p class="services-price-note">
-      Nothing has been sent. Review and send the draft in your email app, or
+      This email draft has not been sent. Review and send it in your email app, or
       copy it into your preferred email service.
     </p>
   </div>

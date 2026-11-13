@@ -5,6 +5,7 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import InquiryTools from "../../components/InquiryTools.astro";
 import { caseStudies, caseStudyPath, qaSample } from "../../data/caseStudies";
 import { inquiryPath } from "../../data/engagements";
+import apiDemo from "../../data/apiDemoResult.json";
 import {
   buildUrl,
   createPageSchema,
@@ -19,6 +20,7 @@ export function getStaticPaths() {
 const { study } = Astro.props;
 const path = caseStudyPath(study.slug);
 const isQa = study.slug === "website-quality-checks";
+const isApi = study.slug === "api-automation-demo";
 ---
 
 <BaseLayout
@@ -56,10 +58,59 @@ const isQa = study.slug === "website-quality-checks";
       loading="eager"
     />
     <figcaption>
-      {study.product}. Published product imagery, not a client commission.
+      {isApi
+        ? "A local synthetic test-run snapshot, not a client system or production audit."
+        : `${study.product}. Published product imagery, not a client commission.`}
     </figcaption>
   </figure>
   <div class="case-study-reading">
+    {isApi && (
+      <section
+        class="services-section qa-sample"
+        id="api-demo-report"
+        aria-labelledby="api-demo-report-heading"
+      >
+        <p class="eyebrow">
+          Local verification snapshot · {apiDemo.observedOn}
+        </p>
+        <h2 id="api-demo-report-heading">Synthetic API contract checks</h2>
+        <p>Java · RestAssured · JUnit · Isolated loopback fixture</p>
+        <dl class="demo-results">
+          <div>
+            <dt>Tests</dt>
+            <dd>{apiDemo.tests}</dd>
+          </div>
+          <div>
+            <dt>Failures</dt>
+            <dd>{apiDemo.failures}</dd>
+          </div>
+          <div>
+            <dt>Errors</dt>
+            <dd>{apiDemo.errors}</dd>
+          </div>
+          <div>
+            <dt>Skipped</dt>
+            <dd>{apiDemo.skipped}</dd>
+          </div>
+        </dl>
+        <ul class="demo-test-list">
+          {apiDemo.cases.map((item) => (
+            <li>
+              <span>{item.status}</span>
+              <code>{item.name}</code>
+            </li>
+          ))}
+        </ul>
+        <p class="services-price-note">
+          This snapshot is tied to the source hash in the downloadable report.
+          It is not a guarantee about future runs or coverage of a real customer
+          system.
+        </p>
+        <a class="cta" href="/work/api-automation-demo/report.json" download>
+          Download verification snapshot (JSON)
+        </a>
+      </section>
+    )}
     <section class="services-section">
       <h2>The problem</h2>
       <p>{study.problem}</p>
@@ -147,7 +198,9 @@ const isQa = study.slug === "website-quality-checks";
     <div class="landing-actions">
       <a
         class="button-cta button-cta-primary"
-        href={inquiryPath(isQa ? "qa-audit" : "wordpress-repair")}
+        href={inquiryPath(
+          isApi ? "api-automation" : isQa ? "qa-audit" : "wordpress-repair",
+        )}
         data-service-cta
       >
         Discuss Your Project

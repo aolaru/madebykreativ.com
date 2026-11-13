@@ -2,7 +2,6 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import QuoteLink from "../components/QuoteLink.astro";
-import ServiceWorkCard from "../components/ServiceWorkCard.astro";
 import EngagementPackages from "../components/EngagementPackages.astro";
 import CaseStudyCard from "../components/CaseStudyCard.astro";
 import InquiryTools from "../components/InquiryTools.astro";
@@ -18,8 +17,6 @@ import {
   servicesDescription,
   servicesSchema,
   formatServicePrice,
-  selectedServiceWork,
-  workingPrinciples,
   projectProcess,
 } from "../data/services";
 const pageTitle = "Software Development Services | Made by KREATIV";
@@ -59,7 +56,7 @@ const pageTitle = "Software Development Services | Made by KREATIV";
     </p>
     <div class="landing-actions">
       <QuoteLink />
-      <a class="button-cta button-cta-secondary" href="#selected-work">
+      <a class="button-cta button-cta-secondary" href="/work/">
         Explore My Work
       </a>
     </div>
@@ -70,9 +67,27 @@ const pageTitle = "Software Development Services | Made by KREATIV";
 
   <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Services" }]} />
 
-  <nav class="client-section-nav" aria-label="Services sections"><a href="#starting-packages">Starting packages</a><a href="#services-heading">All services</a><a href="#service-case-studies">Case studies</a><a href="#process-heading">Process</a><a href="/contact/#project-inquiry">Project inquiry</a></nav>
+  <nav class="client-section-nav" aria-label="Services sections">
+    <a href="#starting-packages">Starting packages</a>
+    <a href="#services-heading">All services</a>
+    <a href="#service-case-studies">Case studies</a>
+    <a href="#process-heading">Process</a>
+    <a href="/contact/#project-inquiry">Project inquiry</a>
+  </nav>
 
-  <section class="services-section" id="starting-packages" aria-labelledby="starting-packages-heading"><p class="eyebrow">Defined scope, tangible deliverables</p><h2 id="starting-packages-heading">Choose a starting point</h2><EngagementPackages /><p class="services-price-note">Starting prices are indicative, in EUR. Each proposal defines the included work, acceptance criteria and handover before implementation begins.</p></section>
+  <section
+    class="services-section"
+    id="starting-packages"
+    aria-labelledby="starting-packages-heading"
+  >
+    <p class="eyebrow">Defined scope, tangible deliverables</p>
+    <h2 id="starting-packages-heading">Choose a starting point</h2>
+    <EngagementPackages compact />
+    <p class="services-price-note">
+      Indicative EUR starting prices. Follow Scope and details for inputs,
+      deliverables and exclusions; the final proposal defines the agreed work.
+    </p>
+  </section>
 
   <section class="services-section" aria-labelledby="services-heading">
     <div class="services-section-heading">
@@ -93,13 +108,14 @@ const pageTitle = "Software Development Services | Made by KREATIV";
         >
           <h3 id={`${service.id}-heading`}>{service.name}</h3>
           <p class="service-summary">{service.summary}</p>
-          <details class="service-capability-details"><summary>Capabilities and scope</summary>
-          <ul class="service-capabilities">
-            {service.capabilities.map((capability) => (
-              <li>{capability}</li>
-            ))}
-          </ul>
-          <p class="service-scope">{service.scope}</p>
+          <details class="service-capability-details">
+            <summary>Capabilities and scope</summary>
+            <ul class="service-capabilities">
+              {service.capabilities.map((capability) => (
+                <li>{capability}</li>
+              ))}
+            </ul>
+            <p class="service-scope">{service.scope}</p>
           </details>
           <dl class="service-prices">
             {service.prices.length ? (
@@ -120,7 +136,14 @@ const pageTitle = "Software Development Services | Made by KREATIV";
               </div>
             )}
           </dl>
-          {(service.id === "wordpress" || service.id === "software-qa") && <a class="cta" href={`/services/${service.id === "wordpress" ? "wordpress" : "qa-api-testing"}/`}>Detailed service scope</a>}
+          {(service.id === "wordpress" || service.id === "software-qa") && (
+            <a
+              class="cta"
+              href={`/services/${service.id === "wordpress" ? "wordpress" : "qa-api-testing"}/`}
+            >
+              Detailed service scope
+            </a>
+          )}
         </article>
       ))}
     </div>
@@ -133,65 +156,26 @@ const pageTitle = "Software Development Services | Made by KREATIV";
     </p>
   </section>
 
-  <section class="services-section" id="service-case-studies" aria-labelledby="service-case-heading"><p class="eyebrow">Independent work, not client commissions</p><h2 id="service-case-heading">The decisions behind the work</h2><div class="case-grid">{caseStudies.map((study) => <CaseStudyCard study={study} />)}</div><a class="cta" href="/work/website-quality-checks/#qa-report">Inspect the sample QA finding</a></section>
-
   <section
     class="services-section"
-    id="selected-work"
-    aria-labelledby="selected-work-heading"
+    id="service-case-studies"
+    aria-labelledby="service-case-heading"
   >
-    <div class="services-section-heading">
-      <p class="eyebrow">Published software</p>
-      <h2 id="selected-work-heading">Selected Work</h2>
-      <p>
-        These are independently developed products and websites, not
-        commissioned client projects. Their public listings show the kind of
-        practical software I build.
-      </p>
-    </div>
-    <div class="services-work-grid">
-      {selectedServiceWork.map((work) => (
-        <ServiceWorkCard work={work} />
+    <p class="eyebrow">Independent work, inspectable evidence</p>
+    <h2 id="service-case-heading">The decisions behind the work</h2>
+    <div class="case-grid">
+      {caseStudies.slice(0, 2).map((study) => (
+        <CaseStudyCard study={study} />
       ))}
     </div>
     <p class="services-related">
-      <a class="cta" href="/apps/">
-        All Android apps
+      <a class="cta" href="/work/">
+        All case studies and published software
       </a>
-      <a class="cta" href="/projects/">
-        Website portfolio and project status
+      <a class="cta" href="/work/api-automation-demo/">
+        Run the API testing demonstration
       </a>
     </p>
-    <div class="services-qa-experience">
-      <h3>Professional QA and API automation</h3>
-      <p>
-        My professional experience includes enterprise web application and API
-        testing, test strategy, regression scenarios, Postman collections and
-        Java automation with RestAssured, JUnit and Cucumber. SQL, Maven,
-        Jenkins and CI/CD support the wider testing and delivery workflow.
-      </p>
-      <p>
-        Client systems, code and confidential project information are not part
-        of this public portfolio.
-      </p>
-    </div>
-  </section>
-
-  <section class="services-section" aria-labelledby="why-kreativ-heading">
-    <div class="services-section-heading">
-      <p class="eyebrow">
-        Development expertise. Professional testing experience.
-      </p>
-      <h2 id="why-kreativ-heading">Why work with KREATIV</h2>
-    </div>
-    <div class="services-principles">
-      {workingPrinciples.map((item) => (
-        <article>
-          <h3>{item.title}</h3>
-          <p>{item.description}</p>
-        </article>
-      ))}
-    </div>
   </section>
 
   <section class="services-section" aria-labelledby="process-heading">

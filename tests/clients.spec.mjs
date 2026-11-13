@@ -103,10 +103,7 @@ test("Homepage leads with hiring and keeps resources secondary", async ({
   }
   await expect(page.locator(".site-nav-links").getByRole("link")).toHaveText([
     "Services",
-    "Websites",
-    "Apps",
-    "Resources",
-    "Updates",
+    "Work",
     "About",
     "Contact",
   ]);
@@ -150,9 +147,11 @@ test("Focused offers, evidence and service articles are connected and indexed", 
       page.getByRole("heading", { name: "My contribution", exact: true }),
     ).toBeVisible();
     await expect(page.locator("main")).toContainText(
-      study.slug === "website-quality-checks"
-        ? "not confidential enterprise or client work"
-        : "not a commissioned client project",
+      study.slug === "api-automation-demo"
+        ? "synthetic demonstration"
+        : study.slug === "website-quality-checks"
+          ? "not confidential enterprise or client work"
+          : "not a commissioned client project",
     );
     await expect(
       page.getByRole("heading", { name: "Implementation decisions" }),
@@ -190,10 +189,10 @@ test("Project brief validation, email draft and clipboard keep visitor data loca
   await expect(page.getByLabel("Project type", { exact: true })).toHaveValue(
     "wordpress-repair",
   );
-  await page.getByRole("button", { name: "Prepare Project Email" }).click();
+  await page.getByRole("button", { name: "Prepare Email Instead" }).click();
   await expect(page.locator("[data-project-draft]")).toBeHidden();
   await page.getByLabel("What needs building or fixing?").fill("   ");
-  await page.getByRole("button", { name: "Prepare Project Email" }).click();
+  await page.getByRole("button", { name: "Prepare Email Instead" }).click();
   await expect(page.locator("[data-project-draft]")).toBeHidden();
   const summary =
     "PRIVATE-BRIEF-EXAMPLE: exported rows do not match the selected filter <script>bad()</script>";
@@ -206,7 +205,7 @@ test("Project brief validation, email draft and clipboard keep visitor data loca
   await page
     .getByLabel("Relevant public link (optional)")
     .fill("https://example.com/public-demo");
-  await page.getByRole("button", { name: "Prepare Project Email" }).click();
+  await page.getByRole("button", { name: "Prepare Email Instead" }).click();
   await expect(page.locator("[data-project-draft]")).toBeVisible();
   const draft = await page
     .getByLabel("Email draft", { exact: true })
@@ -288,7 +287,15 @@ test("Project inquiries remain available without site JavaScript", async ({
   try {
     const page = await context.newPage();
     await page.goto("http://127.0.0.1:4339/contact/#project-inquiry");
-    await expect(page.locator("[data-project-inquiry]")).toBeHidden();
+    await expect(page.locator("[data-project-inquiry]")).toBeVisible();
+    await expect(page.locator("[data-project-inquiry]")).toHaveAttribute(
+      "action",
+      "/api/inquiry",
+    );
+    await expect(page.locator("[data-project-inquiry]")).toHaveAttribute(
+      "method",
+      "post",
+    );
     const tools = page.locator("#project-inquiry .inquiry-tools");
     await expect(
       tools.getByRole("link", { name: "info@madebykreativ.com" }),

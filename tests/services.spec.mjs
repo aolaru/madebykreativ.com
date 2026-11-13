@@ -41,19 +41,7 @@ test("Services has scoped EUR pricing, real independent work and SEO metadata", 
   await expect(page.locator("#android")).toContainText(
     "project-specific technical evaluation",
   );
-  await expect(page.locator("#selected-work")).toContainText(
-    "not commissioned client projects",
-  );
-  await expect(page.locator("[data-service-work]")).toHaveCount(8);
-  for (const work of selectedServiceWork) {
-    const card = page.locator(`[data-service-work="${work.id}"]`);
-    await expect(card.getByRole("heading")).toHaveText(work.name);
-    const expectedHref = work.appSlug
-      ? appStoreHref(work.href, { page: "/services/", position: "portfolio" })
-      : work.href;
-    await expect(card.getByRole("link")).toHaveAttribute("href", expectedHref);
-    await expect(card.getByRole("link")).toHaveAttribute("rel", "noopener");
-  }
+  await expect(page.locator("[data-service-work]")).toHaveCount(0);
   const schemas = await page
     .locator('script[type="application/ld+json"]')
     .evaluateAll((nodes) => nodes.map((node) => JSON.parse(node.textContent)));
@@ -64,13 +52,29 @@ test("Services has scoped EUR pricing, real independent work and SEO metadata", 
       (entry) => entry.item["@type"] === "Service",
     ),
   ).toBe(true);
+  await page.goto("/work/");
+  await expect(page.locator("#selected-work")).toContainText(
+    "not commissioned client projects",
+  );
+  await expect(page.locator("[data-service-work]")).toHaveCount(8);
+  for (const work of selectedServiceWork) {
+    const card = page.locator(`[data-service-work="${work.id}"]`);
+    await expect(card.getByRole("heading")).toHaveText(work.name);
+    const expectedHref = work.appSlug
+      ? appStoreHref(work.href, { page: "/work/", position: "portfolio" })
+      : work.href;
+    await expect(card.getByRole("link")).toHaveAttribute("href", expectedHref);
+    await expect(card.getByRole("link")).toHaveAttribute("rel", "noopener");
+  }
   expect(await (await request.get("/sitemap.xml")).text()).toContain(
     "<loc>https://madebykreativ.com/services/</loc>",
   );
   expect((await request.get("/og-services.png")).ok()).toBe(true);
 });
 
-test("Services bypasses stale unversioned CSS and JavaScript caches", async ({ page }) => {
+test("Services bypasses stale unversioned CSS and JavaScript caches", async ({
+  page,
+}) => {
   const requested = [];
   const staleRequests = [];
   await page.route(/\/(style\.css|site\.js)(\?|$)/, async (route) => {
@@ -79,17 +83,21 @@ test("Services bypasses stale unversioned CSS and JavaScript caches", async ({ p
     if (!url.searchParams.has("v")) {
       staleRequests.push(url.pathname);
       await route.fulfill({
-        contentType: url.pathname.endsWith("css") ? "text/css" : "text/javascript",
+        contentType: url.pathname.endsWith("css")
+          ? "text/css"
+          : "text/javascript",
         body: "/* cached before Services was added */",
       });
     } else {
       const response = await route.fetch();
-      expect(url.searchParams.get("v")).toBe(assetVersion(await response.body()));
+      expect(url.searchParams.get("v")).toBe(
+        assetVersion(await response.body()),
+      );
       await route.fulfill({ response });
     }
   });
   await page.goto("/services/");
-  await expect(page.locator(".services-work-grid")).toHaveCSS("display", "grid");
+  await expect(page.locator(".case-grid")).toHaveCSS("display", "grid");
   await expect(page.locator(".service-offerings")).toHaveCSS("display", "grid");
   await page.locator("#theme-toggle").click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
@@ -97,7 +105,7 @@ test("Services bypasses stale unversioned CSS and JavaScript caches", async ({ p
   expect(staleRequests).toEqual([]);
 });
 
-test("Quote links open a real email draft with a complete project brief", async ({
+test("Service inquiry links share one path and retain direct email alternatives", async ({
   page,
   browser,
 }) => {
@@ -106,9 +114,9 @@ test("Quote links open a real email draft with a complete project brief", async 
     const noScript = await context.newPage();
     await noScript.goto("http://127.0.0.1:4339/services/");
     for (const link of await noScript
-      .getByRole("link", { name: "Request a Quote", exact: true })
+      .getByRole("link", { name: "Discuss Your Project", exact: true })
       .all())
-      await expect(link).toHaveAttribute("href", projectInquiryHref);
+      await expect(link).toHaveAttribute("href", "/contact/#project-inquiry");
     const href = new URL(projectInquiryHref);
     expect(href.protocol).toBe("mailto:");
     expect(href.pathname).toBe("info@madebykreativ.com");
@@ -137,7 +145,9 @@ test("Quote links open a real email draft with a complete project brief", async 
   await expect(
     page.getByRole("link", { name: "Prepare an app support report" }),
   ).toBeVisible();
-  await expect(page.locator('a[href$="/issues"]')).toHaveCount(communityProjects.length);
+  await expect(page.locator('a[href$="/issues"]')).toHaveCount(
+    communityProjects.length,
+  );
 });
 
 test("Products, professional experience and contributor handoffs remain distinct", async ({
@@ -198,8 +208,11 @@ for (const width of [320, 768, 861, 1280]) {
       .toBe(0);
     for (const theme of ["light", "dark"]) {
       if (theme === "dark") await page.locator("#theme-toggle").click();
-      await expect(page.locator(".service-offerings")).toHaveCSS("display", "grid");
-      await expect(page.locator(".services-work-grid")).toHaveCSS("display", "grid");
+      await expect(page.locator(".service-offerings")).toHaveCSS(
+        "display",
+        "grid",
+      );
+      await expect(page.locator(".case-grid")).toHaveCSS("display", "grid");
       for (const image of await page.locator(".service-work-image img").all()) {
         const box = await image.boundingBox();
         expect(box.width).toBeLessThanOrEqual(width);

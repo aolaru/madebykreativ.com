@@ -38,6 +38,7 @@ test("ShareSafe tutorial has five real screenshots and attributed Play links", a
 
 test("ShareSafe tutorial is discoverable in Updates, RSS and the sitemap", async ({ page, request }) => {
   await page.goto("/updates/");
+  await page.getByRole("searchbox", {name: "Search updates"}).fill("How to remove photo metadata on Android with ShareSafe");
   await expect(page.getByRole("link", { name: "How to remove photo metadata on Android with ShareSafe", exact: true })).toBeVisible();
   for (const path of ["/updates/rss.xml", "/sitemap.xml"]) {
     const response = await request.get(path);

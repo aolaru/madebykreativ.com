@@ -44,6 +44,7 @@ test("Northlight tutorial has real screenshots, limitations and attributed Play 
 
 test("Northlight tutorial is discoverable in Updates, both RSS feeds and sitemap", async ({ page, request }) => {
   await page.goto("/updates/");
+  await page.getByRole("searchbox", {name: "Search updates"}).fill("How to use an offline compass on Android with Northlight");
   await expect(page.getByRole("link", { name: "How to use an offline compass on Android with Northlight", exact: true })).toBeVisible();
   for (const path of ["/updates/rss.xml", "/news/rss.xml", "/sitemap.xml"]) {
     const response = await request.get(path);

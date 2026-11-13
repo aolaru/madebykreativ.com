@@ -226,6 +226,12 @@ a {
 .case-card { min-width: 0; display: flex; flex-direction: column; border: 1px solid var(--card-border); border-radius: 8px; overflow: hidden; background: var(--card); }
 .case-card-image { display: grid; place-items: center; height: 190px; padding: 1rem; border-bottom: 1px solid var(--card-border); background: var(--bg); }
 .case-card-image img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+.demo-results { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 1rem; margin-block: 1.2rem; }
+.demo-results dd { font-size: 1.8rem; font-weight: 700; color: var(--accent); }
+.demo-test-list { list-style: none; margin: 0; }
+.demo-test-list li { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.7rem; padding-block: 0.35rem; border-bottom: 1px solid var(--card-border); }
+.demo-test-list span { color: var(--accent); font-size: 0.8rem; }
+.demo-test-list code { overflow-wrap: anywhere; font-size: 0.82rem; }
 .case-card-copy { display: flex; flex-direction: column; gap: 0.7rem; padding: 1.15rem; flex: 1; }
 .case-card-copy h3 { font-size: 1.15rem; line-height: 1.3; }
 .case-card-copy .eyebrow { font-size: 0.7rem; letter-spacing: 0; }
@@ -292,6 +298,11 @@ a {
 .project-inquiry input:focus-visible, .project-inquiry select:focus-visible, .project-inquiry textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 :root[data-theme="dark"] .project-inquiry input, :root[data-theme="dark"] .project-inquiry select { color-scheme: dark; }
 .project-inquiry-preview { padding-top: 1.5rem; margin-top: 1.5rem; border-top: 1px solid var(--card-border); }
+.inquiry-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.project-inquiry .inquiry-consent { display: flex; align-items: flex-start; gap: 0.65rem; margin-block: 1.2rem; color: var(--muted); }
+.project-inquiry .inquiry-consent input { width: 18px; height: 18px; min-height: 18px; flex: 0 0 18px; margin-top: 3px; }
+[data-inquiry-result] { margin-top: 1.25rem; padding: 1rem; border-left: 3px solid var(--accent); color: var(--text); background: var(--card); overflow-wrap: anywhere; }
+.project-inquiry button:disabled { cursor: wait; opacity: 0.7; }
 .project-inquiry-preview h3 { font-size: 1.1rem; margin-bottom: 0.8rem; }
 .project-inquiry-preview .landing-actions { margin-top: 1rem; align-items: center; }
 @media (max-width: 700px) {
@@ -375,6 +386,14 @@ a {
   box-shadow: 0 12px 28px color-mix(in srgb, var(--shadow) 32%, transparent);
 }
 
+.site-nav-more { position: relative; }
+.site-nav-more > summary { cursor: pointer; list-style: none; gap: 0.4rem; }
+.site-nav-more > summary::after { content: ""; width: 6px; height: 6px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); }
+.site-nav-more > summary::-webkit-details-marker { display: none; }
+.site-nav-more[open] > summary, .site-nav-more:has([aria-current="page"]) > summary { color: var(--accent); background: color-mix(in srgb, var(--card) 82%, var(--accent) 18%); }
+.site-nav-more > .site-nav-panel { width: 190px; border-radius: 8px; }
+.site-nav-more .site-nav-link { justify-content: flex-start; border-radius: 4px; }
+
 .site-nav-link {
   display: inline-flex;
   align-items: center;
@@ -423,7 +442,7 @@ a {
   color: var(--accent);
 }
 
-.site-nav-mobile-panel {
+.site-nav-panel {
   position: absolute;
   z-index: 30;
   top: calc(100% + 0.55rem);
@@ -437,7 +456,7 @@ a {
   box-shadow: 0 18px 45px var(--shadow);
 }
 
-.site-nav-mobile-panel a {
+.site-nav-panel a {
   padding: 0.7rem 0.8rem;
   border-radius: 10px;
   color: var(--muted);
@@ -445,19 +464,19 @@ a {
   font-weight: 700;
 }
 
-.site-nav-mobile-panel a:hover,
-.site-nav-mobile-panel a:focus-visible,
-.site-nav-mobile-panel a[aria-current="page"] {
+.site-nav-panel a:hover,
+.site-nav-panel a:focus-visible,
+.site-nav-panel a[aria-current="page"] {
   background: color-mix(in srgb, var(--card) 78%, var(--accent) 22%);
   color: var(--accent);
 }
 
-.site-nav-mobile-panel a:focus-visible {
+.site-nav-panel a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: -2px;
 }
 
-:root:not([data-theme="light"]) .site-nav-mobile-panel {
+:root:not([data-theme="light"]) .site-nav-panel {
   background: color-mix(in srgb, var(--bg) 82%, white 18%);
 }
 

@@ -28,7 +28,7 @@ const relatedNews = project.relatedNews
   .map((entry) => ({
     ...entry,
     path: `/news/${entry.id.replace(/\.md$/, "")}/`
-  }));
+  })).sort((a, b) => b.data.sortDate.valueOf() - a.data.sortDate.valueOf());
 ---
 
 <BaseLayout

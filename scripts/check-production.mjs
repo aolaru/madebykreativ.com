@@ -11,7 +11,9 @@ const routes = [
   "/services/qa-api-testing/",
   "/work/",
   "/work/website-quality-checks/",
+  "/work/api-automation-demo/",
   "/contact/",
+  "/about/",
   "/apps/",
   "/apps/paperbuild/",
   "/news/photos-to-pdf-android-paperbuild/",
@@ -24,11 +26,12 @@ const routes = [
   "/updates/rss.xml",
   "/privacy/sharesafe/",
   "/privacy/photofeather/",
+  "/privacy/kreativ-fancy-text/",
 ];
 const failures = [];
 const revision = process.env.GITHUB_SHA || String(Date.now());
 const sharedAssetUrls = new Set();
-const emailRoutes = new Set(["/services/", "/services/wordpress/", "/services/qa-api-testing/", "/work/website-quality-checks/", "/contact/", "/apps/support/", "/privacy/sharesafe/", "/privacy/photofeather/"]);
+const emailRoutes = new Set(["/services/", "/services/wordpress/", "/services/qa-api-testing/", "/work/website-quality-checks/", "/work/api-automation-demo/", "/contact/", "/about/", "/apps/support/", "/privacy/sharesafe/", "/privacy/photofeather/", "/privacy/kreativ-fancy-text/"]);
 async function verify(
   url,
   test,
@@ -80,8 +83,14 @@ for (const route of routes)
     if (!route.endsWith(".xml"))
       for (const url of sharedAssetReferences(body).values())
         sharedAssetUrls.add(url.href);
-    if (emailRoutes.has(route)) requirePublicEmailLink(body);
+    if (emailRoutes.has(route)) {
+      requirePublicEmailLink(body);
+      if (body.includes("/cdn-cgi/l/email-protection")) throw new Error("A public email link was rewritten by Cloudflare");
+    }
   });
+await verify(origin + "/api/inquiry", (response, body) => {
+  if (JSON.parse(body).status !== "ready") throw new Error("Inquiry delivery is not configured");
+});
 for (const url of sharedAssetUrls)
   await verify(url, (response, body) => verifyAssetVersion(new URL(url), body), { cacheBust: false });
 await verify("http://madebykreativ.com/", (response) => {

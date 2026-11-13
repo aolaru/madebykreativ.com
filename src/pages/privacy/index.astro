@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
 import PublicEmail from "../../components/PublicEmail.astro";
+import { apps } from "../../data/apps";
 ---
 
 <BaseLayout
@@ -10,7 +11,7 @@ import PublicEmail from "../../components/PublicEmail.astro";
   canonicalPath="/privacy/"
 >
   <HeroHeader
-    eyebrow="Effective 11 November 2026"
+    eyebrow="Effective 13 November 2026"
     title="Privacy"
     tagline="How this website and its linked services handle information."
   />
@@ -24,13 +25,19 @@ import PublicEmail from "../../components/PublicEmail.astro";
     </p>
     <p>
       We use Plausible for page views, clicks on navigation, product and service
-      links, and counts of prepared project briefs, and Cloudflare Web Analytics for performance and usage
-      measurements. We do not send names, email addresses, search text, payment
-      details, or download contents to these analytics tools. Product click
-      properties describe the product, page, and button position, not the
-      visitor. The website does not use advertising trackers.
+      links, and counts of prepared project briefs, and Cloudflare Web Analytics
+      for performance and usage measurements. We do not send names, email
+      addresses, search text, payment details, or download contents to these
+      analytics tools. Product click properties describe the product, page, and
+      button position, not the visitor. The website does not use advertising
+      trackers.
     </p>
-    <p>Service inquiry events contain only the page and a fixed package or service identifier. Brief text, budgets, deadlines, relevant links and clipboard contents are not sent to analytics. A prepared brief or inquiry click is not recorded as a sent email or confirmed engagement.</p>
+    <p>
+      Service inquiry events contain only the page and a fixed package or
+      service identifier. Brief text, budgets, deadlines, relevant links and
+      clipboard contents are not sent to analytics. A prepared brief or inquiry
+      click is not recorded as a sent email or confirmed engagement.
+    </p>
     <p>
       <a href="https://plausible.io/data-policy">Plausible's data policy</a>{" "}
       describes event processing, approximate location, and daily visitor
@@ -50,7 +57,31 @@ import PublicEmail from "../../components/PublicEmail.astro";
       analytics requests with browser privacy tools.
     </p>
     <h2>Purchases and contact</h2>
-    <p>The project inquiry builder prepares an email draft in your browser tab. It does not upload your brief, send an email automatically or save the fields in browser storage. Copy actions write to your device clipboard only when you choose them. If you open and send the draft, your chosen email service handles that message.</p>
+    <p>
+      When you choose Send Inquiry and confirm sending your details, the contact
+      form sends your name (if supplied), reply email, project details and a
+      fixed source label through a Cloudflare Worker to Andrei's business inbox.
+      Cloudflare processes the request and email delivery; the inbox provider
+      processes the delivered message. The endpoint validates the fields and
+      rate-limits requests using a hashed network address. The application does
+      not log brief contents or save them in a website database or browser
+      storage. Hosting and delivery providers may retain technical records under
+      their own practices.
+    </p>
+    <p>
+      The email alternative prepares a draft locally. Nothing is sent by that
+      alternative until you send it in your own email service. Copy actions
+      write to your clipboard only when you choose them. Do not include
+      passwords, API keys, payment-card details or confidential customer data.
+    </p>
+    <p>
+      We use inquiry correspondence to discuss and handle your request. An
+      internal lead register may record only a random reference, source, package
+      and engagement stage; it is not published or sent to website analytics.
+      Email content remains in the business inbox. Contact us to ask about or
+      request deletion of information you have provided, subject to any
+      applicable retention obligations.
+    </p>
     <p>
       Gumroad handles product checkout, delivery, payment, and buyer information
       under <a href="https://gumroad.com/privacy">its privacy policy</a>.
@@ -61,9 +92,8 @@ import PublicEmail from "../../components/PublicEmail.astro";
     <p>
       If you email us, we receive the information you choose to send and use it
       to respond and handle the request. Avoid sending sensitive personal
-      information or payment-card details. Contact{" "}
-      <PublicEmail /> for
-      privacy questions or requests about information you have provided.
+      information or payment-card details. Contact <PublicEmail /> for privacy
+      questions or requests about information you have provided.
     </p>
     <h2>Android apps</h2>
     <p>
@@ -72,20 +102,13 @@ import PublicEmail from "../../components/PublicEmail.astro";
       separately:
     </p>
     <ul>
-      <li>
-        <a href="/privacy/sharesafe/">ShareSafe privacy policy</a>
-      </li>
-      <li>
-        <a href="/privacy/northlight/">Northlight privacy policy</a>
-      </li>
+      {apps.map((app) => (
+        <li>
+          <a href={app.privacyUrl}>{app.name} privacy policy</a>
+        </li>
+      ))}
       <li>
         <a href="/privacy/blockshift/">BLOCKSHIFT privacy policy</a>
-      </li>
-      <li>
-        <a href="/privacy/kreativ-fancy-text/">Kreativ Fancy Text privacy policy</a>
-      </li>
-      <li>
-        <a href="/privacy/photofeather/">PhotoFeather privacy policy</a>
       </li>
     </ul>
     <p>

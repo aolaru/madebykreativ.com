@@ -43,6 +43,7 @@ test("PaperBuild tutorial has real screenshots, free/Pro scope and working app l
 
 test("PaperBuild tutorial appears in Updates, both RSS feeds and sitemap", async ({ page, request }) => {
   await page.goto("/updates/");
+  await page.getByRole("searchbox", {name: "Search updates"}).fill("How to turn photos into a PDF on Android with PaperBuild");
   await expect(page.getByRole("link", { name: "How to turn photos into a PDF on Android with PaperBuild", exact: true })).toBeVisible();
   for (const path of ["/updates/rss.xml", "/news/rss.xml", "/sitemap.xml"]) {
     const response = await request.get(path);

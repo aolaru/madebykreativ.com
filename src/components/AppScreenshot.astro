@@ -6,6 +6,7 @@ interface Props {
   height: number;
   class?: string;
   loading?: "eager" | "lazy";
+  displayHeight?: number;
 }
 const {
   slug,
@@ -14,17 +15,20 @@ const {
   height,
   class: className,
   loading = "lazy",
+  displayHeight = 550,
 } = Astro.props;
+const displayWidth = Math.ceil((displayHeight * width) / height);
 ---
 
 <img
   class={className}
   src={`/apps/${slug}/screen-640.webp`}
-  srcset={`/apps/${slug}/screen-320.webp 320w, /apps/${slug}/screen-640.webp 640w, /apps/${slug}/screen-1080.webp 1080w`}
-  sizes="(max-width: 600px) 260px, 300px"
+  srcset={`/apps/${slug}/screen-160.webp 160w, /apps/${slug}/screen-320.webp 320w, /apps/${slug}/screen-640.webp 640w, /apps/${slug}/screen-1080.webp 1080w`}
+  sizes={`(max-width: 700px) ${Math.min(displayWidth, 240)}px, ${displayWidth}px`}
   width={width}
   height={height}
   alt={alt}
   loading={loading}
+  fetchpriority={loading === "eager" ? "high" : undefined}
   decoding="async"
 />

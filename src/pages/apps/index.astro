@@ -65,11 +65,12 @@ const collectionSchema = {
   <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Apps" }]} />
 
   <section class="apps-catalogue" aria-label="Available mobile apps">
-    {apps.map((app) => (
+    {apps.map((app, index) => (
       <article class="apps-card" aria-labelledby={`${app.slug}-heading`}>
         <div class="apps-card-heading">
           <img
-            src={`/apps/${app.slug}/icon.png`}
+            src={`/apps/${app.slug}/icon-56.webp`}
+            srcset={`/apps/${app.slug}/icon-56.webp 1x, /apps/${app.slug}/icon-112.webp 2x`}
             alt=""
             width="56"
             height="56"
@@ -100,7 +101,8 @@ const collectionSchema = {
             alt={`${app.name} app interface.`}
             width={app.screenshotWidth}
             height={app.screenshotHeight}
-            loading="lazy"
+            loading={index === 0 ? "eager" : "lazy"}
+            displayHeight={328}
           />
         </a>
         <div class="apps-card-actions">

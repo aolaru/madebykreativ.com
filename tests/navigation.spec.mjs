@@ -2,12 +2,13 @@ import { test, expect } from "@playwright/test";
 
 const navigation = [
   ["Services", "/services/", "/services/"],
+  ["Work", "/work/", "/work/website-quality-checks/"],
+  ["About", "/about/"],
+  ["Contact", "/contact/"],
   ["Websites", "/projects/", "/projects/kreativ-font/"],
   ["Apps", "/apps/", "/apps/sharesafe/"],
   ["Resources", "/product-to-profit/", "/product-to-profit/idea-library/"],
   ["Updates", "/updates/"],
-  ["About", "/about/"],
-  ["Contact", "/contact/"],
 ];
 
 for (const width of [320, 1280]) {
@@ -21,6 +22,7 @@ for (const width of [320, 1280]) {
       await page.goto(detail);
       const mobile = width < 768;
       if (mobile) await page.locator(".site-nav-mobile-menu summary").click();
+      else await page.locator(".site-nav-more summary").click();
       const menu = page.locator(
         mobile ? ".site-nav-mobile-panel" : ".site-nav-links",
       );

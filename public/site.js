@@ -65,21 +65,24 @@ import { appStoreHref } from "/app-attribution.mjs";
   }
 
   function wireMobileMenu() {
-    const menu = document.querySelector(".site-nav-mobile-menu");
-    const trigger = menu?.querySelector("summary");
-    if (!menu || !trigger) return;
-    menu.addEventListener("toggle", () => trigger.setAttribute("aria-label", menu.open ? "Close navigation menu" : "Open navigation menu"));
-    document.addEventListener("keydown", (event) => {
-      if (event.key !== "Escape" || !menu.open) return;
-      event.preventDefault();
-      menu.open = false;
-      trigger.focus();
-    });
-    document.addEventListener("pointerdown", (event) => {
-      if (menu.open && !menu.contains(event.target)) menu.open = false;
-    });
-    menu.addEventListener("focusout", (event) => {
-      if (event.relatedTarget && !menu.contains(event.relatedTarget)) menu.open = false;
+    document.querySelectorAll("[data-nav-disclosure]").forEach((menu) => {
+      const trigger = menu.querySelector("summary");
+      if (!trigger) return;
+      menu.addEventListener("toggle", () => {
+        if (menu.matches(".site-nav-mobile-menu")) trigger.setAttribute("aria-label", menu.open ? "Close navigation menu" : "Open navigation menu");
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape" || !menu.open) return;
+        event.preventDefault();
+        menu.open = false;
+        trigger.focus();
+      });
+      document.addEventListener("pointerdown", (event) => {
+        if (menu.open && !menu.contains(event.target)) menu.open = false;
+      });
+      menu.addEventListener("focusout", (event) => {
+        if (event.relatedTarget && !menu.contains(event.relatedTarget)) menu.open = false;
+      });
     });
   }
 
@@ -232,22 +235,38 @@ import { appStoreHref } from "/app-attribution.mjs";
     const email = document.querySelector("[data-project-email]");
     const summary = form.elements.namedItem("summary");
     const links = form.elements.namedItem("links");
-    form.hidden = false;
+    const result = form.querySelector("[data-inquiry-result]");
+    const submit = form.querySelector("[data-inquiry-submit]");
+    const alternative = form.querySelector("[data-prepare-inquiry]");
+    const sourceField = form.elements.namedItem("source");
+    try {
+      const referrer = new URL(document.referrer);
+      if (referrer.origin === location.origin) {
+        const path = referrer.pathname;
+        sourceField.value = path === "/" ? "home" : path.startsWith("/work/") ? "work" : path.startsWith("/services/wordpress/") ? "wordpress" : path.startsWith("/services/qa-api-testing/") ? "qa-api-testing" : path.startsWith("/services/") ? "services" : path === "/about/" ? "about" : "direct";
+      }
+    } catch (_) {}
+    alternative.hidden = false;
+    let pending = false;
     form.addEventListener("input", () => {
       summary.setCustomValidity("");
       links.setCustomValidity("");
       preview.hidden = true;
       draft.value = "";
       email.href = `mailto:${form.dataset.email}`;
+      if (!pending) { result.hidden = true; submit.disabled = false; }
     });
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
+    function validateBrief() {
       summary.setCustomValidity(summary.value.trim() ? "" : "Describe what needs building or fixing.");
       if (links.value && !/^https?:\/\//i.test(links.value)) links.setCustomValidity("Use an HTTP or HTTPS public link.");
-      if (!form.reportValidity()) return;
+      return [select, summary, links, form.elements.namedItem("budget"), form.elements.namedItem("deadline")].every(field => field.reportValidity());
+    }
+    alternative.addEventListener("click", () => {
+      if (!validateBrief()) return;
       const data = new FormData(form);
       const body = [
         "Hello Andrei,", "",
+        `Name: ${data.get("name") || "Not provided"}`,
         `Project type: ${select.selectedOptions[0].textContent}`,
         `Brief description: ${String(data.get("summary")).trim()}`, "",
         `Required functionality: ${String(data.get("functionality") || "To discuss").trim()}`,
@@ -263,6 +282,43 @@ import { appStoreHref } from "/app-attribution.mjs";
       document.getElementById("draft-heading").focus();
       // Record only the fixed service identifier, never the visitor's brief.
       trackEvent("Project Brief Prepared", { service: select.value, page: window.location.pathname });
+    });
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (pending || !validateBrief() || !form.reportValidity()) return;
+      const body = new URLSearchParams(new FormData(form));
+      const service = select.value;
+      const source = sourceField.value;
+      const controls = [...form.querySelectorAll("input, select, textarea, button")]
+        .filter(control => control !== submit && !control.disabled);
+      pending = true;
+      controls.forEach(control => { control.disabled = true; });
+      submit.disabled = true;
+      submit.textContent = "Sending...";
+      result.hidden = false;
+      result.textContent = "Sending your inquiry...";
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
+      let failureMessage = "Delivery could not be confirmed.";
+      try {
+        const response = await fetch(form.action, {method:"POST", headers:{"Accept":"application/json"}, body, signal:controller.signal});
+        const data = await response.json();
+        if (!response.ok || data.ok !== true || !/^[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}$/.test(data.reference || "")) {
+          if (typeof data.message === "string") failureMessage = data.message.slice(0,500);
+          throw new Error(failureMessage);
+        }
+        result.textContent = `Thank you. Your inquiry has been accepted for email delivery. Reference: ${data.reference}. Andrei will review the fit and availability before discussing a proposal.`;
+        trackEvent("Inquiry Accepted", {service, source, page:window.location.pathname});
+      } catch (error) {
+        result.textContent = `${error.name === "AbortError" ? "Delivery could not be confirmed before the request timed out." : failureMessage} Your details are still here. You can prepare an email instead; do not assume the inquiry was received.`;
+        submit.disabled = false;
+      } finally {
+        clearTimeout(timeout);
+        controls.forEach(control => { control.disabled = false; });
+        pending = false;
+        submit.textContent = "Send Inquiry";
+        result.focus();
+      }
     });
   }
 

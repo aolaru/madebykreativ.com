@@ -1,0 +1,51 @@
+{
+  "type": "Synthetic API demonstration; not a client audit",
+  "observedOn": "2026-11-13",
+  "tests": 10,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "sourceSha256": "f7a3d72a39e751659f6c0cbc4c663ab932a9c38bea3eec808450f16eac05db3f",
+  "cases": [
+    {
+      "name": "unsupportedMethodsDoNotCreateAnOrder",
+      "status": "passed"
+    },
+    {
+      "name": "healthHasAnExplicitJsonContract",
+      "status": "passed"
+    },
+    {
+      "name": "responsesPreventAccidentalCachingOfProtectedData",
+      "status": "passed"
+    },
+    {
+      "name": "aValidListKeepsTheDocumentedEnvelope",
+      "status": "passed"
+    },
+    {
+      "name": "authorizedOrderHasStableTypesAndValues",
+      "status": "passed"
+    },
+    {
+      "name": "incorrectAuthenticationIsRejected",
+      "status": "passed"
+    },
+    {
+      "name": "missingAuthenticationIsRejected",
+      "status": "passed"
+    },
+    {
+      "name": "invalidPaginationIsRejected",
+      "status": "passed"
+    },
+    {
+      "name": "contractAssertionDetectsTheDeliberatelyInvalidFixture",
+      "status": "passed"
+    },
+    {
+      "name": "missingOrderHasAnActionableErrorWithoutAStackTrace",
+      "status": "passed"
+    }
+  ]
+}

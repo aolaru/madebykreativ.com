@@ -1,0 +1,10 @@
+{
+  "name": "madebykreativ-inquiries",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-11-13",
+  "workers_dev": true,
+  "routes": [{"pattern":"madebykreativ.com/api/inquiry*","zone_name":"madebykreativ.com"}],
+  "send_email": [{"name":"INQUIRY_EMAIL"}],
+  "ratelimits": [{"name":"INQUIRY_LIMIT","namespace_id":"20261113","simple":{"limit":3,"period":60}}],
+  "keep_vars": true
+}

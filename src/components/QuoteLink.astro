@@ -1,15 +1,15 @@
 ---
-import { projectInquiryHref } from "../data/services";
-import PublicEmail from "./PublicEmail.astro";
+import { inquiryPath } from "../data/engagements";
 interface Props {
   variant?: "primary" | "secondary";
 }
 const { variant = "primary" } = Astro.props;
 ---
 
-<PublicEmail
+<a
   class={`button-cta button-cta-${variant}`}
-  href={projectInquiryHref}
+  href={inquiryPath()}
+  data-service-cta
 >
-  Request a Quote
-</PublicEmail>
+  Discuss Your Project
+</a>

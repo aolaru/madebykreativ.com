@@ -22,7 +22,7 @@ export function lastModified(paths: string[], fallback?: string) {
 }
 
 export function pageModified(path: string) {
-  if (path.startsWith("/work/")) return lastModified(["src/pages/work", "src/data/caseStudies.ts"]);
+  if (path.startsWith("/work/")) return lastModified(["src/pages/work", "src/data/caseStudies.ts", "src/data/apiDemoResult.json", "examples/api-automation"]);
   if (path.startsWith("/services/") && path !== "/services/")
     return lastModified(["src/pages/services/[slug].astro", "src/data/engagements.ts", "src/data/caseStudies.ts"]);
   if (

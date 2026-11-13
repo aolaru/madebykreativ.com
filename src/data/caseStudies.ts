@@ -126,4 +126,33 @@ export const caseStudies = [
   },
 ];
 
+caseStudies.push({
+  slug: "api-automation-demo",
+  title: "Repeatable API contracts with Java and RestAssured",
+  shortTitle: "A runnable API automation example",
+  category: "API automation demonstration",
+  product: "Synthetic order API",
+  summary: "Ten isolated Java, RestAssured and JUnit checks covering authentication, contracts, errors and a deliberately invalid response.",
+  image: "/services/work/api-demo-report.webp",
+  imageAlt: "A verified local test-report snapshot for the synthetic API demonstration.",
+  width: 1200,
+  height: 750,
+  service: "qa-api-testing",
+  problem: "A useful starter suite must do more than check HTTP 200. It should explain the expected contract, cover meaningful failure paths and prove that its assertions detect a bad response.",
+  contribution: "An independently built, synthetic demonstration using Java, RestAssured and JUnit. It runs only against an isolated loopback fixture; no employer code, client application, credentials or customer data are used.",
+  decisions: [
+    {title:"Keep each test isolated",text:"Each test starts a new fixture on an ephemeral local port and stops it afterward. No external API availability or shared database is required."},
+    {title:"Test contracts and negative paths",text:"Check JSON types, authentication failures, missing records, pagination, unsupported methods and response-cache policy, not only happy-path status codes."},
+    {title:"Prove the check can fail",text:"A test deliberately changes a numeric total to a string and asserts that the contract assertion rejects it. This is an explicit fixture fault, not a claim about a production bug."}
+  ],
+  result: "The local verification snapshot records ten tests passing with no failures, errors or skipped tests. The source hash ties the snapshot to the checked example. CI produces fresh Surefire reports when the example changes.",
+  testingTitle: "Source, reports and reproducible execution",
+  testing: "JDK 17 or newer and Maven 3.9 or newer are sufficient. Run mvn -B -ntp verify from examples/api-automation. The first run downloads the pinned test dependencies. The README explains the test matrix, fixture and limits.",
+  evidence: [
+    {label:"Read the example and run instructions",href:"https://github.com/aolaru/madebykreativ.com/tree/main/examples/api-automation"},
+    {label:"Inspect the Java tests",href:"https://github.com/aolaru/madebykreativ.com/blob/main/examples/api-automation/src/test/java/com/madebykreativ/ApiContractTest.java"},
+    {label:"API Automation Demo workflow and test reports",href:"https://github.com/aolaru/madebykreativ.com/actions/workflows/api-demo.yml"}
+  ]
+});
+
 export const caseStudyPath = (slug: string) => `/work/${slug}/`;
