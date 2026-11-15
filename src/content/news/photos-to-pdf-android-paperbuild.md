@@ -98,6 +98,8 @@ PaperBuild processes documents on-device, has no internet permission and does no
 
 Read the [PaperBuild privacy policy](https://github.com/aolaru/kreativ-mobile-apps/blob/main/paperbuild/PRIVACY_POLICY.md) for storage, permissions and purchase details.
 
+For a separate browser-based task after creating a PDF, Kreativ Tools offers free tools to [merge PDFs](https://kreativtools.com/pdf/merge/) or [add visible text and a signature image](https://kreativtools.com/pdf/fill-sign/). Open the website and choose the PDF there; PaperBuild does not transfer files to it automatically. The website has its own privacy policy and analytics.
+
 Before sharing, check page order, cropping, orientation and readability. This is an image-to-PDF workflow, not OCR, automatic document edge detection or a PDF text editor.
 
 [Explore PaperBuild](/apps/paperbuild/) or [get it on Google Play](https://play.google.com/store/apps/details?id=com.kreativ.paperbuild&utm_source=madebykreativ&utm_medium=website&utm_campaign=paperbuild_photos_pdf_202610&utm_content=pdf_tutorial_footer).
