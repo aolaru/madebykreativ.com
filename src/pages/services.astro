@@ -50,9 +50,8 @@ const pageTitle = "Software Development Services | Made by KREATIV";
       Built and Tested.
     </h1>
     <p class="services-intro">
-      From WordPress plugins and Chrome extensions to mobile apps and API
-      automation, Made by KREATIV helps turn practical ideas into reliable
-      software.
+      Fix WordPress problems, test critical web journeys and build repeatable
+      API checks with an independent developer and QA professional.
     </p>
     <div class="landing-actions">
       <QuoteLink />
@@ -100,7 +99,11 @@ const pageTitle = "Software Development Services | Made by KREATIV";
       </p>
     </div>
     <div class="service-offerings">
-      {services.map((service) => (
+      {[...services].sort((a, b) => {
+        const priority = ["software-qa", "wordpress"];
+        const rank = (id: string) => priority.includes(id) ? priority.indexOf(id) : priority.length;
+        return rank(a.id) - rank(b.id);
+      }).map((service) => (
         <article
           class="service-offering"
           id={service.id}

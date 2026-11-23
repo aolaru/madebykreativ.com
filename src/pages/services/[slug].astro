@@ -23,6 +23,7 @@ export function getStaticPaths() {
 const { service } = Astro.props;
 const path = `/services/${service.slug}/`;
 const study = caseStudies.find((item) => item.slug === service.caseStudy)!;
+const apiStudy = caseStudies.find((item) => item.slug === "api-automation-demo")!;
 const packageId =
   service.slug === "wordpress" ? "wordpress-repair" : "qa-audit";
 ---
@@ -128,8 +129,9 @@ const packageId =
   >
     <p class="eyebrow">Independent project evidence</p>
     <h2 id="service-work-heading">Relevant work</h2>
-    <div class="case-grid case-grid-single">
+    <div class:list={["case-grid", service.slug !== "qa-api-testing" && "case-grid-single"]}>
       <CaseStudyCard study={study} />
+      {service.slug === "qa-api-testing" && <CaseStudyCard study={apiStudy} />}
     </div>
   </section>
   <section class="services-section" aria-labelledby="service-faq-heading">

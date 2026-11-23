@@ -176,7 +176,7 @@ test("Products, professional experience and contributor handoffs remain distinct
   ])
     await expect(page.locator("main")).toContainText(text);
   for (const name of ["Findsera", "News Ledger"])
-    await expect(page.locator(".about-public-grid")).toContainText(name);
+    await expect(page.locator(".founder-copy")).toContainText(name);
   await expect(page.locator(".founder-copy")).toContainText(
     "I no longer maintain those projects",
   );

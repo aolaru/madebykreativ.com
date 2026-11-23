@@ -69,18 +69,6 @@ import { site } from "../data/site";
           ))}
         </select>
       </div>
-      <div>
-        <label for="inquiry-budget">Approximate budget (EUR, optional)</label>
-        <input
-          id="inquiry-budget"
-          name="budget"
-          type="number"
-          min="0"
-          max="1000000"
-          step="any"
-          inputmode="decimal"
-        />
-      </div>
       <div class="inquiry-wide">
         <label for="inquiry-summary">What needs building or fixing?</label>
         <textarea
@@ -90,6 +78,14 @@ import { site } from "../data/site";
           maxlength="1500"
           required
         ></textarea>
+      </div>
+    </div>
+    <details class="inquiry-optional">
+      <summary>Additional project details (optional)</summary>
+      <div class="project-inquiry-fields">
+      <div>
+        <label for="inquiry-budget">Approximate budget (EUR, optional)</label>
+        <input id="inquiry-budget" name="budget" type="number" min="0" max="1000000" step="any" inputmode="decimal" />
       </div>
       <div class="inquiry-wide">
         <label for="inquiry-functionality">
@@ -110,7 +106,8 @@ import { site } from "../data/site";
         <label for="inquiry-links">Relevant public link (optional)</label>
         <input id="inquiry-links" name="links" type="url" maxlength="500" />
       </div>
-    </div>
+      </div>
+    </details>
     <label class="inquiry-consent">
       <input type="checkbox" name="consent" value="yes" required /> Send these
       details to Andrei to discuss this project.

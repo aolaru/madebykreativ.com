@@ -49,6 +49,12 @@ const isApi = study.slug === "api-automation-demo";
       { label: study.shortTitle },
     ]}
   />
+  <section class="services-section" aria-label="Case study overview">
+    <h2>At a glance</h2>
+    <p><strong>Problem:</strong> {study.problem}</p>
+    <p><strong>Approach:</strong> {study.contribution}</p>
+    <p><strong>Result:</strong> {study.result}</p>
+  </section>
   <figure class="case-study-figure">
     <img
       src={study.image}

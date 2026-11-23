@@ -290,6 +290,8 @@ a {
 .copy-glyph, .brief-glyph { display: block; width: 18px; height: 18px; background: currentColor; mask: url("/icons/copy.svg") no-repeat center / contain; }
 .brief-glyph { mask-image: url("/icons/clipboard-list.svg"); }
 .project-inquiry-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-block: 1.25rem; }
+.inquiry-optional { margin-block: 1rem; }
+.inquiry-optional > summary { cursor: pointer; font-weight: 600; }
 .project-inquiry-fields > div { min-width: 0; }
 .inquiry-wide { grid-column: 1 / -1; }
 .project-inquiry label { display: block; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem; }

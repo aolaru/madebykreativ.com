@@ -3,7 +3,6 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import HeroHeader from "../../components/HeroHeader.astro";
 import ProjectDirectoryCard from "../../components/ProjectDirectoryCard.astro";
-import AppLinks from "../../components/AppLinks.astro";
 import {
   activeProjects,
   buildUrl,
@@ -41,7 +40,7 @@ import {
         <h2 id="project-map-heading">Active projects</h2>
         <p>Independent properties currently developed and maintained by Andrei under Made by KREATIV.</p>
       </div>
-      <a class="cta" href="/">Back to home</a>
+      <a class="cta" href="/work/">Explore case studies</a>
     </div>
 
     <div class="project-directory-grid project-directory-grid-public">
@@ -93,5 +92,9 @@ import {
     </dl>
   </section>
 
-  <AppLinks />
+  <section class="services-section" aria-labelledby="project-apps-heading">
+    <h2 id="project-apps-heading">Android apps</h2>
+    <p>Explore the independently published mobile apps, screenshots and support information.</p>
+    <a class="cta" href="/apps/">View all apps</a>
+  </section>
 </BaseLayout>

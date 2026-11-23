@@ -54,11 +54,9 @@ test("Kreativ Tools replaces Auto as an active owner-maintained project", async 
     "Paused",
   );
   await page.goto("/about/");
-  await expect(page.locator(".about-public-grid")).not.toContainText(
-    "Kreativ Tools",
-  );
-  await expect(page.locator(".about-public-grid")).toContainText("Findsera");
-  await expect(page.locator(".about-public-grid")).toContainText("News Ledger");
+  await expect(page.locator(".founder-copy")).toContainText("Findsera");
+  await expect(page.locator(".founder-copy")).toContainText("News Ledger");
+  await expect(page.getByRole("link", { name: "Explore the project directory" })).toHaveAttribute("href", "/projects/");
   await page.goto("/news/maintenance-open-source-transition/");
   await expect(page.locator(".article-archive-note")).toBeVisible();
   await expect(page.locator(".news-detail")).toContainText("Kreativ Tools");
@@ -113,6 +111,8 @@ test("Focused offers, evidence and service articles are connected and indexed", 
   page,
   request,
 }) => {
+  await page.goto("/services/qa-api-testing/");
+  await expect(page.locator("#service-work a[href='/work/api-automation-demo/']").first()).toBeVisible();
   const sitemap = await (await request.get("/sitemap.xml")).text();
   for (const service of serviceLandingPages) {
     const path = `/services/${service.slug}/`;
@@ -197,6 +197,7 @@ test("Project brief validation, email draft and clipboard keep visitor data loca
   const summary =
     "PRIVATE-BRIEF-EXAMPLE: exported rows do not match the selected filter <script>bad()</script>";
   await page.getByLabel("What needs building or fixing?").fill(summary);
+  await page.getByText("Additional project details (optional)").click();
   await page
     .getByLabel("Required functionality (optional)")
     .fill("Keep the filter when exporting CSV.");
