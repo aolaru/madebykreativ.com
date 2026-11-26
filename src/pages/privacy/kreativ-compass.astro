@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import HeroHeader from "../../components/HeroHeader.astro";
+import PublicEmail from "../../components/PublicEmail.astro";
+
+const pagePath = "/privacy/kreativ-compass/";
+---
+<BaseLayout title="Kreativ Compass Privacy Policy" description="Privacy policy for the Kreativ Compass Android app." canonicalPath={pagePath}>
+  <HeroHeader eyebrow="Kreativ Compass" title="Privacy Policy" tagline="A compass designed to work on your device." />
+  <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Privacy", href: "/privacy/" }, { label: "Kreativ Compass" }]} />
+  <section class="content-card">
+    <p class="eyebrow">Effective 26 November 2026</p>
+    <p>This policy applies to Kreativ Compass version 2.0.0 and later, package com.openapps.moderncompass, provided by Made by Kreativ. Earlier versions may have behaved differently.</p>
+    <h2>Compass readings</h2>
+    <p>The app uses motion and magnetic sensors to show a magnetic heading. It processes readings on your device and does not save or transmit them. The compass works offline and does not request location access.</p>
+    <h2>Data collection and sharing</h2>
+    <p>The app does not collect or share personal data. It has no account, ads, analytics, push notifications or in-app purchases. It does not request internet, advertising ID, camera or microphone permissions.</p>
+    <h2>External services</h2>
+    <p>When you choose the privacy policy button, the app opens this page in your browser without attaching sensor readings. Your browser, Google Play, your operating system and website hosting providers operate independently and may process information under their own policies.</p>
+    <h2>Contact and changes</h2>
+    <p>For privacy questions, contact <PublicEmail />. If you contact us, we use the information you provide to respond. We may update this policy and will revise the effective date when it changes.</p>
+  </section>
+</BaseLayout>
